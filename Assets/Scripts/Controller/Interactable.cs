@@ -16,11 +16,22 @@ public class Interactable : MonoBehaviour {
     public Transform pickUpTransform;
     public Rigidbody thisRB;
     public bool pickedUp;
+    public float pickUpSpeed = 0.1f;
 
     /// PUTTING OFF CAUSE NO ANIMATIONS
     /// <summary>
     /// Needs to call for a animation clip
     /// </summary>
+    /// 
+
+    public void Start()
+    {
+        if(GetComponent<Rigidbody>() != null)
+        {
+            thisRB = GetComponent<Rigidbody>();
+        }
+    }
+
     public virtual void InteractWith()
     {
         //Debug.Log("Calling base InteractWith");
@@ -35,18 +46,20 @@ public class Interactable : MonoBehaviour {
     {
         if(pickUpTransform != null)
         {
-            if(GetComponent<Rigidbody>() != null)
-                GetComponent<Rigidbody>().isKinematic = true;
-
-            transform.position = pickUpTransform.position;
+            
+            transform.SetParent(pickUpTransform);
+            thisRB.isKinematic = true;
+            transform.position = Vector3.Lerp(transform.position , pickUpTransform.position, Time.deltaTime * pickUpSpeed); //pickUpTransform.position;
             transform.eulerAngles = pickUpTransform.eulerAngles;
             pickedUp = true;
         }
         else
         {
-            if (GetComponent<Rigidbody>() != null)
-                GetComponent<Rigidbody>().isKinematic = false;
-
+            if (thisRB != null)
+            {
+                transform.SetParent(null);
+                thisRB.isKinematic = false;
+            }
             pickedUp = false;
         }
     }
@@ -54,6 +67,20 @@ public class Interactable : MonoBehaviour {
     /// <summary>
     /// Needs to be a Ienumerator that start it's update every time that myCurrentInteractions != null
     /// </summary>
+    /// 
+    public void pickUpCommand()
+    {
+        switch (pickedUp)
+        {
+            case false:
+                StartCoroutine(PickupUpdate());
+                break;
+            case true:
+                StopCoroutine(PickupUpdate());
+                break;
+        }
+    }
+
     public IEnumerator PickupUpdate()
     {       
         while (true)
