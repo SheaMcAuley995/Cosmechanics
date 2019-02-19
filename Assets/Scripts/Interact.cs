@@ -40,7 +40,10 @@ public class Interact : MonoBehaviour {
 
     public void callInteract()
     {
-        interactableObject.InteractWith();
+        if(interactableObject != null)
+        {
+            interactableObject.InteractWith();
+        }
     }
     public void closeInteract()
     {
