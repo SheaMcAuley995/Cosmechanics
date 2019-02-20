@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 public class ExampleGameController : MonoBehaviour
 {
-
+    public static ExampleGameController instance = null;
+    
     /// <summary>
     /// In here I want the players to be assigned a different material based on what player they are. Once you are done with that if you could work
     /// on a very bare bones main menu that lets you choose how many players are going to be in the game after you press play. Or don't make it bare bones and just 
@@ -21,6 +23,19 @@ public class ExampleGameController : MonoBehaviour
     private void OnValidate()
     {
         setSpawnPoints();
+    }
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(this.gameObject);
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
