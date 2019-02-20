@@ -22,8 +22,9 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 movementVector;
     private Vector2 movementDir;
-    private bool Interact;
+    private bool PickUp;
     private bool sprint;
+    private bool Interact;
     CharacterController cc;
 
     bool pickUp = false;
@@ -67,9 +68,9 @@ public class PlayerController : MonoBehaviour {
         movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
         movementVector.y = player.GetAxisRaw("Move Vertical");
         movementDir = movementVector.normalized;
-        Interact = player.GetButtonDown("Interact");
+        PickUp = player.GetButtonDown("PickUp");
         sprint = player.GetButton("Sprint");
-
+        Interact = player.GetButtonDown("Interact");
     }
 
     private void ProcessInput()
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour {
             myCurrentInteraction -= pickUpInteraction;
         }
 
-        if (Interact)
+        if (PickUp)
         {
             interact.InteractWith();
             Interaction();

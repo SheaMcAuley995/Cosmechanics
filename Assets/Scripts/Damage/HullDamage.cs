@@ -21,13 +21,16 @@ public class HullDamage : MonoBehaviour
     }
     #endregion
 
-    public GameObject[] pipes;
-    public GameObject crackPrefab, dentPrefab, pipePrefab;
+    public GameObject[] pipes, walls;
+    public GameObject pipePrefab;
     bool noCapacity, lowCapacity, mediumCapacity, highCapacity;
     [SerializeField] float lowShieldDamage, mediumShieldDamage, highShieldDamage;
-    public float dentIntegrityDamage, crackIntegrityDamage, pipeIntegrityDamage;
+    public float shipIntegrityDamage, pipeIntegrityDamage;
     LayerMask spaceDebris;
     Vector3 impactPos;
+    int pipeIndex, wallIndex;
+
+    public Texture damagedWallTex, repairedTexture;
 
     public float shieldEnergy;
     public float hullIntegrity;
@@ -210,18 +213,10 @@ public class HullDamage : MonoBehaviour
         #endregion
 
         #region Mesh Damage
-        /// Decides what type of damage to apply to the ship
-        int damageType = Random.Range(1, 2);
-        if (damageType == 1) /// Makes a dent in the hull (low integrity hit)
-        {
-            GameObject newDent = Instantiate(dentPrefab, impactPos, Quaternion.identity);
-            hullIntegrity -= dentIntegrityDamage;
-        }
-        else if (damageType == 2) // Makes a crack in the hull (medium integrity hit)
-        {
-            GameObject newCrack = Instantiate(crackPrefab, impactPos, Quaternion.identity);
-            hullIntegrity -= crackIntegrityDamage;
-        }
+        wallIndex = Random.Range(0, 5); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
+        walls[wallIndex].gameObject.GetComponent<Renderer>().material.mainTexture = damagedWallTex;
+        walls[wallIndex].GetComponent<Wall>().isDamaged = true;
+        hullIntegrity -= shipIntegrityDamage;
         #endregion
     }
 
