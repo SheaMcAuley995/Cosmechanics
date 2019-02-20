@@ -32,16 +32,7 @@ public class PipeMechanic : Interactable
 
     public override void InteractWith()
     {
-        switch (pickedUp)
-        {
-            case false:
-                StartCoroutine(PickupUpdate());
-                break;
-            case true: 
-                StopCoroutine(PickupUpdate());
-                break;
-        }
-
+        pickUpCommand();
         base.InteractWith();
     }
 
