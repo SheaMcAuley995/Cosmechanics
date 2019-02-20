@@ -38,36 +38,31 @@ public class Interactable : MonoBehaviour {
         //Debug.Log("I love myself, Even tho I look like a burnt chicken nuget. I still love myself.");
     }
 
-    /// <summary>
-    /// Needs to be less dumb and also must have a floaty feel to it now. The idea is that it floats in front of the player
-    /// with it's rigidbody's velocity aimed at the pickupTransform.
-    /// </summary>
     public virtual void PickUp()
     {
-        if(pickUpTransform != null)
+        if(myInteractionType == InteractionType.Pickup)
         {
-            
-            transform.SetParent(pickUpTransform);
-            thisRB.isKinematic = true;
-            transform.position = Vector3.Lerp(transform.position , pickUpTransform.position, Time.deltaTime * pickUpSpeed); //pickUpTransform.position;
-            transform.eulerAngles = pickUpTransform.eulerAngles;
-            pickedUp = true;
-        }
-        else
-        {
-            if (thisRB != null)
+            if (pickUpTransform != null)
             {
-                transform.SetParent(null);
-                thisRB.isKinematic = false;
-            }
-            pickedUp = false;
-        }
-    }
 
-    /// <summary>
-    /// Needs to be a Ienumerator that start it's update every time that myCurrentInteractions != null
-    /// </summary>
-    /// 
+                transform.SetParent(pickUpTransform);
+                thisRB.isKinematic = true;
+                transform.position = Vector3.Lerp(transform.position, pickUpTransform.position, Time.deltaTime * pickUpSpeed); //pickUpTransform.position;
+                transform.eulerAngles = pickUpTransform.eulerAngles;
+                pickedUp = true;
+            }
+            else
+            {
+                if (thisRB != null)
+                {
+                    transform.SetParent(null);
+                    thisRB.isKinematic = false;
+                }
+                pickedUp = false;
+            }
+        }
+        
+    }
     public void pickUpCommand()
     {
         switch (pickedUp)
