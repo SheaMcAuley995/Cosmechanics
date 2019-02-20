@@ -9,9 +9,9 @@ public class SelectionManager : MonoBehaviour
 	// Use this for initialization
 	void Awake ()
     {
-		//for (int characterCards = 0; characterCards < controller.numberOfPlayers; characterCards++)
-  //      {
-  //          GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
-  //      }
-	}
+        for (int characterCards = 0; characterCards < ExampleGameController.instance.numberOfPlayers; characterCards++)
+        {
+            GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
+        }
+    }
 }
