@@ -30,6 +30,16 @@ public class Battery : Interactable
     /*[HideInInspector]*/ public bool isSupplyingPower;
     /*[HideInInspector]*/ public bool isCharging;
 
+    public override void InteractWith()
+    {
+        pickUpCommand();
+        base.InteractWith();
+    }
+
+    public override void PickUp()
+    {
+        base.PickUp();
+    }
 
     public Battery(StatusEffect Status)
     {
