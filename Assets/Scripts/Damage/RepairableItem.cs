@@ -22,19 +22,16 @@ public class RepairableItem : Interactable
 
     public override void InteractWith()
     {        
-        //RaycastHit hit;
-        //bool foundPlayer = Physics.Raycast(objectTransform.position, objectTransform.forward, out hit, repairRange, player, QueryTriggerInteraction.Collide);
         Collider[] thePlayer = Physics.OverlapSphere(transform.position, 5f, player, QueryTriggerInteraction.Collide);
 
         if (thePlayer != null)
         {
-            if (gameObject.CompareTag("Crack"))
+            if (gameObject.GetComponent<Wall>().isDamaged)
             {
-                RepairCrack();
-            }
-            else if (gameObject.CompareTag("Dent"))
-            {
-                RepairDent();
+                /// Do these first two things in the coroutine after prototype
+                gameObject.GetComponent<Wall>().isDamaged = false;
+                gameObject.GetComponent<Renderer>().material.mainTexture = HullDamage.instance.repairedTexture;
+                RepairShip();
             }
             else if (gameObject.CompareTag("Shield"))
             {
@@ -50,14 +47,9 @@ public class RepairableItem : Interactable
         base.InteractWith();
     }
 
-    void RepairCrack()
+    void RepairShip()
     {
-        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.crackIntegrityDamage));
-    }
-
-    void RepairDent()
-    {
-        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.dentIntegrityDamage));
+        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.shipIntegrityDamage));
     }
 
     void RepairShields()
