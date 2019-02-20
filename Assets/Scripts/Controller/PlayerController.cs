@@ -77,6 +77,18 @@ public class PlayerController : MonoBehaviour {
     {
         Move(movementVector, sprint);
 
+        if (PickUp)
+        {
+            interact.InteractWith();
+            myCurrentInteraction += pickUpInteraction;
+        }
+
+        if(Interact)
+        {
+            interact.InteractWith();
+            Interaction();
+        }
+
         if (myCurrentInteraction != null)
         {
             myCurrentInteraction();
@@ -87,17 +99,12 @@ public class PlayerController : MonoBehaviour {
             myCurrentInteraction -= pickUpInteraction;
         }
 
-        if (PickUp)
-        {
-            interact.InteractWith();
-            Interaction();
-        }
-        
     }
     public void pickUpInteraction()
     {
         interact.interactableObject.pickUpTransform = pickUpTransform;
     }
+
     public virtual void Interaction()
     {
         if (interact.interactableObject != null)
@@ -111,10 +118,9 @@ public class PlayerController : MonoBehaviour {
                 }
                 else
                 {
-                    interact.interactableObject.pickUpTransform = null;
-                    interact.interactableObject = null;
                     myCurrentInteraction -= pickUpInteraction;
-                    interact.callInteract();
+                    interact.interactableObject = null;
+                    interact.closeInteract();
                 }
             }
             else if(myInteractions != null)
@@ -127,10 +133,7 @@ public class PlayerController : MonoBehaviour {
         }
         else if (interact.interactableObject == null)
         {
-            if(myCurrentInteraction != null)
-            {
-                myCurrentInteraction = null;
-            }
+             myCurrentInteraction = null;
         }
     }
 
