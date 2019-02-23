@@ -22,7 +22,6 @@ public class HullDamage : MonoBehaviour
     #endregion
 
     public GameObject[] pipes, walls;
-    public GameObject pipePrefab;
     bool noCapacity, lowCapacity, mediumCapacity, highCapacity;
     [SerializeField] float lowShieldDamage, mediumShieldDamage, highShieldDamage;
     public float shipIntegrityDamage, pipeIntegrityDamage;
@@ -48,6 +47,8 @@ public class HullDamage : MonoBehaviour
         shieldEnergy = 100f;
         hullIntegrity = 100f;
         highCapacity = true;
+
+        walls = GameObject.FindGameObjectsWithTag("Wall"); // Get rid of this after prototype
     }
 
     void Update()
@@ -200,20 +201,22 @@ public class HullDamage : MonoBehaviour
         {
             var damagedPipe = pipe.GetComponent<PipeMechanic>(); /// For ease of typing and less ugly code
 
-            /// Removes "health" from pipes
-            damagedPipe.damageThreshold -= 5f;
+            damagedPipe.PipeBurst(); // FOR PROTOTYPE. REMOVE & UNCOMMENT BELOW CODE AFTER
 
-            /// If a pipe reaches 0 "health"
-            if (damagedPipe.damageThreshold <= 0)
-            {
-                /// Bursts the pipe
-                damagedPipe.PipeBurst();
-            }
+            ///// Removes "health" from pipes
+            //damagedPipe.damageThreshold -= 5f;
+
+            ///// If a pipe reaches 0 "health"
+            //if (damagedPipe.damageThreshold <= 0)
+            //{
+            //    /// Bursts the pipe
+            //    damagedPipe.PipeBurst();
+            //}
         }
         #endregion
 
         #region Mesh Damage
-        wallIndex = Random.Range(0, 5); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
+        wallIndex = Random.Range(0, walls.Length); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
         walls[wallIndex].gameObject.GetComponent<Renderer>().material.mainTexture = damagedWallTex;
         walls[wallIndex].GetComponent<Wall>().isDamaged = true;
         hullIntegrity -= shipIntegrityDamage;
