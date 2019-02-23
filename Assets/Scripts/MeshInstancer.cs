@@ -40,6 +40,7 @@ public class MeshInstancer : MonoBehaviour {
     public float spawnMax = 10f;
     public float spawnMin = -10f;
     public float scaleValue = .5f;
+    public float minSpeed, maxSpeed;
     [Range(-25,25)]
     public float speedMult = 1f;
     float randomness;
@@ -47,24 +48,27 @@ public class MeshInstancer : MonoBehaviour {
     // Use this for initialization
     void Start () {
         randomness = Random.Range(spawnMin, spawnMax);
-        if (asteroids.Count < maxAsteroids)
+        while (asteroids.Count < maxAsteroids)
         {
+           
             CreateAsteroid();
         }
 	}
 
     private void CreateAsteroid()
     {
+        float random1 = Random.Range(spawnMin, spawnMax);
         float random2 = Random.Range(spawnMin, spawnMax);
         float random3 = Random.Range(spawnMin, spawnMax);
-        var center = (this.transform.position + new Vector3(randomness, random2, random3));
-        asteroids.Add(new MeshData(center, this.transform.rotation, this.transform.localScale, Random.Range(2,10)));
+        var center = (this.transform.position + new Vector3(random1, random2, random3));
+        asteroids.Add(new MeshData(center, this.transform.rotation, this.transform.localScale, speedMult));
+       
     }
 
     
     void Update ()
     {
-        Vector3 asteroidHeading =Vector3.right;
+        Vector3 asteroidHeading =(target.transform.position - this.transform.position);
         asteroidHeading.Normalize();
         foreach (var asteroid in asteroids)
         {
@@ -72,14 +76,15 @@ public class MeshInstancer : MonoBehaviour {
 
             asteroid.pos += asteroidHeading * asteroid.speed *  Time.deltaTime * speedMult;
             asteroid.scale = new Vector3(scaleValue,scaleValue,scaleValue);
-            if ((asteroid.pos - target.position).magnitude > radius)
-            {
-                ReplaceAsteroid(asteroid, asteroidHeading);
-            }
-
-            var angle = Mathf.Atan2(diff.x, diff.y);
-            asteroid.rot = Quaternion.Euler(asteroid.angularVelocity * Time.time * 5 * asteroid.speed);
-        }
+            
+            if ((asteroid.pos - target.position).magnitude > radius)                                                             //
+            {                                                                                                                    //
+                ReplaceAsteroid(asteroid, asteroidHeading);                                                                      //
+            }                                                                                                                    // DO ECS AT SOME POINT 
+                                                                                                                                 //
+            var angle = Mathf.Atan2(diff.x, diff.y);                                                                             //
+            asteroid.rot = Quaternion.Euler(asteroid.angularVelocity * Time.time * asteroid.speed);                              //
+        }                                                                                                                        //
         Graphics.DrawMeshInstanced(mesh, 0, mat, asteroids.Select((a)=>a.matrix).ToList());
 	}
 
@@ -89,5 +94,8 @@ public class MeshInstancer : MonoBehaviour {
         float random2 = Random.Range(spawnMin, spawnMax);
         float random3 = Random.Range(spawnMin, spawnMax);
         asteroid.pos = (this.transform.position + new Vector3(randomness,random2,random3));
+        asteroid.speed = Vector3.Distance(asteroid.pos, Camera.main.transform.position) / 10 / speedMult;
+        asteroid.scale = (asteroid.pos - Camera.main.transform.position);
+       // Debug.Log(asteroid.speed + " = speed");
     }
 }

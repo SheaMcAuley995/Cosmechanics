@@ -9,10 +9,8 @@ public class RepairableItem : Interactable
     float repairRange = 5f;
     [SerializeField] float shieldRepairAmount = 10f;
 
-    float shipIntegrity = HullDamage.instance.hullIntegrity;
-
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
 		if (objectTransform == null)
         {

@@ -7,18 +7,16 @@ public class PipeMechanic : Interactable
     public Transform pipeTransform;
     public Rigidbody pipeRB;
     public float damageThreshold;
-    Transform pipeParent;
     Vector3 startPos, startRot;
     bool wet, electric, goo, fire, blunt;
 
-    void Start()
+    void Awake()
     {
         if (pipeTransform == null)
         {
             pipeTransform = GetComponent<Transform>();
         }
 
-        pipeParent = pipeTransform.parent;
         startPos = pipeTransform.position;
         startRot = pipeTransform.rotation.eulerAngles;
 
@@ -43,8 +41,8 @@ public class PipeMechanic : Interactable
 
     public void PipeBurst()
     {
-        pipeTransform.parent = null;
-        pipeRB.AddForce(Vector3.left * 10f, ForceMode.Impulse);
+        pipeRB.useGravity = true;
+        pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
         pipeRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
     }
