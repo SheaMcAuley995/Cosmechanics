@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMechanic : Interactable
+public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEffect
 {
     public Transform pipeTransform;
     public Rigidbody pipeRB;
     public float damageThreshold;
+    [HideInInspector] public bool isDamaged;
     Vector3 startPos, startRot;
     bool wet, electric, goo, fire, blunt;
 
@@ -28,11 +29,28 @@ public class PipeMechanic : Interactable
         GenerateThreshold();
     }
 
-    public override void InteractWith()
+    public void PickUp()
     {
-        pickUpCommand();
-        base.InteractWith();
+
     }
+
+    public void InteractWith()
+    {
+
+    }
+
+    #region Virtual Overrides
+    //public override void PickUp()
+    //{
+    //    pickUpCommand();
+    //    base.PickUp();
+    //}
+
+    //public override void InteractWith()
+    //{
+    //    Debug.Log("Uh");
+    //}
+    #endregion
 
     public void GenerateThreshold()
     {
@@ -41,14 +59,15 @@ public class PipeMechanic : Interactable
 
     public void PipeBurst()
     {
+        isDamaged = true;
         pipeRB.useGravity = true;
-        pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
-        pipeRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        //pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
+        pipeRB.AddForce(Vector3.up * 1f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
     }
 
     #region Effects
-    public override void Wet()
+    public void Wet()
     {
         wet = true;
         // Maybe apply a wet shader? 
@@ -62,11 +81,9 @@ public class PipeMechanic : Interactable
         {
             // Something cool
         }
-
-        base.Wet();
     }
 
-    public override void Electric()
+    public void Electricity()
     {
         electric = true;
         
@@ -79,26 +96,21 @@ public class PipeMechanic : Interactable
         {
             // Something cool
         }
-
-        base.Electric();
     }
 
-    public override void Goo()
+    public void Florp()
     {
         goo = true;
-        base.Goo();
     }
 
-    public override void Blunt()
+    public void Blunt()
     {
         blunt = true;
-        base.Blunt();
     }
 
-    public override void Fire()
+    public void Fire()
     {
         fire = true;
-        base.Fire();
     }
     #endregion
 }

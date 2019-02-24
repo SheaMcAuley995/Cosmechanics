@@ -6,17 +6,15 @@ public class RepairableItem : Interactable
 {
     public LayerMask player;
     public Transform objectTransform;
+    [HideInInspector] public bool wallIsDamaged;
     float repairRange = 5f;
     [SerializeField] float shieldRepairAmount = 10f;
 
     // Use this for initialization
     void Awake ()
     {
-		if (objectTransform == null)
-        {
-            objectTransform = GetComponent<Transform>();
-        }
-	}
+        objectTransform = GetComponent<Transform>();
+    }
 
     public override void InteractWith()
     {        
@@ -24,10 +22,10 @@ public class RepairableItem : Interactable
 
         if (thePlayer != null)
         {
-            if (gameObject.GetComponent<Wall>().isDamaged)
+            if (wallIsDamaged)
             {
                 /// Do these first two things in the coroutine after prototype
-                gameObject.GetComponent<Wall>().isDamaged = false;
+                wallIsDamaged = false;
                 gameObject.GetComponent<Renderer>().material.mainTexture = HullDamage.instance.repairedTexture;
                 RepairShip();
             }

@@ -196,29 +196,34 @@ public class HullDamage : MonoBehaviour
     void TakeUnshieldedDamage()
     {
         #region PipesDamage
-        /// Apply damage to pipes
-        foreach (var pipe in pipes)
+        // CHEAT FOR PROTOTYPE ONLY!! DELETE & UNCOMMENT BELOW CODE AFTERWARDS YA DINGUS
+        int pipeIndex = Random.Range(0, pipes.Length);
+        if (!pipes[pipeIndex].GetComponent<PipeMechanic>().isDamaged)
         {
-            var damagedPipe = pipe.GetComponent<PipeMechanic>(); /// For ease of typing and less ugly code
-
-            damagedPipe.PipeBurst(); // FOR PROTOTYPE. REMOVE & UNCOMMENT BELOW CODE AFTER
-
-            ///// Removes "health" from pipes
-            //damagedPipe.damageThreshold -= 5f;
-
-            ///// If a pipe reaches 0 "health"
-            //if (damagedPipe.damageThreshold <= 0)
-            //{
-            //    /// Bursts the pipe
-            //    damagedPipe.PipeBurst();
-            //}
+            pipes[pipeIndex].GetComponent<PipeMechanic>().PipeBurst();
         }
+
+        /// Apply damage to pipes
+        //foreach (var pipe in pipes)
+        //{
+        //    var damagedPipe = pipe.GetComponent<PipeMechanic>(); /// For ease of typing and less ugly code
+
+        //    /// Removes "health" from pipes
+        //    damagedPipe.damageThreshold -= 5f;
+
+        //    /// If a pipe reaches 0 "health"
+        //    if (damagedPipe.damageThreshold <= 0)
+        //    {
+        //        /// Bursts the pipe
+        //        damagedPipe.PipeBurst();
+        //    }
+        //}
         #endregion
 
         #region Mesh Damage
         wallIndex = Random.Range(0, walls.Length); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
         walls[wallIndex].gameObject.GetComponent<Renderer>().material.mainTexture = damagedWallTex;
-        walls[wallIndex].GetComponent<Wall>().isDamaged = true;
+        walls[wallIndex].GetComponent<RepairableItem>().wallIsDamaged = true;
         hullIntegrity -= shipIntegrityDamage;
         #endregion
     }
