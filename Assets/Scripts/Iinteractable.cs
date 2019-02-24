@@ -9,7 +9,7 @@ public interface IInteractable
 
 public interface IPickUpable
 {
-    void Pickup();
+    void PickUp();
 }
 
 public interface IStatusEffect
@@ -18,4 +18,5 @@ public interface IStatusEffect
     void Electricity();
     void Fire();
     void Florp();
+    void Blunt();
 }
