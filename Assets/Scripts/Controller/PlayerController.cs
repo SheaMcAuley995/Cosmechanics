@@ -182,6 +182,7 @@ public class PlayerController : MonoBehaviour {
         
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        
 
 
         rb.velocity = transform.forward * currentSpeed;
