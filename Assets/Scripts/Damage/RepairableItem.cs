@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairableItem : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
+public class RepairableItem : Interactable
 {
     public LayerMask player;
     public Transform objectTransform;
@@ -16,7 +16,7 @@ public class RepairableItem : MonoBehaviour, IPickUpable, IInteractable, IDropab
         objectTransform = GetComponent<Transform>();
     }
 
-    public void InteractWith()
+    public override void InteractWith()
     {        
         Collider[] thePlayer = Physics.OverlapSphere(transform.position, 5f, player, QueryTriggerInteraction.Collide);
 
@@ -39,6 +39,8 @@ public class RepairableItem : MonoBehaviour, IPickUpable, IInteractable, IDropab
         {
             Debug.Log("There's no damage here ya dingus");
         }
+
+        base.InteractWith();
     }
 
     void RepairShip()
