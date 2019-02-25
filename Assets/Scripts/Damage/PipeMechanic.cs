@@ -75,8 +75,8 @@ public class PipeMechanic : Interactable
         isDamaged = true;
         pipeRB.useGravity = true;
         gameObject.transform.parent = null;
-        //pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
-        pipeRB.AddForce(Vector3.up * 1f, ForceMode.Impulse);
+        pipeRB.AddForce(Vector3.right * 2f, ForceMode.Impulse);
+        pipeRB.AddForce(Vector3.up * 0.5f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
     }
 
