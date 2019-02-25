@@ -161,6 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -919,6 +924,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -1564,6 +1574,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -1750,6 +1765,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -2288,6 +2308,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -3034,14 +3059,24 @@ Prefab:
     - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114085240825123780, guid: 59b1457a5247fc140be3bb24b98f53f4,
+        type: 2}
+      propertyPath: thisRB
+      value: 
+      objectReference: {fileID: 192926270}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &192926266 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1442189963886820, guid: 59b1457a5247fc140be3bb24b98f53f4,
+    type: 2}
+  m_PrefabInternal: {fileID: 192926265}
+--- !u!54 &192926270 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
     type: 2}
   m_PrefabInternal: {fileID: 192926265}
 --- !u!1 &196530762
@@ -3182,6 +3217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -4244,6 +4284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -5424,6 +5469,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -5825,6 +5875,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -7371,6 +7426,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -7600,6 +7660,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -8230,154 +8295,44 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 1561418467}
     m_Modifications:
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalPosition.x
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalPosition.y
       value: 0.57
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalPosition.z
       value: -18.5
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalRotation.x
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalRotation.y
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_LocalRotation.w
       value: 0.7071068
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+    - target: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
       propertyPath: m_RootOrder
       value: 327
       objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 1054213908414066, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_Name
-      value: FullPipe (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1137338182439952, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1896098544371074, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1054213908414066, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1745200055754442, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1131820239057190, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1753099799860468, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1211752300014618, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1194967052920538, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1794438092300988, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1599560894157656, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008139195931136, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1932419350291250, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1111588097657054, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1442189963886820, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1883046685758532, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1267106315602330, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1236119802642240, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1819286968977014, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1834058670329606, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1076223765701486, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
-      objectReference: {fileID: 0}
-    - target: {fileID: 1008621030113152, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
-      propertyPath: m_StaticEditorFlags
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
-        type: 2}
-      propertyPath: m_UseGravity
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 136501004984752846, guid: 59b1457a5247fc140be3bb24b98f53f4,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
+  m_SourcePrefab: {fileID: 100100000, guid: 9aec05d73d8144b4e90b3d3d999d9233, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &457949256 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 1442189963886820, guid: 59b1457a5247fc140be3bb24b98f53f4,
+  m_CorrespondingSourceObject: {fileID: 1826241423845846, guid: 9aec05d73d8144b4e90b3d3d999d9233,
     type: 2}
   m_PrefabInternal: {fileID: 457949255}
 --- !u!1 &467164215
@@ -8838,6 +8793,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -9025,6 +8985,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -9634,53 +9599,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 533862097}
   m_Mesh: {fileID: 4300000, guid: 675b2d4069c2a7e4985cbc21162b55e0, type: 3}
---- !u!1001 &534778806
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 3.62
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -12.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
-        type: 2}
-      propertyPath: cameraMultiTarget
-      value: 
-      objectReference: {fileID: 447519475}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
-  m_IsPrefabAsset: 0
 --- !u!1001 &536334686
 Prefab:
   m_ObjectHideFlags: 0
@@ -9929,6 +9847,57 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 556997562}
   m_Mesh: {fileID: 4300000, guid: 675b2d4069c2a7e4985cbc21162b55e0, type: 3}
+--- !u!1001 &558825373
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -0.16264105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -9.770684
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592660755158266, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+      propertyPath: m_Name
+      value: Rewired Input Manager (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
+        type: 2}
+      propertyPath: cameraMultiTarget
+      value: 
+      objectReference: {fileID: 447519475}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &563816060
 GameObject:
   m_ObjectHideFlags: 0
@@ -10051,6 +10020,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -10405,6 +10379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -11711,7 +11690,7 @@ Prefab:
     - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
@@ -11940,6 +11919,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -12050,6 +12034,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -12607,6 +12596,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -13300,6 +13294,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -13352,6 +13351,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -13510,7 +13514,7 @@ MeshFilter:
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &725218032 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4564960664561254, guid: 59b1457a5247fc140be3bb24b98f53f4,
+  m_CorrespondingSourceObject: {fileID: 4058605036610668, guid: 9aec05d73d8144b4e90b3d3d999d9233,
     type: 2}
   m_PrefabInternal: {fileID: 457949255}
 --- !u!1 &725295870
@@ -14093,6 +14097,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -14875,6 +14884,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -15261,6 +15275,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -15430,6 +15449,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -15541,6 +15565,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -15820,6 +15849,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -16312,6 +16346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -16514,6 +16553,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -17387,6 +17431,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -17497,6 +17546,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -17898,6 +17952,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -18118,6 +18177,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -18272,15 +18336,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 5.53
+      value: 2.224
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.29618087
+      value: 0.725
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -19.21
+      value: -18.736
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalRotation.x
@@ -18288,7 +18352,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.8622486
+      value: -0.99999326
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalRotation.z
@@ -18296,7 +18360,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.50648534
+      value: -0.0036797044
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_RootOrder
@@ -18304,7 +18368,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -119.14
+      value: -180.422
       objectReference: {fileID: 0}
     - target: {fileID: 4465189045779574, guid: 6a076baa93646d5429b73657c8bd7e71, type: 2}
       propertyPath: m_LocalScale.x
@@ -18475,6 +18539,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -18842,6 +18911,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -19044,6 +19118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -19294,6 +19373,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -19346,6 +19430,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -19942,6 +20031,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -20236,6 +20330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -20481,6 +20580,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -20668,6 +20772,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -20690,6 +20799,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -20893,6 +21007,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -21846,6 +21965,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -22138,7 +22262,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191265850
 GameObject:
@@ -23300,6 +23424,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -23658,7 +23787,7 @@ Prefab:
     - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
@@ -23714,6 +23843,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -23882,6 +24016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -24428,6 +24567,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -24983,6 +25127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -25169,6 +25318,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -25513,6 +25667,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -25796,6 +25955,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -26112,7 +26276,7 @@ Prefab:
     - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
@@ -26433,6 +26597,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -26847,6 +27016,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -27007,6 +27181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -27575,6 +27754,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -27815,7 +27999,7 @@ Prefab:
     - target: {fileID: 54378101545418906, guid: 59b1457a5247fc140be3bb24b98f53f4,
         type: 2}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59b1457a5247fc140be3bb24b98f53f4, type: 2}
@@ -28039,6 +28223,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -28215,6 +28404,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -28674,6 +28868,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -30406,6 +30605,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -30658,6 +30862,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -31198,6 +31407,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -32758,6 +32972,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -33097,6 +33316,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -33382,7 +33606,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4559768341274852, guid: 142dbba1ebd108f44867010fca0e000e, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4559768341274852, guid: 142dbba1ebd108f44867010fca0e000e, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -33879,6 +34103,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -34237,6 +34466,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -34657,6 +34891,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -34843,6 +35082,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -36693,6 +36937,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -37047,6 +37296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -37836,6 +38090,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -37969,6 +38228,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -38171,6 +38435,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -38912,6 +39181,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
@@ -39022,6 +39296,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 949bb5a1341f1cb4383645e3341ca785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 0}
+  pickedUp: 0
+  pickUpSpeed: 0.1
   player:
     serializedVersion: 2
     m_Bits: 1024
