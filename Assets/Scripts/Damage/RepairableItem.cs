@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RepairableItem : Interactable
+public class RepairableItem : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
 {
     public LayerMask player;
     public Transform objectTransform;
@@ -16,7 +16,7 @@ public class RepairableItem : Interactable
         objectTransform = GetComponent<Transform>();
     }
 
-    public override void InteractWith()
+    public void InteractWith()
     {        
         Collider[] thePlayer = Physics.OverlapSphere(transform.position, 5f, player, QueryTriggerInteraction.Collide);
 
@@ -39,17 +39,54 @@ public class RepairableItem : Interactable
         {
             Debug.Log("There's no damage here ya dingus");
         }
-
-        base.InteractWith();
     }
 
     void RepairShip()
     {
-        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.shipIntegrityDamage));
+        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.wallIntegrityDamage));
     }
 
     void RepairShields()
     {
         HullDamage.instance.RepairShieldCapacity(shieldRepairAmount);
     }
+
+    #region Effects
+    public void Wet()
+    {
+
+    }
+
+    public void Electricity()
+    {
+
+    }
+
+    public void Florp()
+    {
+
+    }
+
+    public void Blunt()
+    {
+
+    }
+
+    public void Fire()
+    {
+
+    }
+    #endregion
+
+    #region Functions Needed To Satisfy The Inferfaces But Won't Be Used Cause You Can't Pickup Walls
+    public void PickUp()
+    {
+        // Send some sort of flashy message that you can't pick up walls
+    }
+
+    public void DropObject()
+    {
+        // See above
+    }
+    #endregion
 }
