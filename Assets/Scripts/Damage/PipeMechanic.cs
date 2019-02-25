@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
+public class PipeMechanic : Interactable
 {
     [Header("Dependencies & Components")]
     public Transform pipeTransform;
@@ -35,23 +35,34 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IDropable
         GenerateDamageThreshold();
     }
 
-    public void PickUp()
+    public override void PickUp()
     {
-        // Pickup code (NOTE: Needs re-work from Shea first)
+        //pickUpCommand();
+
+        base.PickUp();
     }
 
-    public void InteractWith()
+    public override void InteractWith()
+    {
+        Debug.Log("IntWith");
+        pickUpCommand();
+        //float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
+        //if (dist <= 2f)
+        //{
+        //    FixPipe();
+        //}
+
+        base.InteractWith();
+    }
+
+    void Update()
     {
         float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
-        if (dist <= 2f)
+
+        if (dist <= 2f && isDamaged)
         {
             FixPipe();
         }
-    }
-
-    public void DropObject()
-    {
-        // See: PickUp()
     }
 
     public void GenerateDamageThreshold()
