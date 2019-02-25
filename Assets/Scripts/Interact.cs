@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Interact : MonoBehaviour {
 
-    public Rigidbody nice;
-
     public Interactable interactableObject;
     public float radius;
     public LayerMask interactableLayer;

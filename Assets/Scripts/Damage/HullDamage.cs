@@ -21,33 +21,44 @@ public class HullDamage : MonoBehaviour
     }
     #endregion
 
-    public GameObject[] pipes, walls;
-    public GameObject pipePrefab;
-    bool noCapacity, lowCapacity, mediumCapacity, highCapacity;
-    [SerializeField] float lowShieldDamage, mediumShieldDamage, highShieldDamage;
-    public float shipIntegrityDamage, pipeIntegrityDamage;
-    LayerMask spaceDebris;
+    [Header("Damageable Item Arrays")]
+    public GameObject[] pipes;
+    public GameObject[] walls;
+
+    [Header("Settings")]
+    public float wallIntegrityDamage;
+    public float pipeIntegrityDamage;
+    [SerializeField] float lowShieldDamage;
+    [SerializeField] float mediumShieldDamage;
+    [SerializeField] float highShieldDamage;
+
+    public LayerMask spaceDebris;
+
+    [Header("Art & UI")]
+    public Texture damagedWallTex;
+    public Texture repairedTexture;
+    public GameObject repairBarBG;
+    public Image repairBar;
+
+    bool noShieldCapacity, lowShieldCapacity, mediumShieldCapacity, highShieldCapacity;
     Vector3 impactPos;
     int pipeIndex, wallIndex;
 
-    public Texture damagedWallTex, repairedTexture;
-
-    public float shieldEnergy;
-    public float hullIntegrity;
+    [HideInInspector] public float shieldEnergy;
+    [HideInInspector] public float hullIntegrity;
     float shieldRepairTime = 5f;
     float hullRepairTime = 3f;
     float timer = 0f;
     bool repairingShields, repairingHull;
-
-    public GameObject repairBarBG;
-    public Image repairBar;
 
 
     void Start()
     {
         shieldEnergy = 100f;
         hullIntegrity = 100f;
-        highCapacity = true;
+        highShieldCapacity = true;
+
+        walls = GameObject.FindGameObjectsWithTag("Wall"); // Only using this because we haven't decided on a permanent level. Once we do, I'll hand-fill the array in the inspector
     }
 
     void Update()
@@ -73,36 +84,36 @@ public class HullDamage : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.layer == 10)
+        if (other.gameObject.layer == spaceDebris)
         {
             #region Shield Capacity Check
             if (shieldEnergy > 66)
             {
-                noCapacity = false;
-                lowCapacity = false;
-                mediumCapacity = false;
-                highCapacity = true;
+                noShieldCapacity = false;
+                lowShieldCapacity = false;
+                mediumShieldCapacity = false;
+                highShieldCapacity = true;
             }
             else if (shieldEnergy > 33 && shieldEnergy <= 66)
             {
-                noCapacity = false;
-                lowCapacity = false;
-                mediumCapacity = true;
-                highCapacity = false;
+                noShieldCapacity = false;
+                lowShieldCapacity = false;
+                mediumShieldCapacity = true;
+                highShieldCapacity = false;
             }
             else if (shieldEnergy > 0 && shieldEnergy <= 33)
             {
-                noCapacity = false;
-                lowCapacity = true;
-                mediumCapacity = false;
-                highCapacity = false;
+                noShieldCapacity = false;
+                lowShieldCapacity = true;
+                mediumShieldCapacity = false;
+                highShieldCapacity = false;
             }
             else if (shieldEnergy <= 0)
             {
-                noCapacity = true;
-                lowCapacity = false;
-                mediumCapacity = false;
-                highCapacity = false;
+                noShieldCapacity = true;
+                lowShieldCapacity = false;
+                mediumShieldCapacity = false;
+                highShieldCapacity = false;
             }
             #endregion
 
@@ -110,19 +121,19 @@ public class HullDamage : MonoBehaviour
             Destroy(other.gameObject);
 
             #region Shield Damage Check
-            if (highCapacity)
+            if (highShieldCapacity)
             {
                 TakeLowDamage();
             }
-            else if (mediumCapacity)
+            else if (mediumShieldCapacity)
             {
                 TakeMediumDamage();
             }
-            else if (lowCapacity)
+            else if (lowShieldCapacity)
             {
                 TakeHighDamage();
             }
-            else if (noCapacity)
+            else if (noShieldCapacity)
             {
                 TakeUnshieldedDamage();
             }
@@ -168,14 +179,14 @@ public class HullDamage : MonoBehaviour
         shieldEnergy = Mathf.Clamp(shieldEnergy, 0f, 100f);
 
         StopCoroutine(RepairShieldCapacity(amount));
-    }
+    } // We don't have shields yet
     #endregion
 
     /// MECHANIC:
-    /// Hits on the ship cause shield AND integrity damage. Amount is based on shield capacity,
-    /// which goes down with each hit. Dents cause low integrity damage, cracks medium, and 
-    /// pipes high. Players can raise integrity by repairing damage, and raise shield capacity 
-    /// by maintaining the shields. No shields = extreme integrity damage.
+    /// Hits on the ship cause shield damage. Amount is based on shield capacity,
+    /// which goes down with each hit. Once shields are destroyed, hits will cause 
+    /// hull integrity damage. Players can raise integrity by repairing damage, and 
+    /// raise shield capacity by maintaining the shields.
     #region Damage Functions
     void TakeLowDamage()
     {       
@@ -195,28 +206,35 @@ public class HullDamage : MonoBehaviour
     void TakeUnshieldedDamage()
     {
         #region PipesDamage
-        /// Apply damage to pipes
-        foreach (var pipe in pipes)
+        // CHEAT FOR PROTOTYPE ONLY!! DELETE & UNCOMMENT BELOW CODE AFTERWARDS YA DINGUS
+        int pipeIndex = Random.Range(0, pipes.Length);
+        if (!pipes[pipeIndex].GetComponent<PipeMechanic>().isDamaged)
         {
-            var damagedPipe = pipe.GetComponent<PipeMechanic>(); /// For ease of typing and less ugly code
-
-            /// Removes "health" from pipes
-            damagedPipe.damageThreshold -= 5f;
-
-            /// If a pipe reaches 0 "health"
-            if (damagedPipe.damageThreshold <= 0)
-            {
-                /// Bursts the pipe
-                damagedPipe.PipeBurst();
-            }
+            pipes[pipeIndex].GetComponent<PipeMechanic>().PipeBurst();
         }
+
+        /// Apply damage to pipes
+        //foreach (var pipe in pipes)
+        //{
+        //    var damagedPipe = pipe.GetComponent<PipeMechanic>(); /// For ease of typing and less ugly code
+
+        //    /// Removes "health" from pipes
+        //    damagedPipe.damageThreshold -= 5f;
+
+        //    /// If a pipe reaches 0 "health"
+        //    if (damagedPipe.damageThreshold <= 0)
+        //    {
+        //        /// Bursts the pipe
+        //        damagedPipe.PipeBurst();
+        //    }
+        //}
         #endregion
 
         #region Mesh Damage
-        wallIndex = Random.Range(0, 5); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
+        wallIndex = Random.Range(0, walls.Length); /// UPDATE NUMBER ONCE WE HAVE COUNTABLE WALLS
         walls[wallIndex].gameObject.GetComponent<Renderer>().material.mainTexture = damagedWallTex;
-        walls[wallIndex].GetComponent<Wall>().isDamaged = true;
-        hullIntegrity -= shipIntegrityDamage;
+        walls[wallIndex].GetComponent<RepairableItem>().wallIsDamaged = true;
+        hullIntegrity -= wallIntegrityDamage;
         #endregion
     }
 

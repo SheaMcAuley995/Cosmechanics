@@ -2,55 +2,85 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMechanic : Interactable
+public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
 {
+    [Header("Dependencies & Components")]
     public Transform pipeTransform;
     public Rigidbody pipeRB;
-    public float damageThreshold;
-    Transform pipeParent;
-    Vector3 startPos, startRot;
-    bool wet, electric, goo, fire, blunt;
 
-    void Start()
+    [Header("Settings")]
+    [Tooltip("WARNING: DON'T SET MANUALLY")] public float damageThreshold;
+    public bool isDamaged;
+
+    Vector3 startPos, startRot;
+    Transform pipeParent;
+
+    bool wet, electricity, florp, fire, blunt;
+
+    void Awake()
     {
         if (pipeTransform == null)
         {
             pipeTransform = GetComponent<Transform>();
         }
-
-        pipeParent = pipeTransform.parent;
-        startPos = pipeTransform.position;
-        startRot = pipeTransform.rotation.eulerAngles;
-
         if (pipeRB == null)
         {
             pipeRB = GetComponent<Rigidbody>();
         }
 
-        GenerateThreshold();
+        pipeParent = gameObject.transform.parent;
+        startPos = pipeTransform.position;
+        startRot = pipeTransform.rotation.eulerAngles;
+
+        GenerateDamageThreshold();
     }
 
-    public override void InteractWith()
+    public void PickUp()
     {
-        pickUpCommand();
-        base.InteractWith();
+        // Pickup code (NOTE: Needs re-work from Shea first)
     }
 
-    public void GenerateThreshold()
+    public void InteractWith()
+    {
+        float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
+        if (dist <= 2f)
+        {
+            FixPipe();
+        }
+    }
+
+    public void DropObject()
+    {
+        // See: PickUp()
+    }
+
+    public void GenerateDamageThreshold()
     {
         damageThreshold = Random.Range(5f, 25f);
     }
 
     public void PipeBurst()
     {
-        pipeTransform.parent = null;
-        pipeRB.AddForce(Vector3.left * 10f, ForceMode.Impulse);
-        pipeRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
+        isDamaged = true;
+        pipeRB.useGravity = true;
+        gameObject.transform.parent = null;
+        //pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
+        pipeRB.AddForce(Vector3.up * 1f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
     }
 
+    void FixPipe()
+    {
+        isDamaged = false;
+        pipeRB.useGravity = false;
+        gameObject.transform.parent = pipeParent;
+        gameObject.transform.position = startPos;
+        gameObject.transform.eulerAngles = startRot;
+        HullDamage.instance.hullIntegrity += HullDamage.instance.pipeIntegrityDamage;
+    }
+
     #region Effects
-    public override void Wet()
+    public void Wet()
     {
         wet = true;
         // Maybe apply a wet shader? 
@@ -60,47 +90,40 @@ public class PipeMechanic : Interactable
             fire = false;
         }
 
-        if (goo)
+        if (florp)
         {
             // Something cool
         }
-
-        base.Wet();
     }
 
-    public override void Electric()
+    public void Electricity()
     {
-        electric = true;
+        electricity = true;
         
         if (wet)
         {
             Debug.Log("You 'bout to get electorcuted ya goofus");
         }
 
-        if (goo)
+        if (florp)
         {
             // Something cool
         }
-
-        base.Electric();
     }
 
-    public override void Goo()
+    public void Florp()
     {
-        goo = true;
-        base.Goo();
+        florp = true;
     }
 
-    public override void Blunt()
+    public void Blunt()
     {
         blunt = true;
-        base.Blunt();
     }
 
-    public override void Fire()
+    public void Fire()
     {
         fire = true;
-        base.Fire();
     }
     #endregion
 }
