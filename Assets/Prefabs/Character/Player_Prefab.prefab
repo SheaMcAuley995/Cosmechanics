@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4647223944990994}
   - component: {fileID: 33101753192883552}
   - component: {fileID: 23410046569652462}
-  - component: {fileID: 65378487031108966}
+  - component: {fileID: 136393106362390464}
   - component: {fileID: 54978941227071256}
   - component: {fileID: 114887668836564264}
   m_Layer: 10
@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730697730245436}
   m_LocalRotation: {x: 0, y: 0.70413864, z: 0, w: 0.7100625}
-  m_LocalPosition: {x: 1.8282975, y: 1.0193002e-17, z: -4.59052}
+  m_LocalPosition: {x: 3.4983377, y: -1.1040967e-16, z: -12.002759}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224567783587949784}
@@ -184,18 +184,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &65378487031108966
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1730697730245436}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.72, y: 1.6756032, z: 0.3967534}
-  m_Center: {x: 0, y: 0.83590794, z: 0.00004684925}
 --- !u!114 &114292458287117094
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -323,6 +311,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!136 &136393106362390464
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730697730245436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.33
+  m_Height: 1.72
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.83590794, z: 0.000046849247}
 --- !u!222 &222054801419419150
 CanvasRenderer:
   m_ObjectHideFlags: 1
