@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEffect
+public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
 {
+    [Header("Dependencies & Components")]
     public Transform pipeTransform;
     public Rigidbody pipeRB;
-    public float damageThreshold;
-    [HideInInspector] public bool isDamaged;
+
+    [Header("Settings")]
+    [Tooltip("WARNING: DON'T SET MANUALLY")] public float damageThreshold;
+    public bool isDamaged;
+
     Vector3 startPos, startRot;
-    bool wet, electric, goo, fire, blunt;
+    Transform pipeParent;
+
+    bool wet, electricity, florp, fire, blunt;
 
     void Awake()
     {
@@ -17,42 +23,38 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEf
         {
             pipeTransform = GetComponent<Transform>();
         }
-
-        startPos = pipeTransform.position;
-        startRot = pipeTransform.rotation.eulerAngles;
-
         if (pipeRB == null)
         {
             pipeRB = GetComponent<Rigidbody>();
         }
 
-        GenerateThreshold();
+        pipeParent = gameObject.transform.parent;
+        startPos = pipeTransform.position;
+        startRot = pipeTransform.rotation.eulerAngles;
+
+        GenerateDamageThreshold();
     }
 
     public void PickUp()
     {
-
+        // Pickup code (NOTE: Needs re-work from Shea first)
     }
 
     public void InteractWith()
     {
-
+        float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
+        if (dist <= 2f)
+        {
+            FixPipe();
+        }
     }
 
-    #region Virtual Overrides
-    //public override void PickUp()
-    //{
-    //    pickUpCommand();
-    //    base.PickUp();
-    //}
+    public void DropObject()
+    {
+        // See: PickUp()
+    }
 
-    //public override void InteractWith()
-    //{
-    //    Debug.Log("Uh");
-    //}
-    #endregion
-
-    public void GenerateThreshold()
+    public void GenerateDamageThreshold()
     {
         damageThreshold = Random.Range(5f, 25f);
     }
@@ -61,9 +63,20 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEf
     {
         isDamaged = true;
         pipeRB.useGravity = true;
+        gameObject.transform.parent = null;
         //pipeRB.AddForce(Vector3.right * 2.5f, ForceMode.Impulse);
         pipeRB.AddForce(Vector3.up * 1f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
+    }
+
+    void FixPipe()
+    {
+        isDamaged = false;
+        pipeRB.useGravity = false;
+        gameObject.transform.parent = pipeParent;
+        gameObject.transform.position = startPos;
+        gameObject.transform.eulerAngles = startRot;
+        HullDamage.instance.hullIntegrity += HullDamage.instance.pipeIntegrityDamage;
     }
 
     #region Effects
@@ -77,7 +90,7 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEf
             fire = false;
         }
 
-        if (goo)
+        if (florp)
         {
             // Something cool
         }
@@ -85,14 +98,14 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEf
 
     public void Electricity()
     {
-        electric = true;
+        electricity = true;
         
         if (wet)
         {
             Debug.Log("You 'bout to get electorcuted ya goofus");
         }
 
-        if (goo)
+        if (florp)
         {
             // Something cool
         }
@@ -100,7 +113,7 @@ public class PipeMechanic : MonoBehaviour, IPickUpable, IInteractable, IStatusEf
 
     public void Florp()
     {
-        goo = true;
+        florp = true;
     }
 
     public void Blunt()
