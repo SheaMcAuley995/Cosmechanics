@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //Call this delegate to change the interaction depending on the item in the player's hands.
     public delegate void currentInteraction();
@@ -22,9 +23,8 @@ public class PlayerController : MonoBehaviour {
 
     private Vector2 movementVector;
     private Vector2 movementDir;
-    private bool PickUp;
-    private bool sprint;
     private bool Interact;
+    private bool sprint;
     CharacterController cc;
 
     bool pickUp = false;
@@ -58,7 +58,8 @@ public class PlayerController : MonoBehaviour {
         interact = GetComponentInChildren<Interact>();
     }
 
-    void Update () {
+    void Update()
+    {
         getInput();
         ProcessInput();
     }
@@ -68,26 +69,14 @@ public class PlayerController : MonoBehaviour {
         movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
         movementVector.y = player.GetAxisRaw("Move Vertical");
         movementDir = movementVector.normalized;
-        PickUp = player.GetButtonDown("PickUp");
-        sprint = player.GetButton("Sprint");
         Interact = player.GetButtonDown("Interact");
+        sprint = player.GetButton("Sprint");
+
     }
 
     private void ProcessInput()
     {
         Move(movementVector, sprint);
-
-        if (PickUp)
-        {
-           // interact.InteractWith();
-            myCurrentInteraction += pickUpInteraction;
-        }
-
-        if(Interact)
-        {
-          //  interact.InteractWith();
-            Interaction();
-        }
 
         if (myCurrentInteraction != null)
         {
@@ -99,16 +88,19 @@ public class PlayerController : MonoBehaviour {
             myCurrentInteraction -= pickUpInteraction;
         }
 
+        if (Interact)
+        {
+            interact.InteractWith();
+            Interaction();
+        }
+
     }
-    //public void pickUpInteraction()
-    //{
-    //  interact.interactableObject.pickUpTransform = pickUpTransform;
-    //}
-
-
-    public virtual void pickUpInteraction()
+    public void pickUpInteraction()
     {
-
+        interact.interactableObject.pickUpTransform = pickUpTransform;
+    }
+    public virtual void Interaction()
+    {
         if (interact.interactableObject != null)
         {
             if (myInteractions == null)
@@ -120,9 +112,10 @@ public class PlayerController : MonoBehaviour {
                 }
                 else
                 {
-                    myCurrentInteraction -= pickUpInteraction;
+                    interact.interactableObject.pickUpTransform = null;
                     interact.interactableObject = null;
-                    interact.closeInteract();
+                    myCurrentInteraction -= pickUpInteraction;
+                    interact.callInteract();
                 }
             }
             else if (myInteractions != null)
@@ -135,39 +128,10 @@ public class PlayerController : MonoBehaviour {
         }
         else if (interact.interactableObject == null)
         {
-            myCurrentInteraction = null;
-        }
-    }
-
-    public virtual void Interaction()
-    {
-        if (interact.interactableObject != null)
-        {
-            if(myInteractions == null)
+            if (myCurrentInteraction != null)
             {
-                if (myCurrentInteraction == null)
-                {
-                    myCurrentInteraction += pickUpInteraction;
-                    interact.callInteract();
-                }
-                else
-                {
-                    myCurrentInteraction -= pickUpInteraction;
-                    interact.interactableObject = null;
-                    interact.closeInteract();
-                }
+                myCurrentInteraction = null;
             }
-            else if(myInteractions != null)
-            {
-                myInteractions();
-                Debug.Log("Running " + myInteractions);
-            }
-            
-            
-        }
-        else if (interact.interactableObject == null)
-        {
-             myCurrentInteraction = null;
         }
     }
 
@@ -179,10 +143,9 @@ public class PlayerController : MonoBehaviour {
             float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
         }
-        
+
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
-        
 
 
         rb.velocity = transform.forward * currentSpeed;
