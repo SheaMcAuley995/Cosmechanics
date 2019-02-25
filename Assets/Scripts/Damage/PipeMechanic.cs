@@ -4,18 +4,12 @@ using UnityEngine;
 
 public class PipeMechanic : Interactable
 {
-    [Header("Dependencies & Components")]
     public Transform pipeTransform;
     public Rigidbody pipeRB;
-
-    [Header("Settings")]
-    [Tooltip("WARNING: DON'T SET MANUALLY")] public float damageThreshold;
-    public bool isDamaged;
-
-    Vector3 startPos, startRot;
+    public float damageThreshold;
     Transform pipeParent;
-
-    bool wet, electricity, florp, fire, blunt;
+    Vector3 startPos, startRot;
+    bool wet, electric, goo, fire, blunt;
 
     void Awake()
     {
@@ -23,75 +17,49 @@ public class PipeMechanic : Interactable
         {
             pipeTransform = GetComponent<Transform>();
         }
+
+        pipeParent = pipeTransform.parent;
+        startPos = pipeTransform.position;
+        startRot = pipeTransform.rotation.eulerAngles;
+
         if (pipeRB == null)
         {
             pipeRB = GetComponent<Rigidbody>();
         }
 
-        pipeParent = gameObject.transform.parent;
-        startPos = pipeTransform.position;
-        startRot = pipeTransform.rotation.eulerAngles;
-
-        GenerateDamageThreshold();
-    }
-
-    public override void PickUp()
-    {
-        //pickUpCommand();
-
-        base.PickUp();
+        GenerateThreshold();
     }
 
     public override void InteractWith()
     {
-        Debug.Log("IntWith");
-        pickUpCommand();
-        //float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
-        //if (dist <= 2f)
-        //{
-        //    FixPipe();
-        //}
+        switch (pickedUp)
+        {
+            case false:
+                StartCoroutine(PickupUpdate());
+                break;
+            case true: 
+                StopCoroutine(PickupUpdate());
+                break;
+        }
 
         base.InteractWith();
     }
 
-    void Update()
-    {
-        float dist = Vector3.Distance(pipeParent.transform.position, gameObject.transform.position);
-
-        if (dist <= 2f && isDamaged)
-        {
-            FixPipe();
-        }
-    }
-
-    public void GenerateDamageThreshold()
+    public void GenerateThreshold()
     {
         damageThreshold = Random.Range(5f, 25f);
     }
 
     public void PipeBurst()
     {
-        isDamaged = true;
-        pipeRB.useGravity = true;
-        gameObject.transform.parent = null;
-        pipeRB.AddForce(Vector3.right * 2f, ForceMode.Impulse);
-        pipeRB.AddForce(Vector3.up * 0.5f, ForceMode.Impulse);
+        pipeTransform.parent = null;
+        pipeRB.AddForce(Vector3.left * 10f, ForceMode.Impulse);
+        pipeRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
     }
 
-    void FixPipe()
-    {
-        isDamaged = false;
-        pipeRB.useGravity = false;
-        gameObject.transform.parent = pipeParent;
-        gameObject.transform.position = startPos;
-        gameObject.transform.eulerAngles = startRot;
-        HullDamage.instance.hullIntegrity += HullDamage.instance.pipeIntegrityDamage;
-    }
-
     #region Effects
-    public void Wet()
+    public override void Wet()
     {
         wet = true;
         // Maybe apply a wet shader? 
@@ -101,40 +69,47 @@ public class PipeMechanic : Interactable
             fire = false;
         }
 
-        if (florp)
+        if (goo)
         {
             // Something cool
         }
+
+        base.Wet();
     }
 
-    public void Electricity()
+    public override void Electric()
     {
-        electricity = true;
+        electric = true;
         
         if (wet)
         {
             Debug.Log("You 'bout to get electorcuted ya goofus");
         }
 
-        if (florp)
+        if (goo)
         {
             // Something cool
         }
+
+        base.Electric();
     }
 
-    public void Florp()
+    public override void Goo()
     {
-        florp = true;
+        goo = true;
+        base.Goo();
     }
 
-    public void Blunt()
+    public override void Blunt()
     {
         blunt = true;
+        base.Blunt();
     }
 
-    public void Fire()
+    public override void Fire()
     {
         fire = true;
+        base.Fire();
     }
     #endregion
 }
