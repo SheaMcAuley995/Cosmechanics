@@ -91,20 +91,18 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Crimes
-        /// 68 crimes added to the list using the ListExtension class
+        /// 65 crimes added to the list using the ListExtension class
         crimesList.AddMany("Astrolarsony", "Public inflorpication", "Space-whale poaching",
             "Not completing a dyson sphere", "Non-consensual evacuation of planets",
             "Space littering", "Something about opening an airlock in the wrong situation",
-            "Serial cereal eating", "Accelerating the big crunch", "Preventing crunch",
-            "Switching to HDR pipeline", "Releasing a buggy game", "Public dabbing",
+            "Serial cereal eating", "Accelerating the big crunch", "Public dabbing", 
             "Overpaying crewmembers", "Wearing the wrong shoe size", "Lollygagging",
-            "Selling florponade without a license", "Owning too many space-cats",
-            "Owning too few space-cats", "Sneezing loudly", "Leaving the water running",
-            "Spilling the florp", "Failiure to properly shuffle cards", "Drawing on the table",
-            "Jigglegaffing within 30 parsecs of the big bang", "Leaving the galacticean union",
-            "Incorrectly using the word 'blockchain'", "All of them", "Causing rapid unscheduled disassembly",
-            "Unlicensed terraforming", "Unsafe hyperlane change", "Calling yourself a space pirate",
-            "Drinking the florp", "Releasing an early alpha", "Panicking at the disco",
+            "Selling florponade without a permit", "Owning too many cats",
+            "Owning too few cats", "Sneezing loudly", "Leaving the water running",
+            "Spilling the florp", "Failure to properly shuffle cards", "Drawing on the table",
+            "Jigglegaffing within 30 parsecs of the big bang", "Incorrectly using the word 'blockchain'", 
+            "Unsanctioned rapid unscheduled disassembly", "Unlicensed terraforming", "Unsafe hyperlane change", 
+            "Calling yourself a space pirate", "Drinking the florp", "Panicking at the disco",
             "Couldn't handle the truth", "Failing to study history... and then repeating it",
             "Launching a spacecraft out of the solar system with a map to the home planet on it",
             "Failed to provide more cowbell", "Failed to construct additional pylons",
@@ -117,11 +115,12 @@ public class CharacterCardGenerator : MonoBehaviour
             "Noise ordinance violation: playing music too loudly in space", "Poor taste in art",
             "Untidy computer desktop", "Timeline destabilization",
             "Desynchronizing the phase cycles of a quantum entanglement tunneler",
-            "Unsanctioned alteration of a moon's orbit",
-            "Hitting all of the buttons on a space elevator at once",
+            "Unsanctioned alteration of a moon's orbit", "Possession of florp with intent to redistribute",
+            "Hitting all of the buttons on a space elevator",
             "Speeding - going warp 80 in a warp 65 zone", "Public indecency and indecent publicity",
             "Traumatizing a Class 0 Civilization with a fake alien invasion",
-            "Saw someone sneeze... and didn't say 'bless you'");
+            "Saw someone sneeze... and didn't say 'bless you'", "Florp-juggling without a license",
+            "Engaging in online propaganda");
         #endregion
 
         #region Sentences
@@ -131,7 +130,7 @@ public class CharacterCardGenerator : MonoBehaviour
             "Community service", "Rehabilitation classes", "Extra math homework",
             "Fined 25 million aliencoin", "Infinite suffering in a cyclical time loop",
             "Minus 50 DKP", "Doesn't have to go home, but they can't stay here",
-            "Handcuffed to a clone of themself",
+            "Handcuffed to their clone",
             "To be exposed to a vacuum for approximately 20.4111111176 seconds",
             "THE CLAW", "Something really, really bad", "Has to wear wet socks",
             "To be used as a test subject", "No wifi",
@@ -143,7 +142,7 @@ public class CharacterCardGenerator : MonoBehaviour
             "To be marooned on a desert planet with two suns and two idiotic droids",
             "To be used to plug a hole the size of a dinner plate in the airlock",
             "Must run a barefoot marathon on a path strewn with legos",
-            "Dissassembly by nanobots", "Involuntary organ donation",
+            "Disassembly by nanobots", "Involuntary organ donation",
             "Brain to be removed from body and inserted into a manufacturing robot",
             "Body to be donated to science prior to death",
             "Atmospheric reentry without a heat shield",
@@ -151,7 +150,7 @@ public class CharacterCardGenerator : MonoBehaviour
             "To have 50% of all good memories removed",
             "Banished to a wretched hive of scum and villainy",
             "To be given laxatives and pushed into space so that their last act will be to boldly go where no one has gone before",
-            "To be stranded on an ocean planet on the edge of a black hole's event horizon");
+            "To be stranded on an ocean planet near the event horizon of a black hole");
         #endregion
         #endregion
     }
@@ -169,7 +168,7 @@ public class CharacterCardGenerator : MonoBehaviour
         ageIndex = Random.Range(18, 60);
         //DetermineAgeBias(); My frens don't like it so I'm killing it until I make cases for each species. :'( 
         genderIndex = Random.Range(0, 4);
-        crimeIndex = Random.Range(0, 68);
+        crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
         #endregion
         
@@ -205,14 +204,6 @@ public class CharacterCardGenerator : MonoBehaviour
         else if (ageBias >= 9)
         {
             ageIndex = Random.Range(101, 1000);
-        }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            GenerateCard();
         }
     }
 }

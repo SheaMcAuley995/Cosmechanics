@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))] /// For if using the Unity Standard Assets version
+//[RequireComponent(typeof(Text))] /// For if using the Unity Standard Assets version
 public class FPSDisplay : MonoBehaviour
 {
     #region Unity Standard Assets Version (I don't like it as much)
@@ -36,7 +36,7 @@ public class FPSDisplay : MonoBehaviour
     //}
     #endregion
 
-    #region My Custom Version (simpler & text auto scales with screen sizes)
+    #region Custom Version (simpler & text auto scales with screen sizes)
     float deltaTime = 0.0f;
 
     void Update()
@@ -55,9 +55,9 @@ public class FPSDisplay : MonoBehaviour
         style.fontSize = h * 2 / 100;
         style.normal.textColor = new Color(0.0f, 0.0f, 0.5f, 1.0f);
 
-        float msec = deltaTime * 1000.0f;
-        float fps = 1.0f / deltaTime;
-        string text = string.Format("{0:0.0} ms ({1:0.} fps)", msec, fps);
+        float miliSeconds = deltaTime * 1000.0f;
+        float framesPerSecond = 1.0f / deltaTime;
+        string text = string.Format("{0:0.0} ms ({1:0.} fps)", miliSeconds, framesPerSecond);
         GUI.Label(rect, text, style);
     }
     #endregion
