@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatusEffect
+public class Battery : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
 {
-    Wet, Electric, Goo, Blunt, Fire
-}
-
-public class Battery : Interactable
-{
-    StatusEffect status;
-
     [Header("Battery Life")]    
     public float batteryLife;
     static float fullBatteryLife = 100f;
@@ -30,17 +23,34 @@ public class Battery : Interactable
     /*[HideInInspector]*/ public bool isSupplyingPower;
     /*[HideInInspector]*/ public bool isCharging;
 
+    public LayerMask charingDock;
+    float batteryPlugDistance = 2f;
 
-    public Battery(StatusEffect Status)
-    {
-        status = Status;
-    }
 
     void Start()
     {
         batteryLife = fullBatteryLife;
         drainRate = initialDrainRate;
         rechargeRate = initialRechargeRate;
+    }
+
+    public void PickUp()
+    {
+        // Pickup code (NOTE: Needs re-work from Shea first)
+    }
+
+    public void DropObject()
+    {
+        // See PickUp()
+    }
+
+    public void InteractWith()
+    {
+        Collider[] chargeLocations = Physics.OverlapSphere(transform.position, batteryPlugDistance, charingDock);
+        if (chargeLocations != null)
+        {
+
+        }
     }
 
     void CheckBatteryStatus()
@@ -79,31 +89,31 @@ public class Battery : Interactable
     }
     #endregion
 
-    #region Interact Functions
-    public override void Wet()
+    #region Status Effects
+    public void Wet()
     {
-        Debug.Log("Nothing");
+        
     }
 
-    public override void Electric()
+    public void Electricity()
     {
         rechargeRate = doubleRechargeRate;
         drainRate = slowDrainRate;
     }
 
-    public override void Goo()
+    public void Florp()
     {
-        Debug.Log("Do Goo Thing");
+        
     }
 
-    public override void Blunt()
+    public void Blunt()
     {
-        Debug.Log("Do Blunt Thing");
+        
     }
 
-    public override void Fire()
+    public void Fire()
     {
-        Debug.Log("Do Fire Thing");
+        
     }
     #endregion
 }

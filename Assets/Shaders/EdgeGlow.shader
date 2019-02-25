@@ -6,11 +6,11 @@
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 
 		[HDR]_GlowColor("Glow Color", color) = (1,1,1,1)
-		[PowerSlider(4)]_GlowAmmount("Glow Ammount", Range(.25,4)) = 1
+		[PowerSlider(4)]_GlowAmmount("Glow Ammount", Range(.1,6)) = 1
 		[HDR] _Emission ("Emission Color", color) = (0,0,0)
 	}
 	SubShader {
-		Tags { "RenderType"="Opaque" "Queue" = "Geometry" }
+		Tags { "RenderType"="Opaque" "Queue" = "Transparent" }
 		LOD 200
 
 		CGPROGRAM
