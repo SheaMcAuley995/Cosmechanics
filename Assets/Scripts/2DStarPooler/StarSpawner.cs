@@ -14,7 +14,7 @@ public class StarSpawner : MonoBehaviour {
     private void Start()
     {
         objectPooler = ObjectPooler.Instance;
-        StartCoroutine("spawnUpdate");
+        //StartCoroutine("spawnUpdate");
     }
 
     private void FixedUpdate()
