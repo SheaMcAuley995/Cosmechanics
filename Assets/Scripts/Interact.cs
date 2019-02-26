@@ -2,43 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Interact : MonoBehaviour {
+public class Interact : MonoBehaviour
+{
+
+    public Rigidbody nice;
 
     public Interactable interactableObject;
     public float radius;
     public LayerMask interactableLayer;
-    
-    public void InteractWith()
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-        Debug.Log("Calling InteractWith()");
-        Debug.Log(hitColliders.Length);
-        for(int i = 0; i < hitColliders.Length; i++)
-        {
-             // Chache this later once the check becomes larger
-            Debug.Log("Calling object " + i);
-            if(hitColliders[i].GetComponent<Interactable>() != null)
-            {
-                Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
 
-                    if (testedInteractable.pickedUp == false)
-                    {
-                        if (interactableObject == null)
-                        {
-                            Debug.Log("Setting interactable to " + hitColliders[i]);
-                            interactableObject = testedInteractable;
-                            return;
-                        }
-                    }
+  public void InteractWith()
+  {
+      Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+      Debug.Log("Calling InteractWith()");
+      Debug.Log(hitColliders.Length);
+      for (int i = 0; i < hitColliders.Length; i++)
+      {
+          // Chache this later once the check becomes larger
+          Debug.Log("Calling object " + i);
+          if (hitColliders[i].GetComponent<Interactable>() != null)
+          {
+              Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
+  
+              if (testedInteractable.pickedUp == false)
+              {
+                  if (interactableObject == null)
+                  {
+                      Debug.Log("Setting interactable to " + hitColliders[i]);
+                      interactableObject = testedInteractable;
+                      return;
+                  }
+              }
+  
+          }
+      }
+  }
 
-            }
-        }
-    }
+    //public void InteractWith()
+    //{
+    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+    //    Debug.Log("Calling InteractWith()");
+    //    Debug.Log(hitColliders.Length);
+    //    for (int i = 0; i < hitColliders.Length; i++)
+    //    {
+    //        Debug.Log("Calling object " + hitColliders[i]);
+    //        if (hitColliders[i].GetComponent<IInteractable>() != null)
+    //        {
+    //            hitColliders[i].GetComponent<IInteractable>().InteractWith();
+    //        }
+    //    }
+    //}
 
 
     public void callInteract()
     {
-        if(interactableObject != null)
+        if (interactableObject != null)
         {
             interactableObject.InteractWith();
         }

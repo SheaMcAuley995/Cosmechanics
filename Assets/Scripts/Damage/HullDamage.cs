@@ -207,11 +207,11 @@ public class HullDamage : MonoBehaviour
     {
         #region PipesDamage
         // CHEAT FOR PROTOTYPE ONLY!! DELETE & UNCOMMENT BELOW CODE AFTERWARDS YA DINGUS
-        int pipeIndex = Random.Range(0, pipes.Length);
-        if (!pipes[pipeIndex].GetComponent<PipeMechanic>().isDamaged)
-        {
-            pipes[pipeIndex].GetComponent<PipeMechanic>().PipeBurst();
-        }
+      // int pipeIndex = Random.Range(0, pipes.Length);
+      // if (!pipes[pipeIndex].GetComponent<PipeMechanic>().isDamaged)
+      // {
+      //     pipes[pipeIndex].GetComponent<PipeMechanic>().PipeBurst();
+      // }
 
         /// Apply damage to pipes
         //foreach (var pipe in pipes)
