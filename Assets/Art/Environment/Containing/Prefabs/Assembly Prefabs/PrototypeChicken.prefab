@@ -1737,6 +1737,8 @@ GameObject:
   - component: {fileID: 23363334955425362}
   - component: {fileID: 54505520529095218}
   - component: {fileID: 64885121864343696}
+  - component: {fileID: 114904526193074198}
+  - component: {fileID: 136464595573391334}
   m_Layer: 9
   m_Name: Interactable_Env_Prop_Handtool_Battery_CW
   m_TagString: Interactable
@@ -53960,7 +53962,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0, g: 1, b: 0.09638786, a: 1}
   m_Intensity: 2.1
-  m_Range: 1.4
+  m_Range: 2.14
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -54294,6 +54296,35 @@ MonoBehaviour:
   damageThreshold: 0
   isDamaged: 0
   pipeEffect: {fileID: 1347158233925450, guid: 6103c2cd795b3c440b9fba4c0e3630c4, type: 2}
+--- !u!114 &114904526193074198
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132576501116404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1073357c166cb984f9ad79329a1389bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myInteractionType: 0
+  pickUpTransform: {fileID: 0}
+  thisRB: {fileID: 54505520529095218}
+  pickedUp: 0
+  pickUpSpeed: 0.1
+  batteryLife: 100
+  initialDrainRate: 2
+  initialRechargeRate: 1
+  doubleDrainRate: 4
+  doubleRechargeRate: 2
+  slowDrainRate: 1
+  slowRechargeRate: 0.5
+  isSupplyingPower: 0
+  isCharging: 0
+  charingDock:
+    serializedVersion: 2
+    m_Bits: 2048
+  chargingPos: {fileID: 4601255982848078}
 --- !u!114 &114939854353221098
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -54318,7 +54349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myInteractionType: 0
   pickUpTransform: {fileID: 0}
-  thisRB: {fileID: 0}
+  thisRB: {fileID: 54677970513251236}
   pickedUp: 0
   pickUpSpeed: 7
   pipeTransform: {fileID: 4755404370007928}
@@ -54378,6 +54409,19 @@ CapsuleCollider:
   m_Height: 1.37
   m_Direction: 0
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &136464595573391334
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1132576501116404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  m_Radius: 0.59300286
+  m_Height: 0.5923619
+  m_Direction: 1
+  m_Center: {x: -0.000000059604645, y: 0.000000074505806, z: 0.56715983}
 --- !u!136 &136802993707736432
 CapsuleCollider:
   m_ObjectHideFlags: 1

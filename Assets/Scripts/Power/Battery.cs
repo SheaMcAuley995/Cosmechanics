@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : MonoBehaviour, IInteractable, IStatusEffect
+public class Battery : Interactable
 {
     [Header("Battery Life")]    
     public float batteryLife;
@@ -26,6 +26,8 @@ public class Battery : MonoBehaviour, IInteractable, IStatusEffect
     public LayerMask charingDock;
     float batteryPlugDistance = 2f;
 
+    public Transform chargingPos;
+
 
     void Awake()
     {
@@ -34,9 +36,20 @@ public class Battery : MonoBehaviour, IInteractable, IStatusEffect
         rechargeRate = initialRechargeRate;
     }
 
-    public void InteractWith()
+    public override void InteractWith()
     {
-        Debug.Log("Interacting");
+        Debug.Log("working");
+        switch (pickedUp)
+        {
+            case false:
+                StartCoroutine(PickupUpdate());
+                break;
+            case true:
+                StopCoroutine(PickupUpdate());
+                break;
+        }
+
+        base.InteractWith();
     }
 
     // public void InteractWith()
@@ -64,6 +77,19 @@ public class Battery : MonoBehaviour, IInteractable, IStatusEffect
     void Update()
     {
         CheckBatteryStatus();
+
+        float dist = Vector3.Distance(transform.position, chargingPos.transform.position);
+        if (dist <= 1f)
+        {
+            PlugBattery();
+        }
+    }
+
+    void PlugBattery()
+    {
+        transform.position = chargingPos.position;
+        transform.parent = chargingPos;
+        thisRB.isKinematic = true;
     }
 
     #region Battery Life Functions
