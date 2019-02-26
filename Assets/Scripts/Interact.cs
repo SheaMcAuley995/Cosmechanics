@@ -11,6 +11,33 @@ public class Interact : MonoBehaviour
     public float radius;
     public LayerMask interactableLayer;
 
+   //public void InteractWith()
+   //{
+   //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+   //    Debug.Log("Calling InteractWith()");
+   //    Debug.Log(hitColliders.Length);
+   //    for (int i = 0; i < hitColliders.Length; i++)
+   //    {
+   //        // Chache this later once the check becomes larger
+   //        Debug.Log("Calling object " + i);
+   //        if (hitColliders[i].GetComponent<Interactable>() != null)
+   //        {
+   //            Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
+   //
+   //            if (testedInteractable.pickedUp == false)
+   //            {
+   //                if (interactableObject == null)
+   //                {
+   //                    Debug.Log("Setting interactable to " + hitColliders[i]);
+   //                    interactableObject = testedInteractable;
+   //                    return;
+   //                }
+   //            }
+   //
+   //        }
+   //    }
+   //}
+
     public void InteractWith()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
@@ -18,22 +45,10 @@ public class Interact : MonoBehaviour
         Debug.Log(hitColliders.Length);
         for (int i = 0; i < hitColliders.Length; i++)
         {
-            // Chache this later once the check becomes larger
-            Debug.Log("Calling object " + i);
-            if (hitColliders[i].GetComponent<Interactable>() != null)
+            Debug.Log("Calling object " + hitColliders[i]);
+            if (hitColliders[i].GetComponent<IInteractable>() != null)
             {
-                Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
-
-                if (testedInteractable.pickedUp == false)
-                {
-                    if (interactableObject == null)
-                    {
-                        Debug.Log("Setting interactable to " + hitColliders[i]);
-                        interactableObject = testedInteractable;
-                        return;
-                    }
-                }
-
+                hitColliders[i].GetComponent<IInteractable>().InteractWith();
             }
         }
     }
