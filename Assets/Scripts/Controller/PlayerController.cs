@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTrans;
 
     Rigidbody rb;
-    Interact interact;
+    InteractWithInterface interact;
 
 
     private void Start()
@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
-        interact = GetComponentInChildren<Interact>();
+        interact = GetComponentInChildren<InteractWithInterface>();
     }
 
     void Update()
