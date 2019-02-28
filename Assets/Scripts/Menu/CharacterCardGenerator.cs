@@ -161,7 +161,7 @@ public class CharacterCardGenerator : MonoBehaviour
         /// Utilizes the constructor to create new data for the character card
         CharacterData newCharacter = new CharacterData(data.portraitField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
-        /// NOTE: Cache these later for some of that sweet juicy #efficiency
+        /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
         portraitIndex = Random.Range(0, 5);
         nameIndex = Random.Range(0, 90);
