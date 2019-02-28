@@ -38,28 +38,10 @@ public class Battery : Interactable
 
     public override void InteractWith()
     {
-        Debug.Log("working");
-        switch (pickedUp)
-        {
-            case false:
-                StartCoroutine(PickupUpdate());
-                break;
-            case true:
-                StopCoroutine(PickupUpdate());
-                break;
-        }
+        pickUpCommand();
 
         base.InteractWith();
     }
-
-    // public void InteractWith()
-    // {
-    //     Collider[] chargeLocations = Physics.OverlapSphere(transform.position, batteryPlugDistance, charingDock);
-    //     if (chargeLocations != null)
-    //     {
-    //
-    //     }
-    // }
 
     void CheckBatteryStatus()
     {
