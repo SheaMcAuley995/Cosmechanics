@@ -57,12 +57,17 @@ public class ExampleGameController : MonoBehaviour
 
     public void setSpawnPoints()
     {
+        
         spawnPoints = new Vector3[numberOfPlayers];
-        spawnPoints[0] = transform.position;
-        for(int i = 0; i < numberOfPlayers; i++)
+        if (spawnPoints[0] != null)
         {
-            spawnPoints[i] = transform.position + new Vector3(i + 1, 0, 0);
+            spawnPoints[0] = transform.position;
+            for (int i = 0; i < numberOfPlayers; i++)
+            {
+                spawnPoints[i] = transform.position + new Vector3(i + 1, 0, 0);
+            }
         }
+
 
     }
     
