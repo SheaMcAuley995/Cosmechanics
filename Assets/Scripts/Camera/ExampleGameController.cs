@@ -40,10 +40,10 @@ public class ExampleGameController : MonoBehaviour
 
     private void Start()
     {
-        MakePlayers(numberOfPlayers);
+        //MakePlayers(numberOfPlayers);
     }
 
-    private void MakePlayers(int numberOfPlayers) {
+    public void MakePlayers(int numberOfPlayers) {
 
         var targets = new List<GameObject>(numberOfPlayers);
 
