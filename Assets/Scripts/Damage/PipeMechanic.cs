@@ -10,9 +10,13 @@ public class PipeMechanic : Interactable
     Transform pipeParent;
     Vector3 startPos, startRot;
     bool wet, electric, goo, fire, blunt;
+    public bool isDamaged;
+    public GameObject pipeEffect;
 
-    void Start()
+    void Awake()
     {
+        pipeRB.isKinematic = true;
+
         if (pipeTransform == null)
         {
             pipeTransform = GetComponent<Transform>();
@@ -32,6 +36,9 @@ public class PipeMechanic : Interactable
 
     public override void InteractWith()
     {
+        GameObject newEffect = Instantiate(pipeEffect, transform.position, transform.rotation);
+        Destroy(newEffect, 3f);
+        pipeRB.isKinematic = false;
         switch (pickedUp)
         {
             case false:
@@ -45,6 +52,15 @@ public class PipeMechanic : Interactable
         base.InteractWith();
     }
 
+    private void Update()
+    {
+        float dist = Vector3.Distance(transform.position, pipeParent.transform.position);
+        if (dist <= 0.3f && !isDamaged)
+        {
+            FixPipe();
+        }
+    }
+
     public void GenerateThreshold()
     {
         damageThreshold = Random.Range(5f, 25f);
@@ -52,10 +68,22 @@ public class PipeMechanic : Interactable
 
     public void PipeBurst()
     {
+        isDamaged = true;
         pipeTransform.parent = null;
         pipeRB.AddForce(Vector3.left * 10f, ForceMode.Impulse);
         pipeRB.AddForce(Vector3.up * 5f, ForceMode.Impulse);
         HullDamage.instance.hullIntegrity -= HullDamage.instance.pipeIntegrityDamage;
+    }
+
+    void FixPipe()
+    {
+        pipeRB.isKinematic = true;
+        isDamaged = false;
+        pipeRB.useGravity = true;
+        gameObject.transform.parent = pipeParent.transform;
+        gameObject.transform.position = startPos;
+        gameObject.transform.eulerAngles = startRot;
+        HullDamage.instance.hullIntegrity += HullDamage.instance.pipeIntegrityDamage;
     }
 
     #region Effects

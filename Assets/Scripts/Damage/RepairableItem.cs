@@ -6,35 +6,28 @@ public class RepairableItem : Interactable
 {
     public LayerMask player;
     public Transform objectTransform;
+    [HideInInspector] public bool wallIsDamaged;
     float repairRange = 5f;
     [SerializeField] float shieldRepairAmount = 10f;
 
-    float shipIntegrity = HullDamage.instance.hullIntegrity;
-
     // Use this for initialization
-    void Start ()
+    void Awake ()
     {
-		if (objectTransform == null)
-        {
-            objectTransform = GetComponent<Transform>();
-        }
-	}
+        objectTransform = GetComponent<Transform>();
+    }
 
     public override void InteractWith()
     {        
-        //RaycastHit hit;
-        //bool foundPlayer = Physics.Raycast(objectTransform.position, objectTransform.forward, out hit, repairRange, player, QueryTriggerInteraction.Collide);
         Collider[] thePlayer = Physics.OverlapSphere(transform.position, 5f, player, QueryTriggerInteraction.Collide);
 
         if (thePlayer != null)
         {
-            if (gameObject.CompareTag("Crack"))
+            if (wallIsDamaged)
             {
-                RepairCrack();
-            }
-            else if (gameObject.CompareTag("Dent"))
-            {
-                RepairDent();
+                /// Do these first two things in the coroutine after prototype
+                wallIsDamaged = false;
+                gameObject.GetComponent<Renderer>().material.mainTexture = HullDamage.instance.repairedTexture;
+                RepairShip();
             }
             else if (gameObject.CompareTag("Shield"))
             {
@@ -50,18 +43,52 @@ public class RepairableItem : Interactable
         base.InteractWith();
     }
 
-    void RepairCrack()
+    void RepairShip()
     {
-        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.crackIntegrityDamage));
-    }
-
-    void RepairDent()
-    {
-        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.dentIntegrityDamage));
+        StartCoroutine(HullDamage.instance.RepairShipIntegrity(HullDamage.instance.wallIntegrityDamage));
     }
 
     void RepairShields()
     {
         HullDamage.instance.RepairShieldCapacity(shieldRepairAmount);
     }
+
+    #region Effects
+    public void Wet()
+    {
+
+    }
+
+    public void Electricity()
+    {
+
+    }
+
+    public void Florp()
+    {
+
+    }
+
+    public void Blunt()
+    {
+
+    }
+
+    public void Fire()
+    {
+
+    }
+    #endregion
+
+    #region Functions Needed To Satisfy The Inferfaces But Won't Be Used Cause You Can't Pickup Walls
+    public void PickUp()
+    {
+        // Send some sort of flashy message that you can't pick up walls
+    }
+
+    public void DropObject()
+    {
+        // See above
+    }
+    #endregion
 }

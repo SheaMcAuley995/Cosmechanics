@@ -2,15 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum StatusEffect
-{
-    Wet, Electric, Goo, Blunt, Fire
-}
-
 public class Battery : Interactable
 {
-    StatusEffect status;
-
     [Header("Battery Life")]    
     public float batteryLife;
     static float fullBatteryLife = 100f;
@@ -30,17 +23,24 @@ public class Battery : Interactable
     /*[HideInInspector]*/ public bool isSupplyingPower;
     /*[HideInInspector]*/ public bool isCharging;
 
+    public LayerMask charingDock;
+    float batteryPlugDistance = 2f;
 
-    public Battery(StatusEffect Status)
-    {
-        status = Status;
-    }
+    public Transform chargingPos;
 
-    void Start()
+
+    void Awake()
     {
         batteryLife = fullBatteryLife;
         drainRate = initialDrainRate;
         rechargeRate = initialRechargeRate;
+    }
+
+    public override void InteractWith()
+    {
+        pickUpCommand();
+
+        base.InteractWith();
     }
 
     void CheckBatteryStatus()
@@ -59,6 +59,20 @@ public class Battery : Interactable
     void Update()
     {
         CheckBatteryStatus();
+
+        float dist = Vector3.Distance(transform.position, chargingPos.transform.position);
+        if (dist <= 1f)
+        {
+            PlugBattery();
+        }
+    }
+
+    void PlugBattery()
+    {
+        transform.position = chargingPos.position;
+        transform.parent = chargingPos;
+        thisRB.isKinematic = true;
+        Debug.Log("plugg");
     }
 
     #region Battery Life Functions
@@ -79,31 +93,31 @@ public class Battery : Interactable
     }
     #endregion
 
-    #region Interact Functions
-    public override void Wet()
+    #region Status Effects
+    public void Wet()
     {
-        Debug.Log("Nothing");
+        
     }
 
-    public override void Electric()
+    public void Electricity()
     {
         rechargeRate = doubleRechargeRate;
         drainRate = slowDrainRate;
     }
 
-    public override void Goo()
+    public void Florp()
     {
-        Debug.Log("Do Goo Thing");
+        
     }
 
-    public override void Blunt()
+    public void Blunt()
     {
-        Debug.Log("Do Blunt Thing");
+        
     }
 
-    public override void Fire()
+    public void Fire()
     {
-        Debug.Log("Do Fire Thing");
+        
     }
     #endregion
 }

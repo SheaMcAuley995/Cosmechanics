@@ -19,10 +19,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4589389774074132}
-  - component: {fileID: 114292458287117094}
+  - component: {fileID: 114045068798516218}
   m_Layer: 0
   m_Name: GameObject
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 4647223944990994}
   - component: {fileID: 33101753192883552}
   - component: {fileID: 23410046569652462}
-  - component: {fileID: 65378487031108966}
+  - component: {fileID: 136393106362390464}
   - component: {fileID: 54978941227071256}
   - component: {fileID: 114887668836564264}
   m_Layer: 10
@@ -119,7 +119,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1730697730245436}
   m_LocalRotation: {x: 0, y: 0.70413864, z: 0, w: 0.7100625}
-  m_LocalPosition: {x: 1.8282975, y: 1.0193002e-17, z: -4.59052}
+  m_LocalPosition: {x: 2.4154296, y: -6.347617e-17, z: -15.2141285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 224567783587949784}
@@ -184,19 +184,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!65 &65378487031108966
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1730697730245436}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.72, y: 1.6756032, z: 0.3967534}
-  m_Center: {x: 0, y: 0.83590794, z: 0.00004684925}
---- !u!114 &114292458287117094
+--- !u!114 &114045068798516218
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -204,12 +192,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1091064973306196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8947bb92a0fbeb4fabe0c487c3b493b, type: 3}
+  m_Script: {fileID: 11500000, guid: 93cd65a2864fe3d4b9435f8d1fc51498, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nice: {fileID: 0}
   interactableObject: {fileID: 0}
-  radius: 0.8
+  radius: 0
   interactableLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -290,11 +278,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   pickUpTransform: {fileID: 4589389774074132}
-  walkSpeed: 5
-  runSpeed: 9
+  walkSpeed: 3
+  runSpeed: 5
   gravity: -12
   jumpheight: 1
-  turnSmoothTime: 0.1
+  turnSmoothTime: 0.12
   speedSmoothTime: 0.1
   cameraTrans: {fileID: 0}
 --- !u!114 &114982342629598350
@@ -324,6 +312,19 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!136 &136393106362390464
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1730697730245436}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.33
+  m_Height: 1.72
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.83590794, z: 0.000046849247}
 --- !u!222 &222054801419419150
 CanvasRenderer:
   m_ObjectHideFlags: 1

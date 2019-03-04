@@ -23,6 +23,7 @@ Shader "Shader Forge/Examples/LightWrapping" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #define UNITY_PASS_FORWARDBASE
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
             #define _GLOSSYENV 1
             #include "UnityCG.cginc"
@@ -90,7 +91,7 @@ Shader "Shader Forge/Examples/LightWrapping" {
                 float3 lightColor = _LightColor0.rgb;
                 float3 halfDirection = normalize(viewDirection+lightDirection);
 ////// Lighting:
-                UNITY_LIGHT_ATTENUATION(attenuation,i, i.posWorld.xyz);
+                float attenuation = LIGHT_ATTENUATION(i);
                 float3 attenColor = attenuation * _LightColor0.xyz;
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
@@ -203,6 +204,7 @@ Shader "Shader Forge/Examples/LightWrapping" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #define UNITY_PASS_FORWARDADD
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
             #define _GLOSSYENV 1
             #include "UnityCG.cginc"
@@ -258,7 +260,7 @@ Shader "Shader Forge/Examples/LightWrapping" {
                 float3 lightColor = _LightColor0.rgb;
                 float3 halfDirection = normalize(viewDirection+lightDirection);
 ////// Lighting:
-                UNITY_LIGHT_ATTENUATION(attenuation,i, i.posWorld.xyz);
+                float attenuation = LIGHT_ATTENUATION(i);
                 float3 attenColor = attenuation * _LightColor0.xyz;
                 float Pi = 3.141592654;
                 float InvPi = 0.31830988618;
@@ -318,6 +320,7 @@ Shader "Shader Forge/Examples/LightWrapping" {
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
+            #define UNITY_PASS_META 1
             #define SHOULD_SAMPLE_SH ( defined (LIGHTMAP_OFF) && defined(DYNAMICLIGHTMAP_OFF) )
             #define _GLOSSYENV 1
             #include "UnityCG.cginc"

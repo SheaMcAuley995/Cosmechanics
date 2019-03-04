@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //Call this delegate to change the interaction depending on the item in the player's hands.
     public delegate void currentInteraction();
@@ -46,7 +47,7 @@ public class PlayerController : MonoBehaviour {
     public Transform cameraTrans;
 
     Rigidbody rb;
-    Interact interact;
+    InteractWithInterface interact;
 
 
     private void Start()
@@ -54,10 +55,11 @@ public class PlayerController : MonoBehaviour {
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
-        interact = GetComponentInChildren<Interact>();
+        interact = GetComponentInChildren<InteractWithInterface>();
     }
 
-    void Update () {
+    void Update()
+    {
         getInput();
         ProcessInput();
     }
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour {
             interact.InteractWith();
             Interaction();
         }
-        
+
     }
     public void pickUpInteraction()
     {
@@ -101,7 +103,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (interact.interactableObject != null)
         {
-            if(myInteractions == null)
+            if (myInteractions == null)
             {
                 if (myCurrentInteraction == null)
                 {
@@ -116,17 +118,17 @@ public class PlayerController : MonoBehaviour {
                     interact.callInteract();
                 }
             }
-            else if(myInteractions != null)
+            else if (myInteractions != null)
             {
                 myInteractions();
                 Debug.Log("Running " + myInteractions);
             }
-            
-            
+
+
         }
         else if (interact.interactableObject == null)
         {
-            if(myCurrentInteraction != null)
+            if (myCurrentInteraction != null)
             {
                 myCurrentInteraction = null;
             }
@@ -141,7 +143,7 @@ public class PlayerController : MonoBehaviour {
             float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
             transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
         }
-        
+
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
