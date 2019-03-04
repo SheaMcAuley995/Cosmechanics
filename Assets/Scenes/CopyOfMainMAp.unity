@@ -8548,6 +8548,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5f2a86c03d6634c8ab9453bf666ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travelToTransform: {fileID: 0}
+  travelToSpeed: 0
 --- !u!1 &482225317
 GameObject:
   m_ObjectHideFlags: 0
@@ -9300,7 +9302,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 520859220}
   m_LocalRotation: {x: -0.000000014901161, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -9.14, y: -13.56, z: 12.65}
+  m_LocalPosition: {x: -9.1, y: -5.11, z: -4.65}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 382116554}
@@ -9316,7 +9318,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.04
+  m_Intensity: 0.3
   m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -9335,7 +9337,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -9539,6 +9541,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
+        type: 2}
+      propertyPath: materials.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4037342045524828, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
       propertyPath: m_LocalPosition.x
       value: 3.62
@@ -9576,6 +9583,17 @@ Prefab:
       propertyPath: cameraMultiTarget
       value: 
       objectReference: {fileID: 447519475}
+    - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
+        type: 2}
+      propertyPath: numberOfPlayers
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
+        type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 1730697730245436, guid: 141a5cc68beff8f42a5c0f089ae1c02c,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
   m_IsPrefabAsset: 0
@@ -23640,7 +23658,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1277520078}
   m_LocalRotation: {x: -0.000000014901161, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -8.35, y: -21.62, z: 8.72}
+  m_LocalPosition: {x: -8.4, y: -13.21, z: -8.55}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 382116554}
@@ -23656,7 +23674,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.04
+  m_Intensity: 0.3
   m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -23675,7 +23693,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -27422,7 +27440,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1530371317}
   m_LocalRotation: {x: -0.000000014901161, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -16.11, y: -14.11, z: 12.38}
+  m_LocalPosition: {x: -16.1, y: -5.61, z: -4.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 382116554}
@@ -27438,7 +27456,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.04
+  m_Intensity: 0.3
   m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -27457,7 +27475,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -29194,7 +29212,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1603929427}
   m_LocalRotation: {x: -0.000000014901161, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: -15.5, y: -20.37, z: 9.32}
+  m_LocalPosition: {x: -15.5, y: -11.91, z: -7.95}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 382116554}
@@ -29210,7 +29228,7 @@ Light:
   serializedVersion: 8
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 0.04
+  m_Intensity: 0.3
   m_Range: 500
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -29229,7 +29247,7 @@ Light:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_Lightmapping: 2
+  m_Lightmapping: 1
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
