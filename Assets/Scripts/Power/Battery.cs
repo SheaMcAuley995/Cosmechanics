@@ -72,6 +72,7 @@ public class Battery : Interactable
         transform.position = chargingPos.position;
         transform.parent = chargingPos;
         thisRB.isKinematic = true;
+        Debug.Log("plugg");
     }
 
     #region Battery Life Functions
