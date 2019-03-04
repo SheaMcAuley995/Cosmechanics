@@ -17,12 +17,6 @@ public interface IPickUpable
     void DropObject();
 }
 
-// For dropping objects
-public interface IDropable
-{
-    void DropObject();
-}
-
 // For applying status effects to objects
 public interface IStatusEffect
 {
