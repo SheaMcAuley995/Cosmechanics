@@ -14,11 +14,6 @@ public interface IInteractable
 public interface IPickUpable
 {
     void PickUp();
-}
-
-// For dropping objects
-public interface IDropable
-{
     void DropObject();
 }
 

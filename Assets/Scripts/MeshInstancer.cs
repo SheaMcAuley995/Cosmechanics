@@ -95,7 +95,7 @@ public class MeshInstancer : MonoBehaviour {
         float random3 = Random.Range(spawnMin, spawnMax);
         asteroid.pos = (this.transform.position + new Vector3(randomness,random2,random3));
         asteroid.speed = Vector3.Distance(asteroid.pos, Camera.main.transform.position) / 10 / speedMult;
-        asteroid.scale = (asteroid.pos - Camera.main.transform.position);
+       // asteroid.scale = (asteroid.pos - Camera.main.transform.position);
        // Debug.Log(asteroid.speed + " = speed");
     }
 }

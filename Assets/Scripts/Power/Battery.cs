@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : MonoBehaviour, IPickUpable, IInteractable, IDropable, IStatusEffect
+public class Battery : Interactable
 {
     [Header("Battery Life")]    
     public float batteryLife;
@@ -26,31 +26,21 @@ public class Battery : MonoBehaviour, IPickUpable, IInteractable, IDropable, ISt
     public LayerMask charingDock;
     float batteryPlugDistance = 2f;
 
+    public Transform chargingPos;
 
-    void Start()
+
+    void Awake()
     {
         batteryLife = fullBatteryLife;
         drainRate = initialDrainRate;
         rechargeRate = initialRechargeRate;
     }
 
-    public void PickUp()
+    public override void InteractWith()
     {
-        // Pickup code (NOTE: Needs re-work from Shea first)
-    }
+        pickUpCommand();
 
-    public void DropObject()
-    {
-        // See PickUp()
-    }
-
-    public void InteractWith()
-    {
-        Collider[] chargeLocations = Physics.OverlapSphere(transform.position, batteryPlugDistance, charingDock);
-        if (chargeLocations != null)
-        {
-
-        }
+        base.InteractWith();
     }
 
     void CheckBatteryStatus()
@@ -69,6 +59,20 @@ public class Battery : MonoBehaviour, IPickUpable, IInteractable, IDropable, ISt
     void Update()
     {
         CheckBatteryStatus();
+
+        float dist = Vector3.Distance(transform.position, chargingPos.transform.position);
+        if (dist <= 1f)
+        {
+            PlugBattery();
+        }
+    }
+
+    void PlugBattery()
+    {
+        transform.position = chargingPos.position;
+        transform.parent = chargingPos;
+        thisRB.isKinematic = true;
+        Debug.Log("plugg");
     }
 
     #region Battery Life Functions

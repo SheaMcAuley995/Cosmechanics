@@ -8,13 +8,14 @@ using TMPro;
 public struct CharacterData
 {
     /// Display fields on the character card
-    public Image portraitField, genderField;
+    public RawImage videoFeedField;
+    public Image genderField;
     public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
 
     /// Constructor for creating new character cards
-    public CharacterData(Image _portraitField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
+    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
     {
-        portraitField = _portraitField;
+        videoFeedField = _videoFeedField;
         genderField = _genderField;
         nameField = _nameField;
         ageField = _ageField;
@@ -30,12 +31,12 @@ public class CharacterCardGenerator : MonoBehaviour
 
     #region UI Selection Pool
     /// Image displays
-    public Sprite portrait1, portrait2, portrait3, portrait4, portrait5;
+    public RenderTexture videoFeed1, videoFeed2, videoFeed3, videoFeed4;
     public Sprite gender1, gender2, gender3, gender4;
     #endregion
 
     /// Lists
-    List<Sprite> portraitsList = new List<Sprite>();
+    List<RenderTexture> videoFeedList = new List<RenderTexture>();
     List<string> namesList = new List<string>();
     List<int> agesList = new List<int>();
     List<Sprite> gendersList = new List<Sprite>();
@@ -43,17 +44,17 @@ public class CharacterCardGenerator : MonoBehaviour
     List<string> sentencesList = new List<string>();
 
     /// Random selection variables
-    int portraitIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex;
+    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex;
 
     int numOfSaves = 0;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         #region Generated List Content
-        #region Portraits
+        #region Video Feeds
         /// 5 portraits added to the list using the ListExtension class
-        portraitsList.AddMany(portrait1, portrait2, portrait3, portrait4, portrait5);
+        videoFeedList.AddMany(videoFeed1, videoFeed2, videoFeed3, videoFeed4);
         #endregion
 
         #region Names
@@ -159,11 +160,11 @@ public class CharacterCardGenerator : MonoBehaviour
     public void GenerateCard()
     {
         /// Utilizes the constructor to create new data for the character card
-        CharacterData newCharacter = new CharacterData(data.portraitField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
+        CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
-        /// NOTE: Cache these later for some of that sweet juicy #efficiency
+        /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        portraitIndex = Random.Range(0, 5);
+        videoFeedIndex = Random.Range(0, 4);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
         //DetermineAgeBias(); My frens don't like it so I'm killing it until I make cases for each species. :'( 
@@ -171,9 +172,9 @@ public class CharacterCardGenerator : MonoBehaviour
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
         #endregion
-        
+
         #region Character Card Display Setter
-        newCharacter.portraitField.sprite = portraitsList[portraitIndex]; /// Sets the character card's portrait to the randomly selected portrait.
+        newCharacter.videoFeedField.texture = videoFeedList[videoFeedIndex]; /// Sets the character card's video feed to the randomly selected feed.
         newCharacter.nameField.text = namesList[nameIndex]; /// Sets the character card's name to the randomly selected portrait.
         newCharacter.ageField.text = agesList[ageIndex].ToString(); /// Sets the character card's age to the pseudo-randomly selected age.
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
@@ -187,7 +188,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void ReloadPreviousCard()
     {
-        CharacterData prevCharacter = new CharacterData(data.portraitField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
+        CharacterData prevCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
         numOfSaves--;
 

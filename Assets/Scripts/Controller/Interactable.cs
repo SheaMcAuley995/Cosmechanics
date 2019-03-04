@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum InteractionType { Pickup, InteractOnce}
-public class Interactable : MonoBehaviour {
+public enum InteractionType { Pickup, InteractOnce }
+public class Interactable : MonoBehaviour
+{
 
-
-    /// <summary>
-    /// This delegate will take in a function that will run in an update. The idea is that it will assign all the things that must be running after the base Interaction.
-    /// </summary>
     public delegate void MyCurrentInteractions();
     MyCurrentInteractions myCurrentInteractions;
 
@@ -22,11 +19,11 @@ public class Interactable : MonoBehaviour {
     /// <summary>
     /// Needs to call for a animation clip
     /// </summary>
-    /// 
+    ///
 
     public void Start()
     {
-        if(GetComponent<Rigidbody>() != null)
+        if (GetComponent<Rigidbody>() != null)
         {
             thisRB = GetComponent<Rigidbody>();
         }
@@ -40,11 +37,11 @@ public class Interactable : MonoBehaviour {
 
     public virtual void PickUp()
     {
-        if(myInteractionType == InteractionType.Pickup)
+        if (myInteractionType == InteractionType.Pickup)
         {
             if (pickUpTransform != null)
             {
-
+                GetComponent<CapsuleCollider>().enabled = false;
                 transform.SetParent(pickUpTransform);
                 thisRB.isKinematic = true;
                 transform.position = Vector3.Lerp(transform.position, pickUpTransform.position, Time.deltaTime * pickUpSpeed); //pickUpTransform.position;
@@ -58,10 +55,11 @@ public class Interactable : MonoBehaviour {
                     transform.SetParent(null);
                     thisRB.isKinematic = false;
                 }
+                GetComponent<CapsuleCollider>().enabled = true;
                 pickedUp = false;
             }
         }
-        
+
     }
     public void pickUpCommand()
     {
@@ -77,7 +75,7 @@ public class Interactable : MonoBehaviour {
     }
 
     public IEnumerator PickupUpdate()
-    {       
+    {
         while (true)
         {
             PickUp();
