@@ -1,46 +1,53 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class SelectionManager : MonoBehaviour
 {
     public GameObject characterCardPrefab, panelParent;
     public GameObject[] characterCards;
+    [HideInInspector] public int playerId = 0;
+    Player[] gamePlayers;
+    bool[] playerInput; 
 
-	// Use this for initialization
 	void Awake ()
     {
-        for (int characterCards = 0; characterCards < ExampleGameController.instance.numberOfPlayers; characterCards++)
-        {
-            GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
-        }
-
-        characterCards = GameObject.FindGameObjectsWithTag("CharacterCard");
+        CreateAndFindCards();
+        AssignPlayerIDsAndInput();
     }
 
-    /// yeah this is gonna need some seeeerious re-working after prototype, fam
+    #region Awake Methods
+    void CreateAndFindCards()
+    {
+        for (int totalCharCards = 0; totalCharCards < ExampleGameController.instance.numberOfPlayers; totalCharCards++)
+        {
+            GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
+            newCharCard.GetComponent<CharacterCardGenerator>().GenerateCard();
+        }
+        characterCards = GameObject.FindGameObjectsWithTag("CharacterCard");
+    }
+    void AssignPlayerIDsAndInput()
+    {
+        gamePlayers = new Player[ExampleGameController.instance.numberOfPlayers];
+        for (int playerNumber = 0; playerNumber < ExampleGameController.instance.numberOfPlayers; playerNumber++)
+        {
+            gamePlayers[playerNumber] = ReInput.players.GetPlayer(playerId);
+        }
+        playerInput = new bool[ExampleGameController.instance.numberOfPlayers];
+    }
+    #endregion
+
     void Update()
     {
-        #region Don't Look At Me I'm Hideous
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        for (int playerNum = 0; playerNum < ExampleGameController.instance.numberOfPlayers; playerNum++)
         {
-            characterCards[0].GetComponent<CharacterCardGenerator>().GenerateCard();
-        }
+            playerInput[playerNum] = gamePlayers[playerNum].GetButtonDown("Interact");
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            characterCards[1].GetComponent<CharacterCardGenerator>().GenerateCard();
+            if (playerInput[playerNum])
+            {
+                characterCards[playerNum].GetComponent<CharacterCardGenerator>().GenerateCard();
+            }
         }
-
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            characterCards[2].GetComponent<CharacterCardGenerator>().GenerateCard();
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            characterCards[3].GetComponent<CharacterCardGenerator>().GenerateCard();
-        }
-        #endregion
     }
 }
