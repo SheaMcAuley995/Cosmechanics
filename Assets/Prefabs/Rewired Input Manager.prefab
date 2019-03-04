@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592660755158266}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 12.94, y: 7.0959166e-17, z: -21.11}
+  m_LocalPosition: {x: 3.62, y: 0.2, z: -10.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -724,11 +724,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   materials:
   - {fileID: 2100000, guid: f4b8d958720a91b4595750dd2ce78dc2, type: 2}
+  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
   - {fileID: 2100000, guid: 69b732c8f0b7bc449b3fb8bf251305ff, type: 2}
   - {fileID: 2100000, guid: fd9e208621bf2034392cd535f7a9d588, type: 2}
-  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
-  numberOfPlayers: 2
-  cameraMultiTarget: {fileID: 114557806190885954, guid: 1b2bb62068c050f43a8992e508118d7a,
-    type: 2}
+  numberOfPlayers: 3
+  cameraMultiTarget: {fileID: 0}
   playerPrefab: {fileID: 1730697730245436, guid: 141a5cc68beff8f42a5c0f089ae1c02c,
     type: 2}
+  spawnableScenes:
+  - CopyOfMainMAp
