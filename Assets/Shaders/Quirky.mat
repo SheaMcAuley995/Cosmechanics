@@ -6,18 +6,22 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: EdgeGlowTest
-  m_Shader: {fileID: 4800000, guid: 0dd071a23e1a1b5418b8371de02744a0, type: 3}
+  m_Name: Quirky
+  m_Shader: {fileID: 4800000, guid: 396f79dbed013494fa5fd0fdf7a1e41a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -34,10 +38,6 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: b66bceaf0cc0ace4e9bdc92f14bba709, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -50,8 +50,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Normals:
-        m_Texture: {fileID: 2800000, guid: bbab0a6f7bae9cf42bf057d8ee2755f6, type: 3}
+    - _Normal:
+        m_Texture: {fileID: 2800000, guid: 8b8c8a10edf94ddc8cc4cc4fcd5696a9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -63,30 +63,27 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _BulgeScale: 0.2
-    - _BulgeShape: 5
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _Divisions: 0.5639098
     - _DstBlend: 0
+    - _EdgeRippleAmmount: 1
     - _GlossMapScale: 1
-    - _Glossiness: 0.31
+    - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GlowAmmount: 6
-    - _GlowIntensity: 1.2
-    - _Metallic: 1
+    - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TransparencyValue: 0.1
     - _UVSec: 0
     - _ZWrite: 1
+    - _fresne: -12.75
+    - _node_452: 1.12
     m_Colors:
-    - _Color: {r: 0.44339618, g: 0.23941872, b: 0.13176394, a: 1}
-    - _Emission: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GLowColor: {r: 1, g: 0, b: 0, a: 1}
-    - _GlowColor: {r: 1.3147693, g: 5.3403144, b: 0, a: 0}
+    - _GlowColor: {r: 0.4386289, g: 1, b: 0, a: 1}
