@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
 
         if (Interact)
         {
-            interact.InteractWith();
+            interact.InteractWithObject();
             Interaction();
         }
 
