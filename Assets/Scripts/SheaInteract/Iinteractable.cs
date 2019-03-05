@@ -10,6 +10,10 @@ public interface IInteractable
     void InteractWith();
 }
 
+public interface IDamageable<T>
+{
+    void TakeDamage(T damageTaken);
+}
 // For applying status effects to objects
 public interface IStatusEffect
 {
