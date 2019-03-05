@@ -10,13 +10,6 @@ public interface IInteractable
     void InteractWith();
 }
 
-// For picking up objects
-public interface IPickUpable
-{
-    void PickUp();
-    void DropObject();
-}
-
 // For applying status effects to objects
 public interface IStatusEffect
 {
