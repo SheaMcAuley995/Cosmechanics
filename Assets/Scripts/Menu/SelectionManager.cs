@@ -7,11 +7,11 @@ public class SelectionManager : MonoBehaviour
 {
     public GameObject characterCardPrefab, panelParent;
     public GameObject[] characterCards;
-    //[HideInInspector] public int playerId = 0;
+    //public int playerId;
     //Player[] gamePlayers;
-    //bool[] playerInput; 
+    //bool[] playerInput;
 
-	void Awake ()
+    void Awake ()
     {
         CreateAndFindCards();
         //AssignPlayerIDsAndInput();
