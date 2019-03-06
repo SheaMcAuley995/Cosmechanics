@@ -9,11 +9,6 @@ public class ExampleGameController : MonoBehaviour
 {
     public static ExampleGameController instance = null;
     
-    /// <summary>
-    /// In here I want the players to be assigned a different material based on what player they are. Once you are done with that if you could work
-    /// on a very bare bones main menu that lets you choose how many players are going to be in the game after you press play. Or don't make it bare bones and just 
-    /// go really hard. Bonus points if the players get to choose their material. BONUS BONUS POINTS if you work with zach and get this working with his character generator.
-    /// </summary>
     public Material[] materials;
     public int numberOfPlayers;
     public CameraMultiTarget cameraMultiTarget;
@@ -81,7 +76,7 @@ public class ExampleGameController : MonoBehaviour
             if(currentName == scene)
             {
                 var targets = new List<GameObject>(numberOfPlayers);
-
+                Debug.Log(currentName + " works as a scene");
                 for (int i = 0; i < numberOfPlayers; i++)
                 {
 
