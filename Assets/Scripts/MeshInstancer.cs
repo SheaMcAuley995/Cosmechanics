@@ -1,9 +1,6 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
-
 public class MeshData
 {
     public Vector3 pos;
