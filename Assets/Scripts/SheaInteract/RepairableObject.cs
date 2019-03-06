@@ -5,10 +5,10 @@ using UnityEngine;
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private int health = 100;
-    private float repairTimer;
+    
 
     public int healthMax = 100;
-    public float repairTimerMax = 1;
+
     public int repairAmount = 25;
 
     MeshRenderer mesh;
@@ -17,13 +17,11 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private void Start()
     {
-        repairTimer = repairTimerMax;
         mesh = GetComponent<MeshRenderer>();
         //StartCoroutine("takeDamage");
     }
     public void InteractWith()
     {
-        repairTimer = repairTimerMax;
         //Todo: Set up a mechanic that take in the currently equiped tool. 
         if (health < healthMax)
         {
