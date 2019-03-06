@@ -194,17 +194,4 @@ public class CharacterCardGenerator : MonoBehaviour
 
         prevCharacter = savedCharacters[numOfSaves];
     }
-
-    void DetermineAgeBias()
-    {
-        int ageBias = Random.Range(1, 10);
-        if (ageBias < 9)
-        {
-            ageIndex = Random.Range(2, 100);
-        }
-        else if (ageBias >= 9)
-        {
-            ageIndex = Random.Range(101, 1000);
-        }
-    }
 }
