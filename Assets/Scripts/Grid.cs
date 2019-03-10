@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Grid : MonoBehaviour {
 
+    public static Grid instance;
+
     public LayerMask flamableMask;
     public Vector3 gridWorldSize;
     public float nodeRadius;
-    Node[,] grid;
+    public Node[,] grid;
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
     [SerializeField] bool GenerateGrid;
+    [SerializeField] bool LightFire;
 
     void CreateGrid()
     {
@@ -53,7 +56,16 @@ public class Grid : MonoBehaviour {
         return neighbours;
     }
 
-    private void OnDrawGizmosSelected()
+
+    void GenerateFire()
+    {
+        Node fireStartPosition = grid[Random.Range(0, grid.Length), Random.Range(0, grid.Length)];
+
+        fireStartPosition.isFlamable = false;
+    }
+
+
+    private void OnDrawGizmos()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
@@ -62,7 +74,11 @@ public class Grid : MonoBehaviour {
         if(GenerateGrid)
             CreateGrid();
 
-
+        if(LightFire)
+        {
+            GenerateFire();
+            LightFire = false;
+        }
 
 
         if (grid != null)
