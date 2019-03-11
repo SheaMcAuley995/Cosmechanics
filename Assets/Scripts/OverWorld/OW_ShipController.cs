@@ -6,8 +6,13 @@ public class OW_ShipController : MonoBehaviour {
 
 
     [Header("Movement")]
-    public float speed;
+    public float speed = 10f;
+    
+    public float rotationSpeed = 5f;
+    private float horiz;
+    private float vert;
     Vector2 shipDir;
+    Rigidbody rb;
 
     [Header("Gizmos")]
     public Color GizmoColor = Color.white;
@@ -15,16 +20,23 @@ public class OW_ShipController : MonoBehaviour {
     public Mesh gizmoMesh;
     public float gizmoMeshScale = 10f;
     Vector3 gScale;
+
     
-	// Use this for initialization
-	void Start () {
-        
+
+    // Use this for initialization
+    void Start () {
+        rb = GetComponent<Rigidbody>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        shipDir = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        
+        horiz = Input.GetAxis("Horizontal");
+        vert = Input.GetAxis("Vertical");
+        shipDir = new Vector2(horiz, vert);
+        this.transform.position += vert * transform.forward * speed * Time.deltaTime;
+        var rotatoChip = rotationSpeed * Time.deltaTime * horiz;
+        this.transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y + rotatoChip, 0);
+        Debug.Log("rotation speed = " + rotatoChip);
 	}
 
 
