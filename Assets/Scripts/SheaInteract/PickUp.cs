@@ -2,15 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PickUp : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    Rigidbody rb;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    public void pickMeUp(Transform pickUpTransform)
+    {
+        rb.isKinematic = true;
+        transform.SetParent(pickUpTransform);
+        transform.position = pickUpTransform.position;
+        transform.eulerAngles = pickUpTransform.eulerAngles;
+    }
+
+    public void putMeDown()
+    {
+        transform.SetParent(null);
+        rb.isKinematic = false;
+    }
 }
