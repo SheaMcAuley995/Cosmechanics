@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PickUp : MonoBehaviour {
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     private void Start()
     {

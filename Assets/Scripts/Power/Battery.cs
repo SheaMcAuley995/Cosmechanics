@@ -26,12 +26,12 @@ public class Battery : MonoBehaviour
     public LayerMask charingDock;
     float batteryPlugDistance = 2f;
 
-    public Transform chargingPos;
     [SerializeField] Rigidbody rb;
 
-    void Awake()
+    void Start()
     {
-        batteryLife = fullBatteryLife;
+        rb = GetComponent<Rigidbody>();
+        batteryLife = 0;
         drainRate = initialDrainRate;
         rechargeRate = initialRechargeRate;
     }
@@ -52,36 +52,40 @@ public class Battery : MonoBehaviour
     void Update()
     {
         CheckBatteryStatus();
-
-        float dist = Vector3.Distance(transform.position, chargingPos.transform.position);
-        if (dist <= 1f)
-        {
-            PlugBattery();
-        }
     }
 
-    void PlugBattery()
+    public void PlugBattery(Transform lockToTrans)
     {
-        transform.position = chargingPos.position;
-        transform.parent = chargingPos;
-        rb.isKinematic = true;
-        Debug.Log("plugg");
+        
+        transform.position = lockToTrans.position;
+        transform.eulerAngles = lockToTrans.eulerAngles;
+        transform.SetParent(lockToTrans);
+        isCharging = true;
     }
+
+    void unPlugBattery()
+    {
+        isCharging = false;
+        isSupplyingPower = false;
+    }
+
 
     #region Battery Life Functions
     void DrainBatteryLife()
     {
+        rb.isKinematic = true;
         if (batteryLife > minBatteryLife)
         {
-            batteryLife -= drainRate * Time.deltaTime;
+            batteryLife -= Time.deltaTime;
         }
     }
 
     void RechargeBattery()
     {
+        rb.isKinematic = true;
         if (batteryLife < fullBatteryLife)
         {
-            batteryLife += rechargeRate * Time.deltaTime;
+            batteryLife += Time.deltaTime;
         }
     }
     #endregion
