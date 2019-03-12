@@ -9,6 +9,7 @@ public class AudioEventManager : MonoBehaviour {
     public enum AudioClipType {Music, Effect, Other};
 
     public List<Sound> sounds;
+    [HideInInspector]
     public AudioEventManager instance;
 
     private void Awake()
@@ -40,12 +41,17 @@ public class AudioEventManager : MonoBehaviour {
     public void PlaySound(string name)
     {
         Sound s = Array.Find(sounds.ToArray(), sound => sound.name == name);
+        if (s == null)
+        {
+            return;
+        }
         s.source.Play();  
     
     }
     private void Start()
     {
-        PlaySound("ahh");
-        PlaySound("ahh2");
+        PlaySound("Theme");
+        
+        //PlaySound("AlarmRight");
     }
 }
