@@ -6,6 +6,8 @@ using TMPro;
 
 public class ShipHealth : MonoBehaviour {
 
+    public static ShipHealth instance;
+
     public delegate void DamageAction();
     public static event DamageAction onDamagedAction;
 
@@ -38,6 +40,15 @@ public class ShipHealth : MonoBehaviour {
 
     private void Start()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -95,7 +106,7 @@ public class ShipHealth : MonoBehaviour {
 
     void AdjustUI()
     {
-        Debug.Log(shipCurrenHealth / shipMaxHealth);
+        //Debug.Log(shipCurrenHealth / shipMaxHealth);
         healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
         healthText.text = shipCurrenHealth.ToString();
     }
