@@ -9,6 +9,8 @@ public class InteractWithInterface : MonoBehaviour
     public float radius;
     public LayerMask interactableLayer;
 
+    GameObject interactedObject;
+
     public void InteractWithObject()
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
@@ -30,14 +32,22 @@ public class InteractWithInterface : MonoBehaviour
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
         //Debug.Log("Calling pickUpObject()");
         Debug.Log(hitColliders.Length);
-        for (int i = 0; i < hitColliders.Length; i++)
+        if(interactedObject == null)
         {
-          //  Debug.Log("Calling object " + hitColliders[i]);
-            if (hitColliders[i].GetComponent<PickUp>() != null)
+            for (int i = 0; i < hitColliders.Length; i++)
             {
-                hitColliders[i].GetComponent<PickUp>();
+                //  Debug.Log("Calling object " + hitColliders[i]);
+                if (hitColliders[i].GetComponent<PickUp>() != null)
+                {
+                    hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
+                    interactedObject = hitColliders[i].gameObject;
+                }
             }
-
+        }
+        else
+        {
+            interactedObject.GetComponent<PickUp>().putMeDown();
+            interactedObject = null;
         }
     }
 

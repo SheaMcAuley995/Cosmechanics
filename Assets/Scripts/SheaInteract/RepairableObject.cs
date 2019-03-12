@@ -5,10 +5,10 @@ using UnityEngine;
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private int health = 100;
-    private float repairTimer;
 
+    private AudioEventManager AEV;
     public int healthMax = 100;
-    public float repairTimerMax = 1;
+
     public int repairAmount = 25;
 
     MeshRenderer mesh;
@@ -17,13 +17,11 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private void Start()
     {
-        repairTimer = repairTimerMax;
         mesh = GetComponent<MeshRenderer>();
         //StartCoroutine("takeDamage");
     }
     public void InteractWith()
     {
-        repairTimer = repairTimerMax;
         //Todo: Set up a mechanic that take in the currently equiped tool. 
         if (health < healthMax)
         {
@@ -31,7 +29,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(particleEffectPrefab, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
-            Debug.Log("Health Points : " + health);
+            AEV.PlaySound("clang");
+           // Debug.Log("Health Points : " + health);
 
         }
     }
@@ -49,7 +48,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
            mesh.material.color += Color.red;
 
-           Debug.Log("Health Points : " + health);
+           //Debug.Log("Health Points : " + health);
 
         }
     }
