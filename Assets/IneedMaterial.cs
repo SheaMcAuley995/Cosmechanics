@@ -8,7 +8,10 @@ public class IneedMaterial : MonoBehaviour {
 
     private void Start()
     {
-        GetComponent<MeshRenderer>().material = info.teamColor[GetComponentInParent<ExampleGameController>().myPLayerID];
+        info = GetComponentInParent<PlayerInfo>();
+        Debug.Log("My material index is " + GetComponentInParent<PlayerController>().playerId);
+        Material myMat =  GetComponent<MeshRenderer>().material = info.teamColor[GetComponentInParent<PlayerController>().playerId];
+        
 
     }
 }
