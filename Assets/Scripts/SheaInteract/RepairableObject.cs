@@ -29,7 +29,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(particleEffectPrefab, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
-            AEV.PlaySound("clang");                         //plays sound
+            AEV.PlaySound("clang");
+            ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
         }

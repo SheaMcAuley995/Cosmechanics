@@ -174,7 +174,6 @@ GameObject:
   - component: {fileID: 114640287095217038}
   - component: {fileID: 54003461404148164}
   - component: {fileID: 136420354308236876}
-  - component: {fileID: 114999879995284060}
   m_Layer: 0
   m_Name: Player_Prefab_Revied
   m_TagString: Untagged
@@ -243,9 +242,8 @@ GameObject:
   - component: {fileID: 4369772985380218}
   - component: {fileID: 33333510390363866}
   - component: {fileID: 23146884484348142}
-  - component: {fileID: 114452946251795830}
   m_Layer: 0
-  m_Name: Pads
+  m_Name: polySurface13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +431,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1279923413978516}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.429, y: 1.664, z: 0.598}
+  m_LocalPosition: {x: 4.051572, y: 1.486, z: -11.173835}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children:
   - {fileID: 4617232051326474}
@@ -1118,18 +1116,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114452946251795830
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1670136774285910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5e24ef82f0a8734e9c1e8f8acb36ce5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  info: {fileID: 0}
 --- !u!114 &114584139830474586
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1230,22 +1216,6 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
---- !u!114 &114999879995284060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1279923413978516}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1388c36fb53f4c0498e9d3dc25882336, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamColor:
-  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
-  - {fileID: 2100000, guid: f4b8d958720a91b4595750dd2ce78dc2, type: 2}
-  - {fileID: 2100000, guid: fd9e208621bf2034392cd535f7a9d588, type: 2}
-  - {fileID: 2100000, guid: 69b732c8f0b7bc449b3fb8bf251305ff, type: 2}
 --- !u!136 &136420354308236876
 CapsuleCollider:
   m_ObjectHideFlags: 1
