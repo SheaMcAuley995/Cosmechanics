@@ -6,7 +6,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private int health = 100;
 
-    private AudioEventManager AEV;
+    public AudioEventManager AEV;
     public int healthMax = 100;
 
     public int repairAmount = 25;
@@ -29,7 +29,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(particleEffectPrefab, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
-            AEV.PlaySound("clang");
+            AudioEventManager.instance.PlaySound("clang");
             ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 

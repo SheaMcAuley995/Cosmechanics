@@ -10,7 +10,7 @@ public class AudioEventManager : MonoBehaviour {
 
     public List<Sound> sounds;
     [HideInInspector]
-    public AudioEventManager instance;
+    public static AudioEventManager instance;
 
     private void Awake()
     {
