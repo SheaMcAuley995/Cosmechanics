@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BrokenPipeBase : MonoBehaviour {
+public class FlamableObject : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Battery : Interactable
+public class Battery : MonoBehaviour
 {
     [Header("Battery Life")]    
     public float batteryLife;
@@ -27,20 +27,13 @@ public class Battery : Interactable
     float batteryPlugDistance = 2f;
 
     public Transform chargingPos;
-
+    [SerializeField] Rigidbody rb;
 
     void Awake()
     {
         batteryLife = fullBatteryLife;
         drainRate = initialDrainRate;
         rechargeRate = initialRechargeRate;
-    }
-
-    public override void InteractWith()
-    {
-        pickUpCommand();
-
-        base.InteractWith();
     }
 
     void CheckBatteryStatus()
@@ -71,7 +64,7 @@ public class Battery : Interactable
     {
         transform.position = chargingPos.position;
         transform.parent = chargingPos;
-        thisRB.isKinematic = true;
+        rb.isKinematic = true;
         Debug.Log("plugg");
     }
 
@@ -93,31 +86,4 @@ public class Battery : Interactable
     }
     #endregion
 
-    #region Status Effects
-    public void Wet()
-    {
-        
-    }
-
-    public void Electricity()
-    {
-        rechargeRate = doubleRechargeRate;
-        drainRate = slowDrainRate;
-    }
-
-    public void Florp()
-    {
-        
-    }
-
-    public void Blunt()
-    {
-        
-    }
-
-    public void Fire()
-    {
-        
-    }
-    #endregion
 }
