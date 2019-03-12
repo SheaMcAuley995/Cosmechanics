@@ -8,12 +8,15 @@ using UnityEngine.SceneManagement;
 public class ExampleGameController : MonoBehaviour
 {
     public static ExampleGameController instance = null;
-    
+
+    [SerializeField] PlayerInfo[] playerInfos;
     //public Material[] materials;
     public int numberOfPlayers;
     public CameraMultiTarget cameraMultiTarget;
     public GameObject playerPrefab;
     private int currentPlayerId = 0;
+    [HideInInspector]
+    public int myPLayerID;
     private Vector3[] spawnPoints;
     public List<string> spawnableScenes;
 
@@ -25,6 +28,7 @@ public class ExampleGameController : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
+        
         if(instance == null)
         {
             instance = this;
@@ -106,6 +110,7 @@ public class ExampleGameController : MonoBehaviour
         target.GetComponent<PlayerController>().playerId = currentPlayerId;
         target.GetComponent<PlayerController>().cameraTrans = cameraMultiTarget.GetComponent<Camera>().transform;
         currentPlayerId++;
+        myPLayerID = currentPlayerId;
         return target;
     }
 
