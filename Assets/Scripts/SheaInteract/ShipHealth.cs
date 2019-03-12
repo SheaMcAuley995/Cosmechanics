@@ -37,7 +37,6 @@ public class ShipHealth : MonoBehaviour {
 
 
 
-
     private void Start()
     {
         if (instance == null)
@@ -97,7 +96,7 @@ public class ShipHealth : MonoBehaviour {
             LoseGame();
         }
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1.5f);
 
         Destroy(newBlast);
 
