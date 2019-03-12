@@ -95,7 +95,8 @@ public class ShipHealth : MonoBehaviour {
 
     void AdjustUI()
     {
-        healthBar.fillAmount = shipCurrenHealth / shipMaxHealth;
+        Debug.Log(shipCurrenHealth / shipMaxHealth);
+        healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
         healthText.text = shipCurrenHealth.ToString();
     }
 
