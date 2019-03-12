@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class ShipHealth : MonoBehaviour {
 
@@ -10,11 +12,10 @@ public class ShipHealth : MonoBehaviour {
     [Header("Event System")]
     [SerializeField] float timeBetweenNEvents;
 
+    // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
-
     public int shipCurrenHealth;
-
-    [SerializeField] int shipMaxHealth;
+    public int shipMaxHealth;
 
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
@@ -27,12 +28,18 @@ public class ShipHealth : MonoBehaviour {
     Vector3 attackLocation;
     Vector3 lastHitLocaton;
 
+    [Header("UI Elements")]
+    public Image healthBar;
+    public TextMeshProUGUI healthText;
+    public GameObject loseGameScreen;
+
 
 
 
     private void Start()
     {
         StartCoroutine("eventSystem");
+        AdjustUI();
     }
 
     IEnumerator eventSystem()
@@ -72,12 +79,31 @@ public class ShipHealth : MonoBehaviour {
         }
 
         shipCurrenHealth -= explosionDamage;
+        AdjustUI();
+
+        if (shipCurrenHealth <= 0)
+        {
+            LoseGame();
+        }
 
         yield return new WaitForSeconds(0.5f);
 
         Destroy(newBlast);
 
         yield return null;
+    }
+
+    void AdjustUI()
+    {
+        healthBar.fillAmount = shipCurrenHealth / shipMaxHealth;
+        healthText.text = shipCurrenHealth.ToString();
+    }
+
+    void LoseGame()
+    {
+        // TODO: Make UI prettier and animate
+        loseGameScreen.SetActive(true);
+        //Time.timeScale = Mathf.Lerp(1f, 0.2f, 2f);
     }
 
     private void OnDrawGizmosSelected()
