@@ -14,8 +14,7 @@ public class Interact : MonoBehaviour
   public void InteractWith()
   {
       Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-      Debug.Log("Calling InteractWith()");
-      Debug.Log(hitColliders.Length);
+
       for (int i = 0; i < hitColliders.Length; i++)
       {
           // Chache this later once the check becomes larger
@@ -37,6 +36,31 @@ public class Interact : MonoBehaviour
           }
       }
   }
+ // public void PickUpWith()
+ //   {
+ //       Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+ //
+ //       for (int i = 0; i < hitColliders.Length; i++)
+ //       {
+ //           // Chache this later once the check becomes larger
+ //
+ //           if (hitColliders[i].GetComponent<Interactable>() != null)
+ //           {
+ //               Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
+ //
+ //               if (testedInteractable.pickedUp == false)
+ //               {
+ //                   if (interactableObject == null)
+ //                   {
+ //                       Debug.Log("Setting pickup to " + hitColliders[i]);
+ //                       interactableObject = testedInteractable;
+ //                       return;
+ //                   }
+ //               }
+ //
+ //           }
+ //       }
+ //   }
 
     //public void InteractWith()
     //{
