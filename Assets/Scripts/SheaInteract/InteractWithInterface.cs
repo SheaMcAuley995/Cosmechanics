@@ -39,6 +39,10 @@ public class InteractWithInterface : MonoBehaviour
                 //  Debug.Log("Calling object " + hitColliders[i]);
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
+                    if (hitColliders[i].GetComponent<Battery>() != null)
+                    {
+                        hitColliders[i].GetComponent<Battery>().unPlugBattery();
+                    }
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
                     interactedObject = hitColliders[i].gameObject;
                     break;
@@ -55,7 +59,7 @@ public class InteractWithInterface : MonoBehaviour
                     if(hitColliders[i].GetComponent<ChargingPort>() != null)
                     {
                         Debug.Log("Calling Plug in");
-                        interactedObject.GetComponent<Battery>().PlugBattery(hitColliders[i].GetComponent<ChargingPort>().LockPosition);
+                        interactedObject.GetComponent<Battery>().PlugBattery(hitColliders[i].GetComponent<ChargingPort>().LockPosition, hitColliders[i].GetComponent<ChargingPort>().port);
                         break;
                     }
                 }
