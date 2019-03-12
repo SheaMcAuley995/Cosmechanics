@@ -35,7 +35,7 @@ public class InteractWithInterface : MonoBehaviour
           //  Debug.Log("Calling object " + hitColliders[i]);
             if (hitColliders[i].GetComponent<PickUp>() != null)
             {
-                hitColliders[i].GetComponent<PickUp>();
+                hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
             }
 
         }

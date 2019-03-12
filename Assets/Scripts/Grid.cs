@@ -27,10 +27,12 @@ public class Grid : MonoBehaviour {
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
-                bool walkable = !(Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
-                grid[x, y] = new Node(walkable, worldPoint, x, y);
+                bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
+                grid[x, y] = new Node(flameable, worldPoint, x, y);
             }
         }
+        
+        Debug.Log("Length of grid is " + grid.Length);
     }
 
     public List<Node> GetNeighbors(Node node)
@@ -59,7 +61,14 @@ public class Grid : MonoBehaviour {
 
     void GenerateFire()
     {
-        Node fireStartPosition = grid[Random.Range(0, grid.Length), Random.Range(0, grid.Length)];
+        Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+
+        while(fireStartPosition.isFlamable != true)
+        {
+            fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        }
+
+
 
         fireStartPosition.isFlamable = false;
     }
