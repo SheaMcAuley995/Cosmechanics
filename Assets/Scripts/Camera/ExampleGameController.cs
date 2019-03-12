@@ -9,7 +9,7 @@ public class ExampleGameController : MonoBehaviour
 {
     public static ExampleGameController instance = null;
     
-    public Material[] materials;
+    //public Material[] materials;
     public int numberOfPlayers;
     public CameraMultiTarget cameraMultiTarget;
     public GameObject playerPrefab;
@@ -102,7 +102,7 @@ public class ExampleGameController : MonoBehaviour
     public GameObject addPlayer()
     {
         GameObject target = GameObject.Instantiate(playerPrefab, spawnPoints[currentPlayerId], Quaternion.identity);
-        target.GetComponent<MeshRenderer>().material = materials[currentPlayerId];
+        //target.GetComponent<MeshRenderer>().material = materials[currentPlayerId];
         target.GetComponent<PlayerController>().playerId = currentPlayerId;
         target.GetComponent<PlayerController>().cameraTrans = cameraMultiTarget.GetComponent<Camera>().transform;
         currentPlayerId++;

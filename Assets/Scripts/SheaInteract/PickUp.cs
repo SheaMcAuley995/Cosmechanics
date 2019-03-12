@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class PickUp : MonoBehaviour {
 
     Rigidbody rb;
@@ -16,5 +17,12 @@ public class PickUp : MonoBehaviour {
         rb.isKinematic = true;
         transform.SetParent(pickUpTransform);
         transform.position = pickUpTransform.position;
+        transform.eulerAngles = pickUpTransform.eulerAngles;
+    }
+
+    public void putMeDown()
+    {
+        transform.SetParent(null);
+        rb.isKinematic = false;
     }
 }
