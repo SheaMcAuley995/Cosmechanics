@@ -55,6 +55,7 @@ GameObject:
   - component: {fileID: 136002543309831710}
   - component: {fileID: 54226378797174910}
   - component: {fileID: 114760513626938504}
+  - component: {fileID: 114359693354587806}
   m_Layer: 0
   m_Name: PlayerPrefabRevised
   m_TagString: Untagged
@@ -140,8 +141,9 @@ GameObject:
   - component: {fileID: 4061853826039260}
   - component: {fileID: 33055263605455954}
   - component: {fileID: 23575739939235734}
+  - component: {fileID: 114805789669190562}
   m_Layer: 0
-  m_Name: polySurface13
+  m_Name: Pads
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -309,6 +311,7 @@ GameObject:
   - component: {fileID: 4876222468995504}
   - component: {fileID: 33437083111159134}
   - component: {fileID: 23842926229837696}
+  - component: {fileID: 114291534175195656}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -392,7 +395,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1174546810761518}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7004266, y: -3.509722e-17, z: -18.341936}
+  m_LocalPosition: {x: 4.4492664, y: -5.779797e-17, z: -14.239701}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4858279190149968}
@@ -1145,6 +1148,34 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114291534175195656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1984261869507270}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751a24a44efa8b6488028e33884fa84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: {fileID: 0}
+--- !u!114 &114359693354587806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1174546810761518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d563eaa79e83cd429ac09850561d9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamColor:
+  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
+  - {fileID: 2100000, guid: f4b8d958720a91b4595750dd2ce78dc2, type: 2}
+  - {fileID: 2100000, guid: 69b732c8f0b7bc449b3fb8bf251305ff, type: 2}
+  - {fileID: 2100000, guid: fd9e208621bf2034392cd535f7a9d588, type: 2}
 --- !u!114 &114467447012059228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1201,13 +1232,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   pickUpTransform: {fileID: 4326164712423446}
-  walkSpeed: 3
-  runSpeed: 5
+  walkSpeed: 5.5
+  runSpeed: 5.5
   gravity: -12
   jumpheight: 1
   turnSmoothTime: 0.12
   speedSmoothTime: 0.1
   cameraTrans: {fileID: 0}
+--- !u!114 &114805789669190562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402943008572242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751a24a44efa8b6488028e33884fa84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: {fileID: 0}
 --- !u!114 &114963063032258462
 MonoBehaviour:
   m_ObjectHideFlags: 1

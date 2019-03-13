@@ -18,6 +18,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
+        ShipHealth.instance.shipMaxHealth += healthMax;
+        ShipHealth.instance.shipCurrenHealth += healthMax;
         //StartCoroutine("takeDamage");
     }
     public void InteractWith()
