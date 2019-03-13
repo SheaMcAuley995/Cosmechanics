@@ -57,7 +57,7 @@ public class Battery : MonoBehaviour
         {
             isSupplyingPower = true;
         }
-
+        isCharging = true;
     }
 
     public void unPlugBattery()
