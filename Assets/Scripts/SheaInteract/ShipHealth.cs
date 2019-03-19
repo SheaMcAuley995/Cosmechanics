@@ -47,7 +47,7 @@ public class ShipHealth : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-
+       // shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -84,11 +84,11 @@ public class ShipHealth : MonoBehaviour {
         foreach(Collider damagedObject in damagedObjects)
         {
             IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-
-            if(caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            shipCurrenHealth -= explosionDamage;
+            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
-        shipCurrenHealth -= explosionDamage;
+        
         AdjustUI();
 
         if (shipCurrenHealth <= 0)
