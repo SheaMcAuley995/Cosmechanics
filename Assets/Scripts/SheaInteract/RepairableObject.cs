@@ -50,11 +50,13 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
            repairObject(-damageTaken);
 
            mesh.material.color += Color.red;
+         
 
            //Debug.Log("Health Points : " + health);
 
         }
     }
+   
     
 
     // IEnumerator takeDamage()
