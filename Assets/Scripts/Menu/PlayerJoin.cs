@@ -11,18 +11,16 @@ public class PlayerJoin : MonoBehaviour
     Player[] players;
     ExampleGameController controller;
     bool input;
-    int numOfPlayers;
 
 	void Start ()
     {
         controller = ExampleGameController.instance;
-        numOfPlayers = controller.numberOfPlayers;
 
-        numOfPlayers = 2;
-        playersJoined.text = numOfPlayers.ToString();
+        controller.numberOfPlayers = 2;
+        playersJoined.text = controller.numberOfPlayers.ToString();
 
-        players = new Player[numOfPlayers];
-        for (int playerNumber = 0; playerNumber < numOfPlayers; playerNumber++)
+        players = new Player[controller.numberOfPlayers];
+        for (int playerNumber = 0; playerNumber < controller.numberOfPlayers; playerNumber++)
         {
             players[playerNumber] = ReInput.players.GetPlayer(playerId);
         }
@@ -43,23 +41,23 @@ public class PlayerJoin : MonoBehaviour
     {
         if (input)
         {
-            switch (numOfPlayers)
+            switch (controller.numberOfPlayers)
             {
                 case 2:
-                    numOfPlayers++;
+                    controller.numberOfPlayers++;
                     controller.setSpawnPoints();
                     break;
                 case 3:
-                    numOfPlayers++;
+                    controller.numberOfPlayers++;
                     controller.setSpawnPoints();
                     break;
                 case 4:
-                    numOfPlayers = 2;
+                    controller.numberOfPlayers = 2;
                     controller.setSpawnPoints();
                     break;
             }
 
-            playersJoined.text = numOfPlayers.ToString();
+            playersJoined.text = controller.numberOfPlayers.ToString();
         }
     }
 }
