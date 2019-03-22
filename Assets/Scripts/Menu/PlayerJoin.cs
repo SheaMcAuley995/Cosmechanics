@@ -9,15 +9,20 @@ public class PlayerJoin : MonoBehaviour
     public TextMeshProUGUI playersJoined;
     [HideInInspector] public int playerId = 0;
     Player[] players;
+    ExampleGameController controller;
     bool input;
+    int numOfPlayers;
 
 	void Start ()
     {
-        ExampleGameController.instance.numberOfPlayers = 2;
-        playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+        controller = ExampleGameController.instance;
+        numOfPlayers = controller.numberOfPlayers;
 
-        players = new Player[ExampleGameController.instance.numberOfPlayers];
-        for (int playerNumber = 0; playerNumber < ExampleGameController.instance.numberOfPlayers; playerNumber++)
+        numOfPlayers = 2;
+        playersJoined.text = numOfPlayers.ToString();
+
+        players = new Player[numOfPlayers];
+        for (int playerNumber = 0; playerNumber < numOfPlayers; playerNumber++)
         {
             players[playerNumber] = ReInput.players.GetPlayer(playerId);
         }
@@ -26,18 +31,35 @@ public class PlayerJoin : MonoBehaviour
 	void Update ()
     {
         GetInput();
+        ProcessInput();
 	}
 
     void GetInput()
     {
         input = players[0].GetButtonDown("Interact");
+    }
 
-        if (input && ExampleGameController.instance.numberOfPlayers < 4)
+    void ProcessInput()
+    {
+        if (input)
         {
-            ExampleGameController.instance.numberOfPlayers++;
-            ExampleGameController.instance.setSpawnPoints();
-        }
+            switch (numOfPlayers)
+            {
+                case 2:
+                    numOfPlayers++;
+                    controller.setSpawnPoints();
+                    break;
+                case 3:
+                    numOfPlayers++;
+                    controller.setSpawnPoints();
+                    break;
+                case 4:
+                    numOfPlayers = 2;
+                    controller.setSpawnPoints();
+                    break;
+            }
 
-        playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+            playersJoined.text = numOfPlayers.ToString();
+        }
     }
 }
