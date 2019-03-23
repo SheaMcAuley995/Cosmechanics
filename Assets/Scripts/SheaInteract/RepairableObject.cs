@@ -5,7 +5,6 @@ using UnityEngine;
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private int health = 100;
-    
 
     public int healthMax = 100;
 
@@ -18,6 +17,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
+        ShipHealth.instance.shipMaxHealth += healthMax;
+        ShipHealth.instance.shipCurrenHealth += healthMax;
         //StartCoroutine("takeDamage");
     }
     public void InteractWith()
@@ -29,6 +30,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(particleEffectPrefab, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
+             
+            AudioEventManager.instance.PlaySound("clang", .3f, Random.Range(.9f,1f), 0);    //play clang audio
             ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -47,11 +50,14 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
            repairObject(-damageTaken);
 
            mesh.material.color += Color.red;
+           
+         
 
            //Debug.Log("Health Points : " + health);
 
         }
     }
+   
     
 
     // IEnumerator takeDamage()

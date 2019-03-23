@@ -27,14 +27,14 @@ public class ShipHealth : MonoBehaviour {
     [Space]
     [SerializeField] Vector3[] possibleAttackPositions;
 
-    Vector3 attackLocation;
+    [HideInInspector]public Vector3 attackLocation;
     Vector3 lastHitLocaton;
+    [HideInInspector] public bool gotHit;           //michael add
 
     [Header("UI Elements")]
     public Image healthBar;
     public TextMeshProUGUI healthText;
     public GameObject loseGameScreen;
-
 
 
 
@@ -48,7 +48,7 @@ public class ShipHealth : MonoBehaviour {
         {
             Destroy(gameObject);
         }
-
+       // shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -64,6 +64,7 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator shipBlast()
     {
+
         if(attackLocation != null)
         {
             while (attackLocation == lastHitLocaton)
@@ -77,6 +78,8 @@ public class ShipHealth : MonoBehaviour {
         }
 
         lastHitLocaton = attackLocation;
+        gotHit = true;                          //michael add
+        yield return new WaitForSeconds(.5f);     //delay in travel time of laser
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
 
@@ -85,11 +88,11 @@ public class ShipHealth : MonoBehaviour {
         foreach(Collider damagedObject in damagedObjects)
         {
             IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-
-            if(caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            shipCurrenHealth -= explosionDamage;
+            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
-        shipCurrenHealth -= explosionDamage;
+        AudioEventManager.instance.PlaySound("bang",.8f,Random.Range(.2f,1f),0);
         AdjustUI();
 
         if (shipCurrenHealth <= 0)
@@ -97,8 +100,8 @@ public class ShipHealth : MonoBehaviour {
             LoseGame();
         }
 
-        yield return new WaitForSeconds(0.5f);
-
+        yield return new WaitForSeconds(1.5f);
+       
         Destroy(newBlast);
 
         yield return null;

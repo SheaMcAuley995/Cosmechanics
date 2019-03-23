@@ -74,24 +74,6 @@ public class PauseGame : MonoBehaviour
         }        
     }
 
-    public void ResumeGame()
-    {
-        if (paused)
-        {
-            StopCoroutine(FadeIn(images, texts));
-            StartCoroutine(FadeOut(images, texts));
-        }
-    }
-
-    public void OptionsMenu()
-    {
-        Debug.Log("Displaying Options Menu!");
-    }
-
-    public void QuitGame()
-    {
-        SceneManager.LoadScene(menuScene);
-    }
 
     // Update is called once per frame
     void Update ()
@@ -154,5 +136,24 @@ public class PauseGame : MonoBehaviour
 
         Time.timeScale = 1f;
         StopCoroutine(FadeOut(images, texts));
+    }
+
+    public void ResumeGame()
+    {
+        if (paused)
+        {
+            StopCoroutine(FadeIn(images, texts));
+            StartCoroutine(FadeOut(images, texts));
+        }
+    }
+
+    public void OptionsMenu()
+    {
+        Debug.Log("Displaying Options Menu!");
+    }
+
+    public void QuitGame()
+    {
+        SceneManager.LoadScene(menuScene);
     }
 }

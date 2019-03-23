@@ -5,12 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public void StartGame()
+    public void StartGame(string levelSelect)
     {
-
+        // TODO: Scene fader
+        SceneManager.LoadScene(levelSelect);
     }
 
-    public void ResumeGame()
+    public void SettingsMenu()
     {
         
     }
@@ -20,10 +21,16 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void ReturnToMenu(string scene)
+    public void SelectLevel(string characterCreator)
     {
         // TODO: Scene fader
-        SceneManager.LoadScene(scene);
+        SceneManager.LoadScene(characterCreator);
+    }
+
+    public void ReturnToMenu(string menuScene)
+    {
+        // TODO: Scene fader
+        SceneManager.LoadScene(menuScene);
     }
 
     public void RetryLevel(string thisScene)
@@ -31,5 +38,11 @@ public class ButtonManager : MonoBehaviour
         // TODO: Scene fader 
         // (also this might be tricker than I'm thinking cause we'll need to store character data?)
         SceneManager.LoadScene(thisScene);
+    }
+
+    public void ContinueToNextLevel(string levelSelect)
+    {
+        // TODO: Scene fader
+        SceneManager.LoadScene(levelSelect);
     }
 }

@@ -8,4 +8,6 @@ public class ChargingPort : MonoBehaviour {
     public Transform LockPosition;
 
     public typeOfPort port;
+
+    CommsRelay comms;
 }
