@@ -6,20 +6,34 @@ using Rewired;
 public class SelectionInput : MonoBehaviour
 {
     public int playerId;
-    Player players;
+    Player player;
+    CharacterCardGenerator card;
+    bool interact;
 
     // Use this for initialization
     void Start()
     {
-        players = ReInput.players.GetPlayer(playerId);
+        player = ReInput.players.GetPlayer(playerId);
+        card = GetComponent<CharacterCardGenerator>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (players.GetButtonDown("Interact"))
+        GetInput();
+        ProcessInput();
+    }
+
+    void GetInput()
+    {
+        interact = player.GetButtonDown("Interact");
+    }
+
+    void ProcessInput()
+    {
+        if (interact)
         {
-            GetComponent<CharacterCardGenerator>().GenerateCard();
+            card.GenerateCard();
         }
     }
 }
