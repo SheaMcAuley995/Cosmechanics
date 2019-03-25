@@ -39,10 +39,10 @@ public class ExampleGameController : MonoBehaviour
     
     private void Start()
     {
-            if (SceneManager.GetActiveScene().buildIndex == 1)
+            if (true)
               {
-        setSpawnPoints();
-        var targets = new List<GameObject>(numberOfPlayers);
+                setSpawnPoints();
+                var targets = new List<GameObject>(numberOfPlayers);
 
             for (int i = 0; i < numberOfPlayers; i++)
             {

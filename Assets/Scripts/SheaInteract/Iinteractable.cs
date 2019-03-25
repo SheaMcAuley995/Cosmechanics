@@ -14,6 +14,14 @@ public interface IDamageable<T>
 {
     void TakeDamage(T damageTaken);
 }
+
+public interface IInteractableTools
+{
+    void pickUmUpInteraction();
+    void fixUmUpInteraction();
+    void florpInteraction();
+}
+
 // For applying status effects to objects
 public interface IStatusEffect
 {
