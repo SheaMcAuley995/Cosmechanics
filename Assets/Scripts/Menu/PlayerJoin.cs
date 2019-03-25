@@ -29,7 +29,7 @@ public class PlayerJoin : MonoBehaviour
 	void Update ()
     {
         GetInput();
-        ProcessInput();
+        ApplyInput();
 	}
 
     void GetInput()
@@ -37,7 +37,7 @@ public class PlayerJoin : MonoBehaviour
         input = players[0].GetButtonDown("Interact");
     }
 
-    void ProcessInput()
+    void ApplyInput()
     {
         if (input)
         {
