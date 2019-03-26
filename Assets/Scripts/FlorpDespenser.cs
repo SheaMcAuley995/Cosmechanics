@@ -8,22 +8,25 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     public GameObject florpPrefab;
     public static FlorpDespenser instance;
     public Transform florpEjection;
+    [SerializeField]private float lerpTime = 1f;
 
     public float speed = 20f;
+    GameObject dispensedFlorp;
 
     public void InteractWith()
-    {
-        Debug.Log("we got here");
-           GiveFlorp();
-        
+    { 
+           GiveFlorp();   
         
     }
+  
 
     private void GiveFlorp()
     {
-        GameObject florp = Instantiate(florpPrefab, transform.position + new Vector3(0,2,0), Quaternion.identity);
+        
+        dispensedFlorp = Instantiate(florpPrefab, florpEjection.position + new Vector3(0,2,0), Quaternion.identity);
         AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.9f, 1f), 0);
-        float up = florp.GetComponent<Rigidbody>().velocity.y;
-        up += speed;
+       
+        
     }
+  
 }
