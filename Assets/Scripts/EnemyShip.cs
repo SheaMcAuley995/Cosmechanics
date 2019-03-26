@@ -35,17 +35,15 @@ public class EnemyShip : MonoBehaviour {
                 ShipHealth.instance.gotHit = false;
             }
         ImAFirinMahLaser();
-        Debug.Log(lasers.ToString());
+        
     }
 
     private void ImAFirinMahLaser()
     {
         foreach (var blast in lasers)
         {
-            Debug.DrawLine(blast.transform.position, impactPoint, GizmoColor);
-            //blast.transform.LookAt(ShipHealth.instance.attackLocation);
-            //blast.GetComponent<Rigidbody>().AddForce(blast.transform.forward * laserSpeed, ForceMode.Impulse);
             blast.transform.Translate(blast.transform.forward  * laserSpeed * Time.deltaTime, Space.World);
+            Destroy(blast, 4);
         }      
     }
 
@@ -54,6 +52,6 @@ public class EnemyShip : MonoBehaviour {
         Gizmos.color = GizmoColor;
         Gizmos.DrawWireSphere(ShipHealth.instance.attackLocation, gizmoSize);
         Gizmos.DrawSphere(enemyShipPosition.position, gizmoSize);
-        Gizmos.DrawWireMesh(mesh, 0, enemyShipPosition.position, enemyShipPosition.rotation,new Vector3(1,1,1));
+        Gizmos.DrawWireMesh(mesh, 0, enemyShipPosition.position, enemyShipPosition.rotation, new Vector3(1,1,1));
     }
 }

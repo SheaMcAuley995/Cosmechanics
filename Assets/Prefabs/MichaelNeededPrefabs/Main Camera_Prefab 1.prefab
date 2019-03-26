@@ -31,19 +31,49 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1813566858175108
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4751317069573292}
+  - component: {fileID: 114908536976258908}
+  m_Layer: 0
+  m_Name: AudioEventManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4559768341274852
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1720390821755832}
-  m_LocalRotation: {x: 0.191066, y: 0, z: 0, w: 0.9815773}
-  m_LocalPosition: {x: 12.257484, y: 5.01, z: -36.430267}
+  m_LocalRotation: {x: 0.42766556, y: 0, z: 0, w: 0.9039371}
+  m_LocalPosition: {x: 10.13, y: 16.46, z: -22.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4751317069573292}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 22.03, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 50.639004, y: 0, z: 0}
+--- !u!4 &4751317069573292
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813566858175108}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4559768341274852}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &20992281330855882
 Camera:
   m_ObjectHideFlags: 1
@@ -66,7 +96,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 39
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -78,7 +108,7 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 1
-  m_AllowMSAA: 1
+  m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 1
   m_OcclusionCulling: 1
@@ -102,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d47eae0c5e75796418463742e9a371dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Pitch: 60
+  Pitch: 50
   Yaw: 0
   Roll: 0
   PaddingLeft: 5
@@ -125,7 +155,7 @@ MonoBehaviour:
   volumeLayer:
     serializedVersion: 2
     m_Bits: 256
-  stopNaNPropagation: 1
+  stopNaNPropagation: 0
   finalBlitToCameraTarget: 1
   antialiasingMode: 1
   temporalAntialiasing:
@@ -139,7 +169,7 @@ MonoBehaviour:
     fastMode: 0
     keepAlpha: 0
   fog:
-    enabled: 1
+    enabled: 0
     excludeSkybox: 1
   debugLayer:
     lightMeter:
@@ -169,6 +199,66 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!114 &114908536976258908
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1813566858175108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da40497a8de2b2048b66c3c75c1f1b13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Theme
+    clip: {fileID: 8300000, guid: 55ac3b9b837cf5f4a8094f8e622d505c, type: 3}
+    volume: 0.549
+    pitch: 0.801
+    pan: 0
+    loop: 1
+    onAwake: 0
+    source: {fileID: 0}
+  - name: AlarmRight
+    clip: {fileID: 8300000, guid: 08c0943ef8ff07f478da6e322e2e6c3f, type: 3}
+    volume: 0.451
+    pitch: 1
+    pan: 0.79
+    loop: 1
+    onAwake: 0
+    source: {fileID: 0}
+  - name: AlarmLeft
+    clip: {fileID: 8300000, guid: 08c0943ef8ff07f478da6e322e2e6c3f, type: 3}
+    volume: 0.451
+    pitch: 1
+    pan: -0.79
+    loop: 1
+    onAwake: 0
+    source: {fileID: 0}
+  - name: clang
+    clip: {fileID: 8300000, guid: 993f652d1e618484a93a8c91f4d2bf49, type: 3}
+    volume: 0.509
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: bang
+    clip: {fileID: 8300000, guid: 37e5c152bc78a4c4ea791baeb22946db, type: 3}
+    volume: 1
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: splat
+    clip: {fileID: 8300000, guid: 5f3441fd57bf8154ba86d8da0605c7e9, type: 3}
+    volume: 1
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
 --- !u!114 &114974501348112034
 MonoBehaviour:
   m_ObjectHideFlags: 1
