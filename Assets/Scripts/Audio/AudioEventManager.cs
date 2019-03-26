@@ -6,11 +6,11 @@ using UnityEngine.Audio;
 
 public class AudioEventManager : MonoBehaviour {
 
-    public enum AudioClipType {Music, Effect, Other};
+    
 
     public List<Sound> sounds;
     [HideInInspector]
-    public AudioEventManager instance;
+    public static AudioEventManager instance;
 
     private void Awake()
     {
@@ -38,6 +38,21 @@ public class AudioEventManager : MonoBehaviour {
         }
         
     }
+    public void PlaySound(string name, float volume, float pitch, float pan)
+    {
+       
+        Sound s = Array.Find(sounds.ToArray(), sound => sound.name == name);
+        if (s == null)
+        {
+            return;
+        }
+        s.source.volume = volume;
+        s.source.pitch = pitch;
+        s.source.panStereo = pan;
+        s.source.Play(); 
+        
+    
+    } //play sound fucntion with maximum overolads
     public void PlaySound(string name)
     {
         Sound s = Array.Find(sounds.ToArray(), sound => sound.name == name);
@@ -45,13 +60,11 @@ public class AudioEventManager : MonoBehaviour {
         {
             return;
         }
-        s.source.Play();  
-    
-    }
+        s.source.Play();
+    } //Simple Play Sound function
+
     private void Start()
     {
-        PlaySound("Theme");
-        
-        //PlaySound("AlarmRight");
+        PlaySound("Theme");        
     }
 }

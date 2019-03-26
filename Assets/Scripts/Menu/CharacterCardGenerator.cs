@@ -28,11 +28,14 @@ public class CharacterCardGenerator : MonoBehaviour
 {
     public CharacterData data;
     public CharacterData[] savedCharacters;
+    public CameraMultiTarget cameraMultiTarget;
 
-    #region UI Selection Pool
+    #region Selection Pool
     /// Image displays
     public RenderTexture videoFeed1, videoFeed2, videoFeed3, videoFeed4;
     public Sprite gender1, gender2, gender3, gender4;
+    /// Character prefabs
+    public GameObject character1, character2, character3, character4;
     #endregion
 
     /// Lists
@@ -42,18 +45,23 @@ public class CharacterCardGenerator : MonoBehaviour
     List<Sprite> gendersList = new List<Sprite>();
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
+    List<GameObject> prefabsList = new List<GameObject>();
+
+    GameObject lastSelectedPlayer;
+    [HideInInspector] public Vector3 spawnPos;
 
     /// Random selection variables
-    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex;
+    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex;
 
     int numOfSaves = 0;
+    int currentPlayerId = 0;
 
     // Use this for initialization
     void Awake()
     {
         #region Generated List Content
         #region Video Feeds
-        /// 5 portraits added to the list using the ListExtension class
+        /// 4 video feeds added to the list using the ListExtension class
         videoFeedList.AddMany(videoFeed1, videoFeed2, videoFeed3, videoFeed4);
         #endregion
 
@@ -153,34 +161,63 @@ public class CharacterCardGenerator : MonoBehaviour
             "To be given laxatives and pushed into space so that their last act will be to boldly go where no one has gone before",
             "To be stranded on an ocean planet near the event horizon of a black hole");
         #endregion
+
+        #region Prefabs
+        /// 4 character prefabs added to the list using the ListExtension class
+        prefabsList.AddMany(character1, character2, character3, character4);
         #endregion
+        #endregion
+
+        cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
     }
 
     /// Generates a new prisoner card
     public void GenerateCard()
     {
+        Destroy(lastSelectedPlayer);
+
         /// Utilizes the constructor to create new data for the character card
         CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        videoFeedIndex = Random.Range(0, 4);
+        prefabIndex = Random.Range(0, 4);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
-        //DetermineAgeBias(); My frens don't like it so I'm killing it until I make cases for each species. :'( 
         genderIndex = Random.Range(0, 4);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
         #endregion
 
         #region Character Card Display Setter
-        newCharacter.videoFeedField.texture = videoFeedList[videoFeedIndex]; /// Sets the character card's video feed to the randomly selected feed.
+        #region Don't Look At Me, I'm Hideous!
+        // I did warn you.
+        if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos1").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[0];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos2").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[1];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos3").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[2];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos4").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[3];
+        }
+        #endregion
         newCharacter.nameField.text = namesList[nameIndex]; /// Sets the character card's name to the randomly selected portrait.
         newCharacter.ageField.text = agesList[ageIndex].ToString(); /// Sets the character card's age to the pseudo-randomly selected age.
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
         #endregion
+
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        lastSelectedPlayer = newPlayer.gameObject;
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;

@@ -19,12 +19,12 @@ public class ExampleGameController : MonoBehaviour
 
     private void OnValidate()
     {
-        setSpawnPoints();
+        
     }
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+       // DontDestroyOnLoad(this.gameObject);
         if(instance == null)
         {
             instance = this;
@@ -34,9 +34,15 @@ public class ExampleGameController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (SceneManager.sceneCount == 1)
-        {
-            var targets = new List<GameObject>(numberOfPlayers);
+    }
+
+    
+    private void Start()
+    {
+            if (true)
+              {
+                setSpawnPoints();
+                var targets = new List<GameObject>(numberOfPlayers);
 
             for (int i = 0; i < numberOfPlayers; i++)
             {
@@ -45,47 +51,47 @@ public class ExampleGameController : MonoBehaviour
                 cameraMultiTarget.SetTargets(targets.ToArray());
             }
 
-        }
+                }
 
         SceneManager.activeSceneChanged += MakePlayers;
         SceneManager.activeSceneChanged += cameraCheck;
     }
 
-    private void cameraCheck(Scene current, Scene next)
-    {
-        if (Camera.main.GetComponent<CameraMultiTarget>() != null)
-        {
-            cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
-        }
-
-    }
-
-    private void MakePlayers(Scene current, Scene next) {
-
-        string currentName = current.name;
-
-        if (currentName == null)
-        {
-            currentName = "Replaced";
-        }
-
-        Debug.Log("Scenes: " + currentName + ", " + next.name);
-
-        foreach(string scene in spawnableScenes)
-        {
-            if(currentName == scene)
-            {
-                var targets = new List<GameObject>(numberOfPlayers);
-                Debug.Log(currentName + " works as a scene");
-                for (int i = 0; i < numberOfPlayers; i++)
-                {
-
-                    targets.Add(addPlayer());
-                    cameraMultiTarget.SetTargets(targets.ToArray());
-                }
-            }
-        }
-    }
+     private void cameraCheck(Scene current, Scene next)
+     {
+         if (Camera.main.GetComponent<CameraMultiTarget>() != null)
+         {
+             cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
+         }
+    
+     }
+    
+     private void MakePlayers(Scene current, Scene next) {
+    
+         string currentName = current.name;
+    
+         if (currentName == null)
+         {
+             currentName = "Replaced";
+         }
+    
+         Debug.Log("Scenes: " + currentName + ", " + next.name);
+    
+         foreach(string scene in spawnableScenes)
+         {
+             if(currentName == scene)
+             {
+                 var targets = new List<GameObject>(numberOfPlayers);
+                 Debug.Log(currentName + " works as a scene");
+                 for (int i = 0; i < numberOfPlayers; i++)
+                 {
+    
+                     targets.Add(addPlayer());
+                     cameraMultiTarget.SetTargets(targets.ToArray());
+                 }
+             }
+         }
+     }
 
     public void setSpawnPoints()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PickUp : MonoBehaviour {
 
-    Rigidbody rb;
+    public Rigidbody rb;
 
     private void Start()
     {
@@ -18,6 +18,7 @@ public class PickUp : MonoBehaviour {
         transform.SetParent(pickUpTransform);
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
+        AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.5f, .7f), 0);
     }
 
     public void putMeDown()

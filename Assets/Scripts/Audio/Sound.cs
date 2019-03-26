@@ -17,7 +17,7 @@ public class Sound {
     public float pan;
     public bool loop;
     public bool onAwake;
-    [HideInInspector]
+    //[HideInInspector]
     public AudioSource source;
 
 }
