@@ -97,12 +97,13 @@ public class ShipHealth : MonoBehaviour {
 
         if (shipCurrenHealth <= 0)
         {
-            LoseGame();
+            //LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);
        
         Destroy(newBlast);
+        //Grid.instance.GenerateFire();
 
         yield return null;
     }
