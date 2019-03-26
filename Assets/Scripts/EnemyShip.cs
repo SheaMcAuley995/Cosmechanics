@@ -35,7 +35,7 @@ public class EnemyShip : MonoBehaviour {
                 ShipHealth.instance.gotHit = false;
             }
         ImAFirinMahLaser();
-        Debug.Log(lasers.ToString());
+        
     }
 
     private void ImAFirinMahLaser()
@@ -43,7 +43,7 @@ public class EnemyShip : MonoBehaviour {
         foreach (var blast in lasers)
         {
             blast.transform.Translate(blast.transform.forward  * laserSpeed * Time.deltaTime, Space.World);
-            
+            Destroy(blast, 4);
         }      
     }
 
