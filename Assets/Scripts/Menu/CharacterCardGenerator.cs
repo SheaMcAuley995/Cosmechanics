@@ -28,6 +28,7 @@ public class CharacterCardGenerator : MonoBehaviour
 {
     public CharacterData data;
     public CharacterData[] savedCharacters;
+    public CameraMultiTarget cameraMultiTarget;
 
     #region Selection Pool
     /// Image displays
@@ -35,7 +36,6 @@ public class CharacterCardGenerator : MonoBehaviour
     public Sprite gender1, gender2, gender3, gender4;
     /// Character prefabs
     public GameObject character1, character2, character3, character4;
-    public GameObject spawnPos1, spawnPos2, spawnPos3, spawnPos4;
     #endregion
 
     /// Lists
@@ -46,21 +46,21 @@ public class CharacterCardGenerator : MonoBehaviour
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
     List<GameObject> prefabsList = new List<GameObject>();
-    List<GameObject> spawnPosList = new List<GameObject>();
 
-    GameObject lastPlayer;
+    GameObject lastSelectedPlayer;
 
     /// Random selection variables
-    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, posIndex;
+    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex;
 
     int numOfSaves = 0;
+    int currentPlayerId = 0;
 
     // Use this for initialization
     void Awake()
     {
         #region Generated List Content
         #region Video Feeds
-        /// 5 portraits added to the list using the ListExtension class
+        /// 4 video feeds added to the list using the ListExtension class
         videoFeedList.AddMany(videoFeed1, videoFeed2, videoFeed3, videoFeed4);
         #endregion
 
@@ -165,26 +165,22 @@ public class CharacterCardGenerator : MonoBehaviour
         /// 4 character prefabs added to the list using the ListExtension class
         prefabsList.AddMany(character1, character2, character3, character4);
         #endregion
+        #endregion
 
-        #region Spawn Positions
-        spawnPosList.AddMany(spawnPos1, spawnPos2, spawnPos3, spawnPos4);
-        #endregion
-        #endregion
+        cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
     }
 
     /// Generates a new prisoner card
     public void GenerateCard()
     {
-        Destroy(lastPlayer);
+        Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
         CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        videoFeedIndex = Random.Range(0, 4);
         prefabIndex = Random.Range(0, 4);
-        posIndex = prefabIndex;
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
         genderIndex = Random.Range(0, 4);
@@ -193,7 +189,7 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Character Card Display Setter
-        newCharacter.videoFeedField.texture = videoFeedList[videoFeedIndex]; /// Sets the character card's video feed to the randomly selected feed.
+        newCharacter.videoFeedField.texture = videoFeedList[prefabIndex]; /// Sets the character card's video feed to the randomly selected character.
         newCharacter.nameField.text = namesList[nameIndex]; /// Sets the character card's name to the randomly selected portrait.
         newCharacter.ageField.text = agesList[ageIndex].ToString(); /// Sets the character card's age to the pseudo-randomly selected age.
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
@@ -202,7 +198,7 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         Vector3 spawnPos = Vector3.zero;
-        switch (posIndex)
+        switch (prefabIndex)
         {
             case 0:
                 spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
@@ -217,8 +213,9 @@ public class CharacterCardGenerator : MonoBehaviour
                 spawnPos = GameObject.FindGameObjectWithTag("SpawnPos4").transform.position;
                 break;
         }       
+
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
-        lastPlayer = newPlayer.gameObject;
+        lastSelectedPlayer = newPlayer.gameObject;
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
