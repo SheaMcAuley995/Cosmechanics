@@ -1,17 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Engine : MonoBehaviour {
 
+    [Header("Engine Statistics")]
     public float engineHeat;
     public float maxHeat;
     public float engineCoolingAmount;
 
+    [Header("Win Condition")]
+    public float winConditionLimit;
+    public float currentProgress;
+    public float enemyProgress;
+    public float progressionMultiplier;
+
+    public Slider slider;
+
+    [Header("Debug Tools")]
     public bool testInputFlorp = false;
     public void Start()
     {
         engineHeat = maxHeat / 2;
+        currentProgress = winConditionLimit / 4;
     }
 
     public void Update()
@@ -22,6 +34,9 @@ public class Engine : MonoBehaviour {
             InsertFlorp();
             testInputFlorp = false;
         }
+
+        currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
+        slider.value = currentProgress / winConditionLimit;
     }
 
     public void InsertFlorp()
