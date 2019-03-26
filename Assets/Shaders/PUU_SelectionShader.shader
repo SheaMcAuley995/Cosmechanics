@@ -98,8 +98,8 @@ Shader "Custom/PUU_SelectionShader" {
                 float specPow = exp2( gloss * 10.0 + 1.0 );
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
-                float4 node_809 = _Time;
-                float2 node_1247 = (i.uv0+node_809.g*float2(0,0.1));
+                float4 node_2977 = _Time;
+                float2 node_1247 = (i.uv0+node_2977.g*float2(0,0.1));
                 float4 _Noise_var = tex2D(_Noise,TRANSFORM_TEX(node_1247, _Noise));
                 float2 node_4385_skew = node_1247 + 0.2127+node_1247.x*0.3713*node_1247.y;
                 float2 node_4385_rnd = 4.789*sin(489.123*(node_4385_skew));
@@ -201,8 +201,8 @@ Shader "Custom/PUU_SelectionShader" {
                 float specPow = exp2( gloss * 10.0 + 1.0 );
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
-                float4 node_9971 = _Time;
-                float2 node_1247 = (i.uv0+node_9971.g*float2(0,0.1));
+                float4 node_8088 = _Time;
+                float2 node_1247 = (i.uv0+node_8088.g*float2(0,0.1));
                 float4 _Noise_var = tex2D(_Noise,TRANSFORM_TEX(node_1247, _Noise));
                 float2 node_4385_skew = node_1247 + 0.2127+node_1247.x*0.3713*node_1247.y;
                 float2 node_4385_rnd = 4.789*sin(489.123*(node_4385_skew));
