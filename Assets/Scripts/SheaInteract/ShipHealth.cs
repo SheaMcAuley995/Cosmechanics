@@ -118,7 +118,7 @@ public class ShipHealth : MonoBehaviour {
     {
         // TODO: Make UI prettier and animate
         loseGameScreen.SetActive(true);
-        //Time.timeScale = Mathf.Lerp(1f, 0.2f, 2f);
+        Time.timeScale = 0f;
     }
 
     private void OnDrawGizmosSelected()
