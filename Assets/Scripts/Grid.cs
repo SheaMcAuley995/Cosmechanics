@@ -6,6 +6,7 @@ public class Grid : MonoBehaviour {
 
     public static Grid instance;
 
+    public GameObject fireEffect;
     public LayerMask flamableMask;
     public Vector3 gridWorldSize;
     public float nodeRadius;
@@ -16,6 +17,15 @@ public class Grid : MonoBehaviour {
 
     [SerializeField] bool GenerateGrid;
     [SerializeField] bool LightFire;
+
+    void Awake()
+    {
+        nodeDiameter = nodeRadius * 2;
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+
+        CreateGrid();
+    }
 
     void CreateGrid()
     {
@@ -59,13 +69,26 @@ public class Grid : MonoBehaviour {
     }
 
 
-    void GenerateFire()
+    public void GenerateFire()
     {
         Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        //Node fireStartPosition = grid[(int)ShipHealth.instance.attackLocation.x, (int)ShipHealth.instance.attackLocation.z];
 
+        int safetyNet = 0;
         while(fireStartPosition.isFlamable != true)
         {
             fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+            //fireStartPosition = grid[(int)ShipHealth.instance.attackLocation.x, (int)ShipHealth.instance.attackLocation.z];
+            safetyNet++;
+
+            GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+            Debug.Log("Fiyah");
+
+            if (safetyNet > 50)
+            {
+                Debug.Log("#Nope");
+                break;
+            }
         }
 
 
