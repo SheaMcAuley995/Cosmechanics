@@ -42,9 +42,20 @@ public class EnemyShip : MonoBehaviour {
     {
         foreach (var blast in lasers)
         {
+
             blast.transform.Translate(blast.transform.forward  * laserSpeed * Time.deltaTime, Space.World);
-            Destroy(blast, 4);
+            //StartCoroutine(killMe());
         }      
+    }
+    IEnumerator killMe()
+    {
+        yield return new WaitForSeconds(1.5f);
+        foreach (var blast in lasers)
+        {
+
+            Destroy(blast);
+        }
+        
     }
 
     private void OnDrawGizmosSelected()
