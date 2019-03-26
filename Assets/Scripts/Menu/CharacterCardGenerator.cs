@@ -29,10 +29,13 @@ public class CharacterCardGenerator : MonoBehaviour
     public CharacterData data;
     public CharacterData[] savedCharacters;
 
-    #region UI Selection Pool
+    #region Selection Pool
     /// Image displays
     public RenderTexture videoFeed1, videoFeed2, videoFeed3, videoFeed4;
     public Sprite gender1, gender2, gender3, gender4;
+    /// Character prefabs
+    public GameObject character1, character2, character3, character4;
+    public GameObject spawnPos1, spawnPos2, spawnPos3, spawnPos4;
     #endregion
 
     /// Lists
@@ -42,9 +45,13 @@ public class CharacterCardGenerator : MonoBehaviour
     List<Sprite> gendersList = new List<Sprite>();
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
+    List<GameObject> prefabsList = new List<GameObject>();
+    List<GameObject> spawnPosList = new List<GameObject>();
+
+    GameObject lastPlayer;
 
     /// Random selection variables
-    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex;
+    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, posIndex;
 
     int numOfSaves = 0;
 
@@ -153,21 +160,33 @@ public class CharacterCardGenerator : MonoBehaviour
             "To be given laxatives and pushed into space so that their last act will be to boldly go where no one has gone before",
             "To be stranded on an ocean planet near the event horizon of a black hole");
         #endregion
+
+        #region Prefabs
+        /// 4 character prefabs added to the list using the ListExtension class
+        prefabsList.AddMany(character1, character2, character3, character4);
+        #endregion
+
+        #region Spawn Positions
+        spawnPosList.AddMany(spawnPos1, spawnPos2, spawnPos3, spawnPos4);
+        #endregion
         #endregion
     }
 
     /// Generates a new prisoner card
     public void GenerateCard()
     {
+        Destroy(lastPlayer);
+
         /// Utilizes the constructor to create new data for the character card
         CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
         videoFeedIndex = Random.Range(0, 4);
+        prefabIndex = Random.Range(0, 4);
+        posIndex = prefabIndex;
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
-        //DetermineAgeBias(); My frens don't like it so I'm killing it until I make cases for each species. :'( 
         genderIndex = Random.Range(0, 4);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
@@ -181,6 +200,25 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
         #endregion
+
+        Vector3 spawnPos = Vector3.zero;
+        switch (posIndex)
+        {
+            case 0:
+                spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
+                break;
+            case 1:
+                spawnPos = GameObject.FindGameObjectWithTag("SpawnPos2").transform.position;
+                break;
+            case 2:
+                spawnPos = GameObject.FindGameObjectWithTag("SpawnPos3").transform.position;
+                break;
+            case 3:
+                spawnPos = GameObject.FindGameObjectWithTag("SpawnPos4").transform.position;
+                break;
+        }       
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        lastPlayer = newPlayer.gameObject;
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
