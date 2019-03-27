@@ -86,7 +86,7 @@ public class Grid : MonoBehaviour {
 
         if (chanceToStartFire > 5)
         {
-            //Debug.Log("In this house we stan the fire gods");
+            Debug.Log("In this house we stan the fire gods");
             Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
             foreach (var firePosition in fireLocation)
             {
@@ -107,26 +107,26 @@ public class Grid : MonoBehaviour {
 
     public void GenerateEngineFire()
     {
-        Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        //Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
 
-        int safetyNet = 0;
-        while (fireStartPosition.isFlamable != true)
-        {
-            fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
-            safetyNet++;
+        //int safetyNet = 0;
+        //while (fireStartPosition.isFlamable != true)
+        //{
+        //    fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        //    safetyNet++;
 
-            //Debug.Log("Fiyah");
-            GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
-            fires.Add(fire);
+        //    //Debug.Log("Fiyah");
+        //    GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+        //    fires.Add(fire);
 
-            if (safetyNet > 100)
-            {
-                //Debug.Log("#Nope");
-                break;
-            }
-        }
+        //    if (safetyNet > 100)
+        //    {
+        //        //Debug.Log("#Nope");
+        //        break;
+        //    }
+        //}
 
-        fireStartPosition.isFlamable = false;
+        //fireStartPosition.isFlamable = false;
     }
 
 
@@ -156,5 +156,4 @@ public class Grid : MonoBehaviour {
         }
 
     }
-
 }
