@@ -79,40 +79,51 @@ public class Grid : MonoBehaviour {
     }
 
 
-    public void GenerateFire(Node firePos)
+    public void GenerateLaserFire(Node firePos)
     {
-        //Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
-        //Node fireStartPosition = grid[(int)ShipHealth.instance.attackLocation.x, (int)ShipHealth.instance.attackLocation.y];
+        int chanceToStartFire = Random.Range(1, 11);
 
-        Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
-        foreach (var firePosition in fireLocation)
+        if (chanceToStartFire > 5)
         {
-            if (firePos.isFlamable)
+            Debug.Log("In this house we stan the fire gods");
+            Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
+            foreach (var firePosition in fireLocation)
             {
-                Debug.Log("We GOT here");
-                GameObject fire = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
-                firePos.isFlamable = false;
+                if (firePos.isFlamable)
+                {
+                    //Debug.Log("We GOT here");
+                    GameObject fire = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+                    firePos.isFlamable = false;
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("No fire this time");
+        }
+    }
+
+    public void GenerateEngineFire()
+    {
+        Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+
+        int safetyNet = 0;
+        while (fireStartPosition.isFlamable != true)
+        {
+            fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+            safetyNet++;
+
+            GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+            //Debug.Log("Fiyah");
+
+            if (safetyNet > 50)
+            {
+                //Debug.Log("#Nope");
+                break;
             }
         }
 
-        //int safetyNet = 0;
-        //while(fireStartPosition.isFlamable != true)
-        //{
-        //    //fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
-        //    fireStartPosition = grid[(int)ShipHealth.instance.attackLocation.x, (int)ShipHealth.instance.attackLocation.y];
-        //    safetyNet++;
-
-        //    GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
-        //    Debug.Log("Fiyah");
-
-        //    if (safetyNet > 50)
-        //    {
-        //        Debug.Log("#Nope");
-        //        break;
-        //    }
-        //}        
-
-        //fireStartPosition.isFlamable = false;
+        fireStartPosition.isFlamable = false;
     }
 
 

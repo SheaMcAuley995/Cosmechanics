@@ -46,13 +46,13 @@ public class ShipHealth : MonoBehaviour {
     {
         for(int i = 0; i < possibleAttackPositions.Length; i++)
         {
-            Debug.Log("I :" + i);
+            //Debug.Log("I :" + i);
             for(int j = 0; j < Grid.instance.gridSizeX; j++)
             {
-                Debug.Log("J :" +j);
+                //Debug.Log("J :" +j);
                 for (int k = 0; k < Grid.instance.gridSizeY; k++)
                 {
-                    Debug.Log("K :" +k);
+                    //Debug.Log("K :" +k);
                     if ((Vector3.Distance(Grid.instance.grid[j,k].worldPosition , possibleAttackPositions[i].worldPositon) <= explosionRadius))
                     {
                         if(Grid.instance.grid[j, k].isFlamable)
@@ -75,6 +75,7 @@ public class ShipHealth : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
        // shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
@@ -96,8 +97,7 @@ public class ShipHealth : MonoBehaviour {
             while (attackLocation == lastHitLocaton)
             {
                 locationIndex = Random.Range(0, possibleAttackPositions.Length);
-                //attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
-                //attackLocation = possibleAttackPositions[locationIndex];
+                attackLocation = possibleAttackPositions[locationIndex].worldPositon;
             }
         }
         else
@@ -113,7 +113,7 @@ public class ShipHealth : MonoBehaviour {
 
         
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
-        Grid.instance.GenerateFire(possibleAttackPositions[locationIndex].nodes[index]);
+        Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 
         Collider[] damagedObjects = Physics.OverlapSphere(attackLocation, explosionRadius, interactableLayerMask);
 
