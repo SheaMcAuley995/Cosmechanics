@@ -139,7 +139,7 @@ public class ShipHealth : MonoBehaviour {
         yield return null;
     }
 
-    void AdjustUI()
+    public void AdjustUI()
     {
         //Debug.Log(shipCurrenHealth / shipMaxHealth);
         healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
