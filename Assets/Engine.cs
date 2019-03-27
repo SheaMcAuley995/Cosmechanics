@@ -9,6 +9,7 @@ public class Engine : MonoBehaviour {
     public float engineHeat;
     public float maxHeat;
     public float engineCoolingAmount;
+    [SerializeField] [Range(0, 1)] float florpCoolingPercentage;
 
     [Header("Win Condition")]
     public float winConditionLimit;
@@ -41,7 +42,7 @@ public class Engine : MonoBehaviour {
 
     public void InsertFlorp()
     {
-        engineHeat = Mathf.Clamp(engineHeat += 25, 0, maxHeat);
+        engineHeat = Mathf.Clamp(engineHeat += maxHeat * florpCoolingPercentage, 0, maxHeat);
     }
 
     public float engineHeatPercentage()
