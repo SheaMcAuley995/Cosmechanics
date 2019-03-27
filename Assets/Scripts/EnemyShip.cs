@@ -11,6 +11,7 @@ public class EnemyShip : MonoBehaviour {
     private Vector3 impactPoint;
     public float laserSpeed= 100f;
     public List<GameObject> lasers;
+    
     [Space]
 
     [Header("Gizmos")]
@@ -20,6 +21,7 @@ public class EnemyShip : MonoBehaviour {
     // Use this for initialization
     void Start () {
         Vector3 enemy = enemyShipPosition.position;
+
 	}
 	
 	// Update is called once per frame
