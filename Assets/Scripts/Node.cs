@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Node : MonoBehaviour  {
 
-
+    public BoxCollider box;
     public bool isFlamable;
     public Vector3 worldPosition;
     public int gridX;

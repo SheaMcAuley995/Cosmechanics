@@ -25,9 +25,11 @@ public class ShipHealth : MonoBehaviour {
     [SerializeField] int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
     [Space]
-    [SerializeField] Vector3[] possibleAttackPositions;
+    [SerializeField] AttackLocation[] possibleAttackPositions;
+    int locationIndex;
 
     [HideInInspector]public Vector3 attackLocation;
+    //public List<Node> nodes = new List<Node>();
     Vector3 lastHitLocaton;
     [HideInInspector] public bool gotHit;           //michael add
 
@@ -36,10 +38,35 @@ public class ShipHealth : MonoBehaviour {
     public TextMeshProUGUI healthText;
     public GameObject loseGameScreen;
 
+    int index;
+
 
 
     private void Start()
     {
+        for(int i = 0; i < possibleAttackPositions.Length; i++)
+        {
+            Debug.Log("I :" + i);
+            for(int j = 0; j < Grid.instance.gridSizeX; j++)
+            {
+                Debug.Log("J :" +j);
+                for (int k = 0; k < Grid.instance.gridSizeY; k++)
+                {
+                    Debug.Log("K :" +k);
+                    if ((Vector3.Distance(Grid.instance.grid[j,k].worldPosition , possibleAttackPositions[i].worldPositon) <= explosionRadius))
+                    {
+                        if(Grid.instance.grid[j, k].isFlamable)
+                        {
+                            
+                            possibleAttackPositions[i].nodes.Add(Grid.instance.grid[j, k]);
+                        }
+                    }
+                }
+            }
+        }
+
+
+
         if (instance == null)
         {
             instance = this;
@@ -64,17 +91,18 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator shipBlast()
     {
-
-        if(attackLocation != null)
+        if (attackLocation != null)
         {
             while (attackLocation == lastHitLocaton)
             {
-                attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)];
+                locationIndex = Random.Range(0, possibleAttackPositions.Length);
+                //attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
+                //attackLocation = possibleAttackPositions[locationIndex];
             }
         }
         else
         {
-            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)];
+            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
         }
 
         lastHitLocaton = attackLocation;
@@ -82,6 +110,10 @@ public class ShipHealth : MonoBehaviour {
         yield return new WaitForSeconds(.5f);     //delay in travel time of laser
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
+
+        
+        index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
+        Grid.instance.GenerateFire(possibleAttackPositions[locationIndex].nodes[index]);
 
         Collider[] damagedObjects = Physics.OverlapSphere(attackLocation, explosionRadius, interactableLayerMask);
 
@@ -103,7 +135,6 @@ public class ShipHealth : MonoBehaviour {
         yield return new WaitForSeconds(1.5f);
        
         Destroy(newBlast);
-        //Grid.instance.GenerateFire();
 
         yield return null;
     }
@@ -124,14 +155,14 @@ public class ShipHealth : MonoBehaviour {
 
     private void OnDrawGizmosSelected()
     {
-        foreach (Vector3 attackPosition in possibleAttackPositions)
+        foreach (AttackLocation attackPosition in possibleAttackPositions)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(attackPosition, explosionRadius);
+            Gizmos.DrawWireSphere(attackPosition.worldPositon, explosionRadius);
             Gizmos.color = Color.green;
-            Gizmos.DrawWireSphere(attackPosition, 0.5f);
+            Gizmos.DrawWireSphere(attackPosition.worldPositon, 0.5f);
 
-            Collider[] damagedObjects = Physics.OverlapSphere(attackPosition, explosionRadius, interactableLayerMask);
+            Collider[] damagedObjects = Physics.OverlapSphere(attackPosition.worldPositon, explosionRadius, interactableLayerMask);
 
             foreach (Collider damagedObject in damagedObjects)
             {
