@@ -186,7 +186,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4962830699647252}
-  - component: {fileID: 114421948857082470}
   m_Layer: 0
   m_Name: Env_Pipe_Broken
   m_TagString: Untagged
@@ -236,7 +235,6 @@ GameObject:
   - component: {fileID: 4158996535362038}
   - component: {fileID: 54940188674509288}
   - component: {fileID: 136380756411930454}
-  - component: {fileID: 114938599454616516}
   m_Layer: 9
   m_Name: Env_Pipe_Piece
   m_TagString: Untagged
@@ -726,36 +724,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114421948857082470
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1481207214611290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d92e442ce152194885c5aa613f67d44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114938599454616516
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1637698041436854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2e56340d2dc4fc4890ae20d499b28dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myInteractionType: 0
-  pickUpTransform: {fileID: 0}
-  thisRB: {fileID: 0}
-  pickedUp: 0
-  pickUpSpeed: 7
-  pipeTransform: {fileID: 4158996535362038}
-  pipeRB: {fileID: 54940188674509288}
-  damageThreshold: 0
 --- !u!136 &136380756411930454
 CapsuleCollider:
   m_ObjectHideFlags: 1
