@@ -28,6 +28,7 @@ public class FlorpReceptor : MonoBehaviour, IInteractable {
         {
             currentFlorp += other.GetComponent<Florp>().containedFlorp;
             Destroy(other.gameObject);
+            AudioEventManager.instance.PlaySound("reversesplat",.3f, Random.Range(.5f, .7f), 0);
         }
     }
 }

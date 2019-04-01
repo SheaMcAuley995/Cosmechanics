@@ -20,7 +20,7 @@ public class Florp : PickUp
     }
     public override void pickMeUp(Transform pickUpTransform)
     {
-        AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.5f, .7f), 0);
+        AudioEventManager.instance.PlaySound("halfsplat", .3f, Random.Range(.5f, .7f), 0);
         base.pickMeUp(pickUpTransform);
     }
    
