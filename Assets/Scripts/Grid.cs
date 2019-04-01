@@ -86,7 +86,7 @@ public class Grid : MonoBehaviour {
 
         if (chanceToStartFire > 5)
         {
-            Debug.Log("In this house we stan the fire gods");
+            //Debug.Log("In this house we stan the fire gods");
             Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
             foreach (var firePosition in fireLocation)
             {

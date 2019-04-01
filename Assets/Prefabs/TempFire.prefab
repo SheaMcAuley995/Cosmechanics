@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 198879857051916926}
   - component: {fileID: 199096905157330608}
   - component: {fileID: 114651079128078814}
-  m_Layer: 0
+  - component: {fileID: 65148554904400414}
+  m_Layer: 14
   m_Name: TempFire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,12 +37,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1456169951030174}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -439.88818, y: -3.1011572, z: 82.415215}
+  m_LocalPosition: {x: 16.729012, y: 0, z: -6.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!65 &65148554904400414
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1456169951030174}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.2700818, y: 3.3116403, z: 6.3200016}
+  m_Center: {x: -0.025721192, y: -0.016088132, z: 2.4699929}
 --- !u!114 &114651079128078814
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53,10 +66,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5427af90f13ba04f833d753ee77bde0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackLocation:
+  fireLocation:
     worldPositon: {x: 0, y: 0, z: 0}
     nodes: []
   spreadTimer: 1
+  fireHealth: 2
+  damageToShip: 5
+  colliders: []
+  waterLayer:
+    serializedVersion: 2
+    m_Bits: 16
 --- !u!198 &198879857051916926
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -189,7 +208,7 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 5
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -243,7 +262,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 1, g: 1, b: 1, a: 1}
+      maxColor: {r: 1, g: 0.48850036, b: 0, a: 1}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -681,7 +700,7 @@ ParticleSystem:
     serializedVersion: 5
     enabled: 1
     type: 4
-    angle: 25
+    angle: 0
     length: 5
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
@@ -3459,7 +3478,7 @@ ParticleSystem:
   CollisionModule:
     enabled: 0
     serializedVersion: 3
-    type: 0
+    type: 1
     collisionMode: 0
     colliderForce: 0
     multiplyColliderForceByParticleSize: 0
@@ -3527,7 +3546,7 @@ ParticleSystem:
     m_Bounce:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3635,7 +3654,7 @@ ParticleSystem:
     radiusScale: 1
     collidesWith:
       serializedVersion: 2
-      m_Bits: 4294967295
+      m_Bits: 16
     maxCollisionShapes: 256
     quality: 0
     voxelSize: 0.5
@@ -3654,7 +3673,7 @@ ParticleSystem:
     outside: 0
     enter: 0
     exit: 0
-    radiusScale: 1
+    radiusScale: 5
   SubModule:
     serializedVersion: 2
     enabled: 0
