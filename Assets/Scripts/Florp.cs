@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Florp : PickUp
+public class Florp : PickUp,IInteractableTool
 {
     Vector3 zero = Vector3.zero;
     Vector3 one = Vector3.one;
@@ -10,6 +10,7 @@ public class Florp : PickUp
     public float lerpTime = 1.25f;
     public AnimationCurve curve;
     public float containedFlorp = 50f;
+
 
     private void Start()
     {
@@ -23,7 +24,12 @@ public class Florp : PickUp
         AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.5f, .7f), 0);
         base.pickMeUp(pickUpTransform);
     }
-   
+    public void toolInteraction()
+    {
+        Debug.Log(name + " is being interacted with");
+    }
+
+
     private void Update()
     {
         float timeSince = Time.time - initTime;
