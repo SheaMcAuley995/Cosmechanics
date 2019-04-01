@@ -10,10 +10,15 @@ public class Florp : PickUp,IInteractableTool
     public float lerpTime = 1.25f;
     public AnimationCurve curve;
     public float containedFlorp = 50f;
+    /*[HideInInspector]*/public bool doFill;
+    public Material empty;
+    public Material full;
+    bool isFilled =false;
 
 
     private void Start()
     {
+        doFill = false;
         transform.localScale = zero;
         rb = GetComponent<Rigidbody>();
         initTime = Time.time;
@@ -26,6 +31,13 @@ public class Florp : PickUp,IInteractableTool
     }
     public void toolInteraction()
     {
+        
+        if (doFill)
+        {
+            Material myMat = GetComponent<MeshRenderer>().material;
+            myMat.Lerp(empty, full, 1);
+            isFilled = true;   
+        }
         Debug.Log(name + " is being interacted with");
     }
 
