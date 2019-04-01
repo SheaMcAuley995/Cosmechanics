@@ -13,6 +13,7 @@ public class FlorpReceptor : MonoBehaviour {
         {
             engine.InsertFlorp();
             Destroy(other.gameObject);
+            AudioEventManager.instance.PlaySound("reversesplat",.3f, Random.Range(.5f, .7f), 0);
         }
     }
 }

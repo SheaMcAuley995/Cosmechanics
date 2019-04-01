@@ -12,11 +12,10 @@ public class Fire : MonoBehaviour
     public float fireHealth = 3f;
     public int damageToShip = 5;
 
-    List<Node> neighbouringNodes = new List<Node>();
     public Collider[] colliders;
     public LayerMask waterLayer;
 
-    Node thisNode;
+    public Node thisNode;
 
 
     void Awake()
@@ -26,12 +25,7 @@ public class Fire : MonoBehaviour
         ShipHealth.instance.shipCurrenHealth -= damageToShip;
         ShipHealth.instance.AdjustUI();
 
-        fireLocation.worldPositon = gameObject.transform.position;
-        //thisNode = Grid.instance.grid[(int)fireLocation.worldPositon.x, (int)fireLocation.worldPositon.y];
-        //attackLocation.nodes = Grid.instance.GetNeighbors(thisNode);
-        //neighbouringNodes = Grid.instance.GetNeighbors(thisNode);
-
-        //StartCoroutine(FireSpread());
+        StartCoroutine(FireSpread());
     }
 
     IEnumerator FireSpread()
@@ -39,12 +33,12 @@ public class Fire : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(spreadTimer);
-            int neighbourIndex = Random.Range(0, neighbouringNodes.Count);
-            if (neighbouringNodes[neighbourIndex].isFlamable)
+            int neighbourIndex = Random.Range(0, fireLocation.nodes.Count);
+            if (fireLocation.nodes[neighbourIndex].isFlamable)
             {
-                Grid.instance.GenerateLaserFire(neighbouringNodes[neighbourIndex]);
-                neighbouringNodes[neighbourIndex].isFlamable = false;
-                Debug.Log("Spreading flames");
+                Grid.instance.GenerateLaserFire(fireLocation.nodes[neighbourIndex]);
+                fireLocation.nodes[neighbourIndex].isFlamable = false;
+                //Debug.Log("Spreading Flames");
             }
         }
     }
@@ -70,7 +64,7 @@ public class Fire : MonoBehaviour
 
     void Extinguish()
     {
-        //thisNode.isFlamable = true;
+        thisNode.isFlamable = true;
         Destroy(this.gameObject);
     }
 }
