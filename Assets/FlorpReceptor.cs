@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlorpReceptor : MonoBehaviour, IInteractable {
-    public void InteractWith()
+public class FlorpReceptor : MonoBehaviour {
+
+
+    [SerializeField] Engine engine;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (true /*holding florp?*/)
+        if (other.tag == "Florp")
         {
-            //remove florp from player
-            //add amount florp to engines
+            engine.InsertFlorp();
+            Destroy(other.gameObject);
+            AudioEventManager.instance.PlaySound("reversesplat",.3f, Random.Range(.5f, .7f), 0);
         }
     }
-
-    
 }
