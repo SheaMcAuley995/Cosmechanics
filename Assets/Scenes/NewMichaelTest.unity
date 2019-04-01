@@ -2075,6 +2075,18 @@ Prefab:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 2300004, guid: 2532320cdcbab0d42bda6be97855cead, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c0476155550ea984aa6430267a980f9f, type: 2}
+    - target: {fileID: 2300006, guid: 2532320cdcbab0d42bda6be97855cead, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e1512f7ac4820e94c99a33442f4c4b60, type: 2}
+    - target: {fileID: 2300008, guid: 2532320cdcbab0d42bda6be97855cead, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 72740e5a11a1c314bac207566bc06bec, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2532320cdcbab0d42bda6be97855cead, type: 3}
   m_IsPrefabAsset: 0
@@ -21342,7 +21354,7 @@ Prefab:
     - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
         type: 2}
       propertyPath: numberOfPlayers
-      value: 4
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
@@ -24019,6 +24031,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610714503}
   m_Mesh: {fileID: 4300002, guid: b4d5e6cef3f5891419418a533f620f18, type: 3}
+--- !u!1 &611596634 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100008, guid: 2532320cdcbab0d42bda6be97855cead,
+    type: 3}
+  m_PrefabInternal: {fileID: 46734697}
+--- !u!114 &611596638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 611596634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24b78b950ec9b424f9577fc1f8712352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 3
+  rotateX: 25
+  rotateY: 0
+  rotateZ: 0
 --- !u!1 &615848882
 GameObject:
   m_ObjectHideFlags: 0
@@ -24656,7 +24688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb039e61104ad5409f28798cbfbdaa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxFlorpAmount: 0
+  maxFlorpAmount: 200
   currentFlorp: 0
 --- !u!65 &638681893
 BoxCollider:
@@ -48677,7 +48709,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1191265850
 GameObject:
@@ -70002,6 +70034,7 @@ GameObject:
   - component: {fileID: 1679538807}
   - component: {fileID: 1679538809}
   - component: {fileID: 1679538808}
+  - component: {fileID: 1679538810}
   m_Layer: 0
   m_Name: Alarm_Light
   m_TagString: Untagged
@@ -70067,6 +70100,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1679538806}
   m_Mesh: {fileID: 4300002, guid: d350eece28f488e47bdee3b71f93a7b7, type: 3}
+--- !u!114 &1679538810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1679538806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dff39bec195c8946b45914a969383db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warningMats:
+  - {fileID: 2100000, guid: e1512f7ac4820e94c99a33442f4c4b60, type: 2}
+  - {fileID: 2100000, guid: d85ddb325b2806246b4849a67c418f81, type: 2}
+  - {fileID: 2100000, guid: 114f9a72e81f5ef46b47db87732b6efd, type: 2}
 --- !u!1 &1681801620
 GameObject:
   m_ObjectHideFlags: 0
@@ -75934,6 +75982,21 @@ Prefab:
     - target: {fileID: 4559768341274852, guid: 142dbba1ebd108f44867010fca0e000e, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114908536976258908, guid: 142dbba1ebd108f44867010fca0e000e,
+        type: 2}
+      propertyPath: sounds.Array.data[7].name
+      value: reversesplat
+      objectReference: {fileID: 0}
+    - target: {fileID: 114908536976258908, guid: 142dbba1ebd108f44867010fca0e000e,
+        type: 2}
+      propertyPath: sounds.Array.data[7].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 28eded9535d14234a8486d963792723e, type: 3}
+    - target: {fileID: 114908536976258908, guid: 142dbba1ebd108f44867010fca0e000e,
+        type: 2}
+      propertyPath: sounds.Array.data[7].pitch
+      value: 0.8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 142dbba1ebd108f44867010fca0e000e, type: 2}
@@ -84818,7 +84881,7 @@ Prefab:
     - target: {fileID: 224494095473132072, guid: 21a2ad7d6919ee54499df4681f36bc02,
         type: 2}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 224494095473132072, guid: 21a2ad7d6919ee54499df4681f36bc02,
         type: 2}
