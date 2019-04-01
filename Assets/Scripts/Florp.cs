@@ -9,6 +9,7 @@ public class Florp : PickUp
     public float initTime;
     public float lerpTime = 1.25f;
     public AnimationCurve curve;
+    public float containedFlorp = 50f;
 
     private void Start()
     {
@@ -22,10 +23,7 @@ public class Florp : PickUp
         AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.5f, .7f), 0);
         base.pickMeUp(pickUpTransform);
     }
-    void BeFlorp()
-    {
-      
-    }
+   
     private void Update()
     {
         float timeSince = Time.time - initTime;
