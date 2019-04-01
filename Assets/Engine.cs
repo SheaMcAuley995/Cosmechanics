@@ -9,26 +9,30 @@ public class Engine : MonoBehaviour {
     public float engineHeat;
     public float maxHeat;
     public float engineCoolingAmount;
+    [SerializeField] [Range(0, 1)] float florpCoolingPercentage;
 
     [Header("Win Condition")]
+    public GameObject winGameUI;
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
     public float progressionMultiplier;
 
     public Slider slider;
-
+    
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
     public void Start()
     {
+        winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
-        currentProgress = winConditionLimit / 4;
+        currentProgress = winConditionLimit / 8;
     }
 
     public void Update()
     {
         engineHeat -= Time.deltaTime * engineCoolingAmount;
+        
         if(testInputFlorp)
         {
             InsertFlorp();
@@ -37,11 +41,23 @@ public class Engine : MonoBehaviour {
 
         currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
         slider.value = currentProgress / winConditionLimit;
+        engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
+
+        if(currentProgress > winConditionLimit)
+        {
+            winGameUI.SetActive(true);
+            BroadcastMessage("StopGame");
+        }
+    }
+
+    private void StopGame()
+    {
+        enabled = false;
     }
 
     public void InsertFlorp()
     {
-        engineHeat = Mathf.Clamp(engineHeat += 25, 0, maxHeat);
+        engineHeat = Mathf.Clamp(engineHeat += maxHeat * florpCoolingPercentage, 0, maxHeat);
     }
 
     public float engineHeatPercentage()
