@@ -2,18 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireExtinguisher : MonoBehaviour
+public class FireExtinguisher : MonoBehaviour, IInteractable
 {
+    public ParticleSystem waterHoseEffect;
+    public bool isExtinguishing = false;
 
-	// Use this for initialization
-	void Start ()
+    public void InteractWith()
     {
-		
-	}
-	
-	// Update is called once per frame
-	void Update ()
+        StopCoroutine(UseExtinguisher());
+        isExtinguishing = true;
+        StartCoroutine(UseExtinguisher());
+    }
+
+    IEnumerator UseExtinguisher()
     {
-		
-	}
+        waterHoseEffect.Play();
+        yield return new WaitForSeconds(2.5f);
+        isExtinguishing = false;
+        yield return null;
+    }
 }
