@@ -80,7 +80,7 @@ public class ShipHealth : MonoBehaviour {
 
 
 
-       // shipCurrenHealth = shipMaxHealth;
+        shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -124,7 +124,7 @@ public class ShipHealth : MonoBehaviour {
         foreach(Collider damagedObject in damagedObjects)
         {
             IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-            shipCurrenHealth -= explosionDamage;
+            //shipCurrenHealth -= explosionDamage;
             if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
@@ -147,7 +147,7 @@ public class ShipHealth : MonoBehaviour {
     {
         //Debug.Log(shipCurrenHealth / shipMaxHealth);
         healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
-        healthText.text = shipCurrenHealth.ToString();
+       // healthText.text = shipCurrenHealth.ToString();
     }
 
     void LoseGame()

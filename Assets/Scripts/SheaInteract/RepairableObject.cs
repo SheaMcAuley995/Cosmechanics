@@ -4,21 +4,27 @@ using UnityEngine;
 
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
-    private int health = 100;
+    private int health = 2;
 
-    public int healthMax = 100;
+    public int healthMax = 2;
 
-    public int repairAmount = 25;
+    public int repairAmount = 1;
 
     MeshRenderer mesh;
+    MeshFilter filter;
+    [SerializeField]Mesh[] meshes;
+    int currentMesh;
 
     public GameObject particleEffectPrefab;
+    public AlertUI alertUI;
 
     private void Start()
     {
         mesh = GetComponent<MeshRenderer>();
         ShipHealth.instance.shipMaxHealth += healthMax;
-
+        filter = GetComponent<MeshFilter>();
+        alertUI.problemMax += healthMax;
+        alertUI.problemCurrent += healthMax;
         //StartCoroutine("takeDamage");
     }
     public void InteractWith()
@@ -32,7 +38,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             Destroy(nutsAndBolts.gameObject, 1);
              
             AudioEventManager.instance.PlaySound("clang", .3f, Random.Range(.9f,1f), 0);    //play clang audio
-            ShipHealth.instance.shipCurrenHealth += repairAmount;
+           //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
         }
@@ -40,20 +46,29 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public void repairObject(int repairAmount)
     {
-        health = Mathf.Clamp(health + repairAmount, 0, healthMax);
+        currentMesh -= 1;
+        filter.mesh = meshes[currentMesh];
+        health = health + repairAmount;
+        alertUI.problemCurrent += repairAmount;
+        ShipHealth.instance.shipCurrenHealth += repairAmount;
+        ShipHealth.instance.AdjustUI();
+        // health = Mathf.Clamp(health + repairAmount, 0, healthMax);
     }
+
+
 
     public void TakeDamage(int damageTaken)
     {
         if (health > 0)
         {
-           repairObject(-damageTaken);
-
-           mesh.material.color += Color.red;
-           
-         
-
-           //Debug.Log("Health Points : " + health);
+            health -= damageTaken;
+            currentMesh += 1;
+            filter.mesh = meshes[currentMesh];
+            mesh.material.color += Color.red;
+            alertUI.problemCurrent -= damageTaken;
+            ShipHealth.instance.shipCurrenHealth -= damageTaken;
+            ShipHealth.instance.AdjustUI();
+            //Debug.Log("Health Points : " + health);
 
         }
     }
