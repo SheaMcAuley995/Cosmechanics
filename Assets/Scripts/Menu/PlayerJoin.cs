@@ -1,16 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Rewired;
 
 public class PlayerJoin : MonoBehaviour
 {
+    public Button playButton;
     public TextMeshProUGUI playersJoined;
     [HideInInspector] public int playerId = 0;
     Player[] players;
     ExampleGameController controller;
-    bool input;
+    bool input, playInput;
 
 	void Start ()
     {
@@ -34,7 +36,11 @@ public class PlayerJoin : MonoBehaviour
 
     void GetInput()
     {
-        input = players[0].GetButtonDown("Interact");
+        foreach(Player player in players)
+        {
+            input = player.GetButtonDown("PickUp");
+            playInput = player.GetButtonDown("Interact");
+        }
     }
 
     void ApplyInput()
@@ -58,6 +64,11 @@ public class PlayerJoin : MonoBehaviour
             }
 
             playersJoined.text = controller.numberOfPlayers.ToString();
+        }
+
+        if (playInput)
+        {
+            playButton.onClick.Invoke();
         }
     }
 }
