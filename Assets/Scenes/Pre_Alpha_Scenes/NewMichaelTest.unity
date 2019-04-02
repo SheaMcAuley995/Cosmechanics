@@ -24610,7 +24610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afb039e61104ad5409f28798cbfbdaa7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  engine: {fileID: 0}
+  engine: {fileID: 1315003256}
 --- !u!65 &638681893
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24633,8 +24633,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.76415366
-  m_Center: {x: -0.06097424, y: 0.7020073, z: 0.3490883}
+  m_Radius: 0.88
+  m_Center: {x: -0.22, y: 0.7020073, z: 0.3490883}
 --- !u!1 &642147115
 GameObject:
   m_ObjectHideFlags: 0
@@ -54594,7 +54594,7 @@ MonoBehaviour:
   engineHeat: 0
   maxHeat: 200
   engineCoolingAmount: 10
-  florpCoolingPercentage: 0
+  florpCoolingPercentage: 1
   winGameUI: {fileID: 0}
   winConditionLimit: 2000
   currentProgress: 0
@@ -79823,7 +79823,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 18
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114280641982952920, guid: c313029a5abd5654c865098c98b7bfd5, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: c313029a5abd5654c865098c98b7bfd5, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1915255585
