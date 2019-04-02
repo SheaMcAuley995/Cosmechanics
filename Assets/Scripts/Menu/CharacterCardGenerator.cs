@@ -181,7 +181,7 @@ public class CharacterCardGenerator : MonoBehaviour
     }
 
     /// Generates a new prisoner card
-    public void GenerateCard()
+    public void GenerateCard(int playerId)
     {
         Destroy(lastSelectedPlayer);
 
@@ -235,8 +235,9 @@ public class CharacterCardGenerator : MonoBehaviour
         }
         lastSelectedPlayer = newPlayer.gameObject;
 
+        currentPlayerId = playerId;
         newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
-        currentPlayerId++;   
+        currentPlayerId++;
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
