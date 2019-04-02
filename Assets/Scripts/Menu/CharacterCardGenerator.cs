@@ -235,6 +235,9 @@ public class CharacterCardGenerator : MonoBehaviour
         }
         lastSelectedPlayer = newPlayer.gameObject;
 
+        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        currentPlayerId++;   
+
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
     }
