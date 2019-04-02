@@ -11,9 +11,10 @@ public struct CharacterData
     public RawImage videoFeedField;
     public Image genderField;
     public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
+    public Image colorField;
 
     /// Constructor for creating new character cards
-    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
+    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _colorField)
     {
         videoFeedField = _videoFeedField;
         genderField = _genderField;
@@ -21,6 +22,7 @@ public struct CharacterData
         ageField = _ageField;
         crimeField = _crimeField;
         sentenceField = _sentenceField;
+        colorField = _colorField;
     }
 }
 
@@ -36,6 +38,8 @@ public class CharacterCardGenerator : MonoBehaviour
     public Sprite gender1, gender2, gender3, gender4;
     /// Character prefabs
     public GameObject character1, character2, character3, character4;
+    /// Color options
+    public Color red, blue, green, yellow;
     #endregion
 
     /// Lists
@@ -46,12 +50,13 @@ public class CharacterCardGenerator : MonoBehaviour
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
     List<GameObject> prefabsList = new List<GameObject>();
+    List<Color> colorList = new List<Color>();
 
     GameObject lastSelectedPlayer;
     [HideInInspector] public Vector3 spawnPos;
 
     /// Random selection variables
-    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex;
+    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, colorIndex;
 
     int numOfSaves = 0;
     int currentPlayerId = 0;
@@ -166,6 +171,10 @@ public class CharacterCardGenerator : MonoBehaviour
         /// 4 character prefabs added to the list using the ListExtension class
         prefabsList.AddMany(character1, character2, character3, character4);
         #endregion
+
+        #region Colours
+        colorList.AddMany(red, blue, green, yellow);
+        #endregion
         #endregion
 
         cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
@@ -177,7 +186,7 @@ public class CharacterCardGenerator : MonoBehaviour
         Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
-        CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
+        CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField, data.colorField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
@@ -187,6 +196,7 @@ public class CharacterCardGenerator : MonoBehaviour
         genderIndex = Random.Range(0, 4);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
+        colorIndex = Random.Range(0, 3);
         #endregion
 
         #region Character Card Display Setter
@@ -214,10 +224,19 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
+        newCharacter.colorField.color = colorList[colorIndex]; /// Sets the character card's colour to the randomly selected colour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            child.material.color = colorList[colorIndex];
+        }
         lastSelectedPlayer = newPlayer.gameObject;
+
+        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        currentPlayerId++;   
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
@@ -225,7 +244,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void ReloadPreviousCard()
     {
-        CharacterData prevCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
+        CharacterData prevCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField, data.colorField);
 
         numOfSaves--;
 

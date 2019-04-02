@@ -1,31 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Rewired;
 
+[System.Serializable]
+public struct OverworldData
+{
+    public Image mapPreview;
+    public TextMeshProUGUI levelName;
+    public TextMeshProUGUI description;
+    public Button launchButton;
+    public Button cancelButton;
+
+    public OverworldData(Image _mapPreview, TextMeshProUGUI _levelName, TextMeshProUGUI _description, Button _launchButton, Button _cancelButton)
+    {
+        mapPreview = _mapPreview;
+        levelName = _levelName;
+        description = _description;
+        launchButton = _launchButton;
+        cancelButton = _cancelButton;
+    }
+}
+
 public class OverworldManager : MonoBehaviour
 {
+    public OverworldData data;
+
     #region Rewired
     [HideInInspector] public int playerId = 0;
     Player[] players;
     ExampleGameController controller;
     #endregion
 
-    [Header("Components")]
-    public GameObject[] levelObjects;
+    public enum Level
+    {
+        Level1,
+        Level2,
+        Level3
+    };
+    [Space] public Level level;
+
+    [Header("Class Components")]
     public Transform shipTransform;
+    
+    [Header("Orbital Components")]
+    public GameObject[] levelObjects;
+    public GameObject[] orbitPositions;
     Vector3 shipPos;
     Vector3 shipDest;
 
-    [Header("Settings")]
-    [SerializeField] float travelTime = 1f;
+    [Header("Main UI")]
+    public GameObject levelPanel;
+    public TextMeshProUGUI levelSelectedText;
 
-    bool input;
-    float _input;
+    [Header("Level UI Selection Pool")]
+    public Sprite[] mapImages;
+    public string[] levelNames;
+    [TextArea(3, 10)] public string[] descriptions;
+
+    [Header("Orbit Settings")]
+    [SerializeField] float travelTime = 1f;
+    [SerializeField] float orbitSpeed = 80f;
+
+    bool input, revInput, selectionInput, cancelInput, launchInput;
+
     int selectedLevel = 1;
 
-    public TextMeshProUGUI levelSelectedText;
+    bool moving, orbiting;
+    Vector3 direction = -Vector3.up;
 
 	// Use this for initialization
 	void Start ()
@@ -39,6 +83,7 @@ public class OverworldManager : MonoBehaviour
         }
 
         selectedLevel = 1;
+        level = Level.Level1;
         MoveShip();
         ApplyText();
     }
@@ -48,65 +93,145 @@ public class OverworldManager : MonoBehaviour
     {
         GetInput();
         ApplyInput();
-	}
+
+        if (orbiting)
+        {
+            OrbitShip(direction);
+        }
+    }
+
+    void OrbitShip(Vector3 dir)
+    {
+        shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
+    }
 
     void GetInput()
     {
-        input = players[0].GetButtonDown("PickUp");
-        _input = players[0].GetAxisRaw("Move Horizontal");
+        // For all player input
+        foreach (Player player in players)
+        {
+            input = player.GetButtonDown("Move Horizontal");
+            revInput = player.GetNegativeButtonDown("Move Horizontal");
+            selectionInput = player.GetButtonDown("PickUp");
+            cancelInput = player.GetButtonDown("Sprint");
+            launchInput = player.GetButtonDown("Interact");
+        }
+
+        // For singular player input
+        //input = players[0].GetButtonDown("Move Horizontal");
+        //revInput = players[0].GetNegativeButtonDown("Move Horizontal");
+        //selectionInput = players[0].GetButtonDown("PickUp");
+        //cancelInput = players[0].GetButtonDown("Sprint");
+        //launchInput = players[0].GetButtonDown("Interact");
     }
 
     void ApplyInput()
     {
-        if (_input > 0)
+        if (input && !moving)
         {
             switch (selectedLevel)
             {
                 case 1:
                     selectedLevel++;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level2;
+                    direction = -Vector3.up;
                     break;
                 case 2:
                     selectedLevel++;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level3;
+                    direction = -Vector3.up;
                     break;
                 case 3:
                     selectedLevel = 1;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level1;
+                    direction = Vector3.up;
                     break;
-            }
+            }            
+            MoveShip();
+            ApplyText();
         }
 
-        if (_input < 0)
+        if (revInput && !moving)
         {
             switch (selectedLevel)
             {
                 case 1:
                     selectedLevel = 3;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level3;
+                    direction = -Vector3.up;
                     break;
                 case 2:
                     selectedLevel--;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level1;
+                    direction = Vector3.up;
                     break;
                 case 3:
                     selectedLevel--;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level2;
+                    direction = Vector3.up;
                     break;
-            }
+            }            
+            MoveShip();
+            ApplyText();
         }
+
+        if (selectionInput)
+        {
+            SelectLevel();
+        }
+
+        if (cancelInput)
+        {
+            data.cancelButton.onClick.Invoke();
+        }
+
+        if (launchInput && level == Level.Level1)
+        {
+            data.launchButton.onClick.Invoke();
+        }
+    }
+
+    public void SelectLevel()
+    {
+        levelPanel.SetActive(true);
+        OverworldData selectionPanel = new OverworldData(data.mapPreview, data.levelName, data.description, data.launchButton, data.cancelButton);
+
+        switch (level)
+        {
+            case Level.Level1:
+                selectionPanel.mapPreview.sprite = mapImages[0];
+                selectionPanel.levelName.text = levelNames[0];
+                selectionPanel.description.text = descriptions[0];
+                selectionPanel.launchButton.interactable = true;
+                break;
+            case Level.Level2:
+                selectionPanel.mapPreview.sprite = mapImages[1];
+                selectionPanel.levelName.text = levelNames[1];
+                selectionPanel.description.text = descriptions[1];
+                selectionPanel.launchButton.interactable = false;
+                break;
+            case Level.Level3:
+                selectionPanel.mapPreview.sprite = mapImages[2];
+                selectionPanel.levelName.text = levelNames[2];
+                selectionPanel.description.text = descriptions[2];
+                selectionPanel.launchButton.interactable = false;
+                break;
+        }
+    }
+
+    public void DeactivatePanel()
+    {
+        levelPanel.SetActive(false);
     }
 
     void MoveShip()
     {
+        DeactivatePanel();
+
+        orbiting = false;
+        moving = true;
         shipPos = shipTransform.position;
-        shipDest = levelObjects[selectedLevel - 1].transform.position;
+        shipDest = orbitPositions[selectedLevel - 1].transform.position;
         StartCoroutine(WaitAndMove());
     }
 
@@ -120,6 +245,8 @@ public class OverworldManager : MonoBehaviour
             yield return 1;
         }
 
+        moving = false;
+        orbiting = true;
         yield return null;
     }
 
