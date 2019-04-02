@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireExtinguisher : MonoBehaviour, IInteractable
+public class FireExtinguisher : MonoBehaviour, IInteractableTool
 {
     public ParticleSystem waterHoseEffect;
     public bool isExtinguishing = false;
 
-    public void InteractWith()
+    public void toolInteraction()
     {
         StopCoroutine(UseExtinguisher());
         isExtinguishing = true;
