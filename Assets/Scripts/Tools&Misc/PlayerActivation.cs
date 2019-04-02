@@ -39,5 +39,10 @@ public class PlayerActivation : MonoBehaviour
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+
+        for (int chars = 0; chars < chosenCharacters.Length; chars++)
+        {
+            chosenCharacters[chars].transform.position = ExampleGameController.instance.spawnPoints[chars];
+        }
     }
 }
