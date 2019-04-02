@@ -51,7 +51,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d52e8f6e0785f304aad47ca78cec8ed0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    mapPreview: {fileID: 0}
+    levelName: {fileID: 0}
+    description: {fileID: 0}
+    launchButton: {fileID: 0}
+    cancelButton: {fileID: 0}
   playerId: 0
+  level: 0
+  shipTransform: {fileID: 0}
   levelObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -60,12 +68,19 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  shipTransform: {fileID: 0}
+  levelPanel: {fileID: 0}
+  levelSelectedText: {fileID: 0}
+  mapImages:
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
+  levelNames:
+  - Ship One
+  - Ship Two
+  - Ship Three
+  descriptions:
+  - This is the story information for the first level!
+  - This is the story information for the second level!
+  - This is the story information for the third level!
   travelTime: 1
   orbitSpeed: 80
-  level: 0
-  levelSelectedText: {fileID: 0}
-  levelPanels:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
