@@ -20477,7 +20477,7 @@ Prefab:
     - target: {fileID: 114676488983692684, guid: e5180d6f6e7b5c942a5c060b0e98c53b,
         type: 2}
       propertyPath: numberOfPlayers
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5180d6f6e7b5c942a5c060b0e98c53b, type: 2}
@@ -30816,8 +30816,8 @@ Transform:
   - {fileID: 628493569}
   - {fileID: 965044486}
   - {fileID: 628376673}
-  - {fileID: 1721904954}
   - {fileID: 1859015722}
+  - {fileID: 1721904954}
   - {fileID: 216687195}
   m_Father: {fileID: 0}
   m_RootOrder: 18
@@ -53162,6 +53162,7 @@ MonoBehaviour:
   enemyProgress: 0
   progressionMultiplier: 1
   slider: {fileID: 1565822067}
+  alertUI: {fileID: 0}
   testInputFlorp: 0
 --- !u!1 &1315205516
 GameObject:
@@ -59664,6 +59665,26 @@ Prefab:
       propertyPath: engine
       value: 
       objectReference: {fileID: 1644315004}
+    - target: {fileID: 224787697127297964, guid: f71602e3be0b48040ba9297a3b6e4c9e,
+        type: 2}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224787697127297964, guid: f71602e3be0b48040ba9297a3b6e4c9e,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224285522909834596, guid: f71602e3be0b48040ba9297a3b6e4c9e,
+        type: 2}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114437664482224274, guid: f71602e3be0b48040ba9297a3b6e4c9e,
+        type: 2}
+      propertyPath: m_Value
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f71602e3be0b48040ba9297a3b6e4c9e, type: 2}
   m_IsPrefabAsset: 0
@@ -66493,11 +66514,12 @@ MonoBehaviour:
   engineCoolingAmount: 6
   florpCoolingPercentage: 0.2
   winGameUI: {fileID: 1093058756}
-  winConditionLimit: 2500
+  winConditionLimit: 3000
   currentProgress: 0
   enemyProgress: 0
   progressionMultiplier: 0.4
   slider: {fileID: 1565822067}
+  alertUI: {fileID: 2107891082}
   testInputFlorp: 0
 --- !u!1 &1646557879
 GameObject:
@@ -69683,7 +69705,7 @@ Prefab:
     - target: {fileID: 114164615033755334, guid: 554afd5d7982d824581eb5e5cbe15d8c,
         type: 2}
       propertyPath: timeBetweenNEvents
-      value: 1
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 114164615033755334, guid: 554afd5d7982d824581eb5e5cbe15d8c,
         type: 2}
@@ -84302,6 +84324,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2103079519}
   m_Mesh: {fileID: 4300000, guid: 2f7bdacd4a12c6142aa7a63bada89857, type: 3}
+--- !u!114 &2107891082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114914868970752822, guid: f71602e3be0b48040ba9297a3b6e4c9e,
+    type: 2}
+  m_PrefabInternal: {fileID: 1485268379}
+  m_Script: {fileID: 11500000, guid: dbbada7fc2691ae418f8beb5149ae457, type: 3}
 --- !u!1 &2110942676
 GameObject:
   m_ObjectHideFlags: 0
