@@ -41,6 +41,8 @@ public class CharacterCardGenerator : MonoBehaviour
     public GameObject[] characters;
     [Space]
     public Material[] materials;
+    [Space]
+    public Image[] locatorDots;
 
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
@@ -248,6 +250,13 @@ public class CharacterCardGenerator : MonoBehaviour
                 child.material = materialList[materialIndex];
             }
         }
+
+        locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
+
         lastSelectedPlayer = newPlayer.gameObject;
 
         currentPlayerId = playerId;
