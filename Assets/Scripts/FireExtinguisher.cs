@@ -21,4 +21,11 @@ public class FireExtinguisher : MonoBehaviour, IInteractableTool
         isExtinguishing = false;
         yield return null;
     }
+
+    public void StopExtinguisher()
+    {
+        StopCoroutine(UseExtinguisher());
+        waterHoseEffect.Stop();
+        isExtinguishing = false;
+    }
 }
