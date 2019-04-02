@@ -19,7 +19,8 @@ public class Engine : MonoBehaviour {
     public float progressionMultiplier;
 
     public Slider slider;
-    
+    public AlertUI alertUI;
+
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
     public void Start()
@@ -27,6 +28,7 @@ public class Engine : MonoBehaviour {
         winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
         currentProgress = winConditionLimit / 8;
+        alertUI.problemMax = maxHeat;
     }
 
     public void Update()
@@ -48,6 +50,8 @@ public class Engine : MonoBehaviour {
             winGameUI.SetActive(true);
             BroadcastMessage("StopGame");
         }
+
+        alertUI.problemCurrent = engineHeat;
     }
 
     private void StopGame()
