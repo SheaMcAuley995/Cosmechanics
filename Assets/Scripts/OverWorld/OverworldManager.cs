@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using Rewired;
 
@@ -12,20 +13,35 @@ public class OverworldManager : MonoBehaviour
     ExampleGameController controller;
     #endregion
 
+    public enum Level
+    {
+        Level1,
+        Level2,
+        Level3
+    };
+    public Level level;
+
     [Header("Components")]
     public GameObject[] levelObjects;
+    public GameObject[] orbitPositions;
     public Transform shipTransform;
     Vector3 shipPos;
     Vector3 shipDest;
 
+    [Header("UI")]
+    public TextMeshProUGUI levelSelectedText;
+    public GameObject[] levelPanels;
+
     [Header("Settings")]
     [SerializeField] float travelTime = 1f;
+    [SerializeField] float orbitSpeed = 80f;
 
-    bool input;
-    float _input;
+    bool input, revInput, selectionInput, cancelInput, launchInput;
+
     int selectedLevel = 1;
 
-    public TextMeshProUGUI levelSelectedText;
+    bool moving, orbiting;
+    Vector3 direction = -Vector3.up;
 
 	// Use this for initialization
 	void Start ()
@@ -39,6 +55,7 @@ public class OverworldManager : MonoBehaviour
         }
 
         selectedLevel = 1;
+        level = Level.Level1;
         MoveShip();
         ApplyText();
     }
@@ -48,65 +65,131 @@ public class OverworldManager : MonoBehaviour
     {
         GetInput();
         ApplyInput();
-	}
+
+        if (orbiting)
+        {
+            OrbitShip(direction);
+        }
+    }
+
+    void OrbitShip(Vector3 dir)
+    {
+        shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
+    }
 
     void GetInput()
     {
-        input = players[0].GetButtonDown("PickUp");
-        _input = players[0].GetAxisRaw("Move Horizontal");
+        input = players[0].GetButtonDown("Move Horizontal");
+        revInput = players[0].GetNegativeButtonDown("Move Horizontal");
+        selectionInput = players[0].GetButtonDown("PickUp");
+        cancelInput = players[0].GetButtonDown("Sprint");
+        launchInput = players[0].GetButtonDown("Interact");
     }
 
     void ApplyInput()
     {
-        if (_input > 0)
+        if (input && !moving)
         {
             switch (selectedLevel)
             {
                 case 1:
                     selectedLevel++;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level2;
+                    direction = -Vector3.up;
                     break;
                 case 2:
                     selectedLevel++;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level3;
+                    direction = -Vector3.up;
                     break;
                 case 3:
                     selectedLevel = 1;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level1;
+                    direction = Vector3.up;
                     break;
-            }
+            }            
+            MoveShip();
+            ApplyText();
         }
 
-        if (_input < 0)
+        if (revInput && !moving)
         {
             switch (selectedLevel)
             {
                 case 1:
                     selectedLevel = 3;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level3;
+                    direction = -Vector3.up;
                     break;
                 case 2:
                     selectedLevel--;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level1;
+                    direction = Vector3.up;
                     break;
                 case 3:
                     selectedLevel--;
-                    MoveShip();
-                    ApplyText();
+                    level = Level.Level2;
+                    direction = Vector3.up;
                     break;
-            }
+            }            
+            MoveShip();
+            ApplyText();
+        }
+
+        if (selectionInput)
+        {
+            SelectLevel();
+        }
+
+        if (cancelInput)
+        {
+            DeactivatePanels();
+        }
+
+        if (launchInput)
+        {
+            levelObjects[selectedLevel - 1].GetComponent<LevelSelectManager>().LaunchLevel("ZachNewMichaelTest");
+        }
+    }
+
+    void SelectLevel()
+    {
+        switch (level)
+        {
+            case Level.Level1:
+                levelPanels[0].SetActive(true);
+                levelPanels[1].SetActive(false);
+                levelPanels[2].SetActive(false);
+                break;
+            case Level.Level2:
+                levelPanels[0].SetActive(false);
+                levelPanels[1].SetActive(true);
+                levelPanels[2].SetActive(false);
+                break;
+            case Level.Level3:
+                levelPanels[0].SetActive(false);
+                levelPanels[1].SetActive(false);
+                levelPanels[2].SetActive(true);
+                break;
+        }
+    }
+
+    public void DeactivatePanels()
+    {
+        for (int i = 0; i < levelPanels.Length; i++)
+        {
+            levelPanels[i].SetActive(false);
         }
     }
 
     void MoveShip()
     {
+        DeactivatePanels();
+
+        orbiting = false;
+        moving = true;
         shipPos = shipTransform.position;
-        shipDest = levelObjects[selectedLevel - 1].transform.position;
+        shipDest = orbitPositions[selectedLevel - 1].transform.position;
         StartCoroutine(WaitAndMove());
     }
 
@@ -120,6 +203,8 @@ public class OverworldManager : MonoBehaviour
             yield return 1;
         }
 
+        moving = false;
+        orbiting = true;
         yield return null;
     }
 
