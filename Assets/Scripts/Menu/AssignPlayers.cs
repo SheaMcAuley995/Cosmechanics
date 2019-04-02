@@ -18,7 +18,7 @@ public class AssignPlayers : MonoBehaviour
         for (int totalCharCards = 0; totalCharCards < ExampleGameController.instance.numberOfPlayers; totalCharCards++)
         {
             GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
-            newCharCard.GetComponent<CharacterCardGenerator>().GenerateCard();
+            //newCharCard.GetComponent<CharacterCardGenerator>().GenerateCard();
             newCharCard.GetComponent<SelectionInput>().playerId = currentPlayerId;
             currentPlayerId++;
         }
@@ -41,6 +41,11 @@ public class AssignPlayers : MonoBehaviour
                 characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos3").transform.position;
                 characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos4").transform.position;
                 break;
+        }
+
+        foreach (GameObject characterCard in characterCards)
+        {
+            characterCard.GetComponent<CharacterCardGenerator>().GenerateCard();
         }
     }
 }
