@@ -64,7 +64,7 @@ public class OverworldManager : MonoBehaviour
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
 
-    bool input, revInput, selectionInput, cancelInput, launchInput;
+    bool input, revInput, selectionInput, cancelInput, ableToLaunch;
 
     int selectedLevel = 1;
 
@@ -74,6 +74,8 @@ public class OverworldManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
+        ableToLaunch = false;
+
         controller = ExampleGameController.instance;
 
         players = new Player[controller.numberOfPlayers];
@@ -114,7 +116,6 @@ public class OverworldManager : MonoBehaviour
             revInput = player.GetNegativeButtonDown("Move Horizontal");
             selectionInput = player.GetButtonDown("PickUp");
             cancelInput = player.GetButtonDown("Sprint");
-            launchInput = player.GetButtonDown("Interact");
         }
 
         // For singular player input
@@ -175,24 +176,24 @@ public class OverworldManager : MonoBehaviour
             ApplyText();
         }
 
-        if (selectionInput)
+        if (selectionInput && !ableToLaunch)
         {
             SelectLevel();
+        }
+        else if (selectionInput && level == Level.Level1 && ableToLaunch)
+        {
+            data.launchButton.onClick.Invoke();
         }
 
         if (cancelInput)
         {
             data.cancelButton.onClick.Invoke();
         }
-
-        if (launchInput && level == Level.Level1)
-        {
-            data.launchButton.onClick.Invoke();
-        }
     }
 
     public void SelectLevel()
     {
+        ableToLaunch = true;
         levelPanel.SetActive(true);
         OverworldData selectionPanel = new OverworldData(data.mapPreview, data.levelName, data.description, data.launchButton, data.cancelButton);
 
@@ -221,6 +222,7 @@ public class OverworldManager : MonoBehaviour
 
     public void DeactivatePanel()
     {
+        ableToLaunch = false;
         levelPanel.SetActive(false);
     }
 
