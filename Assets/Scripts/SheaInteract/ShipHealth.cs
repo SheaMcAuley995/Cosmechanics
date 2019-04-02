@@ -41,6 +41,18 @@ public class ShipHealth : MonoBehaviour {
     int index;
 
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+    }
 
     private void Start()
     {
@@ -67,14 +79,6 @@ public class ShipHealth : MonoBehaviour {
 
 
 
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-            Destroy(gameObject);
-        }
 
        // shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
