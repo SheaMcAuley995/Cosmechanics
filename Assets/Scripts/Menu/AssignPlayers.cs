@@ -18,7 +18,7 @@ public class AssignPlayers : MonoBehaviour
         for (int totalCharCards = 0; totalCharCards < ExampleGameController.instance.numberOfPlayers; totalCharCards++)
         {
             GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
-            //newCharCard.GetComponent<CharacterCardGenerator>().GenerateCard();
+            ExampleGameController.instance.setSpawnPoints();
             newCharCard.GetComponent<SelectionInput>().playerId = currentPlayerId;
             currentPlayerId++;
         }
