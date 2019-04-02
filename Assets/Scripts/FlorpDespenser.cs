@@ -14,8 +14,6 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         if (other.GetComponent<Florp>() != null)
         {
             other.GetComponent<Florp>().doFill = true;
-           
-            
         }
     }
 

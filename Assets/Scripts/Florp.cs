@@ -11,9 +11,12 @@ public class Florp : PickUp,IInteractableTool
     public AnimationCurve curve;
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
-    public Material empty;
-    public Material full;
-    bool isFilled =false;
+
+    public Material outerEmpty;
+    public Material outerFull;
+    public Material innerEmpty;
+    public Material innerFull;
+    public bool isFilled =false;
 
 
     private void Start()
@@ -35,7 +38,10 @@ public class Florp : PickUp,IInteractableTool
         if (doFill)
         {
             Material myMat = GetComponent<MeshRenderer>().material;
-            myMat.Lerp(empty, full, 1);
+            Material myChildMat = GetComponentInChildren<MeshRenderer>().material;
+
+            myChildMat.Lerp(innerEmpty, innerFull, 1);
+           myMat.Lerp(outerEmpty, outerFull, 1);
             isFilled = true;   
         }
         Debug.Log(name + " is being interacted with");
