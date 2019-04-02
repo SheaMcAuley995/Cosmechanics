@@ -9,7 +9,7 @@ public class FlorpReceptor : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Florp")
+        if (other.GetComponent<Florp>().isFilled)
         {
             engine.InsertFlorp();
             Destroy(other.gameObject);
