@@ -39,7 +39,7 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Character prefabs
     public GameObject character1, character2, character3, character4;
     /// Color options
-    public Color red, blue, green, yellow;
+    public Color Blue, Cyan, Green, Mint, Orange, Red, Violet, Yellow;
     #endregion
 
     /// Lists
@@ -173,7 +173,7 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Colours
-        colorList.AddMany(red, blue, green, yellow);
+        colorList.AddMany(Blue, Cyan, Green, Mint, Orange, Red, Violet, Yellow);
         #endregion
         #endregion
 
@@ -181,7 +181,7 @@ public class CharacterCardGenerator : MonoBehaviour
     }
 
     /// Generates a new prisoner card
-    public void GenerateCard()
+    public void GenerateCard(int playerId)
     {
         Destroy(lastSelectedPlayer);
 
@@ -196,7 +196,7 @@ public class CharacterCardGenerator : MonoBehaviour
         genderIndex = Random.Range(0, 4);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
-        colorIndex = Random.Range(0, 3);
+        colorIndex = Random.Range(0, 7);
         #endregion
 
         #region Character Card Display Setter
@@ -235,8 +235,9 @@ public class CharacterCardGenerator : MonoBehaviour
         }
         lastSelectedPlayer = newPlayer.gameObject;
 
+        currentPlayerId = playerId;
         newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
-        currentPlayerId++;   
+        currentPlayerId++;
 
         savedCharacters[numOfSaves] = newCharacter;
         numOfSaves++;
