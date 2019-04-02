@@ -5,13 +5,13 @@ using UnityEngine;
 public class Spin : MonoBehaviour
 {
 
-    public float rotationSpeed = 3.0f;
+    public const float rotationSpeed = 100.0f;
 
-    [Range(-25, 25)]
+    [Range(-rotationSpeed, rotationSpeed)]
     public float rotateX;
-    [Range(-25, 25)]
+    [Range(-rotationSpeed, rotationSpeed)]
     public float rotateY;
-    [Range(-25, 25)]
+    [Range(-rotationSpeed, rotationSpeed)]
     public float rotateZ;
 
 

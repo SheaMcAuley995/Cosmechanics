@@ -9,7 +9,7 @@ public class Fire : MonoBehaviour
     ParticleSystem.EmissionModule emiss;
 
     [Range(1f, 15f)] public float spreadTimer;
-    public float fireHealth = 3f;
+    public float fireHealth = 1.75f;
     public int damageToShip = 5;
 
     public Collider[] colliders;
