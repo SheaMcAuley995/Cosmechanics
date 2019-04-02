@@ -26,7 +26,7 @@ public class SelectionInput : MonoBehaviour
 
     void GetInput()
     {
-        interact = player.GetButtonDown("Interact");
+        interact = player.GetButtonDown("PickUp");
     }
 
     void ProcessInput()
