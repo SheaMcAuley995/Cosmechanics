@@ -18,6 +18,8 @@ public class SelectionInput : MonoBehaviour
         playButton = GameObject.FindGameObjectWithTag("PlayButton(CharSelect)").GetComponent<Button>();
         player = ReInput.players.GetPlayer(playerId);
         card = GetComponent<CharacterCardGenerator>();
+
+        GetComponent<CharacterCardGenerator>().GenerateCard(playerId);
     }
 
     // Update is called once per frame
@@ -37,7 +39,7 @@ public class SelectionInput : MonoBehaviour
     {
         if (interact)
         {
-            card.GenerateCard();
+            card.GenerateCard(playerId);
         }
 
         if (playInteract)

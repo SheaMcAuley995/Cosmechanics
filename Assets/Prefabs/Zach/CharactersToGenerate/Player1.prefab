@@ -155,6 +155,7 @@ GameObject:
   - component: {fileID: 136664620731651402}
   - component: {fileID: 54849929800509330}
   - component: {fileID: 114074614061638164}
+  - component: {fileID: 114540917410570624}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Char
@@ -406,8 +407,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1436485295322328}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -942.28284, y: -216.58253, z: -848}
+  m_LocalRotation: {x: -0, y: 0.038572542, z: -0, w: -0.99925584}
+  m_LocalPosition: {x: 16.988796, y: 3.04, z: -12.946241}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4523550029679404}
@@ -426,7 +427,7 @@ Transform:
   - {fileID: 224628975238104040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 355.579, z: 0}
 --- !u!4 &4225085362655382
 Transform:
   m_ObjectHideFlags: 1
@@ -1131,8 +1132,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerId: 0
   pickUpTransform: {fileID: 4274077274927310}
-  walkSpeed: 3
-  runSpeed: 5
+  walkSpeed: 5.5
+  runSpeed: 5.5
   gravity: -12
   jumpheight: 1
   turnSmoothTime: 0.12
@@ -1209,6 +1210,26 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114540917410570624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1436485295322328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d563eaa79e83cd429ac09850561d9eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamColor:
+  - {fileID: 2100000, guid: 69b732c8f0b7bc449b3fb8bf251305ff, type: 2}
+  - {fileID: 2100000, guid: fd9e208621bf2034392cd535f7a9d588, type: 2}
+  - {fileID: 2100000, guid: f4b8d958720a91b4595750dd2ce78dc2, type: 2}
+  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
+  - {fileID: 2100000, guid: a88c6b73ee0587c48917db3e71923979, type: 2}
+  - {fileID: 2100000, guid: a833c1754a7cd734c9430ce12b5a2974, type: 2}
+  - {fileID: 2100000, guid: f209b0965a0d7eb4e84bddb7c216ee86, type: 2}
+  - {fileID: 2100000, guid: adcbe37fce547e242a2bf173c97cf251, type: 2}
 --- !u!114 &114579073002274420
 MonoBehaviour:
   m_ObjectHideFlags: 1

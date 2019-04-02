@@ -6,6 +6,8 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
     public Rigidbody rb;
+    public GameObject PUU_ShaderPrefab;
+    public GameObject puu;
 
     private void Start()
     {
@@ -18,12 +20,22 @@ public class PickUp : MonoBehaviour {
         transform.SetParent(pickUpTransform);
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
+        puu = Instantiate(PUU_ShaderPrefab, pickUpTransform.position, Quaternion.identity, pickUpTransform);
        
     }
-
+   
     public void putMeDown()
     {
+        if (transform.gameObject.GetComponent<FireExtinguisher>())
+        {
+            transform.gameObject.GetComponent<FireExtinguisher>().StopExtinguisher();
+        }
         transform.SetParent(null);
         rb.isKinematic = false;
+        Destroy(puu);
+    }
+    private void OnDestroy()
+    {
+        Destroy(puu);
     }
 }

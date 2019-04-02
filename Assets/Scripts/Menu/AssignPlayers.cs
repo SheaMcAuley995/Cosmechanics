@@ -42,10 +42,5 @@ public class AssignPlayers : MonoBehaviour
                 characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos4").transform.position;
                 break;
         }
-
-        foreach (GameObject characterCard in characterCards)
-        {
-            characterCard.GetComponent<CharacterCardGenerator>().GenerateCard();
-        }
     }
 }
