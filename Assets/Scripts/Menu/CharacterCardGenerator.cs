@@ -11,10 +11,10 @@ public struct CharacterData
     public RawImage videoFeedField;
     public Image genderField;
     public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
-    public Image colorField;
+    public Image materialField;
 
     /// Constructor for creating new character cards
-    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _colorField)
+    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
     {
         videoFeedField = _videoFeedField;
         genderField = _genderField;
@@ -22,25 +22,27 @@ public struct CharacterData
         ageField = _ageField;
         crimeField = _crimeField;
         sentenceField = _sentenceField;
-        colorField = _colorField;
+        materialField = _materialField;
     }
 }
 
 public class CharacterCardGenerator : MonoBehaviour
 {
-    public CharacterData data;
-    public CharacterData[] savedCharacters;
-    public CameraMultiTarget cameraMultiTarget;
+    [Header("Constructor Data")]
+    public CharacterData displayFields;
+    CharacterData[] savedCharacters;
+    CameraMultiTarget cameraMultiTarget;
 
-    #region Selection Pool
-    /// Image displays
-    public RenderTexture videoFeed1, videoFeed2, videoFeed3, videoFeed4;
-    public Sprite gender1, gender2, gender3, gender4;
-    /// Character prefabs
-    public GameObject character1, character2, character3, character4;
-    /// Color options
-    public Color Blue, Cyan, Green, Mint, Orange, Red, Violet, Yellow;
-    #endregion
+    [Header("Selection Pool")]
+    public RenderTexture[] videoFeeds;
+    [Space]
+    public Sprite[] genders;
+    [Space]
+    public GameObject[] characters;
+    [Space]
+    public Material[] materials;
+    [Space]
+    public Image[] locatorDots;
 
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
@@ -50,15 +52,15 @@ public class CharacterCardGenerator : MonoBehaviour
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
     List<GameObject> prefabsList = new List<GameObject>();
-    List<Color> colorList = new List<Color>();
+    List<Material> materialList = new List<Material>();
 
     GameObject lastSelectedPlayer;
     [HideInInspector] public Vector3 spawnPos;
 
     /// Random selection variables
-    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, colorIndex;
+    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
-    int numOfSaves = 0;
+    //int numOfSaves = 0;
     int currentPlayerId = 0;
 
     // Use this for initialization
@@ -67,7 +69,10 @@ public class CharacterCardGenerator : MonoBehaviour
         #region Generated List Content
         #region Video Feeds
         /// 4 video feeds added to the list using the ListExtension class
-        videoFeedList.AddMany(videoFeed1, videoFeed2, videoFeed3, videoFeed4);
+        for (int i = 0; i < videoFeeds.Length; i++)
+        {
+            videoFeedList.AddMany(videoFeeds[i]);
+        }
         #endregion
 
         #region Names
@@ -101,7 +106,10 @@ public class CharacterCardGenerator : MonoBehaviour
 
         #region Genders
         /// 4 gender icons added to the list (can add more) using the ListExtension class
-        gendersList.AddMany(gender1, gender2, gender3, gender4);
+        for (int j = 0; j < genders.Length; j++)
+        {
+            gendersList.AddMany(genders[j]);
+        }
         #endregion
 
         #region Crimes
@@ -169,11 +177,17 @@ public class CharacterCardGenerator : MonoBehaviour
 
         #region Prefabs
         /// 4 character prefabs added to the list using the ListExtension class
-        prefabsList.AddMany(character1, character2, character3, character4);
+        for (int k = 0; k < characters.Length; k++)
+        {
+            prefabsList.AddMany(characters[k]);
+        }
         #endregion
 
-        #region Colours
-        colorList.AddMany(Blue, Cyan, Green, Mint, Orange, Red, Violet, Yellow);
+        #region Materials
+        for (int l = 0; l < materials.Length; l++)
+        {
+            materialList.AddMany(materials[l]);
+        }
         #endregion
         #endregion
 
@@ -186,17 +200,17 @@ public class CharacterCardGenerator : MonoBehaviour
         Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
-        CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField, data.colorField);
+        CharacterData newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        prefabIndex = Random.Range(0, 4);
+        prefabIndex = Random.Range(0, characters.Length - 1);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
-        genderIndex = Random.Range(0, 4);
+        genderIndex = Random.Range(0, genders.Length - 1);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
-        colorIndex = Random.Range(0, 7);
+        materialIndex = Random.Range(0, materials.Length - 1);
         #endregion
 
         #region Character Card Display Setter
@@ -224,31 +238,41 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
-        newCharacter.colorField.color = colorList[colorIndex]; /// Sets the character card's colour to the randomly selected colour
+        newCharacter.materialField.material = materialList[materialIndex]; /// Sets the character card's colour to the randomly selected colour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
         Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
-            child.material.color = colorList[colorIndex];
+            if (child.gameObject.name != "Sphere")
+            {
+                child.material = materialList[materialIndex];
+            }
         }
+
+        locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
+
         lastSelectedPlayer = newPlayer.gameObject;
 
         currentPlayerId = playerId;
         newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
         currentPlayerId++;
 
-        savedCharacters[numOfSaves] = newCharacter;
-        numOfSaves++;
+        //savedCharacters[numOfSaves] = newCharacter;
+        //numOfSaves++;
     }
 
-    public void ReloadPreviousCard()
-    {
-        CharacterData prevCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField, data.colorField);
+    //public void ReloadPreviousCard()
+    //{
+    //    CharacterData prevCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
-        numOfSaves--;
+    //    numOfSaves--;
 
-        prevCharacter = savedCharacters[numOfSaves];
-    }
+    //    prevCharacter = savedCharacters[numOfSaves];
+    //}
 }
