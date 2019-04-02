@@ -228,6 +228,11 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            child.material.color = colorList[colorIndex];
+        }
         lastSelectedPlayer = newPlayer.gameObject;
 
         savedCharacters[numOfSaves] = newCharacter;
