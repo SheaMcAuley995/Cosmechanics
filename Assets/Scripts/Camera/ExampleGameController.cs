@@ -14,7 +14,7 @@ public class ExampleGameController : MonoBehaviour
     public CameraMultiTarget cameraMultiTarget;
     public GameObject playerPrefab;
     private int currentPlayerId = 0;
-    private Vector3[] spawnPoints;
+    [HideInInspector] public Vector3[] spawnPoints;
     public List<string> spawnableScenes;
 
     private void OnValidate()
