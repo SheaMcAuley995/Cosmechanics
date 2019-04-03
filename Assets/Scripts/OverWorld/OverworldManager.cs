@@ -26,6 +26,8 @@ public struct OverworldData
 
 public class OverworldManager : MonoBehaviour
 {
+    public static OverworldManager instance;
+
     public OverworldData data;
 
     #region Rewired
@@ -64,15 +66,27 @@ public class OverworldManager : MonoBehaviour
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
 
-    bool input, revInput, selectionInput, cancelInput, ableToLaunch;
+    bool input, reverseInput, selectionInput, cancelInput, ableToLaunch;
 
     int selectedLevel = 1;
 
     bool moving, orbiting;
     Vector3 direction = -Vector3.up;
 
-	// Use this for initialization
-	void Start ()
+    void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
     {
         ableToLaunch = false;
 
@@ -112,18 +126,11 @@ public class OverworldManager : MonoBehaviour
         // For all player input
         foreach (Player player in players)
         {
-            input = player.GetButtonDown("Move Horizontal");
-            revInput = player.GetNegativeButtonDown("Move Horizontal");
+            input = player.GetButtonDown("Move Horizontal"); // Analog stick right
+            reverseInput = player.GetNegativeButtonDown("Move Horizontal"); // Analog stick left
             selectionInput = player.GetButtonDown("PickUp");
             cancelInput = player.GetButtonDown("Sprint");
         }
-
-        // For singular player input
-        //input = players[0].GetButtonDown("Move Horizontal");
-        //revInput = players[0].GetNegativeButtonDown("Move Horizontal");
-        //selectionInput = players[0].GetButtonDown("PickUp");
-        //cancelInput = players[0].GetButtonDown("Sprint");
-        //launchInput = players[0].GetButtonDown("Interact");
     }
 
     void ApplyInput()
@@ -152,7 +159,7 @@ public class OverworldManager : MonoBehaviour
             ApplyText();
         }
 
-        if (revInput && !moving)
+        if (reverseInput && !moving)
         {
             switch (selectedLevel)
             {
@@ -180,7 +187,7 @@ public class OverworldManager : MonoBehaviour
         {
             SelectLevel();
         }
-        else if (selectionInput && level == Level.Level1 && ableToLaunch)
+        else if (selectionInput && ableToLaunch)
         {
             data.launchButton.onClick.Invoke();
         }
@@ -209,7 +216,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[1];
                 selectionPanel.levelName.text = levelNames[1];
                 selectionPanel.description.text = descriptions[1];
-                selectionPanel.launchButton.interactable = false;
+                selectionPanel.launchButton.interactable = true;
                 break;
             case Level.Level3:
                 selectionPanel.mapPreview.sprite = mapImages[2];

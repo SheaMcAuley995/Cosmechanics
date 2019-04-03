@@ -327,6 +327,7 @@ GameObject:
   - component: {fileID: 4957217318653550}
   - component: {fileID: 33693146746592646}
   - component: {fileID: 23648909840069390}
+  - component: {fileID: 114670011013297862}
   m_Layer: 0
   m_Name: polySurface25
   m_TagString: Untagged
@@ -1221,15 +1222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d563eaa79e83cd429ac09850561d9eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamColor:
-  - {fileID: 2100000, guid: 69b732c8f0b7bc449b3fb8bf251305ff, type: 2}
-  - {fileID: 2100000, guid: fd9e208621bf2034392cd535f7a9d588, type: 2}
-  - {fileID: 2100000, guid: f4b8d958720a91b4595750dd2ce78dc2, type: 2}
-  - {fileID: 2100000, guid: ca37f5ce76670c34a8956073ca9d7333, type: 2}
-  - {fileID: 2100000, guid: a88c6b73ee0587c48917db3e71923979, type: 2}
-  - {fileID: 2100000, guid: a833c1754a7cd734c9430ce12b5a2974, type: 2}
-  - {fileID: 2100000, guid: f209b0965a0d7eb4e84bddb7c216ee86, type: 2}
-  - {fileID: 2100000, guid: adcbe37fce547e242a2bf173c97cf251, type: 2}
+  teamMat: []
+  colors: []
 --- !u!114 &114579073002274420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1246,6 +1240,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114670011013297862
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1988733934278122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 751a24a44efa8b6488028e33884fa84c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  info: {fileID: 114540917410570624}
+  color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114955849425299454
 MonoBehaviour:
   m_ObjectHideFlags: 1
