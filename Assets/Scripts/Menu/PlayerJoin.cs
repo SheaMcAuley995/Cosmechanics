@@ -3,72 +3,53 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Rewired;
 
 public class PlayerJoin : MonoBehaviour
 {
     public Button playButton;
     public TextMeshProUGUI playersJoined;
-    [HideInInspector] public int playerId = 0;
-    Player[] players;
-    ExampleGameController controller;
-    bool input, playInput;
+    public PlayerController[] controllers;
 
-	void Start ()
+	IEnumerator Start ()
     {
-        controller = ExampleGameController.instance;
+        ExampleGameController.instance.numberOfPlayers = 2;
+        playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
 
-        controller.numberOfPlayers = 2;
-        playersJoined.text = controller.numberOfPlayers.ToString();
-
-        players = new Player[controller.numberOfPlayers];
-        for (int playerNumber = 0; playerNumber < controller.numberOfPlayers; playerNumber++)
-        {
-            players[playerNumber] = ReInput.players.GetPlayer(playerId);
-        }
+        yield return new WaitForSeconds(1f);
+        controllers = GameObject.FindObjectsOfType<PlayerController>();
     }
 	
 	void Update ()
     {
         GetInput();
-        ApplyInput();
 	}
 
     void GetInput()
     {
-        foreach(Player player in players)
+        foreach(PlayerController controller in controllers)
         {
-            input = player.GetButtonDown("PickUp");
-            playInput = player.GetButtonDown("Interact");
-        }
-    }
+            controller.getInput();
 
-    void ApplyInput()
-    {
-        if (input)
-        {
-            switch (controller.numberOfPlayers)
+            if (controller.pickUp)
             {
-                case 2:
-                    controller.numberOfPlayers++;
-                    controller.setSpawnPoints();
-                    break;
-                case 3:
-                    controller.numberOfPlayers++;
-                    controller.setSpawnPoints();
-                    break;
-                case 4:
-                    controller.numberOfPlayers = 2;
-                    controller.setSpawnPoints();
-                    break;
+                if (ExampleGameController.instance.numberOfPlayers < 4)
+                {
+                    ExampleGameController.instance.numberOfPlayers++;
+                    ExampleGameController.instance.setSpawnPoints();
+                }
+                else
+                {
+                    ExampleGameController.instance.numberOfPlayers = 2;
+                    ExampleGameController.instance.setSpawnPoints();
+                }
+
+                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
             }
 
-            playersJoined.text = controller.numberOfPlayers.ToString();
-        }
-
-        if (playInput)
-        {
-            playButton.onClick.Invoke();
+            if (controller.Interact)
+            {
+                playButton.onClick.Invoke();
+            }
         }
     }
 }

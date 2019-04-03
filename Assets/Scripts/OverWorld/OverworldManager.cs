@@ -131,13 +131,6 @@ public class OverworldManager : MonoBehaviour
             selectionInput = player.GetButtonDown("PickUp");
             cancelInput = player.GetButtonDown("Sprint");
         }
-
-        // For singular player input
-        //input = players[0].GetButtonDown("Move Horizontal");
-        //revInput = players[0].GetNegativeButtonDown("Move Horizontal");
-        //selectionInput = players[0].GetButtonDown("PickUp");
-        //cancelInput = players[0].GetButtonDown("Sprint");
-        //launchInput = players[0].GetButtonDown("Interact");
     }
 
     void ApplyInput()
