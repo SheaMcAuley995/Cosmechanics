@@ -20,15 +20,15 @@ public class PlayerController : MonoBehaviour
 
     //Rewired ID
     public int playerId = 0;
-    private Player player;
+    [HideInInspector] public Player player;
 
     private Vector2 movementVector;
     private Vector2 movementDir;
-    private bool Interact;
+    [HideInInspector] public bool Interact;
     private bool sprint;
     CharacterController cc;
 
-    bool pickUp = false;
+    [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
 
     // preReWired scripts
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         ProcessInput();
     }
 
-    private void getInput()
+    public void getInput()
     {
         movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
         movementVector.y = player.GetAxisRaw("Move Vertical");

@@ -7,18 +7,18 @@ using Rewired;
 public class SelectionInput : MonoBehaviour
 {
     public Button playButton;
-    public int playerId;
-    Player player;
+    public PlayerController controller;
+    public int playerId = 0;
     CharacterCardGenerator card;
-    bool interact, playInteract;
 
     // Use this for initialization
     void Start()
     {
         playButton = GameObject.FindGameObjectWithTag("PlayButton(CharSelect)").GetComponent<Button>();
-        player = ReInput.players.GetPlayer(playerId);
         card = GetComponent<CharacterCardGenerator>();
 
+        gameObject.AddComponent<PlayerController>();
+        controller = GetComponent<PlayerController>();
         GetComponent<CharacterCardGenerator>().GenerateCard(playerId);
     }
 
@@ -26,23 +26,18 @@ public class SelectionInput : MonoBehaviour
     void Update()
     {
         GetInput();
-        ProcessInput();
     }
 
     void GetInput()
     {
-        interact = player.GetButtonDown("PickUp");
-        playInteract = player.GetButtonDown("Interact");
-    }
+        controller.getInput();
 
-    void ProcessInput()
-    {
-        if (interact)
+        if (controller.pickUp)
         {
-            card.GenerateCard(playerId);
+            card.GenerateCard(controller.playerId);
         }
 
-        if (playInteract)
+        if (controller.Interact)
         {
             playButton.onClick.Invoke();
         }
