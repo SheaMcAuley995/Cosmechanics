@@ -19,7 +19,7 @@ public class AssignPlayers : MonoBehaviour
         {
             GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
             ExampleGameController.instance.setSpawnPoints();
-            newCharCard.GetComponent<SelectionInput>().playerId = currentPlayerId;
+            //newCharCard.GetComponent<PlayerController>().playerId = currentPlayerId;
             currentPlayerId++;
         }
         characterCards = GameObject.FindGameObjectsWithTag("CharacterCard");
