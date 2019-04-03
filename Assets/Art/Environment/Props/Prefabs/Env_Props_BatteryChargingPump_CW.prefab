@@ -21,7 +21,9 @@ GameObject:
   - component: {fileID: 4523304987322244}
   - component: {fileID: 33966180884614828}
   - component: {fileID: 23515633338747510}
-  m_Layer: 0
+  - component: {fileID: 135168641817997844}
+  - component: {fileID: 114800443460581784}
+  m_Layer: 9
   m_Name: Env_Props_BatteryChargingPump_CW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1214225941430598}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.763, z: -1.002}
+  m_LocalPosition: {x: 0, y: 0.763, z: -0.561}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4523304987322244}
@@ -79,15 +81,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1065999509201518}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: 2.011, y: 0, z: -19.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4270145542670322}
   - {fileID: 4609567129012258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!4 &4609567129012258
 Transform:
   m_ObjectHideFlags: 1
@@ -186,3 +188,28 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1065999509201518}
   m_Mesh: {fileID: 4300000, guid: 37664a17f94b310489c96ae0ade89046, type: 3}
+--- !u!114 &114800443460581784
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065999509201518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c1ffdc2bad481a44a43677df81a8963, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LockPosition: {fileID: 4270145542670322}
+  port: 0
+--- !u!135 &135168641817997844
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1065999509201518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 1.27
+  m_Center: {x: 0, y: 0.5241726, z: -0.018883608}

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Rewired;
 
+
 public class PlayerController : MonoBehaviour
 {
 
@@ -49,6 +50,8 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     InteractWithInterface interact;
 
+    GameObject interactedObject;
+
 
     private void Start()
     {
@@ -71,6 +74,7 @@ public class PlayerController : MonoBehaviour
         movementDir = movementVector.normalized;
         Interact = player.GetButtonDown("Interact");
         sprint = player.GetButton("Sprint");
+        pickUp = player.GetButtonDown("PickUp");
 
     }
 
@@ -90,8 +94,13 @@ public class PlayerController : MonoBehaviour
 
         if (Interact)
         {
-            interact.InteractWith();
+            interact.InteractWithObject();
             Interaction();
+        }
+
+        if(pickUp)
+        {
+            interact.pickUpObject();
         }
 
     }

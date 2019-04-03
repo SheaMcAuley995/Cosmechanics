@@ -434,14 +434,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e56340d2dc4fc4890ae20d499b28dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myInteractionType: 0
-  pickUpTransform: {fileID: 0}
-  thisRB: {fileID: 54246438660156128}
-  pickedUp: 0
-  pickUpSpeed: 7
-  pipeTransform: {fileID: 4663207222647814}
-  pipeRB: {fileID: 54246438660156128}
-  damageThreshold: 5.914364
 --- !u!114 &114981288768947268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -454,17 +446,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   batteryLife: 100
-  initialDrainRate: 2
-  initialRechargeRate: 1
-  doubleDrainRate: 4
-  doubleRechargeRate: 2
-  slowDrainRate: 1
-  slowRechargeRate: 0.5
   isSupplyingPower: 0
   isCharging: 0
   charingDock:
     serializedVersion: 2
     m_Bits: 2048
+  rb: {fileID: 0}
 --- !u!136 &136451326717786574
 CapsuleCollider:
   m_ObjectHideFlags: 1

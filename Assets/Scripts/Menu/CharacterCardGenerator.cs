@@ -11,9 +11,10 @@ public struct CharacterData
     public RawImage videoFeedField;
     public Image genderField;
     public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
+    public Image materialField;
 
     /// Constructor for creating new character cards
-    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
+    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
     {
         videoFeedField = _videoFeedField;
         genderField = _genderField;
@@ -21,19 +22,27 @@ public struct CharacterData
         ageField = _ageField;
         crimeField = _crimeField;
         sentenceField = _sentenceField;
+        materialField = _materialField;
     }
 }
 
 public class CharacterCardGenerator : MonoBehaviour
 {
-    public CharacterData data;
-    public CharacterData[] savedCharacters;
+    [Header("Constructor Data")]
+    public CharacterData displayFields;
+    CharacterData[] savedCharacters;
+    CameraMultiTarget cameraMultiTarget;
 
-    #region UI Selection Pool
-    /// Image displays
-    public RenderTexture videoFeed1, videoFeed2, videoFeed3, videoFeed4;
-    public Sprite gender1, gender2, gender3, gender4;
-    #endregion
+    [Header("Selection Pool")]
+    public RenderTexture[] videoFeeds;
+    [Space]
+    public Sprite[] genders;
+    [Space]
+    public GameObject[] characters;
+    [Space]
+    public Material[] materials;
+    [Space]
+    public Image[] locatorDots;
 
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
@@ -42,19 +51,28 @@ public class CharacterCardGenerator : MonoBehaviour
     List<Sprite> gendersList = new List<Sprite>();
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
+    List<GameObject> prefabsList = new List<GameObject>();
+    List<Material> materialList = new List<Material>();
+
+    GameObject lastSelectedPlayer;
+    [HideInInspector] public Vector3 spawnPos;
 
     /// Random selection variables
-    int videoFeedIndex, nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex;
+    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
-    int numOfSaves = 0;
+    //int numOfSaves = 0;
+    int currentPlayerId = 0;
 
     // Use this for initialization
     void Awake()
     {
         #region Generated List Content
         #region Video Feeds
-        /// 5 portraits added to the list using the ListExtension class
-        videoFeedList.AddMany(videoFeed1, videoFeed2, videoFeed3, videoFeed4);
+        /// 4 video feeds added to the list using the ListExtension class
+        for (int i = 0; i < videoFeeds.Length; i++)
+        {
+            videoFeedList.AddMany(videoFeeds[i]);
+        }
         #endregion
 
         #region Names
@@ -88,7 +106,10 @@ public class CharacterCardGenerator : MonoBehaviour
 
         #region Genders
         /// 4 gender icons added to the list (can add more) using the ListExtension class
-        gendersList.AddMany(gender1, gender2, gender3, gender4);
+        for (int j = 0; j < genders.Length; j++)
+        {
+            gendersList.AddMany(genders[j]);
+        }
         #endregion
 
         #region Crimes
@@ -153,58 +174,105 @@ public class CharacterCardGenerator : MonoBehaviour
             "To be given laxatives and pushed into space so that their last act will be to boldly go where no one has gone before",
             "To be stranded on an ocean planet near the event horizon of a black hole");
         #endregion
+
+        #region Prefabs
+        /// 4 character prefabs added to the list using the ListExtension class
+        for (int k = 0; k < characters.Length; k++)
+        {
+            prefabsList.AddMany(characters[k]);
+        }
         #endregion
+
+        #region Materials
+        for (int l = 0; l < materials.Length; l++)
+        {
+            materialList.AddMany(materials[l]);
+        }
+        #endregion
+        #endregion
+
+        cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
     }
 
     /// Generates a new prisoner card
-    public void GenerateCard()
+    public void GenerateCard(int playerId)
     {
+        Destroy(lastSelectedPlayer);
+
         /// Utilizes the constructor to create new data for the character card
-        CharacterData newCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
+        CharacterData newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        videoFeedIndex = Random.Range(0, 4);
+        prefabIndex = Random.Range(0, characters.Length - 1);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
-        //DetermineAgeBias(); My frens don't like it so I'm killing it until I make cases for each species. :'( 
-        genderIndex = Random.Range(0, 4);
+        genderIndex = Random.Range(0, genders.Length - 1);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
+        materialIndex = Random.Range(0, materials.Length - 1);
         #endregion
 
         #region Character Card Display Setter
-        newCharacter.videoFeedField.texture = videoFeedList[videoFeedIndex]; /// Sets the character card's video feed to the randomly selected feed.
+        #region Don't Look At Me, I'm Hideous!
+        // I did warn you.
+        if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos1").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[0];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos2").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[1];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos3").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[2];
+        }
+        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos4").transform.position)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[3];
+        }
+        #endregion
         newCharacter.nameField.text = namesList[nameIndex]; /// Sets the character card's name to the randomly selected portrait.
         newCharacter.ageField.text = agesList[ageIndex].ToString(); /// Sets the character card's age to the pseudo-randomly selected age.
         newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
+        newCharacter.materialField.material = materialList[materialIndex]; /// Sets the character card's colour to the randomly selected colour
         #endregion
 
-        savedCharacters[numOfSaves] = newCharacter;
-        numOfSaves++;
-    }
-
-    public void ReloadPreviousCard()
-    {
-        CharacterData prevCharacter = new CharacterData(data.videoFeedField, data.genderField, data.nameField, data.ageField, data.crimeField, data.sentenceField);
-
-        numOfSaves--;
-
-        prevCharacter = savedCharacters[numOfSaves];
-    }
-
-    void DetermineAgeBias()
-    {
-        int ageBias = Random.Range(1, 10);
-        if (ageBias < 9)
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
         {
-            ageIndex = Random.Range(2, 100);
+            if (child.gameObject.name != "Sphere")
+            {
+                child.material = materialList[materialIndex];
+            }
         }
-        else if (ageBias >= 9)
+
+        locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
         {
-            ageIndex = Random.Range(101, 1000);
+            locator.color = materialList[materialIndex].color;
         }
+
+        lastSelectedPlayer = newPlayer.gameObject;
+
+        currentPlayerId = playerId;
+        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        currentPlayerId++;
+
+        //savedCharacters[numOfSaves] = newCharacter;
+        //numOfSaves++;
     }
+
+    //public void ReloadPreviousCard()
+    //{
+    //    CharacterData prevCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+
+    //    numOfSaves--;
+
+    //    prevCharacter = savedCharacters[numOfSaves];
+    //}
 }

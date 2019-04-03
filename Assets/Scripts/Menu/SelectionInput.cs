@@ -1,22 +1,50 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Rewired;
 
 public class SelectionInput : MonoBehaviour
 {
-    public int playerId = 0;
-    Player players;
+    public Button playButton;
+    public int playerId;
+    Player player;
+    CharacterCardGenerator card;
+    bool interact, playInteract;
 
-	// Use this for initialization
-	void Awake ()
+    // Use this for initialization
+    void Start()
     {
-        players = ReInput.players.GetPlayer(playerId);
+        playButton = GameObject.FindGameObjectWithTag("PlayButton(CharSelect)").GetComponent<Button>();
+        player = ReInput.players.GetPlayer(playerId);
+        card = GetComponent<CharacterCardGenerator>();
+
+        GetComponent<CharacterCardGenerator>().GenerateCard(playerId);
     }
-	
-	// Update is called once per frame
-	void Update ()
+
+    // Update is called once per frame
+    void Update()
     {
-		
-	}
+        GetInput();
+        ProcessInput();
+    }
+
+    void GetInput()
+    {
+        interact = player.GetButtonDown("PickUp");
+        playInteract = player.GetButtonDown("Interact");
+    }
+
+    void ProcessInput()
+    {
+        if (interact)
+        {
+            card.GenerateCard(playerId);
+        }
+
+        if (playInteract)
+        {
+            playButton.onClick.Invoke();
+        }
+    }
 }

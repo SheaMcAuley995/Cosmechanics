@@ -2,6 +2,7 @@
 	Properties {
 		_Color ("Color", Color) = (0,0,0,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
+		//_NormalMap("Normal Map", 2D) = "bump" {}
 		_Glossiness ("Smoothness", Range(0,1)) = 0.5
 		_Metallic ("Metallic", Range(0,1)) = 0.0
 
@@ -21,6 +22,7 @@
 		#pragma target 3.0
 
 		sampler2D _MainTex;
+		//sampler2D _NormalMap;
 		fixed4 _Color;
 
 		half _Glossiness;
@@ -31,6 +33,7 @@
 
 		struct Input {
 			float2 uv_MainTex;
+			
 			float3 worldNormal;
 			float3 viewDir;
 			INTERNAL_DATA
@@ -45,6 +48,7 @@
 			o.Albedo = c.rgb;
 			o.Metallic = _Metallic;
 			o.Smoothness = _Glossiness;
+			
 			//o.Alpha = c.a;
 
 			//Edge Glow
@@ -53,7 +57,7 @@
 			glow = pow(glow, _GlowAmmount);
 			float3 glowColor = _GlowColor * glow;
 			o.Emission = _Emission + glowColor;
-
+			//o.Normal = _NormalMap;
 
 		}
 		ENDCG
