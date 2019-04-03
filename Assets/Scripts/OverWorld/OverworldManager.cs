@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using Rewired;
 
 [System.Serializable]
 public struct OverworldData
@@ -30,11 +29,7 @@ public class OverworldManager : MonoBehaviour
 
     public OverworldData data;
 
-    #region Rewired
-    [HideInInspector] public int playerId = 0;
-    Player[] players;
-    ExampleGameController controller;
-    #endregion
+    PlayerController[] playerControllers;
 
     public enum Level
     {
@@ -43,6 +38,7 @@ public class OverworldManager : MonoBehaviour
         Level3
     };
     [Space] public Level level;
+    int selectedLevel = 1;
 
     [Header("Class Components")]
     public Transform shipTransform;
@@ -65,14 +61,13 @@ public class OverworldManager : MonoBehaviour
     [Header("Orbit Settings")]
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
-
-    bool input, reverseInput, selectionInput, cancelInput, ableToLaunch;
-
-    int selectedLevel = 1;
-
-    bool moving, orbiting;
     Vector3 direction = -Vector3.up;
 
+    bool moving, orbiting;
+    bool ableToLaunch;
+
+
+    #region Singleton
     void Awake()
     {
         if (instance != null)
@@ -84,31 +79,24 @@ public class OverworldManager : MonoBehaviour
             instance = this;
         }
     }
+    #endregion
 
-    // Use this for initialization
     void Start ()
     {
         ableToLaunch = false;
 
-        controller = ExampleGameController.instance;
-
-        players = new Player[controller.numberOfPlayers];
-        for (int playerNumber = 0; playerNumber < controller.numberOfPlayers; playerNumber++)
-        {
-            players[playerNumber] = ReInput.players.GetPlayer(playerId);
-        }
+        playerControllers = FindObjectsOfType<PlayerController>();
 
         selectedLevel = 1;
         level = Level.Level1;
+
         MoveShip();
         ApplyText();
     }
 	
-	// Update is called once per frame
 	void Update ()
     {
         GetInput();
-        ApplyInput();
 
         if (orbiting)
         {
@@ -123,78 +111,74 @@ public class OverworldManager : MonoBehaviour
 
     void GetInput()
     {
-        // For all player input
-        foreach (Player player in players)
+        foreach (PlayerController player in playerControllers)
         {
-            input = player.GetButtonDown("Move Horizontal"); // Analog stick right
-            reverseInput = player.GetNegativeButtonDown("Move Horizontal"); // Analog stick left
-            selectionInput = player.GetButtonDown("PickUp");
-            cancelInput = player.GetButtonDown("Sprint");
-        }
-    }
+            player.getInput();
 
-    void ApplyInput()
-    {
-        if (input && !moving)
-        {
-            switch (selectedLevel)
+            // Select input
+            if (player.pickUp && !ableToLaunch)
             {
-                case 1:
-                    selectedLevel++;
-                    level = Level.Level2;
-                    direction = -Vector3.up;
-                    break;
-                case 2:
-                    selectedLevel++;
-                    level = Level.Level3;
-                    direction = -Vector3.up;
-                    break;
-                case 3:
-                    selectedLevel = 1;
-                    level = Level.Level1;
-                    direction = Vector3.up;
-                    break;
-            }            
-            MoveShip();
-            ApplyText();
-        }
-
-        if (reverseInput && !moving)
-        {
-            switch (selectedLevel)
+                SelectLevel();
+            }
+            else if (player.pickUp && ableToLaunch)
             {
-                case 1:
-                    selectedLevel = 3;
-                    level = Level.Level3;
-                    direction = -Vector3.up;
-                    break;
-                case 2:
-                    selectedLevel--;
-                    level = Level.Level1;
-                    direction = Vector3.up;
-                    break;
-                case 3:
-                    selectedLevel--;
-                    level = Level.Level2;
-                    direction = Vector3.up;
-                    break;
-            }            
-            MoveShip();
-            ApplyText();
-        }
+                data.launchButton.onClick.Invoke();
+            }
 
-        if (selectionInput && !ableToLaunch)
-        {
-            SelectLevel();
-        }
-        else if (selectionInput && ableToLaunch)
-        {
-            data.launchButton.onClick.Invoke();
-        }
+            // Cancel input
+            if (player.sprint)
+            {
+                data.cancelButton.onClick.Invoke();
+            }
 
-        if (cancelInput)
-        {
-            data.cancelButton.onClick.Invoke();
+            // Move input
+            if (player.movementVector.x > 0 && !moving)
+            {
+                switch (selectedLevel)
+                {
+                    case 1:
+                        selectedLevel++;
+                        level = Level.Level2;
+                        direction = -Vector3.up;
+                        break;
+                    case 2:
+                        selectedLevel++;
+                        level = Level.Level3;
+                        direction = -Vector3.up;
+                        break;
+                    case 3:
+                        selectedLevel = 1;
+                        level = Level.Level1;
+                        direction = Vector3.up;
+                        break;
+                }
+                MoveShip();
+                ApplyText();
+            }
+
+            if (player.movementVector.x < 0 && !moving)
+            {
+                switch (selectedLevel)
+                {
+                    case 1:
+                        selectedLevel = 3;
+                        level = Level.Level3;
+                        direction = -Vector3.up;
+                        break;
+                    case 2:
+                        selectedLevel--;
+                        level = Level.Level1;
+                        direction = Vector3.up;
+                        break;
+                    case 3:
+                        selectedLevel--;
+                        level = Level.Level2;
+                        direction = Vector3.up;
+                        break;
+                }
+                MoveShip();
+                ApplyText();
+            }
         }
     }
 
@@ -239,8 +223,10 @@ public class OverworldManager : MonoBehaviour
 
         orbiting = false;
         moving = true;
+
         shipPos = shipTransform.position;
         shipDest = orbitPositions[selectedLevel - 1].transform.position;
+
         StartCoroutine(WaitAndMove());
     }
 
@@ -256,6 +242,7 @@ public class OverworldManager : MonoBehaviour
 
         moving = false;
         orbiting = true;
+
         yield return null;
     }
 
