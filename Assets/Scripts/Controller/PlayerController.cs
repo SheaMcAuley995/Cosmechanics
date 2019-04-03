@@ -22,10 +22,10 @@ public class PlayerController : MonoBehaviour
     public int playerId = 0;
     [HideInInspector] public Player player;
 
-    private Vector2 movementVector;
+    [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
     [HideInInspector] public bool Interact;
-    private bool sprint;
+    [HideInInspector] public bool sprint;
     CharacterController cc;
 
     [HideInInspector] public bool pickUp = false;

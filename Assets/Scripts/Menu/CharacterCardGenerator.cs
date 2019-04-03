@@ -30,7 +30,6 @@ public class CharacterCardGenerator : MonoBehaviour
 {
     [Header("Constructor Data")]
     public CharacterData displayFields;
-    CharacterData[] savedCharacters;
     CameraMultiTarget cameraMultiTarget;
 
     [Header("Selection Pool")]
@@ -60,7 +59,6 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Random selection variables
     int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
-    //int numOfSaves = 0;
     int currentPlayerId = 0;
 
     // Use this for initialization
@@ -262,17 +260,5 @@ public class CharacterCardGenerator : MonoBehaviour
         currentPlayerId = playerId;
         newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
         currentPlayerId++;
-
-        //savedCharacters[numOfSaves] = newCharacter;
-        //numOfSaves++;
     }
-
-    //public void ReloadPreviousCard()
-    //{
-    //    CharacterData prevCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
-
-    //    numOfSaves--;
-
-    //    prevCharacter = savedCharacters[numOfSaves];
-    //}
 }

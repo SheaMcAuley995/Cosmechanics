@@ -7326,7 +7326,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -47.7, y: -935}
+  m_AnchoredPosition: {x: -47.69995, y: -935}
   m_SizeDelta: {x: 34.6, y: 38.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &460853108
@@ -7649,6 +7649,7 @@ MonoBehaviour:
   enemyProgress: 0
   progressionMultiplier: 0.4
   slider: {fileID: 1584188927}
+  alertUI: {fileID: 0}
   testInputFlorp: 0
 --- !u!1 &481499432 stripped
 GameObject:
@@ -7695,6 +7696,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
+  PUU_ShaderPrefab: {fileID: 0}
+  puu: {fileID: 0}
 --- !u!114 &481499438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8707,6 +8710,10 @@ Prefab:
       propertyPath: cameraMultiTarget
       value: 
       objectReference: {fileID: 447519475}
+    - target: {fileID: 1859818116352456, guid: 726aeb30313639e408885a2284be0ce9, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 726aeb30313639e408885a2284be0ce9, type: 2}
   m_IsPrefabAsset: 0
