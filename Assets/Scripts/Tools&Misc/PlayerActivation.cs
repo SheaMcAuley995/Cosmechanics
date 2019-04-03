@@ -9,8 +9,6 @@ public class PlayerActivation : MonoBehaviour
 
     public GameObject[] chosenCharacters;
 
-    int currentPlayerId = 0;
-
 	// Use this for initialization
 	void Awake ()
     {
@@ -33,9 +31,6 @@ public class PlayerActivation : MonoBehaviour
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {
             DontDestroyOnLoad(chosenCharacters[numOfChars]);
-
-            chosenCharacters[numOfChars].GetComponent<PlayerController>().playerId = currentPlayerId;
-            currentPlayerId++;
         }
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
