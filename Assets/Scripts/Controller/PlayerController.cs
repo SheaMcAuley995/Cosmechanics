@@ -65,6 +65,11 @@ public class PlayerController : MonoBehaviour
     {
         getInput();
         ProcessInput();
+
+        if (cameraTrans == null)
+        {
+            cameraTrans = Camera.main.transform;
+        }
     }
 
     public void getInput()
