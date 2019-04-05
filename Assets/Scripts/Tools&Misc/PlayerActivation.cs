@@ -9,8 +9,8 @@ public class PlayerActivation : MonoBehaviour
 
     public GameObject[] chosenCharacters;
 
-	// Use this for initialization
-	void Awake ()
+    #region Singleton
+    void Awake ()
     {
         DontDestroyOnLoad(this.gameObject);
 
@@ -23,8 +23,9 @@ public class PlayerActivation : MonoBehaviour
             Destroy(gameObject);
         }
     }
-	
-	public void ContinueToGame()
+    #endregion
+
+    public void ContinueToGame()
     {
         chosenCharacters = GameObject.FindGameObjectsWithTag("Char");
 
