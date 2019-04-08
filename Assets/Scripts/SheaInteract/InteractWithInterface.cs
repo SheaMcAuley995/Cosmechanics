@@ -20,6 +20,7 @@ public class InteractWithInterface : MonoBehaviour
             if(interactedObject.GetComponent<IInteractableTool>() != null)
             {
                 interactedObject.GetComponent<IInteractableTool>().toolInteraction();
+                //todo : ask to be held.
             }
         }
         else
@@ -32,7 +33,20 @@ public class InteractWithInterface : MonoBehaviour
                 //  Debug.Log("Calling object " + hitColliders[i]);
                 if (hitColliders[i].GetComponent<IInteractable>() != null)
                 {
-                    hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    if(hitColliders[i].GetComponent<RepairableObject>() != null)
+                    {
+                        if(hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+                        {
+                            hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        break;
+                    }
+                    
                 }
 
             }
