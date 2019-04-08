@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
-    public int health = 2;
+    private int health = 2;
 
     public int healthMax = 2;
 

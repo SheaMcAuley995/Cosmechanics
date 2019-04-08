@@ -107,7 +107,8 @@ public class ExampleGameController : MonoBehaviour
 
     public GameObject addPlayer()
     {
-        GameObject target = GameObject.Instantiate(playerPrefab, spawnPoints[currentPlayerId], Quaternion.identity);
+        GameObject target = GameObject.Instantiate(playerPrefab, spawnPoints[0], Quaternion.identity);
+        cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
         //target.GetComponent<MeshRenderer>().material = materials[currentPlayerId];
         target.GetComponent<PlayerController>().playerId = currentPlayerId;
         target.GetComponent<PlayerController>().cameraTrans = cameraMultiTarget.GetComponent<Camera>().transform;
