@@ -1,0 +1,37 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+
+public class ButtonManager : MonoBehaviour
+{
+    public void StartGame()
+    {
+        // TODO: Scene fader
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void ReturnToMenu(string menuScene)
+    {
+        // TODO: Scene fader
+        SceneManager.LoadScene(menuScene);
+    }
+
+    public void RetryLevel(string thisScene)
+    {
+        // TODO: Scene fader 
+        // (also this might be tricker than I'm thinking cause we'll need to store character data?)
+        SceneManager.LoadScene(thisScene);
+    }
+
+    public void ContinueToNextLevel(string levelSelect)
+    {
+        // TODO: Scene fader
+        SceneManager.LoadScene(levelSelect);
+    }
+}
