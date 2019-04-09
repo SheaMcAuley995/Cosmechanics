@@ -64,7 +64,7 @@ public class Fire : MonoBehaviour
             if (time >= timeUntilStun) // 2 seconds
             {
                 PlayerController thePlayer = other.GetComponent<PlayerController>();
-                StartCoroutine(StunPlayer(thePlayer));
+                //StartCoroutine(StunPlayer(thePlayer));
             }
         }
     }

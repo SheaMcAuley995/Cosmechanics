@@ -81,21 +81,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d73219a7b82a14f92dbfc154a5de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenNEvents: 3
+  timeBetweenNEvents: 2.5
   shipCurrenHealth: 0
   shipMaxHealth: 0
   blastEffectPrefab: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 2}
   explosionRadius: 3
-  explosionDamage: 25
+  explosionDamage: 1
   interactableLayerMask:
     serializedVersion: 2
     m_Bits: 512
   possibleAttackPositions:
-  - {x: 1.7, y: 0, z: -8.58}
-  - {x: 7.6, y: 0, z: -13.1}
-  - {x: 12.73, y: 0, z: -0.47}
-  - {x: 19, y: 0, z: -6.81}
-  - {x: 7.91, y: 0, z: -5.09}
+  - worldPositon: {x: 14.81, y: 0, z: -2.51}
+    nodes: []
+  - worldPositon: {x: 5.5, y: 0, z: -10.57}
+    nodes: []
+  - worldPositon: {x: 8.04, y: 0, z: -2.35}
+    nodes: []
+  - worldPositon: {x: 19.6, y: 0, z: -8.81}
+    nodes: []
+  - worldPositon: {x: 15.4, y: 0, z: -13.7}
+    nodes: []
+  - worldPositon: {x: 10.1, y: 0, z: -13.7}
+    nodes: []
   attackLocation: {x: 0, y: 0, z: 0}
   gotHit: 0
   healthBar: {fileID: 0}
