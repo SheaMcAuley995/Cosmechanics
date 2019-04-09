@@ -70,11 +70,13 @@ public class PlayerController : MonoBehaviour
 
     public void getInput()
     {
+        // Normal axis when player is not on fire
         if (normalMovement)
         {
             movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
             movementVector.y = player.GetAxisRaw("Move Vertical");
         }
+        // Flipped axis when a player is on fire
         else
         {
             movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
