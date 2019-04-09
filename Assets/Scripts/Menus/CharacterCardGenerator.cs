@@ -30,7 +30,6 @@ public class CharacterCardGenerator : MonoBehaviour
 {
     [Header("Constructor Data")]
     public CharacterData displayFields;
-    CharacterData[] savedCharacters;
     CameraMultiTarget cameraMultiTarget;
 
     [Header("Selection Pool")]
@@ -60,7 +59,6 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Random selection variables
     int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
-    //int numOfSaves = 0;
     int currentPlayerId = 0;
 
     // Use this for initialization
@@ -204,13 +202,13 @@ public class CharacterCardGenerator : MonoBehaviour
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
-        prefabIndex = Random.Range(0, characters.Length - 1);
+        prefabIndex = Random.Range(0, characters.Length);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
-        genderIndex = Random.Range(0, genders.Length - 1);
+        genderIndex = Random.Range(0, genders.Length);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
-        materialIndex = Random.Range(0, materials.Length - 1);
+        materialIndex = Random.Range(0, materials.Length);
         #endregion
 
         #region Character Card Display Setter
@@ -245,7 +243,7 @@ public class CharacterCardGenerator : MonoBehaviour
         Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
-            if (child.gameObject.name != "Sphere")
+            if (child.gameObject.layer != 16)
             {
                 child.material = materialList[materialIndex];
             }
@@ -262,17 +260,5 @@ public class CharacterCardGenerator : MonoBehaviour
         currentPlayerId = playerId;
         newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
         currentPlayerId++;
-
-        //savedCharacters[numOfSaves] = newCharacter;
-        //numOfSaves++;
     }
-
-    //public void ReloadPreviousCard()
-    //{
-    //    CharacterData prevCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
-
-    //    numOfSaves--;
-
-    //    prevCharacter = savedCharacters[numOfSaves];
-    //}
 }

@@ -17,6 +17,10 @@ public class Fire : MonoBehaviour
 
     public Node thisNode;
 
+    [SerializeField] float timeUntilStun = 2f;
+    [SerializeField] float stunTime = 2f;
+    float time = 0f;
+
 
     void Awake()
     {
@@ -50,6 +54,36 @@ public class Fire : MonoBehaviour
             TakeDamage(1f * Time.deltaTime);
             //emiss.rateOverTime = Mathf.Lerp(10f, 0f, 100f / Time.deltaTime);
         }
+
+        if (other.gameObject.CompareTag("Char"))
+        {
+            do {
+                time += 1f * Time.deltaTime;
+            } while (time < timeUntilStun);
+
+            if (time >= timeUntilStun) // 2 seconds
+            {
+                PlayerController thePlayer = other.GetComponent<PlayerController>();
+                StartCoroutine(StunPlayer(thePlayer));
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Char"))
+        {
+            time = 0f;
+        }
+    }
+
+    IEnumerator StunPlayer(PlayerController controller)
+    {
+        time = 0f;
+        controller.normalMovement = false;
+        yield return new WaitForSeconds(stunTime); // 2 seconds
+        controller.normalMovement = true;
+        yield return null;
     }
 
     public void TakeDamage(float amount)

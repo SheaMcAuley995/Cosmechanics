@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Rewired;
 
 
@@ -20,15 +21,16 @@ public class PlayerController : MonoBehaviour
 
     //Rewired ID
     public int playerId = 0;
-    private Player player;
+    [HideInInspector] public Player player;
 
-    private Vector2 movementVector;
+    [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
-    private bool Interact;
-    private bool sprint;
+    [HideInInspector] public bool Interact;
+    [HideInInspector] public bool sprint;
     CharacterController cc;
+    public bool normalMovement = true;
 
-    bool pickUp = false;
+    [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
 
     // preReWired scripts
@@ -52,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
     GameObject interactedObject;
 
-
     private void Start()
     {
         player = ReInput.players.GetPlayer(playerId);
@@ -67,10 +68,18 @@ public class PlayerController : MonoBehaviour
         ProcessInput();
     }
 
-    private void getInput()
+    public void getInput()
     {
-        movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-        movementVector.y = player.GetAxisRaw("Move Vertical");
+        if (normalMovement)
+        {
+            movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Vertical");
+        }
+        else
+        {
+            movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Horizontal");
+        }
         movementDir = movementVector.normalized;
         Interact = player.GetButtonDown("Interact");
         sprint = player.GetButton("Sprint");
