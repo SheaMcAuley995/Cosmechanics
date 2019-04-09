@@ -93,7 +93,7 @@ public class Grid : MonoBehaviour {
                 if (firePos.isFlamable)
                 {
                     //Debug.Log("Here there be fire");
-                    GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+                    GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
                     Fire fireComponent = fireObject.GetComponent<Fire>();
                     fireComponent.thisNode = firePos;
                     fireComponent.fireLocation.nodes = GetNeighbors(firePos);
