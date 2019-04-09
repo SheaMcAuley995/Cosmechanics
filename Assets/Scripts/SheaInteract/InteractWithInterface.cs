@@ -29,16 +29,25 @@ public class InteractWithInterface : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                //  Debug.Log("Calling object " + hitColliders[i]);
-                if (hitColliders[i].GetComponent<IInteractable>() != null)
+                if (hitColliders[i].GetComponent<RepairableObject>() != null)
+                {
+                    if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        break;
+                    }
+                }
+                else
                 {
                     hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    break;
                 }
 
             }
         }
-        
     }
+        
+    
 
     public void pickUpObject()
     {
