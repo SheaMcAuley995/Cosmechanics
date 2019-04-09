@@ -86,8 +86,8 @@ Shader "Custom/QuirkyMovement" {
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float4 _Albedo_var = tex2D(_Albedo,TRANSFORM_TEX(i.uv0, _Albedo));
                 float3 node_678 = (_Color.rgb*_Albedo_var.rgb);
-                float4 node_6185 = _Time;
-                float2 node_9194 = (i.uv0+node_6185.g*float2(0.2,0.2));
+                float4 node_9332 = _Time;
+                float2 node_9194 = (i.uv0+node_9332.g*float2(0.2,0.2));
                 float3 _Normal_var = UnpackNormal(tex2D(_Normal,TRANSFORM_TEX(node_9194, _Normal)));
                 float3 node_7546 = (node_678*(_Normal_var.rgb*(1.0-max(0,dot(_Normal_var.rgb, viewDirection)))));
                 float3 normalLocal = node_7546;
@@ -190,8 +190,8 @@ Shader "Custom/QuirkyMovement" {
                 float3 viewDirection = normalize(_WorldSpaceCameraPos.xyz - i.posWorld.xyz);
                 float4 _Albedo_var = tex2D(_Albedo,TRANSFORM_TEX(i.uv0, _Albedo));
                 float3 node_678 = (_Color.rgb*_Albedo_var.rgb);
-                float4 node_4436 = _Time;
-                float2 node_9194 = (i.uv0+node_4436.g*float2(0.2,0.2));
+                float4 node_372 = _Time;
+                float2 node_9194 = (i.uv0+node_372.g*float2(0.2,0.2));
                 float3 _Normal_var = UnpackNormal(tex2D(_Normal,TRANSFORM_TEX(node_9194, _Normal)));
                 float3 node_7546 = (node_678*(_Normal_var.rgb*(1.0-max(0,dot(_Normal_var.rgb, viewDirection)))));
                 float3 normalLocal = node_7546;
