@@ -15,8 +15,8 @@ public class PlayerJoin : MonoBehaviour
         ExampleGameController.instance.numberOfPlayers = 1;
         playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
 
-        yield return new WaitForSeconds(1f);
-        controllers = GameObject.FindObjectsOfType<PlayerController>();
+        yield return new WaitForEndOfFrame();
+        controllers = FindObjectsOfType<PlayerController>();
     }
 	
 	void Update ()

@@ -17,8 +17,9 @@ public class Fire : MonoBehaviour
 
     public Node thisNode;
 
-    float stunTimer = 1.5f;
-    float time;
+    [SerializeField] float timeUntilStun = 2f;
+    [SerializeField] float stunTime = 2f;
+    float time = 0f;
 
 
     void Awake()
@@ -58,9 +59,9 @@ public class Fire : MonoBehaviour
         {
             do {
                 time += 1f * Time.deltaTime;
-            } while (time < stunTimer);
+            } while (time < timeUntilStun);
 
-            if (time >= stunTimer)
+            if (time >= timeUntilStun) // 2 seconds
             {
                 PlayerController thePlayer = other.GetComponent<PlayerController>();
                 StartCoroutine(StunPlayer(thePlayer));
@@ -76,12 +77,12 @@ public class Fire : MonoBehaviour
         }
     }
 
-    IEnumerator StunPlayer(PlayerController player)
+    IEnumerator StunPlayer(PlayerController controller)
     {
-        Debug.LogWarning("DOING THE THING");
-        
-        //yield return new WaitForSeconds(2f);
-        //player.movementVector.x -= 30f;
+        time = 0f;
+        controller.normalMovement = false;
+        yield return new WaitForSeconds(stunTime); // 2 seconds
+        controller.normalMovement = true;
         yield return null;
     }
 
