@@ -35,7 +35,6 @@ public class ShipHealth : MonoBehaviour {
 
     [Header("UI Elements")]
     public Image healthBar;
-    public TextMeshProUGUI healthText;
     public GameObject loseGameScreen;
 
     int index;
@@ -131,9 +130,9 @@ public class ShipHealth : MonoBehaviour {
         AudioEventManager.instance.PlaySound("bang",.8f,Random.Range(.2f,1f),0);
         AdjustUI();
 
-        if (shipCurrenHealth <= 0)
+        if (shipCurrenHealth <= shipMaxHealth * 0.25)
         {
-            //LoseGame();
+            LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);
