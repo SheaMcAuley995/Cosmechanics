@@ -5,26 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    public void StartGame(string levelSelect)
+    public void StartGame()
     {
         // TODO: Scene fader
-        SceneManager.LoadScene(levelSelect);
-    }
-
-    public void SettingsMenu()
-    {
-        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void QuitGame()
     {
         Application.Quit();
-    }
-
-    public void SelectLevel(string characterCreator)
-    {
-        // TODO: Scene fader
-        SceneManager.LoadScene(characterCreator);
     }
 
     public void ReturnToMenu(string menuScene)
