@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Rewired;
 
 
@@ -52,7 +53,6 @@ public class PlayerController : MonoBehaviour
 
     GameObject interactedObject;
 
-
     private void Start()
     {
         player = ReInput.players.GetPlayer(playerId);
@@ -65,11 +65,6 @@ public class PlayerController : MonoBehaviour
     {
         getInput();
         ProcessInput();
-
-        if (cameraTrans == null)
-        {
-            cameraTrans = Camera.main.transform;
-        }
     }
 
     public void getInput()
