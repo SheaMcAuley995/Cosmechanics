@@ -17,6 +17,9 @@ public class Fire : MonoBehaviour
 
     public Node thisNode;
 
+    float stunTimer = 1.5f;
+    float time;
+
 
     void Awake()
     {
@@ -50,6 +53,36 @@ public class Fire : MonoBehaviour
             TakeDamage(1f * Time.deltaTime);
             //emiss.rateOverTime = Mathf.Lerp(10f, 0f, 100f / Time.deltaTime);
         }
+
+        if (other.gameObject.CompareTag("Char"))
+        {
+            do {
+                time += 1f * Time.deltaTime;
+            } while (time < stunTimer);
+
+            if (time >= stunTimer)
+            {
+                PlayerController thePlayer = other.GetComponent<PlayerController>();
+                StartCoroutine(StunPlayer(thePlayer));
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Char"))
+        {
+            time = 0f;
+        }
+    }
+
+    IEnumerator StunPlayer(PlayerController player)
+    {
+        Debug.LogWarning("DOING THE THING");
+        
+        //yield return new WaitForSeconds(2f);
+        //player.movementVector.x -= 30f;
+        yield return null;
     }
 
     public void TakeDamage(float amount)
