@@ -28,7 +28,6 @@ public class AssignPlayers : MonoBehaviour
 
         // Finds the play button
         playButton = FindObjectOfType<Button>();
-        //playButton = GameObject.FindGameObjectWithTag("PlayButton(CharSelect)").GetComponent<Button>();
 
         CreateAndFindCards();
     }
