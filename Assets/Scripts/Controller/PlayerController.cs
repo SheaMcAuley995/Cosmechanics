@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Interact;
     [HideInInspector] public bool sprint;
     CharacterController cc;
+    public bool normalMovement = true;
 
     [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
@@ -69,8 +70,16 @@ public class PlayerController : MonoBehaviour
 
     public void getInput()
     {
-        movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-        movementVector.y = player.GetAxisRaw("Move Vertical");
+        if (normalMovement)
+        {
+            movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Vertical");
+        }
+        else
+        {
+            movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Horizontal");
+        }
         movementDir = movementVector.normalized;
         Interact = player.GetButtonDown("Interact");
         sprint = player.GetButton("Sprint");
