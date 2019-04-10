@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     public AttackLocation fireLocation;
+    public GameObject fireOnPlayerEffect;
     ParticleSystem particles;
     ParticleSystem.EmissionModule emiss;
 
@@ -17,8 +18,8 @@ public class Fire : MonoBehaviour
 
     public Node thisNode;
 
-    [SerializeField] float timeUntilStun = 2f;
-    [SerializeField] float stunTime = 2f;
+    [SerializeField] float timeUntilStun = 1.5f;
+    [SerializeField] float stunTime = 3f;
     float time = 0f;
 
 
@@ -57,11 +58,9 @@ public class Fire : MonoBehaviour
 
         if (other.gameObject.CompareTag("Char"))
         {
-            do {
-                time += 1f * Time.deltaTime;
-            } while (time < timeUntilStun);
+            time += 1f * Time.deltaTime;
 
-            if (time >= timeUntilStun) // 2 seconds
+            if (time >= timeUntilStun) // 3 seconds
             {
                 PlayerController thePlayer = other.GetComponent<PlayerController>();
                 //StartCoroutine(StunPlayer(thePlayer));
@@ -79,10 +78,12 @@ public class Fire : MonoBehaviour
 
     IEnumerator StunPlayer(PlayerController controller)
     {
+        GameObject playerFire = Instantiate(fireOnPlayerEffect, controller.transform.position, Quaternion.identity, controller.transform);
         time = 0f;
         controller.normalMovement = false;
-        yield return new WaitForSeconds(stunTime); // 2 seconds
+        yield return new WaitForSeconds(stunTime); // 3 seconds
         controller.normalMovement = true;
+        Destroy(playerFire);
         yield return null;
     }
 
