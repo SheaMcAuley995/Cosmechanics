@@ -18,13 +18,13 @@ public class LevelSelectManager : MonoBehaviour
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:
-                scene = "MichaelBetaLevelBuild";
+                scene = "BetaMichaelTest";
                 break;
             case OverworldManager.Level.Level2:
-                scene = "MichaelBetaLevelBuild";
+                scene = "BetaMichaelTest";
                 break;
             case OverworldManager.Level.Level3:
-                scene = "MichaelBetaLevelBuild";
+                scene = "BetaMichaelTest";
                 break;
         }
 
