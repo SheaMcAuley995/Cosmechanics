@@ -34,6 +34,6 @@ public class PlayerActivation : MonoBehaviour
             DontDestroyOnLoad(chosenCharacters[numOfChars]);
         }
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneFader.instance.FadeTo("ZachOverWorld");
     }
 }
