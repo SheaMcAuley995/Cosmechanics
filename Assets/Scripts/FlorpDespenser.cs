@@ -12,7 +12,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     private void Start()
     {
         dump = false;
-      
+        point = dispensePoint.position;
     }
 
     public void InteractWith(){
@@ -30,7 +30,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     {
         if (dump)
         {
-            GameObject part = Instantiate(particle);
+            GameObject part = Instantiate(particle, point, Quaternion.identity);
             part.GetComponent<ParticleSystem>().Play();
             dump = false;
         }
