@@ -32,6 +32,7 @@ public class EnemyShip : MonoBehaviour {
             {    
                 GameObject bolt = Instantiate(laserPrefab, enemyShipPosition.position, laserPrefab.transform.rotation);
                 //laserPrefab.transform.LookAt(ShipHealth.instance.attackLocation);
+
                 bolt.transform.LookAt(laserImpactPoint);
                 lasers.Add(bolt);
                 ShipHealth.instance.gotHit = false;
@@ -44,21 +45,14 @@ public class EnemyShip : MonoBehaviour {
     {
         foreach (var blast in lasers)
         {
+            if (blast != null)
+            {
+                blast.transform.Translate(blast.transform.forward * laserSpeed * Time.deltaTime, Space.World);               
+            }
 
-            blast.transform.Translate(blast.transform.forward  * laserSpeed * Time.deltaTime, Space.World);
-            //StartCoroutine(killMe());
         }      
     }
-    IEnumerator killMe()
-    {
-        yield return new WaitForSeconds(1.5f);
-        foreach (var blast in lasers)
-        {
-
-            Destroy(blast);
-        }
-        
-    }
+   
 
     private void OnDrawGizmosSelected()
     {

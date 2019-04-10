@@ -20,7 +20,7 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.3490566, g: 0.3490566, b: 0.3490566, a: 1}
+  m_AmbientSkyColor: {r: 0.14150941, g: 0.14150941, b: 0.14150941, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 0
@@ -34,7 +34,7 @@ RenderSettings:
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
   m_DefaultReflectionMode: 0
   m_DefaultReflectionResolution: 128
-  m_ReflectionBounces: 5
+  m_ReflectionBounces: 3
   m_ReflectionIntensity: 0.3
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
@@ -53,17 +53,17 @@ LightmapSettings:
     m_TemporalCoherenceThreshold: 1
     m_EnvironmentLightingMode: 0
     m_EnableBakedLightmaps: 1
-    m_EnableRealtimeLightmaps: 0
+    m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 10
-    m_Resolution: 2
-    m_BakeResolution: 12
+    m_Resolution: 4
+    m_BakeResolution: 16
     m_AtlasSize: 1024
     m_AO: 1
     m_AOMaxDistance: 1
     m_CompAOExponent: 1.18
     m_CompAOExponentDirect: 0.18
-    m_Padding: 6
+    m_Padding: 8
     m_LightmapParameters: {fileID: 15200, guid: 0000000000000000f000000000000000,
       type: 0}
     m_LightmapsBakeMode: 1
@@ -75,10 +75,10 @@ LightmapSettings:
     m_MixedBakeMode: 2
     m_BakeBackend: 1
     m_PVRSampling: 1
-    m_PVRDirectSampleCount: 32
-    m_PVRSampleCount: 256
-    m_PVRBounces: 2
-    m_PVRFilterTypeDirect: 0
+    m_PVRDirectSampleCount: 48
+    m_PVRSampleCount: 512
+    m_PVRBounces: 3
+    m_PVRFilterTypeDirect: 1
     m_PVRFilterTypeIndirect: 0
     m_PVRFilterTypeAO: 0
     m_PVRFilteringMode: 1
@@ -86,11 +86,11 @@ LightmapSettings:
     m_PVRFilteringGaussRadiusDirect: 1
     m_PVRFilteringGaussRadiusIndirect: 5
     m_PVRFilteringGaussRadiusAO: 2
-    m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+    m_PVRFilteringAtrousPositionSigmaDirect: 1.03
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 112000002, guid: 3499c449c932717499106d2505de4714,
+  m_LightingDataAsset: {fileID: 112000774, guid: 3499c449c932717499106d2505de4714,
     type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -1674,7 +1674,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4420041110950986, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.116
       objectReference: {fileID: 0}
     - target: {fileID: 4420041110950986, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1715,6 +1715,22 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 87624e83991c96942a0a6bb45c9b9257, type: 2}
+    - target: {fileID: 1504151725209178, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1149634136332814, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232073349595974, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1618230134618566, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74a702ecd081a374a94764e55b1e8adf, type: 2}
   m_IsPrefabAsset: 0
@@ -23468,7 +23484,7 @@ Light:
   serializedVersion: 8
   m_Type: 3
   m_Color: {r: 0.9433962, g: 0.8876555, b: 0.4405482, a: 1}
-  m_Intensity: 3
+  m_Intensity: 3.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -27211,7 +27227,7 @@ Light:
   serializedVersion: 8
   m_Type: 3
   m_Color: {r: 0.9433962, g: 0.8876555, b: 0.4405482, a: 1}
-  m_Intensity: 3
+  m_Intensity: 3.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -37690,7 +37706,7 @@ Light:
   serializedVersion: 8
   m_Type: 3
   m_Color: {r: 0.9433962, g: 0.8876555, b: 0.4405482, a: 1}
-  m_Intensity: 3
+  m_Intensity: 3.5
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -47071,6 +47087,22 @@ Prefab:
         type: 2}
       propertyPath: rotateX
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727415845854492, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779105231117398, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1888996325818716, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: 1513816361346172, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
@@ -88027,7 +88059,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &2039252146
 Transform:
