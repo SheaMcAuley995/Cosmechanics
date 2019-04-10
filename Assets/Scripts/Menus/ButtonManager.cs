@@ -5,33 +5,40 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
+    // BUILD INDEX KEY:
+    // 0 = MainMenu
+    // 1 = CharacterSelection
+    // 2 = ZachOverWorld
+    // 3 = NewMichaelTest
+
+    // Fades to character selection
     public void StartGame()
     {
-        // TODO: Scene fader
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        SceneFader.instance.FadeTo("CharacterSelection");
     }
 
+    // Fades to quit
     public void QuitGame()
     {
-        Application.Quit();
+
+        SceneFader.instance.FadeToQuit();
     }
 
-    public void ReturnToMenu(string menuScene)
+    //Fades to main menu
+    public void ReturnToMenu()
     {
-        // TODO: Scene fader
-        SceneManager.LoadScene(menuScene);
+        SceneFader.instance.FadeTo("MainMenu");
     }
 
-    public void RetryLevel(string thisScene)
+    // Fades to current scene
+    public void RetryLevel()
     {
-        // TODO: Scene fader 
-        // (also this might be tricker than I'm thinking cause we'll need to store character data?)
-        SceneManager.LoadScene(thisScene);
+        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
     }
 
-    public void ContinueToNextLevel(string levelSelect)
+    // Fades to character selection
+    public void ContinueGame()
     {
-        // TODO: Scene fader
-        SceneManager.LoadScene(levelSelect);
+        SceneFader.instance.FadeTo("CharacterSelection");
     }
 }

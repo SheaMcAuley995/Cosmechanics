@@ -125,10 +125,10 @@ public class CharacterCardGenerator : MonoBehaviour
             "Calling yourself a space pirate", "Drinking the florp", "Panicking at the disco",
             "Couldn't handle the truth", "Failing to study history... and then repeating it",
             "Launching a spacecraft out of the solar system with a map to the home planet on it",
-            "Failed to provide more cowbell", "Failed to construct additional pylons",
-            "Fought for their right to party", "Star arson", "Crashing the LAN party",
-            "Removed the watermark", "Coloring outside the lines", "Sneezed without covering their mouth",
-            "Left someone on 'read'", "Eating all of the cookies", "Novel reading",
+            "Failing to provide more cowbell", "Failing to construct additional pylons",
+            "Fighting for their right to party", "Star arson", "Crashing the LAN party",
+            "Removing the watermark", "Coloring outside the lines", "Sneezing without covering their mouth",
+            "Leaving someone on 'read'", "Eating all of the cookies", "Novel reading",
             "Boring when inflorpicated", "Obsession with anime", "Failing a Turing test while biological",
             "Feebleness of intellect", "Video game addiction", "Using only 10% of the brain",
             "Use of imperial units instead of metric", "Piloting under the influence of spice",
@@ -139,8 +139,8 @@ public class CharacterCardGenerator : MonoBehaviour
             "Hitting all of the buttons on a space elevator",
             "Speeding - going warp 80 in a warp 65 zone", "Public indecency and indecent publicity",
             "Traumatizing a Class 0 Civilization with a fake alien invasion",
-            "Saw someone sneeze... and didn't say 'bless you'", "Florp-juggling without a license",
-            "Engaging in online propaganda");
+            "Seeing someone sneeze... and not saying 'bless you'", "Florp-juggling without a license",
+            "Article 13 Violation: Posting Memes");
         #endregion
 
         #region Sentences
