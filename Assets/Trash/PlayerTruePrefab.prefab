@@ -26,6 +26,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1007218657973856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4994928604644244}
+  - component: {fileID: 114373978246073026}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1009206643966254
 GameObject:
   m_ObjectHideFlags: 1
@@ -1282,11 +1298,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1508329129461838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.8980596, y: 1.3804586e-17, z: -16.167831}
+  m_LocalPosition: {x: -4.525034, y: -1.0229887e-16, z: -15.367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4136707517437258}
   - {fileID: 4247984770239790}
+  - {fileID: 4994928604644244}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1583,6 +1600,19 @@ Transform:
   m_Father: {fileID: 4662922311652006}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4994928604644244
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1007218657973856}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.799, z: 0.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4581055296201060}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &54953187810760742
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1651,9 +1681,25 @@ MonoBehaviour:
   runSpeed: 5.5
   gravity: -12
   jumpheight: 1
-  turnSmoothTime: 0.12
-  speedSmoothTime: 0.1
+  turnSmoothTime: 0.05
+  speedSmoothTime: 0
   cameraTrans: {fileID: 0}
+--- !u!114 &114373978246073026
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1007218657973856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93cd65a2864fe3d4b9435f8d1fc51498, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactableObject: {fileID: 0}
+  radius: 1
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!136 &136969908709092178
 CapsuleCollider:
   m_ObjectHideFlags: 1
