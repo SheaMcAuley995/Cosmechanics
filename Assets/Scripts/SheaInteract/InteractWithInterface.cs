@@ -13,6 +13,12 @@ public class InteractWithInterface : MonoBehaviour
     GameObject interactedObject;
 
 
+
+    private void Update()
+    {
+         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+         hitColliders[0].gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+    }
     public void InteractWithObject()
     {
         if(interactedObject != null)
@@ -46,8 +52,6 @@ public class InteractWithInterface : MonoBehaviour
             }
         }
     }
-        
-    
 
     public void pickUpObject()
     {
