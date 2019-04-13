@@ -17,7 +17,24 @@ public class InteractWithInterface : MonoBehaviour
     private void Update()
     {
          Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-         hitColliders[0].gameObject.GetComponent<MeshRenderer>().material.color = Color.white;
+         foreach(Collider hitCollider in hitColliders)
+         {
+             Debug.Log(hitCollider.gameObject.name);
+         }
+        if(hitColliders != null)
+        {
+            //  if(interactedObject != hitColliders[0].GetComponent<GameObject>())
+            //  {
+            //     if(!interactedObject)
+            //     {
+            //          interactedObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            //     }
+            //  interactedObject = hitColliders[0].GetComponent<GameObject>();
+            //  interactedObject.GetComponent<MeshRenderer>().material.color = Color.white;
+
+            //  }
+
+        }
     }
     public void InteractWithObject()
     {
@@ -120,7 +137,7 @@ public class InteractWithInterface : MonoBehaviour
     //    {
     //        interactedObject.transform.position = transform.position;
     //        interactedObject.transform.eulerAngles = transform.eulerAngles;
-    //    }
+    //    }william defoe
     //}
     //
     //public void throwObject()
