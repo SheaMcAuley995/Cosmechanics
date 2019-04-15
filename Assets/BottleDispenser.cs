@@ -14,7 +14,7 @@ public class BottleDispenser : MonoBehaviour, IInteractable {
 
     public void InteractWith()
     {
-        GiveFlorp();
+        GiveFlorp(); //this is what gives florp
 
     }
 
