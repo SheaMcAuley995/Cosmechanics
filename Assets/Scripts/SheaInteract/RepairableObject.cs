@@ -44,6 +44,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         }
     }
 
+   
+
     public void repairObject(int repairAmount)
     {
         currentMesh -= 1;
