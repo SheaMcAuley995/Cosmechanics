@@ -58,12 +58,15 @@ public class Fire : MonoBehaviour
 
         if (other.gameObject.CompareTag("Char"))
         {
-            time += 1f * Time.deltaTime;
+            if (time < timeUntilStun)
+            {
+                time += 1f * Time.deltaTime;
+            }
 
             if (time >= timeUntilStun) // 3 seconds
             {
                 PlayerController thePlayer = other.GetComponent<PlayerController>();
-                StartCoroutine(StunPlayer(thePlayer));
+                //StartCoroutine(StunPlayer(thePlayer));
             }
         }
     }
