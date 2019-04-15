@@ -13,6 +13,29 @@ public class InteractWithInterface : MonoBehaviour
     GameObject interactedObject;
 
 
+
+    private void Update()
+    {
+         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+         foreach(Collider hitCollider in hitColliders)
+         {
+             Debug.Log(hitCollider.gameObject.name);
+         }
+        if(hitColliders != null)
+        {
+            //  if(interactedObject != hitColliders[0].GetComponent<GameObject>())
+            //  {
+            //     if(!interactedObject)
+            //     {
+            //          interactedObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            //     }
+            //  interactedObject = hitColliders[0].GetComponent<GameObject>();
+            //  interactedObject.GetComponent<MeshRenderer>().material.color = Color.white;
+
+            //  }
+
+        }
+    }
     public void InteractWithObject()
     {
         if(interactedObject != null)
@@ -46,8 +69,6 @@ public class InteractWithInterface : MonoBehaviour
             }
         }
     }
-        
-    
 
     public void pickUpObject()
     {
