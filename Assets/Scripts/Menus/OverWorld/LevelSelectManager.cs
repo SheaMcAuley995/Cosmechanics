@@ -12,21 +12,22 @@ public class LevelSelectManager : MonoBehaviour
         players = FindObjectsOfType<PlayerController>();
     }
 
+    // TODO: Store user data on levels they've beaten & lock levels 2 and 3 until reached
     public void LaunchLevel(string scene)
     {
-        if (OverworldManager.instance.level == OverworldManager.Level.Level1)
+        switch (OverworldManager.instance.level)
         {
-            scene = "NewMichaelTest";
-        }
-        else if (OverworldManager.instance.level == OverworldManager.Level.Level2)
-        {
-            scene = "NewMichaelTest";
-        }
-        else if (OverworldManager.instance.level == OverworldManager.Level.Level3)
-        {
-            scene = "NewMichaelTest";
+            case OverworldManager.Level.Level1:
+                scene = "BetaMichaelTest";
+                break;
+            case OverworldManager.Level.Level2:
+                scene = "BetaMichaelTest";
+                break;
+            case OverworldManager.Level.Level3:
+                scene = "BetaMichaelTest";
+                break;
         }
 
-        SceneManager.LoadScene(scene);
+        SceneFader.instance.FadeTo(scene);
     }
 }

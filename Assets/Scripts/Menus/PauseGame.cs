@@ -154,6 +154,6 @@ public class PauseGame : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneManager.LoadScene(menuScene);
+        SceneFader.instance.FadeTo("MainMenu");
     }
 }
