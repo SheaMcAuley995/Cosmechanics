@@ -13,6 +13,29 @@ public class InteractWithInterface : MonoBehaviour
     GameObject interactedObject;
 
 
+
+    private void Update()
+    {
+         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+         foreach(Collider hitCollider in hitColliders)
+         {
+             Debug.Log(hitCollider.gameObject.name);
+         }
+        if(hitColliders != null)
+        {
+            //  if(interactedObject != hitColliders[0].GetComponent<GameObject>())
+            //  {
+            //     if(!interactedObject)
+            //     {
+            //          interactedObject.GetComponent<MeshRenderer>().material.color = Color.black;
+            //     }
+            //  interactedObject = hitColliders[0].GetComponent<GameObject>();
+            //  interactedObject.GetComponent<MeshRenderer>().material.color = Color.white;
+
+            //  }
+
+        }
+    }
     public void InteractWithObject()
     {
         if(interactedObject != null)
@@ -46,8 +69,6 @@ public class InteractWithInterface : MonoBehaviour
             }
         }
     }
-        
-    
 
     public void pickUpObject()
     {
@@ -110,48 +131,6 @@ public class InteractWithInterface : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, radius);
     }
 
-    //public void grabObject()
-    //{
-    //    if(interactedObject != null)
-    //    {
-    //        interactedObject.transform.position = transform.position;
-    //        interactedObject.transform.eulerAngles = transform.eulerAngles;
-    //    }
-    //}
-    //
-    //public void throwObject()
-    //{
-    //    if (interactedObject != null)
-    //    {
-    //        interactedObject.GetComponent<Rigidbody>().velocity = transform.forward * throwForce;
-    //    }
-    //}
 
-    //public void InteractWith()
-    //{
-    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-    //    Debug.Log("Calling InteractWith()");
-    //    Debug.Log(hitColliders.Length);
-    //    for (int i = 0; i < hitColliders.Length; i++)
-    //    {
-    //        // Chache this later once the check becomes larger
-    //        Debug.Log("Calling object " + i);
-    //        if (hitColliders[i].GetComponent<Interactable>() != null)
-    //        {
-    //            Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
-    //
-    //            if (testedInteractable.pickedUp == false)
-    //            {
-    //                if (interactableObject == null)
-    //                {
-    //                    Debug.Log("Setting interactable to " + hitColliders[i]);
-    //                    interactableObject = testedInteractable;
-    //                    return;
-    //                }
-    //            }
-    //
-    //        }
-    //    }
-    //}
 
 }
