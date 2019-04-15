@@ -6,10 +6,10 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PUUSeled
-  m_Shader: {fileID: 4800000, guid: 250d48c28fe799c47be57a6d24494fa9, type: 3}
+  m_Name: ObjectHighlight
+  m_Shader: {fileID: 4800000, guid: fb7a4d8557601de4fb4525dcf5fd3e22, type: 3}
   m_ShaderKeywords: 
-  m_LightmapFlags: 3
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -18,10 +18,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _Albedo:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -42,6 +38,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _HighlightText:
+        m_Texture: {fileID: 2800000, guid: a7a478642421687439895148d073a86f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -50,12 +50,8 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Mix:
-        m_Texture: {fileID: 2800000, guid: a7a478642421687439895148d073a86f, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Noise:
-        m_Texture: {fileID: 2800000, guid: b6e4aa27ab74b7d4aa595896424b5077, type: 3}
+    - _Normal:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -67,7 +63,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Texture:
-        m_Texture: {fileID: 2800000, guid: a7a478642421687439895148d073a86f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
@@ -78,8 +74,6 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _GlowIntensity: 22.4
-    - _GlowPulseFrequency: 2
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
@@ -88,17 +82,8 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
-    - _U_LineSpeed: 5
-    - _U_Speed: 1
-    - _U_Speed_copy: 0.01
-    - _V_LineSpeed: 0
-    - _V_Speed: 0
-    - _V_Speed_copy: 0
     - _ZWrite: 1
-    - _offsetAmmount: 0.2
     m_Colors:
-    - _2ndGlowColor: {r: 0.3066038, g: 0.6592448, b: 1, a: 1}
-    - _AlbedoColor: {r: 0, g: 0, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _GlowColor: {r: 0, g: 0.31312633, b: 1, a: 1}
+    - _HighlighColor: {r: 0.5780968, g: 3.5648696, b: 0, a: 1}
