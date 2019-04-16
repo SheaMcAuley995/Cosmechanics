@@ -14,7 +14,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     MeshFilter filter;
     [SerializeField]Mesh[] meshes;
     int currentMesh;
-    public GameObject steamParticlePrefab;
+    //public GameObject steamParticlePrefab;
     public GameObject particleEffectPrefab;
     public AlertUI alertUI;
 
@@ -73,7 +73,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             ShipHealth.instance.shipCurrenHealth -= damageTaken;
             ShipHealth.instance.AdjustUI();
             //Debug.Log("Health Points : " + health);
-            AudioEventManager.instance.PlaySound("pipebreak",.3f,1,0);
+            AudioEventManager.instance.PlaySound("pipebreak",.05f,1,0);
         }
     }
    
