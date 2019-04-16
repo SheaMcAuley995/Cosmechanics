@@ -7,8 +7,13 @@ using TMPro;
 public class PlayerJoin : MonoBehaviour
 {
     public Button playButton;
+    public Button optionsButton;
+    public Button exitButton;
+    public Button backButton;
     public TextMeshProUGUI playersJoined;
     public PlayerController[] controllers;
+    bool selecting;
+    bool optionsOpen;
 
 	IEnumerator Start ()
     {
@@ -30,8 +35,11 @@ public class PlayerJoin : MonoBehaviour
         {
             controller.getInput();
 
-            if (controller.pickUp)
+            if (controller.movementVector.x > 0 && !selecting)
             {
+                selecting = true;
+                StartCoroutine(WaitForNextSelect());
+
                 if (ExampleGameController.instance.numberOfPlayers < 4)
                 {
                     ExampleGameController.instance.numberOfPlayers++;
@@ -46,7 +54,26 @@ public class PlayerJoin : MonoBehaviour
                 playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
             }
 
-            if (controller.Interact)
+            if (controller.movementVector.x < 0 && !selecting)
+            {
+                selecting = true;
+                StartCoroutine(WaitForNextSelect());
+
+                if (ExampleGameController.instance.numberOfPlayers > 1)
+                {
+                    ExampleGameController.instance.numberOfPlayers--;
+                    ExampleGameController.instance.setSpawnPoints();
+                }
+                else
+                {
+                    ExampleGameController.instance.numberOfPlayers = 4;
+                    ExampleGameController.instance.setSpawnPoints();
+                }
+
+                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+            }
+
+            if (controller.pickUp && !optionsOpen)
             {
                 for (int i = 0; i < controllers.Length; i++)
                 {
@@ -54,6 +81,33 @@ public class PlayerJoin : MonoBehaviour
                 }
                 playButton.onClick.Invoke();
             }
+
+            if (controller.Interact && !optionsOpen && !selecting)
+            {
+                StartCoroutine(WaitForNextSelect());
+                optionsOpen = true;
+                optionsButton.onClick.Invoke();
+            }
+
+            if (controller.sprint && !optionsOpen && !selecting)
+            {
+                StartCoroutine(WaitForNextSelect());
+                exitButton.onClick.Invoke();
+            }
+
+            if (controller.sprint && optionsOpen && !selecting)
+            {
+                StartCoroutine(WaitForNextSelect());
+                optionsOpen = false;
+                backButton.onClick.Invoke();
+            }
         }
+    }
+
+    IEnumerator WaitForNextSelect()
+    {
+        yield return new WaitForSeconds(0.2f);
+        selecting = false;
+        yield return null;
     }
 }
