@@ -271,9 +271,15 @@ public class CharacterCardGenerator : MonoBehaviour
 
         lastSelectedPlayer = newPlayer.gameObject;
 
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+
         currentPlayerId = playerId;
-        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        controller.playerId = currentPlayerId;
         currentPlayerId++;
+
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
     }
 
     public void GenerateModel(int playerId)
@@ -309,9 +315,15 @@ public class CharacterCardGenerator : MonoBehaviour
 
         lastSelectedPlayer = newPlayer.gameObject;
 
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+
         currentPlayerId = playerId;
-        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        controller.playerId = currentPlayerId;
         currentPlayerId++;
+
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
     }
 
     public void GenerateColour()
