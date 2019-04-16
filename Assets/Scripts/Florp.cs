@@ -22,6 +22,7 @@ public class Florp : PickUp,IInteractableTool
     private void Start()
     {
         doFill = false;
+        isFilled = false;
         transform.localScale = zero;
         rb = GetComponent<Rigidbody>();
         initTime = Time.time;
@@ -29,8 +30,11 @@ public class Florp : PickUp,IInteractableTool
     }
     public override void pickMeUp(Transform pickUpTransform)
     {
-        AudioEventManager.instance.PlaySound("halfsplat", .3f, Random.Range(.5f, .7f), 0);
         base.pickMeUp(pickUpTransform);
+        if(!isFilled) AudioEventManager.instance.PlaySound("bottledrop", .3f, Random.Range(.5f, .7f), 0);
+        if(isFilled) AudioEventManager.instance.PlaySound("halfsplat", .3f, Random.Range(.5f, .7f), 0);
+       
+        
     }
     public void toolInteraction()
     {
@@ -54,7 +58,7 @@ public class Florp : PickUp,IInteractableTool
         float timeSince = Time.time - initTime;
 
         float fracTime = timeSince / lerpTime;
-        transform.localScale = Vector3.Lerp((one * .6f), one, curve.Evaluate(fracTime));
+        transform.localScale = Vector3.Lerp(zero, one, curve.Evaluate(fracTime));
     }
 
 }

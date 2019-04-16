@@ -5,7 +5,7 @@ using UnityEngine;
 public class BottleDispenser : MonoBehaviour, IInteractable {
 
     public GameObject bottlePrefab;
-    public static FlorpDespenser instance;
+    
     public Transform bottleEjection;
     [SerializeField] private float lerpTime = 1f;
 
@@ -23,7 +23,7 @@ public class BottleDispenser : MonoBehaviour, IInteractable {
     {
 
         dispensedBottle = Instantiate(bottlePrefab, bottleEjection.position + new Vector3(0, 2, 0), Quaternion.identity);
-        AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.9f, 1f), 0);
+        AudioEventManager.instance.PlaySound("bottledrop", .3f, Random.Range(.9f, 1f), 0);
 
 
     }
