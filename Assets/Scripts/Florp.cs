@@ -11,7 +11,7 @@ public class Florp : PickUp,IInteractableTool
     public AnimationCurve curve;
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
-
+//FUCK
     public Material outerEmpty;
     public Material outerFull;
     public Material innerEmpty;
@@ -54,7 +54,7 @@ public class Florp : PickUp,IInteractableTool
         float timeSince = Time.time - initTime;
 
         float fracTime = timeSince / lerpTime;
-        transform.localScale = Vector3.Lerp(zero, one, curve.Evaluate(fracTime));
+        transform.localScale = Vector3.Lerp((one * .6f), one, curve.Evaluate(fracTime));
     }
 
 }

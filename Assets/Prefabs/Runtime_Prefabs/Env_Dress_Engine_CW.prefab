@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1727415845854492
 GameObject:
@@ -39,12 +39,13 @@ GameObject:
   - component: {fileID: 4676645161022038}
   - component: {fileID: 33571898675547588}
   - component: {fileID: 23445304491133214}
+  - component: {fileID: 114822026692148512}
   m_Layer: 0
   m_Name: Env_Dress_Engine_CW
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1779105231117398
 GameObject:
@@ -62,7 +63,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!1 &1888996325818716
 GameObject:
@@ -79,7 +80,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &4037436394003122
 Transform:
@@ -320,6 +321,29 @@ MonoBehaviour:
   rotateX: -25
   rotateY: 0
   rotateZ: 0
+--- !u!114 &114822026692148512
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1727415845854492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9196dfccd10c0d54bb53ba9e376a27de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  engineHeat: 0
+  maxHeat: 200
+  engineCoolingAmount: 6
+  florpCoolingPercentage: 0.2
+  winGameUI: {fileID: 0}
+  winConditionLimit: 3000
+  currentProgress: 0
+  enemyProgress: 0
+  progressionMultiplier: 0.4
+  slider: {fileID: 0}
+  alertUI: {fileID: 0}
+  testInputFlorp: 0
 --- !u!114 &114844214675833812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -331,6 +355,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24b78b950ec9b424f9577fc1f8712352, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateX: 25
+  rotateX: 10
   rotateY: 0
   rotateZ: 0

@@ -28,8 +28,18 @@ public struct CharacterData
 
 public class CharacterCardGenerator : MonoBehaviour
 {
+    public enum CharacterStatus
+    {
+        SELECTING_MODEL,
+        SELECTING_COLOUR,
+        SELECTING_CRIME,
+        READY
+    };
+    public CharacterStatus characterStatus;
+
     [Header("Constructor Data")]
     public CharacterData displayFields;
+    CharacterData newCharacter;
     CameraMultiTarget cameraMultiTarget;
 
     [Header("Selection Pool")]
@@ -55,11 +65,17 @@ public class CharacterCardGenerator : MonoBehaviour
 
     GameObject lastSelectedPlayer;
     [HideInInspector] public Vector3 spawnPos;
+    Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     /// Random selection variables
     int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
     int currentPlayerId = 0;
+
+    [HideInInspector] public bool selecting;
 
     // Use this for initialization
     void Awake()
@@ -193,12 +209,12 @@ public class CharacterCardGenerator : MonoBehaviour
     }
 
     /// Generates a new prisoner card
-    public void GenerateCard(int playerId)
+    public void GenerateFullCard(int playerId)
     {
-        Destroy(lastSelectedPlayer);
+        //Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
-        CharacterData newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+        newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         #region Random Selection Determiner
@@ -212,34 +228,32 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Character Card Display Setter
-        #region Don't Look At Me, I'm Hideous!
-        // I did warn you.
-        if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos1").transform.position)
+        if (spawnPos == spawnPos1)
         {
             newCharacter.videoFeedField.texture = videoFeedList[0];
         }
-        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos2").transform.position)
+        else if (spawnPos == spawnPos2)
         {
             newCharacter.videoFeedField.texture = videoFeedList[1];
         }
-        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos3").transform.position)
+        else if (spawnPos == spawnPos3)
         {
             newCharacter.videoFeedField.texture = videoFeedList[2];
         }
-        else if (spawnPos == GameObject.FindGameObjectWithTag("SpawnPos4").transform.position)
+        else if (spawnPos == spawnPos4)
         {
             newCharacter.videoFeedField.texture = videoFeedList[3];
         }
-        #endregion
-        newCharacter.nameField.text = namesList[nameIndex]; /// Sets the character card's name to the randomly selected portrait.
-        newCharacter.ageField.text = agesList[ageIndex].ToString(); /// Sets the character card's age to the pseudo-randomly selected age.
-        newCharacter.genderField.sprite = gendersList[genderIndex]; /// Sets the character card's gender to the randomly selected gender.
-        newCharacter.crimeField.text = crimesList[crimeIndex]; /// Sets the character card's convicted crime to the randomly selected crime.
-        newCharacter.sentenceField.text = sentencesList[sentenceIndex]; /// Sets the character card's sentence to the randomly selected sentence.
-        newCharacter.materialField.material = materialList[materialIndex]; /// Sets the character card's colour to the randomly selected colour
+        newCharacter.nameField.text = namesList[nameIndex]; // Sets the character card's name to the randomly selected portrait.
+        newCharacter.ageField.text = agesList[ageIndex].ToString(); // Sets the character card's age to the pseudo-randomly selected age.
+        newCharacter.genderField.sprite = gendersList[genderIndex]; // Sets the character card's gender to the randomly selected gender.
+        newCharacter.crimeField.text = crimesList[crimeIndex]; // Sets the character card's convicted crime to the randomly selected crime.
+        newCharacter.sentenceField.text = sentencesList[sentenceIndex]; // Sets the character card's sentence to the randomly selected sentence.
+        newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+
         Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
@@ -257,8 +271,98 @@ public class CharacterCardGenerator : MonoBehaviour
 
         lastSelectedPlayer = newPlayer.gameObject;
 
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+
         currentPlayerId = playerId;
-        newPlayer.GetComponent<PlayerController>().playerId = currentPlayerId;
+        controller.playerId = currentPlayerId;
         currentPlayerId++;
+
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
+    }
+
+    public void GenerateModel(int playerId)
+    {
+        Destroy(lastSelectedPlayer);
+
+        prefabIndex = Random.Range(0, characters.Length);
+        nameIndex = Random.Range(0, 90);
+        ageIndex = Random.Range(18, 60);
+        genderIndex = Random.Range(0, genders.Length);
+
+        if (spawnPos == spawnPos1)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[0];
+        }
+        else if (spawnPos == spawnPos2)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[1];
+        }
+        else if (spawnPos == spawnPos3)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[2];
+        }
+        else if (spawnPos == spawnPos4)
+        {
+            newCharacter.videoFeedField.texture = videoFeedList[3];
+        }
+        newCharacter.nameField.text = namesList[nameIndex];
+        newCharacter.ageField.text = agesList[ageIndex].ToString();
+        newCharacter.genderField.sprite = gendersList[genderIndex];
+
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+
+        lastSelectedPlayer = newPlayer.gameObject;
+
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+
+        currentPlayerId = playerId;
+        controller.playerId = currentPlayerId;
+        currentPlayerId++;
+
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
+    }
+
+    public void GenerateColour()
+    {
+        materialIndex = Random.Range(0, materials.Length);
+
+        newCharacter.materialField.material = materialList[materialIndex];
+
+        Renderer[] children = lastSelectedPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            if (child.gameObject.layer != 16)
+            {
+                child.material = materialList[materialIndex];
+            }
+        }
+
+        locatorDots = lastSelectedPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
+    }
+
+    public void GenerateCrime()
+    {
+        crimeIndex = Random.Range(0, 65);
+        sentenceIndex = Random.Range(0, 35);
+
+        newCharacter.crimeField.text = crimesList[crimeIndex];
+        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
+    }
+
+    public IEnumerator WaitForNextSelection()
+    {
+        yield return new WaitForSeconds(0.2f);
+        selecting = false;
+        yield return null;
     }
 }

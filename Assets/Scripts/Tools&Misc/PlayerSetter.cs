@@ -18,5 +18,14 @@ public class PlayerSetter : MonoBehaviour
                 players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
             }
         }
+
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            players[i].walkSpeed = 5.5f;
+            players[i].runSpeed = 5.5f;
+            players[i].turnSmoothTime = 0.05f;
+        }
 	}
 }

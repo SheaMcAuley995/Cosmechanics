@@ -85,7 +85,7 @@ public class OverworldManager : MonoBehaviour
     }
     #endregion
 
-    void Start ()
+    IEnumerator Start ()
     {
         ableToLaunch = false;
 
@@ -96,6 +96,12 @@ public class OverworldManager : MonoBehaviour
 
         MoveShip();
         ApplyText();
+
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+        }
     }
 	
 	void Update ()
