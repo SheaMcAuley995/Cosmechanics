@@ -90,6 +90,10 @@ public class OverworldManager : MonoBehaviour
         ableToLaunch = false;
 
         playerControllers = FindObjectsOfType<PlayerController>();
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].transform.localScale = new Vector3(0f, 0f, 0f);
+        }
 
         selectedLevel = 1;
         level = Level.Level1;
