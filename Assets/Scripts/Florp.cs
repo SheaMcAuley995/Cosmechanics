@@ -11,7 +11,7 @@ public class Florp : PickUp,IInteractableTool
     public AnimationCurve curve;
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
-
+//FUCK
     public Material outerEmpty;
     public Material outerFull;
     public Material innerEmpty;

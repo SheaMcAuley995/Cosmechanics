@@ -13,8 +13,6 @@ public class InteractWithInterface : MonoBehaviour
     GameObject interactedObject;
 
 
-<<<<<<< HEAD
-=======
 
     private void Update()
     {
@@ -36,8 +34,6 @@ public class InteractWithInterface : MonoBehaviour
     }
 
     
-
->>>>>>> dev
     public void InteractWithObject()
     {
         if(interactedObject != null)
