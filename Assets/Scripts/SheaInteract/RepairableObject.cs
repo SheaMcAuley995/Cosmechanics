@@ -73,8 +73,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             ShipHealth.instance.shipCurrenHealth -= damageTaken;
             ShipHealth.instance.AdjustUI();
             //Debug.Log("Health Points : " + health);
-            if (health == 1)
-            {AudioEventManager.instance.PlaySound("pipebreak",.7f);}
+            AudioEventManager.instance.PlaySound("pipebreak",.3f,1,0);
         }
     }
    
