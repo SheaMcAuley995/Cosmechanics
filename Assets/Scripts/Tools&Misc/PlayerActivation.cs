@@ -7,12 +7,10 @@ public class PlayerActivation : MonoBehaviour
 {
     public static PlayerActivation instance = null;
 
-    public GameObject[] chosenCharacters;
+    public PlayerController[] chosenCharacters;
 
-    int currentPlayerId = 0;
-
-	// Use this for initialization
-	void Awake ()
+    #region Singleton
+    void Awake ()
     {
         DontDestroyOnLoad(this.gameObject);
 
@@ -25,24 +23,17 @@ public class PlayerActivation : MonoBehaviour
             Destroy(gameObject);
         }
     }
-	
-	public void ContinueToGame()
+    #endregion
+
+    public void ContinueToGame()
     {
-        chosenCharacters = GameObject.FindGameObjectsWithTag("Char");
+        chosenCharacters = GameObject.FindObjectsOfType<PlayerController>();
 
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {
             DontDestroyOnLoad(chosenCharacters[numOfChars]);
-
-            chosenCharacters[numOfChars].GetComponent<PlayerController>().playerId = currentPlayerId;
-            currentPlayerId++;
         }
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-
-        for (int chars = 0; chars < chosenCharacters.Length; chars++)
-        {
-            chosenCharacters[chars].transform.position = ExampleGameController.instance.spawnPoints[chars];
-        }
+        SceneFader.instance.FadeTo("ZachOverWorld");
     }
 }

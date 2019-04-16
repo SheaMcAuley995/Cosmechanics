@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
-    private int health = 2;
+    public int health = 2;
 
     public int healthMax = 2;
 
@@ -22,6 +22,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         mesh = GetComponent<MeshRenderer>();
         ShipHealth.instance.shipMaxHealth += healthMax;
+        ShipHealth.instance.shipCurrenHealth += health;
         filter = GetComponent<MeshFilter>();
         alertUI.problemMax += healthMax;
         alertUI.problemCurrent += healthMax;
@@ -43,6 +44,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
         }
     }
+
+   
 
     public void repairObject(int repairAmount)
     {

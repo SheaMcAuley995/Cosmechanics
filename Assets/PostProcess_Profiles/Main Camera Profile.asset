@@ -17,6 +17,7 @@ MonoBehaviour:
   - {fileID: 114387019695740072}
   - {fileID: 114978687546031424}
   - {fileID: 114590409409812124}
+  - {fileID: 114398488690182606}
 --- !u!114 &114387019695740072
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -28,7 +29,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1327,6 +1328,39 @@ MonoBehaviour:
       - 0.5
       - 0.5
       - 0.5
+--- !u!114 &114398488690182606
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b77c5407dc277943b591ade9e6b18c5, type: 3}
+  m_Name: LensDistortion
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  intensity:
+    overrideState: 1
+    value: 1
+  intensityX:
+    overrideState: 0
+    value: 1
+  intensityY:
+    overrideState: 0
+    value: 1
+  centerX:
+    overrideState: 0
+    value: 0
+  centerY:
+    overrideState: 0
+    value: 0
+  scale:
+    overrideState: 1
+    value: 2.88
 --- !u!114 &114431457969828434
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1338,7 +1372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a34fa72bd4185749832024e9c8010bf, type: 3}
   m_Name: ScreenSpaceReflections
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   enabled:
     overrideState: 1
     value: 1
@@ -1407,7 +1441,7 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.89
+    value: 0.45
   threshold:
     overrideState: 1
     value: 1.12
@@ -1422,10 +1456,10 @@ MonoBehaviour:
     value: 7.03
   anamorphicRatio:
     overrideState: 1
-    value: 0.09
+    value: 1
   color:
     overrideState: 0
-    value: {r: 0, g: 0.22316217, b: 1, a: 1}
+    value: {r: 0.38781595, g: 0.7111136, b: 0.7830189, a: 1}
   fastMode:
     overrideState: 0
     value: 0
@@ -1456,9 +1490,9 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 4
+    value: 1.28
   color:
-    overrideState: 1
+    overrideState: 0
     value: {r: 0, g: 0, b: 0, a: 1}
   ambientOnly:
     overrideState: 0
@@ -1474,7 +1508,7 @@ MonoBehaviour:
     value: -12
   thicknessModifier:
     overrideState: 1
-    value: 1
+    value: 1.37
   directLightingStrength:
     overrideState: 1
     value: 0

@@ -5,17 +5,37 @@ using UnityEngine;
 
 public class FlorpDespenser : MonoBehaviour , IInteractable {
 
+    public GameObject particle;
+    public Transform dispensePoint;
+    Vector3 point;
+    bool dump;
+    private void Start()
+    {
+        dump = false;
+        point = dispensePoint.position;
+    }
 
     public void InteractWith(){
-        
+        dump = true;
     }
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Florp>() != null)
         {
+            dump = true;
             other.GetComponent<Florp>().doFill = true;
         }
     }
+    private void Update()
+    {
+        if (dump)
+        {
+            GameObject part = Instantiate(particle, point, Quaternion.identity);
+            part.GetComponent<ParticleSystem>().Play();
+            dump = false;
+        }
+    }
+
 
 }
 

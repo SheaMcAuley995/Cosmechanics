@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     public AttackLocation fireLocation;
+    public GameObject fireOnPlayerEffect;
     ParticleSystem particles;
     ParticleSystem.EmissionModule emiss;
 
@@ -16,6 +17,10 @@ public class Fire : MonoBehaviour
     public LayerMask waterLayer;
 
     public Node thisNode;
+
+    [SerializeField] float timeUntilStun = 1.5f;
+    [SerializeField] float stunTime = 3f;
+    float time = 0f;
 
 
     void Awake()
@@ -50,6 +55,36 @@ public class Fire : MonoBehaviour
             TakeDamage(1f * Time.deltaTime);
             //emiss.rateOverTime = Mathf.Lerp(10f, 0f, 100f / Time.deltaTime);
         }
+
+        if (other.gameObject.CompareTag("Char"))
+        {
+            time += 1f * Time.deltaTime;
+
+            if (time >= timeUntilStun) // 3 seconds
+            {
+                PlayerController thePlayer = other.GetComponent<PlayerController>();
+                //StartCoroutine(StunPlayer(thePlayer));
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Char"))
+        {
+            time = 0f;
+        }
+    }
+
+    IEnumerator StunPlayer(PlayerController controller)
+    {
+        GameObject playerFire = Instantiate(fireOnPlayerEffect, controller.transform.position, Quaternion.identity, controller.transform);
+        time = 0f;
+        controller.normalMovement = false;
+        yield return new WaitForSeconds(stunTime); // 3 seconds
+        controller.normalMovement = true;
+        Destroy(playerFire);
+        yield return null;
     }
 
     public void TakeDamage(float amount)

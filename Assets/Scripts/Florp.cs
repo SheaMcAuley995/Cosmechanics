@@ -11,13 +11,13 @@ public class Florp : PickUp,IInteractableTool
     public AnimationCurve curve;
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
-
+//FUCK
     public Material outerEmpty;
     public Material outerFull;
     public Material innerEmpty;
     public Material innerFull;
     public bool isFilled =false;
-
+    public ParticleSystem particle;
 
     private void Start()
     {
@@ -41,7 +41,8 @@ public class Florp : PickUp,IInteractableTool
             Material myChildMat = GetComponentInChildren<MeshRenderer>().material;
 
             myChildMat.Lerp(innerEmpty, innerFull, 1);
-           myMat.Lerp(outerEmpty, outerFull, 1);
+            myMat.Lerp(outerEmpty, outerFull, 1);
+            particle.Play();
             isFilled = true;   
         }
         Debug.Log(name + " is being interacted with");
@@ -53,7 +54,7 @@ public class Florp : PickUp,IInteractableTool
         float timeSince = Time.time - initTime;
 
         float fracTime = timeSince / lerpTime;
-        transform.localScale = Vector3.Lerp(zero, one, curve.Evaluate(fracTime));
+        transform.localScale = Vector3.Lerp((one * .6f), one, curve.Evaluate(fracTime));
     }
 
 }
