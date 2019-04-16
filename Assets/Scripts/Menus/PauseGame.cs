@@ -36,6 +36,8 @@ public class PauseGame : MonoBehaviour
     Vector3 fullSize = new Vector3(1.5f, 1.5f, 1.5f);
     bool input, paused;
 
+    PlayerController[] playerControllers;
+
     #region KeyCode caching
     KeyCode defaultPauseButton1 = KeyCode.Escape;
     KeyCode defaultPauseButton2 = KeyCode.P;
@@ -46,6 +48,7 @@ public class PauseGame : MonoBehaviour
     void Start ()
     {
         SetDefaultButtons();
+        playerControllers = FindObjectsOfType<PlayerController>();
     }
 
     void SetDefaultButtons()
@@ -63,23 +66,45 @@ public class PauseGame : MonoBehaviour
     void DetectInput()
     {
         input = Input.GetKeyDown(pauseButton1) || Input.GetKeyDown(pauseButton2);
-    }
 
-    void ApplyPause()
-    {
         if (input && !paused)
         {
             StopCoroutine(FadeOut(images, texts));
             StartCoroutine(FadeIn(images, texts));
-        }        
-    }
+        }
 
+        foreach (PlayerController player in playerControllers)
+        {
+            player.getInput();
+
+            // TODO: Re-enable this when we have a start button hooked up with ReWired
+            //if (player.startButton)
+            //{
+            //    StopCoroutine(FadeOut(images, texts));
+            //    StartCoroutine(FadeIn(images, texts));
+            //}
+
+            if (player.pickUp)
+            {
+                ResumeGame();
+            }
+
+            if (player.sprint)
+            {
+                QuitGame();
+            }
+
+            if (player.Interact)
+            {
+                OptionsMenu();
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update ()
     {
         DetectInput();
-        ApplyPause();
 	}
 
     IEnumerator FadeIn(Image[] images, TextMeshProUGUI[] texts)

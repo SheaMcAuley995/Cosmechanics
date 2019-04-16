@@ -16,21 +16,21 @@ public class InteractWithInterface : MonoBehaviour
 
     private void Update()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-
-        if(hitColliders.Length > 0)
-        {
-             if(interactedObject != hitColliders[0].GetComponent<GameObject>())
-             {
-                Debug.Log("We got here");
-
-             }
-             else
-             {
-                Debug.Log("We instead got here because interactedObject is " + interactedObject.name);
-             }
-
-        }
+       //Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+       //
+       //if(hitColliders.Length > 0)
+       //{
+       //     if(interactedObject != hitColliders[0].GetComponent<GameObject>())
+       //     {
+       //        Debug.Log("We got here");
+       //
+       //     }
+       //     else
+       //     {
+       //        Debug.Log("We instead got here because interactedObject is " + interactedObject.name);
+       //     }
+       //
+       //}
     }
 
     
