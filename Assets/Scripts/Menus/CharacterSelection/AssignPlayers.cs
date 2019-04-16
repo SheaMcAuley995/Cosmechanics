@@ -110,19 +110,6 @@ public class AssignPlayers : MonoBehaviour
                 StartCoroutine(cards[controller.playerId].WaitForNextSelection());
 
                 cards[controller.playerId].GenerateModel(controller.playerId);
-
-                //switch (cards[controller.playerId].characterStatus)
-                //{
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_MODEL:
-                //        cards[controller.playerId].GenerateModel(controller.playerId);
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
-                //        cards[controller.playerId].GenerateColour();
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
-                //        cards[controller.playerId].GenerateCrime();
-                //        break;
-                //}
             }
 
             if (controller.bumper && !cards[controller.playerId].selecting)
@@ -144,20 +131,6 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 playersReady++;
 
-                //switch (cards[controller.playerId].characterStatus)
-                //{
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_MODEL:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR;
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_CRIME;
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
-                //        playersReady++;
-                //        break;
-                //}
-
                 if (playersReady == numPlayers)
                 {
                     playButton.onClick.Invoke();
@@ -172,20 +145,6 @@ public class AssignPlayers : MonoBehaviour
 
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_MODEL;
                 playersReady--;
-
-                //switch (cards[controller.playerId].characterStatus)
-                //{
-                //    case CharacterCardGenerator.CharacterStatus.READY:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_CRIME;
-                //        playersReady--;
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR;
-                //        break;
-                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
-                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_MODEL;
-                //        break;
-                //}
             }
 
 

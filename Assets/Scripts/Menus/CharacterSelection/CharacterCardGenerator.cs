@@ -75,6 +75,9 @@ public class CharacterCardGenerator : MonoBehaviour
 
     int currentPlayerId = 0;
 
+    int lastMat = 0;
+    int lastHead = 0;
+
     [HideInInspector] public bool selecting;
 
     // Use this for initialization
@@ -217,15 +220,13 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
-        #region Random Selection Determiner
         prefabIndex = Random.Range(0, characters.Length);
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
         genderIndex = Random.Range(0, genders.Length);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
-        materialIndex = Random.Range(0, materials.Length);
-        #endregion
+        //materialIndex = Random.Range(0, materials.Length);
 
         #region Character Card Display Setter
         if (spawnPos == spawnPos1)
@@ -254,20 +255,20 @@ public class CharacterCardGenerator : MonoBehaviour
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
-        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
-        foreach (Renderer child in children)
-        {
-            if (child.gameObject.layer != 16)
-            {
-                child.material = materialList[materialIndex];
-            }
-        }
+        //Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        //foreach (Renderer child in children)
+        //{
+        //    if (child.gameObject.layer != 16)
+        //    {
+        //        child.material = materialList[materialIndex];
+        //    }
+        //}
 
-        locatorDots = newPlayer.GetComponentsInChildren<Image>();
-        foreach (Image locator in locatorDots)
-        {
-            locator.color = materialList[materialIndex].color;
-        }
+        //locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        //foreach (Image locator in locatorDots)
+        //{
+        //    locator.color = materialList[materialIndex].color;
+        //}
 
         lastSelectedPlayer = newPlayer.gameObject;
 
@@ -287,7 +288,7 @@ public class CharacterCardGenerator : MonoBehaviour
     {
         Destroy(lastSelectedPlayer);
 
-        prefabIndex = Random.Range(0, characters.Length);
+        prefabIndex = lastHead;
         nameIndex = Random.Range(0, 90);
         ageIndex = Random.Range(18, 60);
         genderIndex = Random.Range(0, genders.Length);
@@ -316,6 +317,14 @@ public class CharacterCardGenerator : MonoBehaviour
 
         lastSelectedPlayer = newPlayer.gameObject;
 
+        lastHead++;
+        if (lastHead >= prefabsList.Count)
+        {
+            lastHead = 0;
+        }
+
+        //GenerateColour();
+
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
 
         currentPlayerId = playerId;
@@ -330,7 +339,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GenerateColour()
     {
-        materialIndex = Random.Range(0, materials.Length);
+        materialIndex = lastMat;
 
         newCharacter.materialField.material = materialList[materialIndex];
 
@@ -347,6 +356,12 @@ public class CharacterCardGenerator : MonoBehaviour
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
+        }
+
+        lastMat++;
+        if (lastMat >= materialList.Count - 1)
+        {
+            lastMat = 0;
         }
     }
 
