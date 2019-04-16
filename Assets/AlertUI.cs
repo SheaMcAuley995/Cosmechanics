@@ -26,7 +26,7 @@ public class AlertUI : MonoBehaviour {
     {
         setCurrentAlarmStatus();
        // Debug.Log("Alarm status :" + (int)alarmStatus);
-//        Debug.Log("Problem Percentage %" + curve.Evaluate(problemPercentage()));
+        Debug.Log("Problem Percentage %" + curve.Evaluate(problemPercentage()));
     }
 
     public void setCurrentAlarmStatus()

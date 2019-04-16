@@ -58,10 +58,7 @@ public class Fire : MonoBehaviour
 
         if (other.gameObject.CompareTag("Char"))
         {
-            if (time < timeUntilStun)
-            {
-                time += 1f * Time.deltaTime;
-            }
+            time += 1f * Time.deltaTime;
 
             if (time >= timeUntilStun) // 3 seconds
             {
