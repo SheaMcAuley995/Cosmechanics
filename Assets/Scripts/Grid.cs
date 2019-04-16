@@ -18,6 +18,7 @@ public class Grid : MonoBehaviour {
 
     [SerializeField] bool GenerateGrid;
     [SerializeField] bool LightFire;
+    [SerializeField] bool showGrid;
 
     void Awake()
     {
@@ -150,7 +151,7 @@ public class Grid : MonoBehaviour {
         }
 
 
-        if (grid != null)
+        if (grid != null && showGrid)
         {
             foreach (Node n in grid)
             {

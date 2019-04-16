@@ -18,7 +18,7 @@ public class Engine : MonoBehaviour {
     public float enemyProgress;
     public float progressionMultiplier;
 
-    public Slider slider;
+    public Slider HealthSlider;
     public AlertUI alertUI;
 
     [Header("Debug Tools")]
@@ -42,7 +42,7 @@ public class Engine : MonoBehaviour {
         }
 
         currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        slider.value = currentProgress / winConditionLimit;
+        HealthSlider.value = currentProgress / winConditionLimit;
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
 
         if(currentProgress > winConditionLimit)

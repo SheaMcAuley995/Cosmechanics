@@ -34,7 +34,7 @@ public class ShipHealth : MonoBehaviour {
     [HideInInspector] public bool gotHit;           //michael add
 
     [Header("UI Elements")]
-    public Image healthBar;
+    public Slider healthBar;
     public GameObject loseGameScreen;
 
     int index;
@@ -79,7 +79,7 @@ public class ShipHealth : MonoBehaviour {
 
 
 
-        shipCurrenHealth = shipMaxHealth;
+        //shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -132,7 +132,7 @@ public class ShipHealth : MonoBehaviour {
 
         if (shipCurrenHealth <= shipMaxHealth * 0.25)
         {
-            LoseGame();
+           // LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -145,7 +145,8 @@ public class ShipHealth : MonoBehaviour {
     public void AdjustUI()
     {
         //Debug.Log(shipCurrenHealth / shipMaxHealth);
-        healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
+        healthBar.value = (float)shipCurrenHealth / shipMaxHealth;
+        //healthBar.fillAmount =(float)shipCurrenHealth / shipMaxHealth;
        // healthText.text = shipCurrenHealth.ToString();
     }
 
