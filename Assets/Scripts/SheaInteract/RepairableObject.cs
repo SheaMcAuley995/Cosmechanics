@@ -22,6 +22,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         mesh = GetComponent<MeshRenderer>();
         ShipHealth.instance.shipMaxHealth += healthMax;
+        ShipHealth.instance.shipCurrenHealth += health;
         filter = GetComponent<MeshFilter>();
         alertUI.problemMax += healthMax;
         alertUI.problemCurrent += healthMax;
