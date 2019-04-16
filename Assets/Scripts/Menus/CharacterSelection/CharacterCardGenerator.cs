@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
+
+
 [System.Serializable]
 public struct CharacterData
 {
@@ -12,6 +15,7 @@ public struct CharacterData
     public Image genderField;
     public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
     public Image materialField;
+
 
     /// Constructor for creating new character cards
     public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
@@ -23,6 +27,7 @@ public struct CharacterData
         crimeField = _crimeField;
         sentenceField = _sentenceField;
         materialField = _materialField;
+
     }
 }
 
