@@ -85,21 +85,23 @@ public class OverworldManager : MonoBehaviour
     }
     #endregion
 
-    void Start ()
+    IEnumerator Start ()
     {
         ableToLaunch = false;
 
         playerControllers = FindObjectsOfType<PlayerController>();
-        for (int i = 0; i < playerControllers.Length; i++)
-        {
-            playerControllers[i].transform.localScale = new Vector3(0f, 0f, 0f);
-        }
 
         selectedLevel = 1;
         level = Level.Level1;
 
         MoveShip();
         ApplyText();
+
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+        }
     }
 	
 	void Update ()

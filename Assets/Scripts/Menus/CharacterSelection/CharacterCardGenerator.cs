@@ -280,6 +280,7 @@ public class CharacterCardGenerator : MonoBehaviour
         controller.cameraTrans = Camera.main.transform;
         controller.walkSpeed = 0.0f;
         controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
     }
 
     public void GenerateModel(int playerId)
@@ -324,6 +325,7 @@ public class CharacterCardGenerator : MonoBehaviour
         controller.cameraTrans = Camera.main.transform;
         controller.walkSpeed = 0.0f;
         controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
     }
 
     public void GenerateColour()
