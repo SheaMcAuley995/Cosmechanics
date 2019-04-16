@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
-using UnityEditor;
+
 
 public class AudioEventManager : MonoBehaviour {
     public List<Sound> sounds;   
@@ -84,9 +84,5 @@ public class AudioEventManager : MonoBehaviour {
         }
 
     }
-    public class Window : EditorWindow
-    {
-
-        
-    }
+    
 }

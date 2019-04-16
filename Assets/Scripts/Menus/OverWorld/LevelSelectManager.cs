@@ -21,7 +21,7 @@ public class LevelSelectManager : MonoBehaviour
                 scene = "CopyOfMainMAp";
                 break;
             case OverworldManager.Level.Level2:
-                scene = "NewMichaelTest";
+                scene = "BetaMichaelTest";
                 break;
             case OverworldManager.Level.Level3:
                 scene = "NewMichaelTest";
