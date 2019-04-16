@@ -50,7 +50,7 @@ public class Engine : MonoBehaviour {
             winGameUI.SetActive(true);
             BroadcastMessage("StopGame");
         }
-
+        AudioEventManager.instance.PlaySound("engine");
         alertUI.problemCurrent = engineHeat;
     }
 

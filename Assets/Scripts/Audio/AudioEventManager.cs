@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEditor;
 
 public class AudioEventManager : MonoBehaviour {
-
-    
-
-    public List<Sound> sounds;
-    [HideInInspector]
-    public static AudioEventManager instance;
-
+    public List<Sound> sounds;   
+    [HideInInspector]public static AudioEventManager instance;
+    [SerializeField] bool addAnotherSound;
     private void Awake()
     {
         if (instance == null)
@@ -62,9 +59,34 @@ public class AudioEventManager : MonoBehaviour {
         }
         s.source.Play();
     } //Simple Play Sound function
-
+    public void PlaySound(string name, float volume)
+    {
+        Sound s = Array.Find(sounds.ToArray(), sound => sound.name == name);
+        if (s == null)
+        {
+            return;
+        }
+        s.source.volume = volume;
+    }
     private void Start()
     {
-        PlaySound("Theme");        
+        PlaySound("Theme");
+        PlaySound("Ambient", .8f);        
+    }
+    
+
+    [ExecuteInEditMode] public void addSound()
+    {
+        if(addAnotherSound)
+        {
+            sounds.Add(new Sound());
+            addAnotherSound = false;
+        }
+
+    }
+    public class Window : EditorWindow
+    {
+
+        
     }
 }

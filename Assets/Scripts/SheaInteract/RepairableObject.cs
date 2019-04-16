@@ -14,7 +14,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     MeshFilter filter;
     [SerializeField]Mesh[] meshes;
     int currentMesh;
-
+    public GameObject steamParticlePrefab;
     public GameObject particleEffectPrefab;
     public AlertUI alertUI;
 
@@ -38,7 +38,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameObject nutsAndBolts = Instantiate(particleEffectPrefab, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
              
-            AudioEventManager.instance.PlaySound("clang", .3f, Random.Range(.9f,1f), 0);    //play clang audio
+            AudioEventManager.instance.PlaySound("clang", .05f, Random.Range(.9f,1f), 0);    //play clang audio
            //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -56,6 +56,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         ShipHealth.instance.shipCurrenHealth += repairAmount;
         ShipHealth.instance.AdjustUI();
         // health = Mathf.Clamp(health + repairAmount, 0, healthMax);
+        
     }
 
 
@@ -72,7 +73,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             ShipHealth.instance.shipCurrenHealth -= damageTaken;
             ShipHealth.instance.AdjustUI();
             //Debug.Log("Health Points : " + health);
-
+            if (health == 1)
+            {AudioEventManager.instance.PlaySound("pipebreak",.7f);}
         }
     }
    
