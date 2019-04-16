@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementDir;
     [HideInInspector] public bool Interact;
     [HideInInspector] public bool sprint;
+    [HideInInspector] public bool bumper;
     CharacterController cc;
     public bool normalMovement = true;
 
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
         Interact = player.GetButtonDown("Interact");
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
-
+        bumper = player.GetButtonDown("Bumper");
     }
 
     private void ProcessInput()

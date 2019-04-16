@@ -14,6 +14,14 @@ public class AssignPlayers : MonoBehaviour
 
     public Button playButton;
 
+    int numPlayers;
+    int playersReady;
+
+    Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
+    Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
+
 
     void Awake()
     {
@@ -44,32 +52,32 @@ public class AssignPlayers : MonoBehaviour
 
         // Assigns each card to array, gets their Generator component, and assigns each player a spawn position
         characterCards = GameObject.FindGameObjectsWithTag("CharacterCard");
-        cards = FindObjectsOfType<CharacterCardGenerator>();
-
         #region This is really really bad I'm so sorry please don't judge me too hard
         // Assigns each player a spawn position
         switch (characterCards.Length)
         {
             case 1:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
+                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
                 break;
             case 2:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos2").transform.position;
+                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
+                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
                 break;
             case 3:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos2").transform.position;
-                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos3").transform.position;
+                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
+                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
+                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
                 break;
             case 4:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos1").transform.position;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos2").transform.position;
-                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos3").transform.position;
-                characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = GameObject.FindGameObjectWithTag("SpawnPos4").transform.position;
+                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
+                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
+                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
+                characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
                 break;
         }
         #endregion
+
+        cards = FindObjectsOfType<CharacterCardGenerator>();
 
         // Assigns each player a playerId and generates their first character
         playerControllers = FindObjectsOfType<PlayerController>();
@@ -77,10 +85,11 @@ public class AssignPlayers : MonoBehaviour
         {
             playerController.playerId = currentPlayerId;
             currentPlayerId++;
-            cards[playerController.playerId].GenerateCard(playerController.playerId);
+            cards[playerController.playerId].GenerateFullCard(playerController.playerId);
         }
         // Finds the new player controllers
         playerControllers = FindObjectsOfType<PlayerController>();
+        numPlayers = cards.Length;
     }
 
     void Update()
@@ -94,18 +103,93 @@ public class AssignPlayers : MonoBehaviour
         {
             controller.getInput();
 
-            // If a player presses a, generate a new character for that player based on their playerId
-            if (controller.pickUp)
+            // Player moves analog stick RIGHT - selects a new head, colour, or crime/sentence for player depending on its creation status
+            if (controller.movementVector.x > 0 && !cards[controller.playerId].selecting)
             {
-                cards[controller.playerId].GenerateCard(controller.playerId);
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+
+                cards[controller.playerId].GenerateModel(controller.playerId);
+
+                //switch (cards[controller.playerId].characterStatus)
+                //{
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_MODEL:
+                //        cards[controller.playerId].GenerateModel(controller.playerId);
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
+                //        cards[controller.playerId].GenerateColour();
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
+                //        cards[controller.playerId].GenerateCrime();
+                //        break;
+                //}
             }
 
-            // If a player presses x, press the play button (proceeds to level selection scene)
-            if (controller.Interact)
+            if (controller.bumper && !cards[controller.playerId].selecting)
             {
-                // TODO: Make each player 'ready', and don't proceed until all players are ready
-                playButton.onClick.Invoke();
+                cards[controller.playerId].GenerateColour();
             }
+
+            if (controller.Interact && !cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].GenerateCrime();
+            }
+
+            // Player presses A - advances character status to next state
+            if (controller.pickUp && !cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+
+                cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
+                playersReady++;
+
+                //switch (cards[controller.playerId].characterStatus)
+                //{
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_MODEL:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR;
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_CRIME;
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
+                //        playersReady++;
+                //        break;
+                //}
+
+                if (playersReady == numPlayers)
+                {
+                    playButton.onClick.Invoke();
+                }
+            }
+
+            // Player presses B - reverts character status to previous state
+            if (controller.sprint && !cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+
+                cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_MODEL;
+                playersReady--;
+
+                //switch (cards[controller.playerId].characterStatus)
+                //{
+                //    case CharacterCardGenerator.CharacterStatus.READY:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_CRIME;
+                //        playersReady--;
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_CRIME:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR;
+                //        break;
+                //    case CharacterCardGenerator.CharacterStatus.SELECTING_COLOUR:
+                //        cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_MODEL;
+                //        break;
+                //}
+            }
+
+
+            // TODO: Card saving & reloading
         }
     }
 }
