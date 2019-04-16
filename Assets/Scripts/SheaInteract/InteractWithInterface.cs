@@ -13,6 +13,31 @@ public class InteractWithInterface : MonoBehaviour
     GameObject interactedObject;
 
 
+<<<<<<< HEAD
+=======
+
+    private void Update()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+
+        if(hitColliders.Length > 0)
+        {
+             if(interactedObject != hitColliders[0].GetComponent<GameObject>())
+             {
+                Debug.Log("We got here");
+
+             }
+             else
+             {
+                Debug.Log("We instead got here because interactedObject is " + interactedObject.name);
+             }
+
+        }
+    }
+
+    
+
+>>>>>>> dev
     public void InteractWithObject()
     {
         if(interactedObject != null)
@@ -61,10 +86,6 @@ public class InteractWithInterface : MonoBehaviour
                 //  Debug.Log("Calling object " + hitColliders[i]);
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
-                    if (hitColliders[i].GetComponent<Battery>() != null)
-                    {
-                        hitColliders[i].GetComponent<Battery>().unPlugBattery();
-                    }
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
                     interactedObject = hitColliders[i].gameObject;
                     

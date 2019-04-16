@@ -79,7 +79,7 @@ public class ShipHealth : MonoBehaviour {
 
 
 
-        shipCurrenHealth = shipMaxHealth;
+        //shipCurrenHealth = shipMaxHealth;
         StartCoroutine("eventSystem");
         AdjustUI();
     }
@@ -132,7 +132,7 @@ public class ShipHealth : MonoBehaviour {
 
         if (shipCurrenHealth <= shipMaxHealth * 0.25)
         {
-            LoseGame();
+           // LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);
