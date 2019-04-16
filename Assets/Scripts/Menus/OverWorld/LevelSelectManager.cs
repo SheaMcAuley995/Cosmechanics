@@ -18,11 +18,7 @@ public class LevelSelectManager : MonoBehaviour
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:
-<<<<<<< HEAD
-                scene = "NewMichaelTest";
-=======
                 scene = "CopyOfMainMAp";
->>>>>>> dev
                 break;
             case OverworldManager.Level.Level2:
                 scene = "NewMichaelTest";
