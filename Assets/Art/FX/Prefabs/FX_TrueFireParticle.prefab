@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1815486257320998}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 15.53, y: 15.67, z: -11.036936}
+  m_LocalPosition: {x: -3.1305091, y: 1.00095697e-16, z: -11.680792}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -78,7 +78,12 @@ MonoBehaviour:
   waterLayer:
     serializedVersion: 2
     m_Bits: 16
-  thisNode: {fileID: 0}
+  thisNode:
+    box: {fileID: 0}
+    isFlamable: 0
+    worldPosition: {x: 0, y: 0, z: 0}
+    gridX: 0
+    gridY: 0
   timeUntilStun: 2
   stunTime: 2
 --- !u!198 &198982698314144290
@@ -4555,7 +4560,7 @@ ParticleSystemRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 9fff76eb68ad4c44b87be9e2ca168a80, type: 2}
+  - {fileID: 2100000, guid: f87f61d8b0c32fb409c66f8f90045549, type: 2}
   - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
