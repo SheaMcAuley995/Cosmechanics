@@ -14,9 +14,6 @@ public class AssignPlayers : MonoBehaviour
 
     public Button playButton;
 
-    int numPlayers;
-    int playersReady;
-
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
     Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
     Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
@@ -43,15 +40,13 @@ public class AssignPlayers : MonoBehaviour
     // Creates the first character cards and assigns controllers to them
     void CreateAndFindCards()
     {
-        // Creates first cards based on number of players
-        for (int totalCharCards = 0; totalCharCards < ExampleGameController.instance.numberOfPlayers; totalCharCards++)
+        for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
         {
-            GameObject newCharCard = Instantiate(characterCardPrefab, panelParent.transform);
-            ExampleGameController.instance.setSpawnPoints();       
+            characterCards[i].SetActive(true);
+            ExampleGameController.instance.setSpawnPoints();
         }
 
         // Assigns each card to array, gets their Generator component, and assigns each player a spawn position
-        characterCards = GameObject.FindGameObjectsWithTag("CharacterCard");
         #region This is really really bad I'm so sorry please don't judge me too hard
         // Assigns each player a spawn position
         switch (characterCards.Length)
@@ -89,7 +84,6 @@ public class AssignPlayers : MonoBehaviour
         }
         // Finds the new player controllers
         playerControllers = FindObjectsOfType<PlayerController>();
-        numPlayers = cards.Length;
     }
 
     void Update()
@@ -129,11 +123,35 @@ public class AssignPlayers : MonoBehaviour
                 StartCoroutine(cards[controller.playerId].WaitForNextSelection());
 
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
-                playersReady++;
+                cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
-                if (playersReady == numPlayers)
+                // This is pretty disgusting and I am ashamed, not gonna lie. I'm trying my best ok? :(
+                switch (cards.Length)
                 {
-                    playButton.onClick.Invoke();
+                    case 1:
+                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+                        {
+                            playButton.onClick.Invoke();
+                        }
+                        break;
+                    case 2:
+                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+                        {
+                            playButton.onClick.Invoke();
+                        }
+                        break;
+                    case 3:
+                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+                        {
+                            playButton.onClick.Invoke();
+                        }
+                        break;
+                    case 4:
+                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[3].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+                        {
+                            playButton.onClick.Invoke();
+                        }
+                        break;
                 }
             }
 
@@ -143,8 +161,8 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].WaitForNextSelection());
 
-                cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING_MODEL;
-                playersReady--;
+                cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
+                cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
             }
 
 
