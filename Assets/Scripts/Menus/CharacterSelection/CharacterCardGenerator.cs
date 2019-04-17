@@ -35,9 +35,7 @@ public class CharacterCardGenerator : MonoBehaviour
 {
     public enum CharacterStatus
     {
-        SELECTING_MODEL,
-        SELECTING_COLOUR,
-        SELECTING_CRIME,
+        SELECTING,
         READY
     };
     public CharacterStatus characterStatus;
@@ -57,6 +55,10 @@ public class CharacterCardGenerator : MonoBehaviour
     public Material[] materials;
     [Space]
     public Image[] locatorDots;
+
+    [Space]
+    public Image readyStatusBar;
+    public Sprite[] statusSprites;
 
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
@@ -214,6 +216,8 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         cameraMultiTarget = Camera.main.GetComponent<CameraMultiTarget>();
+
+        readyStatusBar.sprite = statusSprites[0];
     }
 
     /// Generates a new prisoner card
@@ -227,8 +231,8 @@ public class CharacterCardGenerator : MonoBehaviour
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         prefabIndex = Random.Range(0, characters.Length);
         nameIndex = Random.Range(0, 90);
-        ageIndex = Random.Range(18, 60);
-        genderIndex = Random.Range(0, genders.Length);
+        //ageIndex = Random.Range(18, 60);
+        //genderIndex = Random.Range(0, genders.Length);
         crimeIndex = Random.Range(0, 65);
         sentenceIndex = Random.Range(0, 35);
         //materialIndex = Random.Range(0, materials.Length);
@@ -251,11 +255,11 @@ public class CharacterCardGenerator : MonoBehaviour
             newCharacter.videoFeedField.texture = videoFeedList[3];
         }
         newCharacter.nameField.text = namesList[nameIndex]; // Sets the character card's name to the randomly selected portrait.
-        newCharacter.ageField.text = agesList[ageIndex].ToString(); // Sets the character card's age to the pseudo-randomly selected age.
-        newCharacter.genderField.sprite = gendersList[genderIndex]; // Sets the character card's gender to the randomly selected gender.
+        //newCharacter.ageField.text = agesList[ageIndex].ToString(); // Sets the character card's age to the pseudo-randomly selected age.
+        //newCharacter.genderField.sprite = gendersList[genderIndex]; // Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; // Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; // Sets the character card's sentence to the randomly selected sentence.
-        newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
+        //newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
@@ -295,8 +299,8 @@ public class CharacterCardGenerator : MonoBehaviour
 
         prefabIndex = lastHead;
         nameIndex = Random.Range(0, 90);
-        ageIndex = Random.Range(18, 60);
-        genderIndex = Random.Range(0, genders.Length);
+        //ageIndex = Random.Range(18, 60);
+        //genderIndex = Random.Range(0, genders.Length);
 
         if (spawnPos == spawnPos1)
         {
@@ -315,8 +319,8 @@ public class CharacterCardGenerator : MonoBehaviour
             newCharacter.videoFeedField.texture = videoFeedList[3];
         }
         newCharacter.nameField.text = namesList[nameIndex];
-        newCharacter.ageField.text = agesList[ageIndex].ToString();
-        newCharacter.genderField.sprite = gendersList[genderIndex];
+        //newCharacter.ageField.text = agesList[ageIndex].ToString();
+        //newCharacter.genderField.sprite = gendersList[genderIndex];
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
