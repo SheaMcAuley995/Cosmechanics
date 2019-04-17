@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Node : MonoBehaviour  {
+public class Node  {
 
     public BoxCollider box;
     public bool isFlamable;
