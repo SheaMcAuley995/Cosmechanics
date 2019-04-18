@@ -40,39 +40,11 @@ public class AssignPlayers : MonoBehaviour
     // Creates the first character cards and assigns controllers to them
     void CreateAndFindCards()
     {
-        for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
-        {
-            characterCards[i].SetActive(true);
-            ExampleGameController.instance.setSpawnPoints();
-        }
-
-        // Assigns each card to array, gets their Generator component, and assigns each player a spawn position
-        #region This is really really bad I'm so sorry please don't judge me too hard
         // Assigns each player a spawn position
-        switch (characterCards.Length)
-        {
-            case 1:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
-                break;
-            case 2:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
-                break;
-            case 3:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
-                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
-                break;
-            case 4:
-                characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
-                characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
-                characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
-                characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
-                break;
-        }
-        #endregion
-
-        cards = FindObjectsOfType<CharacterCardGenerator>();
+        characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
+        characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
+        characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
+        characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
 
         // Assigns each player a playerId and generates their first character
         playerControllers = FindObjectsOfType<PlayerController>();
@@ -126,7 +98,7 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
                 // This is pretty disgusting and I am ashamed, not gonna lie. I'm trying my best ok? :(
-                switch (cards.Length)
+                switch (playerControllers.Length)
                 {
                     case 1:
                         if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY)

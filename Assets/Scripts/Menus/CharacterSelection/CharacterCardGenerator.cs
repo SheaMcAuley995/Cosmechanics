@@ -11,19 +11,14 @@ using TMPro;
 public struct CharacterData
 {
     /// Display fields on the character card
-    public RawImage videoFeedField;
-    public Image genderField;
-    public TextMeshProUGUI nameField, ageField, crimeField, sentenceField;
+    public TextMeshProUGUI nameField, crimeField, sentenceField;
     public Image materialField;
 
 
     /// Constructor for creating new character cards
-    public CharacterData(RawImage _videoFeedField, Image _genderField, TextMeshProUGUI _nameField, TextMeshProUGUI _ageField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
+    public CharacterData(TextMeshProUGUI _nameField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
     {
-        videoFeedField = _videoFeedField;
-        genderField = _genderField;
         nameField = _nameField;
-        ageField = _ageField;
         crimeField = _crimeField;
         sentenceField = _sentenceField;
         materialField = _materialField;
@@ -51,8 +46,6 @@ public class CharacterCardGenerator : MonoBehaviour
     [Header("Selection Pool")]
     public RenderTexture[] videoFeeds;
     [Space]
-    public Sprite[] genders;
-    [Space]
     public GameObject[] characters;
     [Space]
     public Material[] materials;
@@ -66,8 +59,8 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
     List<string> namesList = new List<string>();
-    List<int> agesList = new List<int>();
-    List<Sprite> gendersList = new List<Sprite>();
+    //List<int> agesList = new List<int>();
+    //List<Sprite> gendersList = new List<Sprite>();
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
     List<GameObject> prefabsList = new List<GameObject>();
@@ -81,7 +74,7 @@ public class CharacterCardGenerator : MonoBehaviour
     Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     /// Random selection variables
-    int nameIndex, ageIndex, genderIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
+    int nameIndex, /*ageIndex, genderIndex,*/ crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
     int currentPlayerId = 0;
 
@@ -93,6 +86,8 @@ public class CharacterCardGenerator : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        newCharacter = new CharacterData(displayFields.nameField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+
         #region Generated List Content
         #region Video Feeds
         /// 4 video feeds added to the list using the ListExtension class
@@ -123,20 +118,20 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Ages
-        /// Ages 1 - 1,000 added to the list using the ListExtension class
-        int maxAge = 1000;
-        for (int age = 1; age < maxAge; age++)
-        {
-            agesList.AddMany(age);
-        }
+        ///// Ages 1 - 1,000 added to the list using the ListExtension class
+        //int maxAge = 1000;
+        //for (int age = 1; age < maxAge; age++)
+        //{
+        //    agesList.AddMany(age);
+        //}
         #endregion
 
         #region Genders
-        /// 4 gender icons added to the list (can add more) using the ListExtension class
-        for (int j = 0; j < genders.Length; j++)
-        {
-            gendersList.AddMany(genders[j]);
-        }
+        ///// 4 gender icons added to the list (can add more) using the ListExtension class
+        //for (int j = 0; j < genders.Length; j++)
+        //{
+        //    gendersList.AddMany(genders[j]);
+        //}
         #endregion
 
         #region Crimes
@@ -229,37 +224,17 @@ public class CharacterCardGenerator : MonoBehaviour
         //Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
-        newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.genderField, displayFields.nameField, displayFields.ageField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+        //newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.nameField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
 
         /// TODO: Cache these later for some of that sweet juicy #efficiency
         prefabIndex = Random.Range(0, characters.Length);
-        nameIndex = Random.Range(0, 90);
-        //ageIndex = Random.Range(18, 60);
-        //genderIndex = Random.Range(0, genders.Length);
-        crimeIndex = Random.Range(0, 65);
-        sentenceIndex = Random.Range(0, 35);
+        nameIndex = Random.Range(0, namesList.Count);
+        crimeIndex = Random.Range(0, crimesList.Count);
+        sentenceIndex = Random.Range(0, sentencesList.Count);
         //materialIndex = Random.Range(0, materials.Length);
 
         #region Character Card Display Setter
-        if (spawnPos == spawnPos1)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[0];
-        }
-        else if (spawnPos == spawnPos2)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[1];
-        }
-        else if (spawnPos == spawnPos3)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[2];
-        }
-        else if (spawnPos == spawnPos4)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[3];
-        }
         newCharacter.nameField.text = namesList[nameIndex]; // Sets the character card's name to the randomly selected portrait.
-        //newCharacter.ageField.text = agesList[ageIndex].ToString(); // Sets the character card's age to the pseudo-randomly selected age.
-        //newCharacter.genderField.sprite = gendersList[genderIndex]; // Sets the character card's gender to the randomly selected gender.
         newCharacter.crimeField.text = crimesList[crimeIndex]; // Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; // Sets the character card's sentence to the randomly selected sentence.
         //newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
@@ -302,28 +277,8 @@ public class CharacterCardGenerator : MonoBehaviour
 
         prefabIndex = lastHead;
         nameIndex = Random.Range(0, 90);
-        //ageIndex = Random.Range(18, 60);
-        //genderIndex = Random.Range(0, genders.Length);
 
-        if (spawnPos == spawnPos1)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[0];
-        }
-        else if (spawnPos == spawnPos2)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[1];
-        }
-        else if (spawnPos == spawnPos3)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[2];
-        }
-        else if (spawnPos == spawnPos4)
-        {
-            newCharacter.videoFeedField.texture = videoFeedList[3];
-        }
         newCharacter.nameField.text = namesList[nameIndex];
-        //newCharacter.ageField.text = agesList[ageIndex].ToString();
-        //newCharacter.genderField.sprite = gendersList[genderIndex];
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
