@@ -52,11 +52,13 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     InteractWithInterface interact;
+    [SerializeField] Animator animator;
 
     GameObject interactedObject;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
@@ -167,8 +169,7 @@ public class PlayerController : MonoBehaviour
 
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
-
-
+        animator.SetFloat("Movement", targetSpeed);
         rb.velocity = transform.forward * currentSpeed;
 
     }
