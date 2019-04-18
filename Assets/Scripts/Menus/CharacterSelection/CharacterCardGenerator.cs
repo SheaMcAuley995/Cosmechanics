@@ -40,6 +40,9 @@ public class CharacterCardGenerator : MonoBehaviour
     };
     public CharacterStatus characterStatus;
 
+
+
+
     [Header("Constructor Data")]
     public CharacterData displayFields;
     CharacterData newCharacter;
