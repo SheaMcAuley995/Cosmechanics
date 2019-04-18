@@ -97,7 +97,7 @@ public class ExampleGameController : MonoBehaviour
     {
         spawnPoints = new Vector3[numberOfPlayers];
 
-         spawnPoints[0] = transform.position;
+         //spawnPoints[0] = transform.position;
          for (int i = 0; i < numberOfPlayers; i++)
          {
              spawnPoints[i] = transform.position + new Vector3(i + 1, 0, 0);

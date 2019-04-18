@@ -20,7 +20,7 @@ public class AssignPlayers : MonoBehaviour
     Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
 
-    void Awake()
+    void Start()
     {
         ExampleGameController.instance.setSpawnPoints();
         for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
@@ -55,7 +55,7 @@ public class AssignPlayers : MonoBehaviour
             cards[playerController.playerId].GenerateFullCard(playerController.playerId);
         }
         // Finds the new player controllers
-        playerControllers = FindObjectsOfType<PlayerController>();
+        //playerControllers = FindObjectsOfType<PlayerController>();
     }
 
     void Update()
