@@ -63,6 +63,11 @@ public class AssignPlayers : MonoBehaviour
         GetInput();
     }
 
+    public void OhNo(int wow)
+    {
+        Debug.LogError("OH NOOO");
+    }
+
     void GetInput()
     {
         foreach (PlayerController controller in playerControllers)
@@ -98,30 +103,35 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
                 // This is pretty disgusting and I am ashamed, not gonna lie. I'm trying my best ok? :(
+                // Bad feels
                 switch (playerControllers.Length)
                 {
                     case 1:
                         if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
                         {
                             playButton.onClick.Invoke();
+                            PlayerActivation.instance.ContinueToGame();
                         }
                         break;
                     case 2:
                         if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
                         {
                             playButton.onClick.Invoke();
+                            PlayerActivation.instance.ContinueToGame();
                         }
                         break;
                     case 3:
                         if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
                         {
                             playButton.onClick.Invoke();
+                            PlayerActivation.instance.ContinueToGame();
                         }
                         break;
                     case 4:
                         if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[3].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
                         {
                             playButton.onClick.Invoke();
+                            PlayerActivation.instance.ContinueToGame();
                         }
                         break;
                 }
