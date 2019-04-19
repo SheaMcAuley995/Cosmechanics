@@ -1,19 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using TMPro;
 
 public class PlayerJoin : MonoBehaviour
 {
-    public Button playButton;
-    public Button optionsButton;
-    public Button exitButton;
-    public Button backButton;
     public TextMeshProUGUI playersJoined;
     public PlayerController[] controllers;
     bool selecting;
-    bool optionsOpen;
 
 	IEnumerator Start ()
     {
@@ -71,35 +65,6 @@ public class PlayerJoin : MonoBehaviour
                 }
 
                 playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
-            }
-
-            if (controller.pickUp && !optionsOpen)
-            {
-                for (int i = 0; i < controllers.Length; i++)
-                {
-                    Destroy(controllers[i]);
-                }
-                playButton.onClick.Invoke();
-            }
-
-            if (controller.Interact && !optionsOpen && !selecting)
-            {
-                StartCoroutine(WaitForNextSelect());
-                optionsOpen = true;
-                optionsButton.onClick.Invoke();
-            }
-
-            if (controller.sprint && !optionsOpen && !selecting)
-            {
-                StartCoroutine(WaitForNextSelect());
-                exitButton.onClick.Invoke();
-            }
-
-            if (controller.sprint && optionsOpen && !selecting)
-            {
-                StartCoroutine(WaitForNextSelect());
-                optionsOpen = false;
-                backButton.onClick.Invoke();
             }
         }
     }
