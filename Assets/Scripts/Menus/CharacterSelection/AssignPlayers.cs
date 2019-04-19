@@ -19,6 +19,10 @@ public class AssignPlayers : MonoBehaviour
     Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
     Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
+    [Header("Mechanic Settings")]
+    public bool multipleButtonsForCustomization;
+    public bool oneButtonForRandomCharacter;
+
 
     void Start()
     {
@@ -63,6 +67,7 @@ public class AssignPlayers : MonoBehaviour
         GetInput();
     }
 
+    // Very funny. 
     public void OhNo(int wow)
     {
         Debug.LogError("OH NOOO");
@@ -74,26 +79,35 @@ public class AssignPlayers : MonoBehaviour
         {
             controller.getInput();
 
-            // Player moves analog stick RIGHT - selects a new head, colour, or crime/sentence for player depending on its creation status
+            // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
             if (controller.movementVector.x > 0 && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].WaitForNextSelection());
 
-                cards[controller.playerId].GenerateModel(controller.playerId);
+                if (multipleButtonsForCustomization)
+                {
+                    cards[controller.playerId].GenerateModel(controller.playerId);
+                }
+                else if (oneButtonForRandomCharacter)
+                {
+                    cards[controller.playerId].GenerateFullCard(controller.playerId);
+                }
             }
 
-            if (controller.bumper && !cards[controller.playerId].selecting)
+            // Player presses the right controller bumper - selects a new colour if that setting is enabled
+            if (controller.bumper && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
             {
                 cards[controller.playerId].GenerateColour();
             }
 
-            if (controller.Interact && !cards[controller.playerId].selecting)
+            // Player presses the left action button - selects a new crime / sentence if that setting is enabled
+            if (controller.Interact && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
             {
                 cards[controller.playerId].GenerateCrime();
             }
 
-            // Player presses A - advances character status to next state
+            // Player presses A - advances character status to READY
             if (controller.pickUp && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
@@ -104,6 +118,7 @@ public class AssignPlayers : MonoBehaviour
 
                 // This is pretty disgusting and I am ashamed, not gonna lie. I'm trying my best ok? :(
                 // Bad feels
+                // Indeed
                 switch (playerControllers.Length)
                 {
                     case 1:
