@@ -221,7 +221,7 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Generates a new prisoner card
     public void GenerateFullCard(int playerId)
     {
-        //Destroy(lastSelectedPlayer);
+        Destroy(lastSelectedPlayer);
 
         /// Utilizes the constructor to create new data for the character card
         //newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.nameField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
@@ -231,31 +231,31 @@ public class CharacterCardGenerator : MonoBehaviour
         nameIndex = Random.Range(0, namesList.Count);
         crimeIndex = Random.Range(0, crimesList.Count);
         sentenceIndex = Random.Range(0, sentencesList.Count);
-        //materialIndex = Random.Range(0, materials.Length);
+        materialIndex = Random.Range(0, materials.Length);
 
         #region Character Card Display Setter
         newCharacter.nameField.text = namesList[nameIndex]; // Sets the character card's name to the randomly selected portrait.
         newCharacter.crimeField.text = crimesList[crimeIndex]; // Sets the character card's convicted crime to the randomly selected crime.
         newCharacter.sentenceField.text = sentencesList[sentenceIndex]; // Sets the character card's sentence to the randomly selected sentence.
-        //newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
+        newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
         #endregion
 
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
-        //Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
-        //foreach (Renderer child in children)
-        //{
-        //    if (child.gameObject.layer != 16)
-        //    {
-        //        child.material = materialList[materialIndex];
-        //    }
-        //}
+        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            if (child.gameObject.layer != 16)
+            {
+                child.material = materialList[materialIndex];
+            }
+        }
 
-        //locatorDots = newPlayer.GetComponentsInChildren<Image>();
-        //foreach (Image locator in locatorDots)
-        //{
-        //    locator.color = materialList[materialIndex].color;
-        //}
+        locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
 
         lastSelectedPlayer = newPlayer.gameObject;
 
