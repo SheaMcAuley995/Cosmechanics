@@ -4,43 +4,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
-
-
 [System.Serializable]
 public struct CharacterData
 {
     /// Display fields on the character card
     public TextMeshProUGUI nameField, crimeField, sentenceField;
-    public Image materialField;
-
 
     /// Constructor for creating new character cards
-    public CharacterData(TextMeshProUGUI _nameField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField, Image _materialField)
+    public CharacterData(TextMeshProUGUI _nameField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
     {
         nameField = _nameField;
         crimeField = _crimeField;
         sentenceField = _sentenceField;
-        materialField = _materialField;
-
     }
 }
 
 public class CharacterCardGenerator : MonoBehaviour
 {
-    public enum CharacterStatus
-    {
-        SELECTING,
-        READY
-    };
+    public enum CharacterStatus { SELECTING, READY };
     public CharacterStatus characterStatus;
-
-
-
 
     [Header("Constructor Data")]
     public CharacterData displayFields;
     CharacterData newCharacter;
+    CharacterData lastCard;
     CameraMultiTarget cameraMultiTarget;
 
     [Header("Selection Pool")]
@@ -59,14 +46,18 @@ public class CharacterCardGenerator : MonoBehaviour
     /// Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
     List<string> namesList = new List<string>();
-    //List<int> agesList = new List<int>();
-    //List<Sprite> gendersList = new List<Sprite>();
     List<string> crimesList = new List<string>();
     List<string> sentencesList = new List<string>();
     List<GameObject> prefabsList = new List<GameObject>();
     List<Material> materialList = new List<Material>();
 
-    GameObject lastSelectedPlayer;
+    List<int> previousPrefabs = new List<int>();
+    List<int> previousNames = new List<int>();
+    List<int> previousCrimes = new List<int>();
+    List<int> previousSentences = new List<int>();
+    List<int> previousMaterials = new List<int>();
+
+    GameObject lastSelectedPlayerModel;
     [HideInInspector] public Vector3 spawnPos;
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
     Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
@@ -74,19 +65,20 @@ public class CharacterCardGenerator : MonoBehaviour
     Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     /// Random selection variables
-    int nameIndex, /*ageIndex, genderIndex,*/ crimeIndex, sentenceIndex, prefabIndex, materialIndex;
+    int nameIndex, crimeIndex, sentenceIndex, prefabIndex, materialIndex;
 
     int currentPlayerId = 0;
 
     int lastMat = 0;
     int lastHead = 0;
+    int timesGoneBack = 0;
 
     [HideInInspector] public bool selecting;
 
     // Use this for initialization
     void Awake()
     {
-        newCharacter = new CharacterData(displayFields.nameField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+        newCharacter = new CharacterData(displayFields.nameField, displayFields.crimeField, displayFields.sentenceField);
 
         #region Generated List Content
         #region Video Feeds
@@ -218,86 +210,196 @@ public class CharacterCardGenerator : MonoBehaviour
         readyStatusBar.sprite = statusSprites[0];
     }
 
-    /// Generates a new prisoner card
+    // Generates a full new prisoner card
     public void GenerateFullCard(int playerId)
     {
-        Destroy(lastSelectedPlayer);
+        Destroy(lastSelectedPlayerModel);
 
-        /// Utilizes the constructor to create new data for the character card
-        //newCharacter = new CharacterData(displayFields.videoFeedField, displayFields.nameField, displayFields.crimeField, displayFields.sentenceField, displayFields.materialField);
+        // Sets random values for each card parameter
+        int prefabIndex = Random.Range(0, characters.Length);
+        int nameIndex = Random.Range(0, namesList.Count);
+        int crimeIndex = Random.Range(0, crimesList.Count);
+        int sentenceIndex = Random.Range(0, sentencesList.Count);
+        int materialIndex = Random.Range(0, materials.Length);
 
-        /// TODO: Cache these later for some of that sweet juicy #efficiency
-        prefabIndex = Random.Range(0, characters.Length);
-        nameIndex = Random.Range(0, namesList.Count);
-        crimeIndex = Random.Range(0, crimesList.Count);
-        sentenceIndex = Random.Range(0, sentencesList.Count);
-        materialIndex = Random.Range(0, materials.Length);
+        // Assigns each card parameter the above corresponding value
+        newCharacter.nameField.text = namesList[nameIndex];
+        newCharacter.crimeField.text = crimesList[crimeIndex];
+        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
 
-        #region Character Card Display Setter
-        newCharacter.nameField.text = namesList[nameIndex]; // Sets the character card's name to the randomly selected portrait.
-        newCharacter.crimeField.text = crimesList[crimeIndex]; // Sets the character card's convicted crime to the randomly selected crime.
-        newCharacter.sentenceField.text = sentencesList[sentenceIndex]; // Sets the character card's sentence to the randomly selected sentence.
-        newCharacter.materialField.material = materialList[materialIndex]; // Sets the character card's colour to the randomly selected colour
-        #endregion
+        // Stores card data for selecting previous cards
+        previousPrefabs.Add(prefabIndex);
+        previousNames.Add(nameIndex);
+        previousCrimes.Add(crimeIndex);
+        previousSentences.Add(sentenceIndex);
+        previousMaterials.Add(materialIndex);
 
+        // Creates the new player
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
+        // Gets all of the character's renderers
         Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
+            // Sets each renderer's material (except for the head) to the corresponding material (colour)
             if (child.gameObject.layer != 16)
             {
                 child.material = materialList[materialIndex];
             }
         }
 
+        // Sets the character's locator circle to the above colour
         locatorDots = newPlayer.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
         }
 
-        lastSelectedPlayer = newPlayer.gameObject;
+        lastSelectedPlayerModel = newPlayer.gameObject;
 
+        // Assigns newly created characters a playerId for ReWired
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
-
         currentPlayerId = playerId;
         controller.playerId = currentPlayerId;
         currentPlayerId++;
 
+        // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
         controller.walkSpeed = 0.0f;
         controller.runSpeed = 0.0f;
         controller.turnSmoothTime = 100f;
     }
 
-    public void GenerateModel(int playerId)
+    // Generates previous character cards
+    public void GeneratePreviousCard(int playerId)
     {
-        Destroy(lastSelectedPlayer);
+        Destroy(lastSelectedPlayerModel);
 
-        prefabIndex = lastHead;
-        nameIndex = Random.Range(0, 90);
+        if (timesGoneBack == previousNames.Count - 1)
+        {
+            timesGoneBack = 0;
+        }
 
+        // Sets values for each card parameter
+        int prefabIndex = previousPrefabs[previousPrefabs.Count - 2 - timesGoneBack];
+        int nameIndex = previousNames[previousNames.Count - 2 - timesGoneBack];
+        int crimeIndex = previousCrimes[previousCrimes.Count - 2 - timesGoneBack];
+        int sentenceIndex = previousSentences[previousSentences.Count - 2 - timesGoneBack];
+        int materialIndex = previousMaterials[previousMaterials.Count - 2 - timesGoneBack];
+
+        // Applies above values to card
         newCharacter.nameField.text = namesList[nameIndex];
+        newCharacter.crimeField.text = crimesList[crimeIndex];
+        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
 
+        // Creates the new player
         GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
 
-        lastSelectedPlayer = newPlayer.gameObject;
+        // Gets all of the character's renderers
+        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            // Sets each renderer's material (except for the head) to the corresponding material (colour)
+            if (child.gameObject.layer != 16)
+            {
+                child.material = materialList[materialIndex];
+            }
+        }
 
+        // Sets the character's locator circle to the above colour
+        locatorDots = newPlayer.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
+
+        lastSelectedPlayerModel = newPlayer.gameObject;
+        timesGoneBack++;
+
+        // Assigns newly created characters a playerId for ReWired
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+        currentPlayerId = playerId;
+        controller.playerId = currentPlayerId;
+        currentPlayerId++;
+
+        // This prevents characters from moving around when players are selecting characters
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
+    }
+
+    #region Methods For: Customize Character - Multiple Buttons
+    public void GenerateModel(int playerId)
+    {
+        Destroy(lastSelectedPlayerModel);
+
+        // Sets values for each card parameter
+        prefabIndex = lastHead;
+        nameIndex = Random.Range(0, namesList.Count);
+
+        // Assigns each card parameter the above corresponding value
+        newCharacter.nameField.text = namesList[nameIndex];
+
+        // Creates the new player
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+
+        lastSelectedPlayerModel = newPlayer.gameObject;
+
+        // Cycles through the heads instead of generating them randomly
         lastHead++;
         if (lastHead >= prefabsList.Count)
         {
             lastHead = 0;
         }
 
-        //GenerateColour();
-
+        // Assigns newly created characters a playerId for ReWired
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
-
         currentPlayerId = playerId;
         controller.playerId = currentPlayerId;
         currentPlayerId++;
 
+        // This prevents characters from moving around when players are selecting characters
+        controller.cameraTrans = Camera.main.transform;
+        controller.walkSpeed = 0.0f;
+        controller.runSpeed = 0.0f;
+        controller.turnSmoothTime = 100f;
+    }
+
+    public void GeneratePreviousModel(int playerId)
+    {
+        Destroy(lastSelectedPlayerModel);
+
+        if (timesGoneBack == previousNames.Count - 1)
+        {
+            timesGoneBack = 0;
+        }
+
+        // Sets values for each card parameter
+        prefabIndex = lastHead;
+        nameIndex = previousNames[previousNames.Count - 2 - timesGoneBack];
+
+        // Assigns each card parameter the above corresponding value
+        newCharacter.nameField.text = namesList[nameIndex];
+
+        // Creates the new player
+        GameObject newPlayer = Instantiate(prefabsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        lastSelectedPlayerModel = newPlayer.gameObject;
+
+        // Cycles through the heads instead of generating them randomly
+        lastHead--;
+        if (lastHead <= 0)
+        {
+            lastHead = prefabsList.Count;
+        }
+
+        // Assigns newly created characters a playerId for ReWired
+        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+        currentPlayerId = playerId;
+        controller.playerId = currentPlayerId;
+        currentPlayerId++;
+
+        // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
         controller.walkSpeed = 0.0f;
         controller.runSpeed = 0.0f;
@@ -306,25 +408,28 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GenerateColour()
     {
+        // Sets value for the card's colour parameter
         materialIndex = lastMat;
 
-        newCharacter.materialField.material = materialList[materialIndex];
-
-        Renderer[] children = lastSelectedPlayer.GetComponentsInChildren<Renderer>();
+        // Gets all of the character's renderers
+        Renderer[] children = lastSelectedPlayerModel.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
+            // Sets each renderer's material (except for the head) to the corresponding material (colour)
             if (child.gameObject.layer != 16)
             {
                 child.material = materialList[materialIndex];
             }
         }
 
-        locatorDots = lastSelectedPlayer.GetComponentsInChildren<Image>();
+        // Sets the character's locator circle to the above colour
+        locatorDots = lastSelectedPlayerModel.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
         }
 
+        // Cycles through the materials instead of generating them randomly
         lastMat++;
         if (lastMat >= materialList.Count - 1)
         {
@@ -332,16 +437,62 @@ public class CharacterCardGenerator : MonoBehaviour
         }
     }
 
+    public void GeneratePreviousColour()
+    {
+        // Sets value for the card's colour parameter
+        materialIndex = lastMat;
+
+        // Gets all of the character's renderers
+        Renderer[] children = lastSelectedPlayerModel.GetComponentsInChildren<Renderer>();
+        foreach (Renderer child in children)
+        {
+            // Sets each renderer's material (except for the head) to the corresponding material (colour)
+            if (child.gameObject.layer != 16)
+            {
+                child.material = materialList[materialIndex];
+            }
+        }
+
+        // Sets the character's locator circle to the above colour
+        locatorDots = lastSelectedPlayerModel.GetComponentsInChildren<Image>();
+        foreach (Image locator in locatorDots)
+        {
+            locator.color = materialList[materialIndex].color;
+        }
+
+        // Cycles through the materials instead of generating them randomly
+        lastMat--;
+        if (lastMat <= 0)
+        {
+            lastMat = materialList.Count - 1;
+        }
+    }
+
     public void GenerateCrime()
     {
-        crimeIndex = Random.Range(0, 65);
-        sentenceIndex = Random.Range(0, 35);
+        // Sets values for each card parameter
+        crimeIndex = Random.Range(0, crimesList.Count);
+        sentenceIndex = Random.Range(0, sentencesList.Count);
 
+        // Assigns each card parameter the above corresponding value
         newCharacter.crimeField.text = crimesList[crimeIndex];
         newCharacter.sentenceField.text = sentencesList[sentenceIndex];
     }
 
-    public IEnumerator WaitForNextSelection()
+    public void GeneratePreviousCrime()
+    {
+        // Sets values for each card parameter
+        crimeIndex = previousCrimes[previousCrimes.Count - 2 - timesGoneBack];
+        sentenceIndex = previousSentences[previousSentences.Count - 2 - timesGoneBack];
+
+        // Assigns each card parameter the above corresponding value
+        newCharacter.crimeField.text = crimesList[crimeIndex];
+        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
+    }
+    #endregion
+
+    // Used in AssignPlayers to prevent accidential selection spamming
+    public IEnumerator SelectionDelay()
     {
         yield return new WaitForSeconds(0.2f);
         selecting = false;
