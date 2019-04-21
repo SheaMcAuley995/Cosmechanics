@@ -83,7 +83,7 @@ public class AssignPlayers : MonoBehaviour
             if (controller.movementVector.x > 0 && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
 
                 if (multipleButtonsForCustomization)
                 {
@@ -92,6 +92,21 @@ public class AssignPlayers : MonoBehaviour
                 else if (oneButtonForRandomCharacter)
                 {
                     cards[controller.playerId].GenerateFullCard(controller.playerId);
+                }
+            }
+
+            if (controller.movementVector.x < 0 && !cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
+
+                if (multipleButtonsForCustomization)
+                {
+                    cards[controller.playerId].GeneratePreviousModel(controller.playerId);
+                }
+                else if (oneButtonForRandomCharacter)
+                {
+                    cards[controller.playerId].GeneratePreviousCard(controller.playerId);
                 }
             }
 
@@ -111,7 +126,7 @@ public class AssignPlayers : MonoBehaviour
             if (controller.pickUp && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
 
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
@@ -156,7 +171,7 @@ public class AssignPlayers : MonoBehaviour
             if (controller.sprint && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].WaitForNextSelection());
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
 
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
