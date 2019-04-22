@@ -26,6 +26,12 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
             other.GetComponent<Florp>().doFill = true;
         }
     }
+    void OnTriggerExit()
+    {
+        dump = false;
+        
+    }
+    
     private void Update()
     {
         if (dump)
