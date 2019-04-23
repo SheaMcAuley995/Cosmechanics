@@ -12,7 +12,7 @@ public class ShipHealth : MonoBehaviour {
     public static event DamageAction onDamagedAction;
 
     [Header("Event System")]
-    [SerializeField] float timeBetweenNEvents;
+    public float timeBetweenNEvents;
 
     // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
