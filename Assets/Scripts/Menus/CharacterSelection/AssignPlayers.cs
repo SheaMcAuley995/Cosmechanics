@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Rewired;
 
 public class AssignPlayers : MonoBehaviour
 {
@@ -52,8 +53,6 @@ public class AssignPlayers : MonoBehaviour
             currentPlayerId++;
             cards[playerController.playerId].GenerateFullCard(playerController.playerId);
         }
-        // Finds the new player controllers
-        //playerControllers = FindObjectsOfType<PlayerController>();
     }
 
     void Update()
@@ -68,7 +67,7 @@ public class AssignPlayers : MonoBehaviour
             controller.getInput();
 
             // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
-            if (controller.movementVector.x > 0 && !cards[controller.playerId].selecting)
+            if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -84,7 +83,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player moves analog stick LEFT - selects either the previous card or the previous model depending on which setting is used
-            if (controller.movementVector.x < 0 && !cards[controller.playerId].selecting)
+            if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -100,31 +99,31 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses the right controller bumper - selects a new colour if that setting is enabled
-            if (controller.bumper && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            if (controller.selectColourRight && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
             {
                 cards[controller.playerId].GenerateColour();
             }
 
-            // Player presses the left controller bumper - selects the previous colour if that setting is enabled
-            //if (controller.leftBumper && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
-            //{
-            //    cards[controller.playerId].GeneratePreviousColour();
-            //}
+            //Player presses the left controller bumper -selects the previous colour if that setting is enabled
+            if (controller.selectColourLeft && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            {
+                cards[controller.playerId].GeneratePreviousColour();
+            }
 
-            // Player presses the left action button - selects a new crime / sentence if that setting is enabled
-            if (controller.Interact && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            // Player presses left action button - selects a new crime / sentence if that setting is enabled
+            if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
             {
                 cards[controller.playerId].GenerateCrime();
             }
 
-            // Player presses a different button(???) - selects the previous crime / sentence if that setting is enabled
-            //if (controller.otherButton && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
-            //{
-            //    cards[controller.playerId].GeneratePreviousCrime();
-            //}
+            // Player presses top action button - selects the previous crime / sentence if that setting is enabled
+            if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            {
+                cards[controller.playerId].GeneratePreviousCrime();
+            }
 
             // Player presses A - advances character status to READY
-            if (controller.pickUp && !cards[controller.playerId].selecting)
+            if (controller.readyUp && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -164,7 +163,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses B - reverts character status to previous state
-            if (controller.sprint && !cards[controller.playerId].selecting)
+            if (controller.cancel && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
