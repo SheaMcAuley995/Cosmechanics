@@ -9,7 +9,7 @@ public class Engine : MonoBehaviour {
     public float engineHeat;
     public float maxHeat;
     public float engineCoolingAmount;
-    [SerializeField] [Range(0, 1)] float florpCoolingPercentage;
+    [Range(0, 1)] public float florpCoolingPercentage;
 
     [Header("Win Condition")]
     public GameObject winGameUI;
