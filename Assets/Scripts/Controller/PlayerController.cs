@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Interact;
     [HideInInspector] public bool sprint;
     [HideInInspector] public bool bumper;
+    [HideInInspector] public bool pauseButton;
+
     [HideInInspector] public Vector2 selectModel;
     [HideInInspector] public bool selectCrime;
     [HideInInspector] public bool previousCrime;
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
         bumper = player.GetButtonDown("Bumper");
+        pauseButton = player.GetButtonDown("Pause");
         #endregion
 
         #region Char Select Input

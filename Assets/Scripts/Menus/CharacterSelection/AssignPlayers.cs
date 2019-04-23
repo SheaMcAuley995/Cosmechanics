@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Rewired;
+using TMPro;
 
 public class AssignPlayers : MonoBehaviour
 {
     public GameObject characterCardPrefab, panelParent;
     public GameObject[] characterCards;
     public CharacterCardGenerator[] cards;
+    public TextMeshProUGUI countdownToStartText;
 
     public PlayerController[] playerControllers;
     int currentPlayerId = 0;
@@ -20,6 +21,7 @@ public class AssignPlayers : MonoBehaviour
     [Header("Mechanic Settings")]
     public bool multipleButtonsForCustomization;
     public bool oneButtonForRandomCharacter;
+    bool allReady;
 
 
     void Start()
@@ -127,38 +129,25 @@ public class AssignPlayers : MonoBehaviour
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
-
+                
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
-                // This is pretty disgusting and I am ashamed.
-                // Bad feels
-                switch (playerControllers.Length)
+                // This is how the code was always written what other version I don't know what you're talking about
+                // It definitely wasn't a giant, awful switch statement nope no sir 
+                for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
                 {
-                    case 1:
-                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-                        {
-                            PlayerActivation.instance.ContinueToGame();
-                        }
+                    if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
+                    {
+                        allReady = false;
                         break;
-                    case 2:
-                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-                        {
-                            PlayerActivation.instance.ContinueToGame();
-                        }
-                        break;
-                    case 3:
-                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-                        {
-                            PlayerActivation.instance.ContinueToGame();
-                        }
-                        break;
-                    case 4:
-                        if (cards[0].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[1].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[2].characterStatus == CharacterCardGenerator.CharacterStatus.READY && cards[3].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-                        {
-                            PlayerActivation.instance.ContinueToGame();
-                        }
-                        break;
+                    }
+                    allReady = true;
+                }
+
+                if (allReady)
+                {
+                    PlayerActivation.instance.ContinueToGame();
                 }
             }
 
