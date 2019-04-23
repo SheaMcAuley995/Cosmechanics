@@ -22,6 +22,7 @@ public class BalanceManager : EditorWindow {
     {
         engine = FindObjectOfType<Engine>();
         shipHealth = FindObjectOfType<ShipHealth>();
+        
     }
 
     [MenuItem("Window/Balance Window")]
