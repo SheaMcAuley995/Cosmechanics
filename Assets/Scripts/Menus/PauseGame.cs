@@ -77,12 +77,11 @@ public class PauseGame : MonoBehaviour
         {
             player.getInput();
 
-            // TODO: Re-enable this when we have a start button hooked up with ReWired
-            //if (player.startButton)
-            //{
-            //    StopCoroutine(FadeOut(images, texts));
-            //    StartCoroutine(FadeIn(images, texts));
-            //}
+            if (player.pauseButton)
+            {
+                StopCoroutine(FadeOut(images, texts));
+                StartCoroutine(FadeIn(images, texts));
+            }
 
             if (player.pickUp)
             {
