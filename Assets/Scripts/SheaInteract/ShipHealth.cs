@@ -12,7 +12,7 @@ public class ShipHealth : MonoBehaviour {
     public static event DamageAction onDamagedAction;
 
     [Header("Event System")]
-    [SerializeField] float timeBetweenNEvents;
+    public float timeBetweenNEvents;
 
     // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
@@ -132,7 +132,7 @@ public class ShipHealth : MonoBehaviour {
 
         if (shipCurrenHealth <= shipMaxHealth * 0.25)
         {
-           // LoseGame();
+            LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);

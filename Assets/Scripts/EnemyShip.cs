@@ -56,11 +56,11 @@ public class EnemyShip : MonoBehaviour {
     }
    
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = GizmoColor;
-        Gizmos.DrawWireSphere(ShipHealth.instance.attackLocation, gizmoSize);
-        Gizmos.DrawSphere(enemyShipPosition.position, gizmoSize);
-        Gizmos.DrawWireMesh(mesh, 0, enemyShipPosition.position, enemyShipPosition.rotation, new Vector3(1,1,1));
-    }
+   // private void OnDrawGizmosSelected()
+   // {
+   //     Gizmos.color = GizmoColor;
+   //     Gizmos.DrawWireSphere(ShipHealth.instance.attackLocation, gizmoSize);
+   //     Gizmos.DrawSphere(enemyShipPosition.position, gizmoSize);
+   //     Gizmos.DrawWireMesh(mesh, 0, enemyShipPosition.position, enemyShipPosition.rotation, new Vector3(1,1,1));
+   // }
 }

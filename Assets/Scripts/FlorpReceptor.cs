@@ -9,6 +9,7 @@ public class FlorpReceptor : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.GetComponent<Florp>().isFilled)
         {
             engine.InsertFlorp();

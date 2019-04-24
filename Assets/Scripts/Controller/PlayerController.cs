@@ -28,6 +28,15 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Interact;
     [HideInInspector] public bool sprint;
     [HideInInspector] public bool bumper;
+    [HideInInspector] public bool pauseButton;
+
+    [HideInInspector] public Vector2 selectModel;
+    [HideInInspector] public bool selectCrime;
+    [HideInInspector] public bool previousCrime;
+    [HideInInspector] public bool selectColourRight;
+    [HideInInspector] public bool selectColourLeft;
+    [HideInInspector] public bool readyUp;
+    [HideInInspector] public bool cancel;
     CharacterController cc;
     public bool normalMovement = true;
 
@@ -52,11 +61,13 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     InteractWithInterface interact;
+    [SerializeField] Animator animator;
 
     GameObject interactedObject;
 
     private void Start()
     {
+        animator = GetComponent<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
@@ -71,6 +82,7 @@ public class PlayerController : MonoBehaviour
 
     public void getInput()
     {
+        #region Main Game Input
         // Normal axis when player is not on fire
         if (normalMovement)
         {
@@ -88,6 +100,18 @@ public class PlayerController : MonoBehaviour
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
         bumper = player.GetButtonDown("Bumper");
+        pauseButton = player.GetButtonDown("Pause");
+        #endregion
+
+        #region Char Select Input
+        selectModel.x = player.GetAxisRaw("ModelSelect");
+        selectCrime = player.GetButtonDown("SelectCrime");
+        previousCrime = player.GetButtonDown("PrevCrime");
+        selectColourRight = player.GetButtonDown("ColourSelectRight");
+        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
+        readyUp = player.GetButtonDown("ReadyUp");
+        cancel = player.GetButtonDown("Cancel");
+        #endregion
     }
 
     private void ProcessInput()
@@ -167,8 +191,7 @@ public class PlayerController : MonoBehaviour
 
         float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
         currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
-
-
+        animator.SetFloat("Movement", targetSpeed);
         rb.velocity = transform.forward * currentSpeed;
 
     }
