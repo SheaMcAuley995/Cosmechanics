@@ -31,11 +31,11 @@ public class AlertUI : MonoBehaviour {
 
     public void setCurrentAlarmStatus()
     {
-        if(curve.Evaluate(problemPercentage()) * 100 < 50)
+        if(curve.Evaluate(problemPercentage()) * 100 < 25)
         {
             alarmStatus = AlarmStatus.Critical;
         }
-        else if(curve.Evaluate(problemPercentage()) * 100 < 75)
+        else if(curve.Evaluate(problemPercentage()) * 100 < 50)
         {
             alarmStatus = AlarmStatus.Caution;
         }
