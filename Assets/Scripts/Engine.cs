@@ -13,12 +13,15 @@ public class Engine : MonoBehaviour {
 
     [Header("Win Condition")]
     public GameObject winGameUI;
+    public GameObject looseGameUI;
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
     public float progressionMultiplier;
+    public float enemyProgressionMultiplier;
 
-    public Slider HealthSlider;
+    public Slider ShipProgressSlider;
+    public Slider enemyShipProgressSlider;
     public AlertUI alertUI;
 
     [Header("Debug Tools")]
@@ -27,12 +30,13 @@ public class Engine : MonoBehaviour {
     {
         winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
-        currentProgress = winConditionLimit / 8;
+        currentProgress = winConditionLimit / 10;
         alertUI.problemMax = maxHeat;
     }
 
     public void Update()
     {
+        Debug.Log(engineHeatPercentage());
         engineHeat -= Time.deltaTime * engineCoolingAmount;
         
         if(testInputFlorp)
@@ -42,12 +46,20 @@ public class Engine : MonoBehaviour {
         }
 
         currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        HealthSlider.value = currentProgress / winConditionLimit;
+        enemyProgress += Time.deltaTime * 50 * progressionMultiplier;
+        ShipProgressSlider.value = currentProgress / winConditionLimit;
+        enemyShipProgressSlider.value = enemyProgress / winConditionLimit;
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
+
 
         if(currentProgress > winConditionLimit)
         {
             winGameUI.SetActive(true);
+            BroadcastMessage("StopGame");
+        }
+        if(enemyProgress > currentProgress)
+        {
+            looseGameUI.SetActive(true);
             BroadcastMessage("StopGame");
         }
         AudioEventManager.instance.PlaySound("engine");
