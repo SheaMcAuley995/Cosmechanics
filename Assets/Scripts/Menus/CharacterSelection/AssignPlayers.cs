@@ -8,6 +8,7 @@ public class AssignPlayers : MonoBehaviour
     public GameObject characterCardPrefab, panelParent;
     public GameObject[] characterCards;
     public CharacterCardGenerator[] cards;
+    public JoinGame[] joinedStatus;
     public TextMeshProUGUI countdownToStartText;
 
     public PlayerController[] playerControllers;
@@ -27,33 +28,24 @@ public class AssignPlayers : MonoBehaviour
     void Start()
     {
         ExampleGameController.instance.setSpawnPoints();
-        for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
+        ExampleGameController.instance.numberOfPlayers = 0;
+        for (int i = 0; i < cards.Length; i++)
         {
-            // Creates temporary player controllers so that each player can start with a pre-generated character
             GameObject tempPlayer = ExampleGameController.instance.addPlayer();
-            // Destroys the temporary player controllers, as new ones are created upon first character generation
-            Destroy(tempPlayer, 1f);
         }
 
-        CreateAndFindCards();
-    }
-
-    // Creates the first character cards and assigns controllers to them
-    void CreateAndFindCards()
-    {
         // Assigns each player a spawn position
         characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
         characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
         characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
         characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
 
-        // Assigns each player a playerId and generates their first character
         playerControllers = FindObjectsOfType<PlayerController>();
-        foreach (PlayerController playerController in playerControllers)
+
+        foreach (PlayerController controller in playerControllers)
         {
-            playerController.playerId = currentPlayerId;
+            controller.playerId = currentPlayerId;
             currentPlayerId++;
-            cards[playerController.playerId].GenerateFullCard(playerController.playerId);
         }
     }
 
@@ -67,6 +59,16 @@ public class AssignPlayers : MonoBehaviour
         foreach (PlayerController controller in playerControllers)
         {
             controller.getInput();
+
+            // For joining the game
+            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
+            {
+                joinedStatus[controller.playerId].selecting = true;
+                StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
+
+                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
+                ExampleGameController.instance.numberOfPlayers++;
+            }
 
             // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting)
@@ -125,16 +127,14 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !cards[controller.playerId].selecting)
+            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
-                
+
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
-                // This is how the code was always written what other version I don't know what you're talking about
-                // It definitely wasn't a giant, awful switch statement nope no sir 
                 for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
                 {
                     if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
