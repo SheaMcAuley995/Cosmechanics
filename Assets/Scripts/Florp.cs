@@ -12,12 +12,11 @@ public class Florp : PickUp,IInteractableTool
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
         //FUCK
-    public Material outerEmpty;
-    public Material outerFull;
-    public Material innerEmpty;
-    public Material innerFull;
     public bool isFilled =false;
     private int florpFilled = 1;
+
+    public float florpFillAmount = 1.1f;
+
     //public ParticleSystem particle;
 
     private void Start()
@@ -42,11 +41,9 @@ public class Florp : PickUp,IInteractableTool
         
         if (doFill)
         {
-            Material myMat = GetComponent<MeshRenderer>().material;
-            Material myChildMat = GetComponentInChildren<MeshRenderer>().material;
-
-            myChildMat.Lerp(innerEmpty, innerFull, 1);
-            myMat.Lerp(outerEmpty, outerFull, 1);
+            
+            Renderer rend = GetComponentInChildren<Renderer>();
+            rend.material.SetFloat("_FillAmont", florpFillAmount);
             //particle.Play();
             isFilled = true;
             EndGameScore.instance.AddFlorpScore(florpFilled);

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wobble : MonoBehaviour
+public class WobbleFlorp : MonoBehaviour
 {
     Renderer rend;
     Vector3 lastPos;
@@ -53,6 +53,8 @@ public class Wobble : MonoBehaviour
         lastPos = transform.position;
         lastRot = transform.rotation.eulerAngles;
     }
+
+
 
 
 

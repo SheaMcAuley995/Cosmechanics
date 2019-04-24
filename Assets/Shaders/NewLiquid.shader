@@ -4,7 +4,7 @@
 	{
 		_Tint("Tint", Color) = (1,1,1,1)
 		_MainTex("Texture", 2D) = "white" {}
-	_FillAmount("Fill Amount", Range(-10,10)) = 0.0
+		_FillAmount("Fill Amount", Range(.2,1.1)) = 0.0
 		[HideInInspector] _WobbleX("WobbleX", Range(-1,1)) = 0.0
 		[HideInInspector] _WobbleZ("WobbleZ", Range(-1,1)) = 0.0
 		_TopColor("Top Color", Color) = (1,1,1,1)

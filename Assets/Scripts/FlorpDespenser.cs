@@ -36,6 +36,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
             
             dump = true;
             other.GetComponent<Florp>().doFill = true;
+            
             DoDump();
             }
             else { dump = false; }
