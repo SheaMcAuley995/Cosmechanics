@@ -9,6 +9,6 @@ public class GageUI : MonoBehaviour {
     public Engine engine;
     public float offset;
 	void Update () {
-        gageImage.eulerAngles = new Vector3(0,0,-(((engine.engineHeatPercentage() / 100) * 160) + offset));
+        gageImage.eulerAngles = new Vector3(0,0,-(((engine.engineHeatPercentage() / 100) * 245) + offset));
 	}
 }

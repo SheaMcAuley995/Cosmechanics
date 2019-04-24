@@ -16,6 +16,7 @@ public class Grid : MonoBehaviour {
     float nodeDiameter;
     public int gridSizeX, gridSizeY;
 
+    [Header("Debug tools")]
     [SerializeField] bool GenerateGrid;
     [SerializeField] bool LightFire;
     [SerializeField] bool showGrid;
@@ -54,7 +55,7 @@ public class Grid : MonoBehaviour {
             }
         }
         
-        Debug.Log("Length of grid is " + grid.Length);
+        //Debug.Log("Length of grid is " + grid.Length);
     }
 
     public List<Node> GetNeighbors(Node node)
