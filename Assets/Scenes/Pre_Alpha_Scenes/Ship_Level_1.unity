@@ -310,7 +310,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -350,15 +350,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   engineHeat: 0
   maxHeat: 200
-  engineCoolingAmount: 0.1
-  florpCoolingPercentage: 0.3
+  engineCoolingAmount: 0.4
+  florpCoolingPercentage: 0.509
   winGameUI: {fileID: 106387514}
   looseGameUI: {fileID: 687476044}
   winConditionLimit: 2500
   currentProgress: 0
   enemyProgress: 0
   progressionMultiplier: 0.4
-  enemyProgressionMultiplier: 0
+  enemyProgressionMultiplier: 0.1
   ShipProgressSlider: {fileID: 510676116}
   enemyShipProgressSlider: {fileID: 1056776358}
   alertUI: {fileID: 1117332404}
@@ -2473,7 +2473,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -5294,7 +5294,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -7318,7 +7318,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -14525,7 +14525,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     - target: {fileID: 1021952794415326, guid: d7d3231010125774c938d23b17517b10, type: 2}
       propertyPath: m_Name
       value: PipePrefab (6)
@@ -16209,6 +16209,8 @@ MonoBehaviour:
   nodeRadius: 1
   gridSizeX: 11
   gridSizeY: 9
+  fireStartPercentage: 0
+  fireTimer: 0
   GenerateGrid: 0
   LightFire: 0
   showGrid: 0
@@ -17996,14 +17998,14 @@ RectTransform:
   m_GameObject: {fileID: 772810614}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5795379, y: 1.0533305, z: 0.91586}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1384634061}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000064928, y: -0.0000022916}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &772810616
@@ -18019,7 +18021,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.7264151, b: 0.21226409, a: 0.37254903}
+  m_Color: {r: 0, g: 0.7264151, b: 0.21226409, a: 0.11764706}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -22499,7 +22501,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -25966,7 +25968,7 @@ RectTransform:
   m_GameObject: {fileID: 1117332402}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.6783621, y: 1.5177386, z: 0.8927874}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1658512288}
   m_Father: {fileID: 1780615926}
@@ -25975,7 +25977,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -591.5, y: -398.8}
-  m_SizeDelta: {x: 28.83, y: 47.3}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1117332404
 MonoBehaviour:
@@ -25996,7 +25998,7 @@ MonoBehaviour:
   image: {fileID: 1117332405}
   lightingImage: {fileID: 1658512289}
   lightSize: 0.5
-  lightSpeed: 0.2
+  lightSpeed: 2.2
   problemCurrent: 0
   problemMax: 0
   curve:
@@ -26960,7 +26962,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -30556,7 +30558,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -31466,7 +31468,7 @@ RectTransform:
   m_GameObject: {fileID: 1384634060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.31309, y: 1.3107549, z: 0.77103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 772810615}
   m_Father: {fileID: 1780615926}
@@ -31475,7 +31477,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -753.2, y: -400.69998}
-  m_SizeDelta: {x: 28.83, y: 47.3}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1384634062
 MonoBehaviour:
@@ -31496,7 +31498,7 @@ MonoBehaviour:
   image: {fileID: 1384634063}
   lightingImage: {fileID: 772810616}
   lightSize: 0.5
-  lightSpeed: 0.2
+  lightSpeed: 2.2
   problemCurrent: 0
   problemMax: 0
   curve:
@@ -36908,7 +36910,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -37595,14 +37597,14 @@ RectTransform:
   m_GameObject: {fileID: 1658512287}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5795379, y: 1.0533305, z: 0.91586}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1117332403}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000064928, y: -0.0000022916}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1658512289
@@ -37618,7 +37620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.7264151, b: 0.21226409, a: 0.37254903}
+  m_Color: {r: 0, g: 0.7264151, b: 0.21226409, a: 0.11764706}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -38252,7 +38254,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     - target: {fileID: 1021952794415326, guid: d7d3231010125774c938d23b17517b10, type: 2}
       propertyPath: m_Layer
       value: 9
@@ -40337,7 +40339,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -43961,7 +43963,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -48605,7 +48607,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0
@@ -49076,7 +49078,7 @@ Prefab:
         type: 2}
       propertyPath: alertUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1384634062}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7d3231010125774c938d23b17517b10, type: 2}
   m_IsPrefabAsset: 0

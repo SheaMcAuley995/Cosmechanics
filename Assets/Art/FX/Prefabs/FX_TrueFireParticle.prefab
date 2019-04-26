@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4414590023471256}
   - component: {fileID: 198982698314144290}
   - component: {fileID: 199690939841445398}
-  - component: {fileID: 114851659000497492}
   - component: {fileID: 65565163197068328}
   m_Layer: 14
   m_Name: FX_TrueFireParticle
@@ -55,36 +54,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.07674, y: 3.5, z: 1.3220766}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &114851659000497492
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815486257320998}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5427af90f13ba04f833d753ee77bde0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fireLocation:
-    worldPositon: {x: 0, y: 0, z: 0}
-    nodes: []
-  fireOnPlayerEffect: {fileID: 1815486257320998}
-  spreadTimer: 7
-  fireHealth: 0.2
-  damageToShip: 5
-  colliders: []
-  waterLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  thisNode:
-    box: {fileID: 0}
-    isFlamable: 0
-    worldPosition: {x: 0, y: 0, z: 0}
-    gridX: 0
-    gridY: 0
-  timeUntilStun: 2
-  stunTime: 2
 --- !u!198 &198982698314144290
 ParticleSystem:
   m_ObjectHideFlags: 1
