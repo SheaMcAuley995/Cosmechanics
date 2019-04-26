@@ -100,6 +100,7 @@ public class Grid : MonoBehaviour {
                     fireComponent.thisNode = firePos;
                     fireComponent.fireLocation.nodes = GetNeighbors(firePos);
                     fires.Add(fireObject);
+                    EndGameScore.instance.FiresActive(1);
                     firePos.isFlamable = false;
                 }
             }
