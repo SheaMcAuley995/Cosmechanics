@@ -9,8 +9,8 @@ public class killTimer : MonoBehaviour {
     {
         StartCoroutine(killme());
     }
-    [Range(2, 10)]
-    public int killTime;
+    [Range(.1f, 10)]
+    public float killTime;
     
     IEnumerator killme()
     {
