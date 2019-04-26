@@ -16,6 +16,8 @@ public class Grid : MonoBehaviour {
     float nodeDiameter;
     public int gridSizeX, gridSizeY;
 
+    [Header("Fire Statistics")]
+
     [Header("Debug tools")]
     [SerializeField] bool GenerateGrid;
     [SerializeField] bool LightFire;
@@ -88,27 +90,21 @@ public class Grid : MonoBehaviour {
 
         if (chanceToStartFire > 5)
         {
-            //Debug.Log("In this house we stan the fire gods");
-            Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
-            foreach (var firePosition in fireLocation)
+            if (firePos.isFlamable)
             {
-                if (firePos.isFlamable)
-                {
-                    //Debug.Log("Here there be fire");
-                    GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
-                    Fire fireComponent = fireObject.GetComponent<Fire>();
-                    fireComponent.thisNode = firePos;
-                    fireComponent.fireLocation.nodes = GetNeighbors(firePos);
-                    fires.Add(fireObject);
-                    firePos.isFlamable = false;
-                }
+                GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
+                Fire fireComponent = fireObject.GetComponent<Fire>();
+                fireComponent.thisNode = firePos;
+                fireComponent.fireLocation.nodes = GetNeighbors(firePos);
+                fires.Add(fireObject);
+                firePos.isFlamable = false;
             }
         }
-        else
-        {
-            //Debug.Log("No fire this time");
-            return;
-        }
+    }
+
+    public void onFire()
+    {
+
     }
 
     public void GenerateEngineFire()
