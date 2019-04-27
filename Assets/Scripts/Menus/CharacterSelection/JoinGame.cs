@@ -1,18 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class JoinGame : MonoBehaviour
 {
     public CharacterCardGenerator card;
-    public bool isJoined;
-    public bool selecting;
+    [HideInInspector] public bool isJoined;
+
+    public Image joinIcon;
+    public TextMeshProUGUI joinText;
 
 	// Use this for initialization
 	void Start ()
     {
         isJoined = false;
-        selecting = false;
 
         if (card == null)
         {
@@ -26,10 +29,9 @@ public class JoinGame : MonoBehaviour
         isJoined = true;
     }
 
-    public IEnumerator SelectionDelay()
+    public void DisableJoinUI()
     {
-        yield return new WaitForSeconds(0.2f);
-        selecting = false;
-        yield return null;
+        joinIcon.enabled = false;
+        joinText.enabled = false;
     }
 }
