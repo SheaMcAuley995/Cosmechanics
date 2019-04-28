@@ -22,7 +22,8 @@ public class LevelSelectManager : MonoBehaviour
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:
-                scene = "TutorialLevel";
+                //scene = "TutorialLevel";
+                scene = "ZachShipTest";
                 break;
             case OverworldManager.Level.Level2:
                 scene = "Ship_Level_1";

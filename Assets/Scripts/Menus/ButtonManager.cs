@@ -28,6 +28,7 @@ public class ButtonManager : MonoBehaviour
     public void RetryLevel()
     {
         SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        PlayerActivation.instance.RespawnPlayers();
     }
 
     // Fades to character selection
