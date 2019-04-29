@@ -6,7 +6,6 @@ public class FireExtinguisher : MonoBehaviour, IInteractableTool
 {
     public ParticleSystem waterHoseEffect;
     public bool isExtinguishing = false;
-    bool input;
 
     public void toolInteraction()
     {
