@@ -5,14 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu
-    // 1 = CharacterSelection
-    // 2 = ZachOverWorld
-    // 3 = NewMichaelTest
-
     // Fades to character selection
-    public void StartGame()
+    public void GoToCharSelect()
     {
         SceneFader.instance.FadeTo("CharacterSelection");
     }
@@ -25,7 +19,7 @@ public class ButtonManager : MonoBehaviour
     }
 
     //Fades to main menu
-    public void ReturnToMenu()
+    public void GoToMainMenu()
     {
         SceneFader.instance.FadeTo("MainMenu");
     }
@@ -34,6 +28,7 @@ public class ButtonManager : MonoBehaviour
     public void RetryLevel()
     {
         SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        PlayerActivation.instance.RespawnPlayers();
     }
 
     // Fades to character selection

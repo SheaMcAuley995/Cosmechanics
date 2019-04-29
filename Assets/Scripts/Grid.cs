@@ -110,10 +110,21 @@ public class Grid : MonoBehaviour {
 
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
+<<<<<<< HEAD
                     if(grid[checkX, checkY].isFlamable)
                     {
                         neighbours.Add(grid[checkX, checkY]);
                     }
+=======
+                    //Debug.Log("Here there be fire");
+                    GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
+                    Fire fireComponent = fireObject.GetComponent<Fire>();
+                    fireComponent.thisNode = firePos;
+                    fireComponent.fireLocation.nodes = GetNeighbors(firePos);
+                    fires.Add(fireObject);
+                    EndGameScore.instance.FiresActive(1);
+                    firePos.isFlamable = false;
+>>>>>>> dev
                 }
             }
         }
