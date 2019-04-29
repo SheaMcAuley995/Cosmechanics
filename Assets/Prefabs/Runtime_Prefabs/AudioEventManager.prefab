@@ -33,8 +33,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1470729652197410}
-  m_LocalRotation: {x: 0.42766556, y: -0, z: -0, w: 0.9039371}
-  m_LocalPosition: {x: -2.86, y: 16.46, z: -24.43}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -53,7 +53,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Theme
-    clip: {fileID: 8300000, guid: 55ac3b9b837cf5f4a8094f8e622d505c, type: 3}
+    clip: {fileID: 8300000, guid: e0d3c415e25dcdb4c894c6235abbfbb7, type: 3}
     volume: 0.516
     pitch: 0.92
     pan: 0
@@ -77,7 +77,7 @@ MonoBehaviour:
     onAwake: 0
     source: {fileID: 0}
   - name: clang
-    clip: {fileID: 8300000, guid: 993f652d1e618484a93a8c91f4d2bf49, type: 3}
+    clip: {fileID: 8300000, guid: 8299a72c474824345a9861b1a64b932f, type: 3}
     volume: 0.031
     pitch: 1
     pan: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
     onAwake: 0
     source: {fileID: 0}
   - name: bang
-    clip: {fileID: 8300000, guid: 37e5c152bc78a4c4ea791baeb22946db, type: 3}
+    clip: {fileID: 8300000, guid: e069d4a95e62b5d44b0ac2d0dca68118, type: 3}
     volume: 1
     pitch: 1
     pan: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
     onAwake: 0
     source: {fileID: 0}
   - name: splat
-    clip: {fileID: 8300000, guid: 5f3441fd57bf8154ba86d8da0605c7e9, type: 3}
+    clip: {fileID: 8300000, guid: 9d3efc1b4a62880498bc7e22be65939e, type: 3}
     volume: 0.83
     pitch: 1
     pan: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
     onAwake: 0
     source: {fileID: 0}
   - name: halfsplat
-    clip: {fileID: 8300000, guid: f1c8d1312949aff439a1bce5b9830fe6, type: 3}
+    clip: {fileID: 8300000, guid: 38bf8a9ce0cc4eb43aa57f16bc9ba66e, type: 3}
     volume: 0.83
     pitch: 0.89
     pan: 0
@@ -109,10 +109,10 @@ MonoBehaviour:
     onAwake: 0
     source: {fileID: 0}
   - name: reversesplat
-    clip: {fileID: 8300000, guid: 28eded9535d14234a8486d963792723e, type: 3}
+    clip: {fileID: 8300000, guid: 641a79119093ea940bf545a94bf39663, type: 3}
     volume: 0.83
     pitch: 0.8
-    pan: 0
+    pan: 0.43
     loop: 0
     onAwake: 0
     source: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
     pitch: 0.808
     pan: 0
     loop: 1
-    onAwake: 0
+    onAwake: 1
     source: {fileID: 0}
   - name: enemyfire
     clip: {fileID: 8300000, guid: 9aa131db8eed2f64f8cc7ceae6349b16, type: 3}
@@ -142,7 +142,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: pipebreak
     clip: {fileID: 8300000, guid: 679645977000b6d4b8108f4eca28f822, type: 3}
-    volume: 1
+    volume: 0.2
     pitch: 1
     pan: 0
     loop: 0
