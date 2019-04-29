@@ -144,6 +144,8 @@ public class AssignPlayers : MonoBehaviour
 
                 for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
                 {
+                    allReady = true;
+
                     if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
                     {
                         allReady = false;
