@@ -14,8 +14,12 @@ public class Florp : PickUp,IInteractableTool
         //FUCK
     public bool isFilled =false;
     private int florpFilled = 1;
+    [Space]
+    [Header("Inner")]
+    public GameObject innerContObj;
+    Renderer innerRenderer;
 
-    public float florpFillAmount = 1.1f;
+    public float florpFillAmount = 0.2f;
 
     //public ParticleSystem particle;
 
@@ -26,6 +30,7 @@ public class Florp : PickUp,IInteractableTool
         transform.localScale = zero;
         rb = GetComponent<Rigidbody>();
         initTime = Time.time;
+        innerRenderer = innerContObj.GetComponent<Renderer>();
 
     }
     public override void pickMeUp(Transform pickUpTransform)
@@ -42,8 +47,9 @@ public class Florp : PickUp,IInteractableTool
         if (doFill)
         {
             
-            Renderer rend = GetComponentInChildren<Renderer>();
-            rend.material.SetFloat("_FillAmont", florpFillAmount);
+            
+            innerRenderer.material.SetFloat("_FillAmount", florpFillAmount);
+            Debug.Log("florp is filles");
             //particle.Play();
             isFilled = true;
             EndGameScore.instance.AddFlorpScore(florpFilled);
