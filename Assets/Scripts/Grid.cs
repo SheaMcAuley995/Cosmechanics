@@ -45,9 +45,9 @@ public class Grid : MonoBehaviour {
 
     public void Update()
     {
-        foreach (Node fire in fires)
+        for(int i = 0; i < fires.Count; ++i)
         {
-            onFire(fire);
+            onFire(fires[i]);            
         }
     }
 
@@ -124,7 +124,7 @@ public class Grid : MonoBehaviour {
     {
         int chanceToStartFire = Random.Range(0, 100);
 
-        if (chanceToStartFire > fireStartPercentage)
+        if (chanceToStartFire < fireStartPercentage)
         {
             if (firePos.isFlamable)
             {
@@ -166,7 +166,7 @@ public class Grid : MonoBehaviour {
 
             if (flameableNeighbors.Count > 0)
             {
-                int index = Random.Range(0, flameableNeighbors.Capacity);
+                int index = Random.Range(0, flameableNeighbors.Count);
                 Debug.Log("List size was :" + flameableNeighbors.Count + " Index chosen :" + index);
                 GenerateFire(flameableNeighbors[index]);
             }
