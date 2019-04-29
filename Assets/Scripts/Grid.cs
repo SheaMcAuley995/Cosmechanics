@@ -11,6 +11,7 @@ public class Grid : MonoBehaviour {
     public GameObject fireEffect;
     public float nodeRadius;
     public Node[,] grid;
+    public GameObject[,] fireGrid;
     List<Node> fires = new List<Node>();
 
     float nodeDiameter;
@@ -62,8 +63,8 @@ public class Grid : MonoBehaviour {
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
-                grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer);
-                
+                grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
+                grid[x, y].fireEffect.SetActive(false);
             }
         }
         
@@ -110,21 +111,10 @@ public class Grid : MonoBehaviour {
 
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
-<<<<<<< HEAD
                     if(grid[checkX, checkY].isFlamable)
                     {
                         neighbours.Add(grid[checkX, checkY]);
                     }
-=======
-                    //Debug.Log("Here there be fire");
-                    GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
-                    Fire fireComponent = fireObject.GetComponent<Fire>();
-                    fireComponent.thisNode = firePos;
-                    fireComponent.fireLocation.nodes = GetNeighbors(firePos);
-                    fires.Add(fireObject);
-                    EndGameScore.instance.FiresActive(1);
-                    firePos.isFlamable = false;
->>>>>>> dev
                 }
             }
         }
@@ -141,13 +131,8 @@ public class Grid : MonoBehaviour {
             {
                 firePos.fireTimer = fireTimer;
                 firePos.isFlamable = false;
+                firePos.fireEffect.SetActive(true);
                 fires.Add(firePos);
-                GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
-                //Fire fireComponent = fireObject.GetComponent<Fire>();
-                //fireComponent.thisNode = firePos;
-                //fireComponent.fireLocation.nodes = GetNeighbors(firePos);
-                //fires.Add(fireObject);
-                //firePos.isFlamable = false;
             }
         }
     }
@@ -158,8 +143,8 @@ public class Grid : MonoBehaviour {
         {
             firePos.fireTimer = fireTimer;
             firePos.isFlamable = false;
+            firePos.fireEffect.SetActive(true);
             fires.Add(firePos);
-            GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
         }
 
     }
@@ -168,7 +153,17 @@ public class Grid : MonoBehaviour {
     public void onFire(Node firePos)
     {
         Collider[] castedObjects = Physics.OverlapSphere(firePos.worldPosition, 1);
-        
+
+        for (int i = 0; i < castedObjects.Length; i++)
+        {
+            if(castedObjects[i].CompareTag("Extinguisher"))
+            {
+                fires.Remove(firePos);
+                firePos.isFlamable = true;
+                firePos.fireEffect.SetActive(false);
+                return;
+            }
+        }
 
         firePos.fireTimer -= Time.deltaTime;
         if(firePos.fireTimer < 0)

@@ -9,14 +9,16 @@ public class FlorpReceptor : MonoBehaviour {
     int insertedFlorps = 1;
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.GetComponent<Florp>().isFilled)
+        if(other.GetComponent<Florp>() != null)
         {
-            EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-            engine.InsertFlorp();
-            Destroy(other.gameObject);
-            AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
+            if (other.GetComponent<Florp>().isFilled)
+            {
+                EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
+                engine.InsertFlorp();
+                Destroy(other.gameObject);
+                AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
+            }
+            else { return; }
         }
-        else { return; }
     }
 }
