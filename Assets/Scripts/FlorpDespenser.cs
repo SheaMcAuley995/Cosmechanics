@@ -55,14 +55,14 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         }
     }
 
-    void OnTriggerExit(Collider other)
-    {
-        if(interactedFlorp.GetComponent<GameObject>() == other.GetComponent<GameObject>())
-        {
-            dump = false;
-            interactedFlorp.doFill = false;
-            interactedFlorp = null;
-        }
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+    //    if(interactedFlorp.GetComponent<GameObject>() == other.GetComponent<GameObject>())
+    //    {
+    //        dump = false;
+    //        interactedFlorp.doFill = false;
+    //        interactedFlorp = null;
+    //    }
+    //}
 
 }
