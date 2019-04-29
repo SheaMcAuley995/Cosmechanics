@@ -51,6 +51,7 @@ public class AssignPlayers : MonoBehaviour
             currentPlayerId++;
         }
 
+        allReady = true;
         countdownToStartText.enabled = false;
     }
 
@@ -150,7 +151,10 @@ public class AssignPlayers : MonoBehaviour
                         time = 10;
                         break;
                     }
-                    allReady = true;
+                }
+
+                if (allReady)
+                {
                     countdown = StartCoroutine(CountdownToGame());
                 }
             }

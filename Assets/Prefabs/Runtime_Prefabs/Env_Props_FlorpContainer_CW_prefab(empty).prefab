@@ -115,8 +115,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667745528943260}
-  m_LocalRotation: {x: 0.0217748, y: -0, z: -0, w: 0.99976295}
-  m_LocalPosition: {x: -2.371845, y: 1.5879147, z: -1.6034956}
+  m_LocalRotation: {x: 0.021745576, y: 0.051802494, z: -0.0011282644, w: 0.99842}
+  m_LocalPosition: {x: -4.3419466, y: 1.462, z: 2.1223948}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231761072719194}
@@ -124,7 +124,7 @@ Transform:
   - {fileID: 4392442824491560}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 2.4950001, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 2.4950001, y: 5.94, z: 0}
 --- !u!4 &4999537482537138
 Transform:
   m_ObjectHideFlags: 1
@@ -353,7 +353,8 @@ MonoBehaviour:
   containedFlorp: 50
   doFill: 0
   isFilled: 0
-  florpFillAmount: 0
+  innerContObj: {fileID: 1614738668713840}
+  florpFillAmount: 0.2
 --- !u!114 &114482956653535474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -380,7 +381,7 @@ ParticleSystem:
   stopAction: 0
   looping: 1
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1
