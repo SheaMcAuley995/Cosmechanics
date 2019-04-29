@@ -110,6 +110,7 @@ public class Grid : MonoBehaviour {
 
                 if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
+
                     if(grid[checkX, checkY].isFlamable)
                     {
                         neighbours.Add(grid[checkX, checkY]);
