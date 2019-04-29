@@ -11,10 +11,14 @@ public class Grid : MonoBehaviour {
     public GameObject fireEffect;
     public float nodeRadius;
     public Node[,] grid;
-    List<GameObject> fires = new List<GameObject>();
+    List<Node> fires = new List<Node>();
 
     float nodeDiameter;
     public int gridSizeX, gridSizeY;
+
+    [Header("Fire Statistics")]
+    public float fireStartPercentage;
+    public float fireTimer;
 
     [Header("Debug tools")]
     [SerializeField] bool GenerateGrid;
@@ -39,6 +43,14 @@ public class Grid : MonoBehaviour {
         CreateGrid();
     }
 
+    public void Update()
+    {
+        for(int i = 0; i < fires.Count; ++i)
+        {
+            onFire(fires[i]);            
+        }
+    }
+
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -50,7 +62,7 @@ public class Grid : MonoBehaviour {
             {
                 Vector3 worldPoint = worldBottomLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.forward * (y * nodeDiameter + nodeRadius);
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
-                grid[x, y] = new Node(flameable, worldPoint, x, y);
+                grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer);
                 
             }
         }
@@ -82,18 +94,28 @@ public class Grid : MonoBehaviour {
     }
 
 
-    public void GenerateLaserFire(Node firePos)
+    public List<Node> GetFlamableNeighbors(Node node)
     {
-        int chanceToStartFire = Random.Range(1, 11);
+        List<Node> neighbours = new List<Node>();
 
-        if (chanceToStartFire > 5)
+        for (int x = -1; x <= 1; x++)
         {
-            //Debug.Log("In this house we stan the fire gods");
-            Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
-            foreach (var firePosition in fireLocation)
+            for (int y = -1; y <= 1; y++)
             {
-                if (firePos.isFlamable)
+                if (x == 0 && y == 0)
+                    continue;
+
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
+<<<<<<< HEAD
+                    if(grid[checkX, checkY].isFlamable)
+                    {
+                        neighbours.Add(grid[checkX, checkY]);
+                    }
+=======
                     //Debug.Log("Here there be fire");
                     GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
                     Fire fireComponent = fireObject.GetComponent<Fire>();
@@ -102,38 +124,66 @@ public class Grid : MonoBehaviour {
                     fires.Add(fireObject);
                     EndGameScore.instance.FiresActive(1);
                     firePos.isFlamable = false;
+>>>>>>> dev
                 }
             }
         }
-        else
+        return neighbours;
+    }
+
+    public void GenerateLaserFire(Node firePos)
+    {
+        int chanceToStartFire = Random.Range(0, 100);
+
+        if (chanceToStartFire < fireStartPercentage)
         {
-            //Debug.Log("No fire this time");
-            return;
+            if (firePos.isFlamable)
+            {
+                firePos.fireTimer = fireTimer;
+                firePos.isFlamable = false;
+                fires.Add(firePos);
+                GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
+                //Fire fireComponent = fireObject.GetComponent<Fire>();
+                //fireComponent.thisNode = firePos;
+                //fireComponent.fireLocation.nodes = GetNeighbors(firePos);
+                //fires.Add(fireObject);
+                //firePos.isFlamable = false;
+            }
         }
     }
 
-    public void GenerateEngineFire()
+    public void GenerateFire(Node firePos)
     {
-        //Node fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        if(firePos.isFlamable && firePos != null)
+        {
+            firePos.fireTimer = fireTimer;
+            firePos.isFlamable = false;
+            fires.Add(firePos);
+            GameObject fireObject = Instantiate(fireEffect, firePos.worldPosition, Quaternion.Euler(0f, 0f, 0f));
+        }
 
-        //int safetyNet = 0;
-        //while (fireStartPosition.isFlamable != true)
-        //{
-        //    fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
-        //    safetyNet++;
+    }
 
-        //    //Debug.Log("Fiyah");
-        //    GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
-        //    fires.Add(fire);
 
-        //    if (safetyNet > 100)
-        //    {
-        //        //Debug.Log("#Nope");
-        //        break;
-        //    }
-        //}
+    public void onFire(Node firePos)
+    {
+        Collider[] castedObjects = Physics.OverlapSphere(firePos.worldPosition, 1);
+        
 
-        //fireStartPosition.isFlamable = false;
+        firePos.fireTimer -= Time.deltaTime;
+        if(firePos.fireTimer < 0)
+        {
+            List<Node> flameableNeighbors = GetFlamableNeighbors(firePos);
+
+            if (flameableNeighbors.Count > 0)
+            {
+                int index = Random.Range(0, flameableNeighbors.Count);
+                Debug.Log("List size was :" + flameableNeighbors.Count + " Index chosen :" + index);
+                GenerateFire(flameableNeighbors[index]);
+            }
+            firePos.fireTimer = fireTimer;
+        }
+
     }
 
 
@@ -159,6 +209,11 @@ public class Grid : MonoBehaviour {
             {
                 Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
                 Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+            }
+            foreach (Node fire in fires)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(fire.worldPosition, 1);
             }
         }
 
