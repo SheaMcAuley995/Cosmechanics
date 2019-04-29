@@ -23,6 +23,9 @@ public class AssignPlayers : MonoBehaviour
     public bool multipleButtonsForCustomization;
     public bool oneButtonForRandomCharacter;
     bool allReady;
+    float time = 10;
+
+    Coroutine countdown = null;
 
 
     void Start()
@@ -47,6 +50,9 @@ public class AssignPlayers : MonoBehaviour
             controller.playerId = currentPlayerId;
             currentPlayerId++;
         }
+
+        allReady = true;
+        countdownToStartText.enabled = false;
     }
 
     void Update()
@@ -61,17 +67,18 @@ public class AssignPlayers : MonoBehaviour
             controller.getInput();
 
             // For joining the game
-            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
+            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting)
             {
-                joinedStatus[controller.playerId].selecting = true;
-                StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
 
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
+                joinedStatus[controller.playerId].DisableJoinUI();
             }
 
             // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
-            if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting)
+            if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -87,7 +94,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player moves analog stick LEFT - selects either the previous card or the previous model depending on which setting is used
-            if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting)
+            if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -103,31 +110,31 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses the right controller bumper - selects a new colour if that setting is enabled
-            if (controller.selectColourRight && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            if (controller.selectColourRight && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].GenerateColour();
             }
 
             //Player presses the left controller bumper -selects the previous colour if that setting is enabled
-            if (controller.selectColourLeft && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            if (controller.selectColourLeft && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].GeneratePreviousColour();
             }
 
             // Player presses left action button - selects a new crime / sentence if that setting is enabled
-            if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].GenerateCrime();
             }
 
             // Player presses top action button - selects the previous crime / sentence if that setting is enabled
-            if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization)
+            if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].GeneratePreviousCrime();
             }
 
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
+            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -140,25 +147,52 @@ public class AssignPlayers : MonoBehaviour
                     if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
                     {
                         allReady = false;
+                        countdownToStartText.enabled = false;
+                        time = 10;
                         break;
                     }
-                    allReady = true;
                 }
 
                 if (allReady)
                 {
-                    PlayerActivation.instance.ContinueToGame();
+                    countdown = StartCoroutine(CountdownToGame());
                 }
             }
 
             // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting)
+            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
 
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
+
+                StopCoroutine(countdown);
+                allReady = false;
+                countdownToStartText.enabled = false;
+                time = 10;
+            }
+        }
+    }
+
+    IEnumerator CountdownToGame()
+    {
+        countdownToStartText.enabled = true;
+
+        while (true)
+        {
+            if (time > 0f)
+            {
+                time -= 1f;
+                countdownToStartText.text = "Starting Game In: " + Mathf.RoundToInt(time).ToString();
+
+                yield return new WaitForSeconds(1f);
+            }
+            else
+            {
+                PlayerActivation.instance.ContinueToGame();
+                break;
             }
         }
     }

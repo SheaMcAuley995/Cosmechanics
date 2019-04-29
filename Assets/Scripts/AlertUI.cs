@@ -9,11 +9,15 @@ public class AlertUI : MonoBehaviour {
 
     [SerializeField] Color[] colors;
     [SerializeField] Image image;
-
+    [SerializeField] Image lightingImage;
+    [SerializeField] float lightSize;
+    [SerializeField] float lightSpeed;
+    private float startingScalex;
+    private float startingScaley;
     AlarmStatus alarmStatus;
 
-    public float problemCurrent;
-    public float problemMax;
+    [HideInInspector] public float problemCurrent;
+    [HideInInspector] public float problemMax;
     public AnimationCurve curve;
 
 	void Start () {
@@ -21,12 +25,13 @@ public class AlertUI : MonoBehaviour {
         {
             image = GetComponent<Image>();
         }
-	}
+        startingScalex = lightingImage.rectTransform.localScale.x;
+        startingScaley = lightingImage.rectTransform.localScale.y;
+    }
     public void Update()
     {
         setCurrentAlarmStatus();
-       // Debug.Log("Alarm status :" + (int)alarmStatus);
-       // Debug.Log("Problem Percentage %" + curve.Evaluate(problemPercentage()));
+
     }
 
     public void setCurrentAlarmStatus()
@@ -45,6 +50,12 @@ public class AlertUI : MonoBehaviour {
         }
 
         image.color = colors[(int)alarmStatus];
+        lightingImage.color = new Color(colors[(int)alarmStatus].r, colors[(int)alarmStatus].g, colors[(int)alarmStatus].b, lightingImage.color.a);
+
+        float x = Mathf.Abs(lightSize * Mathf.Sin(Time.timeSinceLevelLoad * lightSpeed) + startingScalex);
+        //float y = lightSize * Mathf.Sin(Time.timeSinceLevelLoad);
+        float y = Mathf.Abs(lightSize * Mathf.Sin(Time.timeSinceLevelLoad * lightSpeed) + startingScaley);
+        lightingImage.rectTransform.localScale = new Vector3(x,y);
     }
 
     public float problemPercentage()
