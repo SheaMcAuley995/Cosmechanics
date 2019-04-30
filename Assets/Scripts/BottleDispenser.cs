@@ -11,7 +11,6 @@ public class BottleDispenser : MonoBehaviour, IInteractable {
 
     public float speed = 20f;
     GameObject dispensedBottle;
-    private int bottlesDispensed = 1;
 
     public void InteractWith()
     {
@@ -22,10 +21,10 @@ public class BottleDispenser : MonoBehaviour, IInteractable {
 
     private void GiveFlorp()
     {
-        
+
         dispensedBottle = Instantiate(bottlePrefab, bottleEjection.position + new Vector3(0, 2, 0), Quaternion.identity);
         AudioEventManager.instance.PlaySound("bottledrop", .3f, Random.Range(.9f, 1f), 0);
-        EndGameScore.instance.AddBottleScore(bottlesDispensed);
+
 
     }
 

@@ -8,7 +8,7 @@ public class PlayerSetter : MonoBehaviour
     
 	IEnumerator Start ()
     {
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForEndOfFrame();
         players = FindObjectsOfType<PlayerController>();
         CameraMultiTarget example = FindObjectOfType<CameraMultiTarget>();
         var targets = new List<GameObject>(4);
