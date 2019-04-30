@@ -69,7 +69,6 @@ public class OverworldManager : MonoBehaviour
     // These should be fairly self-explanatory 
     bool moving, orbiting;
     bool ableToLaunch;
-    bool selecting;
 
 
     #region Singleton
@@ -135,19 +134,13 @@ public class OverworldManager : MonoBehaviour
             player.getInput(); // Checks for input from each player's PlayerController script
 
             // Selection input
-            if (player.pickUp && !ableToLaunch && !selecting)
+            if (player.pickUp && !ableToLaunch)
             {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
                 // Opens the mission panel UI
                 SelectLevel();
             }
-            else if (player.pickUp && ableToLaunch && !selecting)
+            else if (player.pickUp && ableToLaunch)
             {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
                 // Clicks the "LAUNCH" button on the mission panel (starts the level)
                 if (data.launchButton.interactable)
                 {
@@ -156,11 +149,8 @@ public class OverworldManager : MonoBehaviour
             }
 
             // Cancelation input
-            if (player.sprint && !selecting)
+            if (player.sprint)
             {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
                 // Clicks the "CANCEL" button on the mission panel (cancels selection)
                 data.cancelButton.onClick.Invoke();
             }
@@ -253,7 +243,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[1];
                 selectionPanel.levelName.text = levelNames[1];
                 selectionPanel.description.text = descriptions[1];
-                selectionPanel.launchButton.interactable = false;
+                selectionPanel.launchButton.interactable = true;
                 break;
             // If it's level 3, set all UI elements to the third item in each array pool
             case Level.Level3:
@@ -309,12 +299,5 @@ public class OverworldManager : MonoBehaviour
     void ApplyText()
     {
         levelSelectedText.text = "Level " + selectedLevel.ToString();
-    }
-
-    IEnumerator SelectionDelay()
-    {
-        yield return new WaitForSeconds(0.2f);
-        selecting = false;
-        yield return null;
     }
 }

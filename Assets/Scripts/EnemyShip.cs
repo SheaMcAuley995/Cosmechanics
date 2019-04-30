@@ -32,7 +32,7 @@ public class EnemyShip : MonoBehaviour {
             {    
                 GameObject bolt = Instantiate(laserPrefab, enemyShipPosition.position, laserPrefab.transform.rotation);
                 //laserPrefab.transform.LookAt(ShipHealth.instance.attackLocation);
-                AudioEventManager.instance.PlaySound("enemyfire", .7f, 1, 1);
+             AudioEventManager.instance.PlaySound("enemyfire", .7f, 1, 1);
                 bolt.transform.LookAt(laserImpactPoint);
                 lasers.Add(bolt);
                 ShipHealth.instance.gotHit = false;

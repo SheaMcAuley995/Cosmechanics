@@ -11,17 +11,13 @@ public class Florp : PickUp,IInteractableTool
     public AnimationCurve curve;
     public float containedFlorp = 50f;
     /*[HideInInspector]*/public bool doFill;
-        //FUCK
+//FUCK
+    public Material outerEmpty;
+    public Material outerFull;
+    public Material innerEmpty;
+    public Material innerFull;
     public bool isFilled =false;
-    private int florpFilled = 1;
-    [Space]
-    [Header("Inner")]
-    public GameObject innerContObj;
-    Renderer innerRenderer;
-
-    public float florpFillAmount = 0.2f;
-
-    //public ParticleSystem particle;
+    public ParticleSystem particle;
 
     private void Start()
     {
@@ -30,7 +26,6 @@ public class Florp : PickUp,IInteractableTool
         transform.localScale = zero;
         rb = GetComponent<Rigidbody>();
         initTime = Time.time;
-        innerRenderer = innerContObj.GetComponent<Renderer>();
 
     }
     public override void pickMeUp(Transform pickUpTransform)
@@ -46,13 +41,13 @@ public class Florp : PickUp,IInteractableTool
         
         if (doFill)
         {
-            
-            
-            innerRenderer.material.SetFloat("_FillAmount", florpFillAmount);
-            Debug.Log("florp is filles");
-            //particle.Play();
-            isFilled = true;
-            EndGameScore.instance.AddFlorpScore(florpFilled);
+            Material myMat = GetComponent<MeshRenderer>().material;
+            Material myChildMat = GetComponentInChildren<MeshRenderer>().material;
+
+            myChildMat.Lerp(innerEmpty, innerFull, 1);
+            myMat.Lerp(outerEmpty, outerFull, 1);
+            particle.Play();
+            isFilled = true;   
         }
         Debug.Log(name + " is being interacted with");
     }
@@ -61,7 +56,7 @@ public class Florp : PickUp,IInteractableTool
     private void Update()
     {
         float timeSince = Time.time - initTime;
-        
+
         float fracTime = timeSince / lerpTime;
         transform.localScale = Vector3.Lerp(zero, one, curve.Evaluate(fracTime));
     }

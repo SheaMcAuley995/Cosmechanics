@@ -6,7 +6,7 @@ public class FlorpReceptor : MonoBehaviour {
 
 
     [SerializeField] Engine engine;
-    int insertedFlorps = 1;
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.GetComponent<Florp>() != null)

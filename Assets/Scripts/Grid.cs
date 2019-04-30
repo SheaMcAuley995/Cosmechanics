@@ -46,14 +46,6 @@ public class Grid : MonoBehaviour {
         CreateGrid();
     }
 
-    public void Update()
-    {
-        for(int i = 0; i < fires.Count; ++i)
-        {
-            onFire(fires[i]);            
-        }
-    }
-
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -104,21 +96,17 @@ public class Grid : MonoBehaviour {
     }
 
 
-    public List<Node> GetFlamableNeighbors(Node node)
+    public void GenerateLaserFire(Node firePos)
     {
-        List<Node> neighbours = new List<Node>();
+        int chanceToStartFire = Random.Range(1, 11);
 
-        for (int x = -1; x <= 1; x++)
+        if (chanceToStartFire > 5)
         {
-            for (int y = -1; y <= 1; y++)
+            //Debug.Log("In this house we stan the fire gods");
+            Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
+            foreach (var firePosition in fireLocation)
             {
-                if (x == 0 && y == 0)
-                    continue;
-
-                int checkX = node.gridX + x;
-                int checkY = node.gridY + y;
-
-                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                if (firePos.isFlamable)
                 {
                     if(grid[checkX, checkY].isFlamable)
                     {
@@ -127,14 +115,7 @@ public class Grid : MonoBehaviour {
                 }
             }
         }
-        return neighbours;
-    }
-
-    public void GenerateLaserFire(Node firePos)
-    {
-        int chanceToStartFire = Random.Range(0, 100);
-
-        if (chanceToStartFire < fireStartPercentage)
+        else
         {
             if (firePos.isFlamable)
             {
@@ -147,7 +128,7 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public void GenerateFire(Node firePos)
+    public void GenerateEngineFire()
     {
         if(firePos.isFlamable && firePos != null)
         {
@@ -158,8 +139,15 @@ public class Grid : MonoBehaviour {
             fires.Add(firePos);
         }
 
-    }
+        //int safetyNet = 0;
+        //while (fireStartPosition.isFlamable != true)
+        //{
+        //    fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
+        //    safetyNet++;
 
+        //    //Debug.Log("Fiyah");
+        //    GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
+        //    fires.Add(fire);
 
     public void onFire(Node firePos)
     {
@@ -219,11 +207,6 @@ public class Grid : MonoBehaviour {
             {
                 Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
                 Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-            }
-            foreach (Node fire in fires)
-            {
-                Gizmos.color = Color.green;
-                Gizmos.DrawSphere(fire.worldPosition, 1);
             }
         }
 

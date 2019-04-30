@@ -25,14 +25,9 @@ public class PlayerActivation : MonoBehaviour
     }
     #endregion
 
-    private void Start()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     public void ContinueToGame()
     {
-        chosenCharacters = GameObject.FindObjectsOfType<SelectedPlayer>();
+        chosenCharacters = FindObjectsOfType<SelectedPlayer>();
 
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {
@@ -40,13 +35,5 @@ public class PlayerActivation : MonoBehaviour
         }
 
         SceneFader.instance.FadeTo("ZachOverWorld");
-    }
-
-    public void RespawnPlayers()
-    {
-        for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
-        {
-            DontDestroyOnLoad(chosenCharacters[numOfChars]);
-        }
     }
 }

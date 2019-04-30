@@ -6,12 +6,11 @@ public class PlayerSetter : MonoBehaviour
 {
     PlayerController[] players;
     
-	IEnumerator Start ()
+	void Start ()
     {
-        yield return new WaitForSeconds(0.2f);
         players = FindObjectsOfType<PlayerController>();
         CameraMultiTarget example = FindObjectOfType<CameraMultiTarget>();
-        var targets = new List<GameObject>(4);
+        var targets = new List<GameObject>(players.Length);
 
         for (int i = 0; i < players.Length; i++)
         {
@@ -19,11 +18,13 @@ public class PlayerSetter : MonoBehaviour
             {
                 targets.Add(players[i].gameObject);
                 players[i].cameraTrans = Camera.main.transform;
-                players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
             }
+            players[i].gameObject.transform.position = ExampleGameController.instance.spawnPoints[i];
+            Debug.Log(i);
         }
+
         example.SetTargets(targets.ToArray());
-        yield return new WaitForSeconds(0.2f);
+
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.localScale = new Vector3(1f, 1f, 1f);
