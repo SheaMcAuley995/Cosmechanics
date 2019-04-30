@@ -17,29 +17,8 @@ public class InteractWithInterface : MonoBehaviour
     bool isPuu = false;
 
     GameObject interactedObject;
+    public PlayerController controller;
 
-
-
-    private void Update()
-    {
-       //Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-       //
-       //if(hitColliders.Length > 0)
-       //{
-       //     if(interactedObject != hitColliders[0].GetComponent<GameObject>())
-       //     {
-       //        Debug.Log("We got here");
-       //
-       //     }
-       //     else
-       //     {
-       //        Debug.Log("We instead got here because interactedObject is " + interactedObject.name);
-       //     }
-       //
-       //}
-    }
-
-    
     public void InteractWithObject()
     {
         if(interactedObject != null)
@@ -60,13 +39,20 @@ public class InteractWithInterface : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
+                        controller.animators[0].SetBool("FixPipe", true);
+                        controller.animators[1].SetBool("FixPipe", true);
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        controller.animators[0].SetBool("FixPipe", false);
+                        controller.animators[1].SetBool("FixPipe", false);
                         break;
                     }
                 }
                 else
                 {
-                    hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    if(hitColliders[i].GetComponent<IInteractable>() != null)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    }
                     break;
                 }
 
@@ -92,24 +78,21 @@ public class InteractWithInterface : MonoBehaviour
                     interactedObject = hitColliders[i].gameObject;
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
+
+                    if (interactedObject.GetComponent<FireExtinguisher>() != null)
+                    {
+                        interactedObject.GetComponent<FireExtinguisher>().playerController = controller;
+                    }
+
                     break;
                 }
             }
         }
         else
         {
-            if(interactedObject.GetComponent<Battery>() != null)
+            if (interactedObject.GetComponent<FireExtinguisher>() != null)
             {
-                for (int i = 0; i < hitColliders.Length; i++)
-                {
-                    
-                    if(hitColliders[i].GetComponent<ChargingPort>() != null)
-                    {
-                        Debug.Log("Calling Plug in");
-                        interactedObject.GetComponent<Battery>().PlugBattery(hitColliders[i].GetComponent<ChargingPort>().LockPosition, hitColliders[i].GetComponent<ChargingPort>().port);
-                        break;
-                    }
-                }
+                interactedObject.GetComponent<FireExtinguisher>().playerController = null;
             }
             interactedObject.GetComponent<PickUp>().putMeDown();
             isPuu = false;
