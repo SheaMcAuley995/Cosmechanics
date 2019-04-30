@@ -32,7 +32,7 @@ public class PlayerActivation : MonoBehaviour
 
     public void ContinueToGame()
     {
-        chosenCharacters = GameObject.FindObjectsOfType<SelectedPlayer>();
+        chosenCharacters = FindObjectsOfType<SelectedPlayer>();
 
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {

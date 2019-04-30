@@ -68,6 +68,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     Head[] childHeads;
     GameObject newPlayer;
+    Renderer[] children;
 
     /// Random selection variables
     int nameIndex, crimeIndex, sentenceIndex, headIndex, materialIndex;
@@ -77,7 +78,7 @@ public class CharacterCardGenerator : MonoBehaviour
     int lastMat = 0;
     int lastHead = 0;
     int timesGoneBack = 0;
-    int timesGoneBackModel, timesGoneBackColour, timesGoneBackCrime;
+    int timesGoneBackHead, timesGoneBackColour, timesGoneBackCrime;
 
     [HideInInspector] public bool selecting;
 
@@ -113,23 +114,6 @@ public class CharacterCardGenerator : MonoBehaviour
             "Qlats", "Plaem", "Uaclohs", "Ecle", "Nuama", "Faep", "Aloulmie",
             "Gnohnartue", "Prypihl", "Zythylph", "Buodhael", "Sukmilz", "Buylsyd",
             "Mith'ob Omega Supreme", "Corwaldron", "Zoriel", "EchoZoolu");
-        #endregion
-
-        #region Ages
-        ///// Ages 1 - 1,000 added to the list using the ListExtension class
-        //int maxAge = 1000;
-        //for (int age = 1; age < maxAge; age++)
-        //{
-        //    agesList.AddMany(age);
-        //}
-        #endregion
-
-        #region Genders
-        ///// 4 gender icons added to the list (can add more) using the ListExtension class
-        //for (int j = 0; j < genders.Length; j++)
-        //{
-        //    gendersList.AddMany(genders[j]);
-        //}
         #endregion
 
         #region Crimes
@@ -195,14 +179,6 @@ public class CharacterCardGenerator : MonoBehaviour
             "To be stranded on an ocean planet near the event horizon of a black hole");
         #endregion
 
-        #region Prefabs
-        /// 4 character prefabs added to the list using the ListExtension class
-        //for (int k = 0; k < heads.Length; k++)
-        //{
-        //    headsList.AddMany(heads[k]);
-        //}
-        #endregion
-
         #region Materials
         for (int l = 0; l < materials.Length; l++)
         {
@@ -219,8 +195,6 @@ public class CharacterCardGenerator : MonoBehaviour
     // Generates a full new prisoner card
     public void GenerateFullCard(int playerId)
     {
-        //Destroy(lastSelectedHead);
-
         // Sets random values for each card parameter
         int headIndex = Random.Range(0, 2);
         int nameIndex = Random.Range(0, namesList.Count);
@@ -242,6 +216,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // Creates the new player
         newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        newPlayer.AddComponent<SelectedPlayer>();
         childHeads = newPlayer.GetComponentsInChildren<Head>();
         for (int i = 0; i < childHeads.Length; i++)
         {
@@ -254,7 +229,7 @@ public class CharacterCardGenerator : MonoBehaviour
         headsList[headIndex].SetActive(true);
 
         // Gets all of the character's renderers
-        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
@@ -289,8 +264,6 @@ public class CharacterCardGenerator : MonoBehaviour
     // Generates previous character cards
     public void GeneratePreviousCard(int playerId)
     {
-        Destroy(lastSelectedHead);
-
         if (timesGoneBack == previousNames.Count - 1)
         {
             timesGoneBack = 0;
@@ -308,11 +281,15 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.crimeField.text = crimesList[crimeIndex];
         newCharacter.sentenceField.text = sentencesList[sentenceIndex];
 
-        // Creates the new player
-        GameObject newPlayer = Instantiate(headsList[headIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        // Assigns the new head
+        for (int i = 0; i < headsList.Count; i++)
+        {
+            headsList[i].SetActive(false);
+        }
+        headsList[headIndex].SetActive(true);
 
         // Gets all of the character's renderers
-        Renderer[] children = newPlayer.GetComponentsInChildren<Renderer>();
+        children = newPlayer.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
@@ -323,7 +300,6 @@ public class CharacterCardGenerator : MonoBehaviour
         }
 
         // Sets the character's locator circle to the above colour
-        locatorDots = newPlayer.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
@@ -348,9 +324,6 @@ public class CharacterCardGenerator : MonoBehaviour
     #region Methods For: Customize Character - Multiple Buttons
     public void GenerateModel(int playerId)
     {
-        //Destroy(lastSelectedHead);
-        //lastSelectedHead.SetActive(false);
-
         // Sets values for each card parameter
         headIndex = lastHead;
         nameIndex = Random.Range(0, namesList.Count);
@@ -361,8 +334,7 @@ public class CharacterCardGenerator : MonoBehaviour
         previousHeads.Add(headIndex);
         previousNames.Add(nameIndex);
 
-        // Creates the new player
-        //GameObject newPlayer = Instantiate(headsList[headIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        // Assigns the new head object
         for (int i = 0; i < headsList.Count; i++)
         {
             headsList[i].SetActive(false);
@@ -393,25 +365,26 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousModel(int playerId)
     {
-        Destroy(lastSelectedHead);
-
-        if (timesGoneBackModel == previousNames.Count - 1)
+        if (timesGoneBackHead == previousNames.Count - 1)
         {
-            timesGoneBackModel = 0;
+            timesGoneBackHead = 0;
         }
 
         // Sets values for each card parameter
-        int prefabIndex = previousHeads[previousHeads.Count - 2 - timesGoneBackModel];
-        int nameIndex = previousNames[previousNames.Count - 2 - timesGoneBackModel];
+        int headIndex = previousHeads[previousHeads.Count - 2 - timesGoneBackHead];
+        int nameIndex = previousNames[previousNames.Count - 2 - timesGoneBackHead];
 
         // Assigns each card parameter the above corresponding value
         newCharacter.nameField.text = namesList[nameIndex];
 
-        // Creates the new player
-        GameObject newPlayer = Instantiate(headsList[prefabIndex], spawnPos, Quaternion.Euler(0f, -180f, 0f));
-        lastSelectedHead = newPlayer.gameObject;
+        // Assigns the new head
+        for (int i = 0; i < headsList.Count; i++)
+        {
+            headsList[i].SetActive(false);
+        }
+        headsList[headIndex].SetActive(true);
 
-        timesGoneBackModel++;
+        timesGoneBackHead++;
 
         // Assigns newly created characters a playerId for ReWired
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
@@ -432,7 +405,6 @@ public class CharacterCardGenerator : MonoBehaviour
         materialIndex = lastMat;
 
         // Gets all of the character's renderers
-        Renderer[] children = lastSelectedHead.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
@@ -443,7 +415,6 @@ public class CharacterCardGenerator : MonoBehaviour
         }
 
         // Sets the character's locator circle to the above colour
-        locatorDots = lastSelectedHead.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
@@ -470,7 +441,6 @@ public class CharacterCardGenerator : MonoBehaviour
         int materialIndex = previousMaterials[previousMaterials.Count - 2 - timesGoneBackColour];
 
         // Gets all of the character's renderers
-        Renderer[] children = lastSelectedHead.GetComponentsInChildren<Renderer>();
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
@@ -481,7 +451,6 @@ public class CharacterCardGenerator : MonoBehaviour
         }
 
         // Sets the character's locator circle to the above colour
-        locatorDots = lastSelectedHead.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
             locator.color = materialList[materialIndex].color;
