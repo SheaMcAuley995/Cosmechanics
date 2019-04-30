@@ -909,7 +909,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 21.65
+  m_fontSize: 21
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -1022,6 +1022,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 114567079296996284, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+        type: 2}
+      propertyPath: overworldButtons.Array.data[0]
+      value: 
+      objectReference: {fileID: 1627598350}
+    - target: {fileID: 114567079296996284, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+        type: 2}
+      propertyPath: overworldButtons.Array.data[1]
+      value: 
+      objectReference: {fileID: 1686294027}
     - target: {fileID: 114260673156198218, guid: 8d2f1f34e8044914ab38ffcb0e566180,
         type: 2}
       propertyPath: data.mapPreview
@@ -2254,7 +2264,7 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 22.2
+  m_fontSize: 21.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -2339,6 +2349,7 @@ GameObject:
   - component: {fileID: 1627598352}
   - component: {fileID: 1627598351}
   - component: {fileID: 1627598350}
+  - component: {fileID: 1627598353}
   m_Layer: 5
   m_Name: LaunchButton
   m_TagString: Untagged
@@ -2412,7 +2423,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: CopyOfMainMAp
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
@@ -2451,6 +2462,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1627598348}
   m_CullTransparentMesh: 0
+--- !u!95 &1627598353
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1627598348}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1f6ae816955ec394c9f077e9eefdfb99, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1671867363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2562,6 +2591,7 @@ GameObject:
   - component: {fileID: 1686294029}
   - component: {fileID: 1686294028}
   - component: {fileID: 1686294027}
+  - component: {fileID: 1686294030}
   m_Layer: 5
   m_Name: CancelButton
   m_TagString: Untagged
@@ -2674,6 +2704,24 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1686294025}
   m_CullTransparentMesh: 0
+--- !u!95 &1686294030
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1686294025}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 291a96ff1ae520e45886afa4accd3eb5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1708188786
 GameObject:
   m_ObjectHideFlags: 0
