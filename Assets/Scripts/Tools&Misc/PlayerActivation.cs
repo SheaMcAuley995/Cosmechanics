@@ -7,7 +7,7 @@ public class PlayerActivation : MonoBehaviour
 {
     public static PlayerActivation instance = null;
 
-    public PlayerController[] chosenCharacters;
+    public SelectedPlayer[] chosenCharacters;
 
     #region Singleton
     void Awake ()
