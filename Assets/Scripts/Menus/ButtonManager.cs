@@ -27,7 +27,7 @@ public class ButtonManager : MonoBehaviour
     //Fades to main menu
     public void ReturnToMenu()
     {
-        SceneFader.instance.FadeTo("MainMenu");
+        SceneFader.instance.FadeTo("MainMenu_Update");
     }
 
     // Fades to current scene
