@@ -235,7 +235,10 @@ public class ButtonSelectionManager : MonoBehaviour
         }
         else if (inOverworld)
         {
-            overworldButtons[selectedButtonIndex].onClick.Invoke();
+            if (overworldButtons[selectedButtonIndex].interactable && !selecting)
+            {
+                overworldButtons[selectedButtonIndex].onClick.Invoke();
+            }
         }
         else if (inWinScreen)
         {
