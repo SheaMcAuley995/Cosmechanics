@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4429803208913620}
   - component: {fileID: 114260673156198218}
+  - component: {fileID: 114567079296996284}
   m_Layer: 0
   m_Name: OverworldManager
   m_TagString: Untagged
@@ -57,6 +58,7 @@ MonoBehaviour:
     description: {fileID: 0}
     launchButton: {fileID: 0}
     cancelButton: {fileID: 0}
+  playerId: 0
   level: 0
   shipTransform: {fileID: 0}
   levelObjects:
@@ -70,17 +72,37 @@ MonoBehaviour:
   levelPanel: {fileID: 0}
   levelSelectedText: {fileID: 0}
   mapImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
+  - {fileID: 21300000, guid: dfae43a4e6dd5cf4693682a2472ef551, type: 3}
   levelNames:
-  - Tutorial Level
-  - Level One
-  - Level Two
+  - Ship One
+  - Ship Two
+  - Ship Three
   descriptions:
-  - 'This is the tutorial level, where you will learn how to play the game and hone
-    your skills as a cosmechanic! '
-  - -Level 1 story information-
-  - -Level 2 story information-
+  - -Level 1 Story Information-
+  - -Level 2 Story Information-
+  - -Level 3 Story Information-
   travelTime: 1
   orbitSpeed: 80
+--- !u!114 &114567079296996284
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241169576177650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af3eec3355177d49a4e4c9d29cbe970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inMainMenu: 0
+  inOverworld: 1
+  inWinScreen: 0
+  inLoseScreen: 0
+  mainMenuButtons: []
+  overworldButtons:
+  - {fileID: 0}
+  - {fileID: 0}
+  winScreenButtons: []
+  loseScreenButtons: []

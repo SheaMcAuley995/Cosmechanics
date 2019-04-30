@@ -5,34 +5,23 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour
 {
-    ////fuck you vv
-    //public PlayerController[] players;
-    ////fuck you ^^
-    //private void Awake()
-    //{
-    //    players = FindObjectsOfType<PlayerController>();
-    //    //I hate this ^^
-    //}
-
     // TODO: Store user data on levels they've beaten & lock levels 2 and 3 until reached
     public void LaunchLevel(string scene)
     {
-        //And this vv
-        // Very constructive feedback, thanks. Why? What would you do instead?
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:
-                //scene = "TutorialLevel";
-                scene = "ZachShipTest";
+                scene = "CopyOfMainMAp";
                 break;
             case OverworldManager.Level.Level2:
-                scene = "Ship_Level_1";
+                scene = "BetaMichaelTest";
                 break;
             case OverworldManager.Level.Level3:
-                scene = "BetaMichaelTest";
+                scene = "NewMichaelTest";
                 break;
         }
 
         SceneFader.instance.FadeTo(scene);
     }
 }
+//FUUUUUUUUUUUCK
