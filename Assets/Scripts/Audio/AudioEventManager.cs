@@ -67,6 +67,7 @@ public class AudioEventManager : MonoBehaviour {
             return;
         }
         s.source.volume = volume;
+        s.source.Play();
     }
     private void Start()
     {
