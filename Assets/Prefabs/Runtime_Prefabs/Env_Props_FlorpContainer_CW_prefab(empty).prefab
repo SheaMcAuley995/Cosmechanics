@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4231761072719194}
   - component: {fileID: 33089280694489278}
   - component: {fileID: 23426220925076406}
+  - component: {fileID: 114946531464936332}
   m_Layer: 0
   m_Name: Florp_Container_Interior
   m_TagString: Untagged
@@ -84,15 +85,15 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667745528943260}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.837615, y: 1.5, z: -6.7086887}
+  m_LocalRotation: {x: -0, y: -0, z: 0.014317046, w: 0.99989754}
+  m_LocalPosition: {x: -7.6193657, y: 1.24, z: 1.5435728}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4231761072719194}
   - {fileID: 4999537482537138}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 1.641}
 --- !u!4 &4999537482537138
 Transform:
   m_ObjectHideFlags: 1
@@ -121,7 +122,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 49a5719605d00234caf58e4535ee514c, type: 2}
+  - {fileID: 2100000, guid: c841955fa6a7f2c4fba8718e4b450979, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -273,9 +274,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  PUU_ShaderPrefab: {fileID: 1701411228122146, guid: 1933a8d7fc9da544c9f3de06bd79f650,
-    type: 2}
-  puu: {fileID: 0}
   initTime: 0
   lerpTime: 1.25
   curve:
@@ -322,9 +320,20 @@ MonoBehaviour:
     m_RotationOrder: 4
   containedFlorp: 50
   doFill: 0
-  outerEmpty: {fileID: 2100000, guid: 49a5719605d00234caf58e4535ee514c, type: 2}
-  outerFull: {fileID: 2100000, guid: 4d7e4329b98a47b4b8fb1ab2395f635e, type: 2}
-  innerEmpty: {fileID: 2100000, guid: 49a5719605d00234caf58e4535ee514c, type: 2}
-  innerFull: {fileID: 2100000, guid: 66681b031de1cd24ab77814c761307fd, type: 2}
   isFilled: 0
-  particle: {fileID: 198438407286094718, guid: f0e01f7fcbf3af0439c7803077cf0210, type: 2}
+  innerContObj: {fileID: 1614738668713840}
+  florpFillAmount: 0.2
+--- !u!114 &114946531464936332
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1614738668713840}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220401e39fac01448b78cb733b14f9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxWobble: 0.03
+  WobbleSpeed: 0.7
+  Recovery: 0.5
