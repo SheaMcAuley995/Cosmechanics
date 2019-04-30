@@ -70,6 +70,9 @@ public class CharacterCardGenerator : MonoBehaviour
     GameObject newPlayer;
     Renderer[] children;
 
+    public TextMeshProUGUI joinText;
+    public Image joinImage;
+
     /// Random selection variables
     int nameIndex, crimeIndex, sentenceIndex, headIndex, materialIndex;
 
@@ -498,5 +501,11 @@ public class CharacterCardGenerator : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         selecting = false;
         yield return null;
+    }
+
+    public void DeactivateJoinIcons()
+    {
+        joinImage.enabled = false;
+        joinText.enabled = false;
     }
 }
