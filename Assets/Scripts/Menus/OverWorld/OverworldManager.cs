@@ -149,7 +149,10 @@ public class OverworldManager : MonoBehaviour
                 StartCoroutine(SelectionDelay());
 
                 // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                data.launchButton.onClick.Invoke();
+                if (data.launchButton.interactable)
+                {
+                    data.launchButton.onClick.Invoke();
+                }
             }
 
             // Cancelation input
