@@ -74,7 +74,7 @@ public class AssignPlayers : MonoBehaviour
             {
                 joinedStatus[controller.playerId].selecting = true;
                 StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
-
+                cards[controller.playerId].DeactivateJoinIcons();
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
             }
@@ -136,7 +136,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
+            if (controller.readyUp && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
