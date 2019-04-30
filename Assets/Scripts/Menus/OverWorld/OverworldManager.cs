@@ -250,7 +250,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[1];
                 selectionPanel.levelName.text = levelNames[1];
                 selectionPanel.description.text = descriptions[1];
-                selectionPanel.launchButton.interactable = false;
+                selectionPanel.launchButton.interactable = true;
                 break;
             // If it's level 3, set all UI elements to the third item in each array pool
             case Level.Level3:
