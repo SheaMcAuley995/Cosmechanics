@@ -27,6 +27,8 @@ public class AssignPlayers : MonoBehaviour
     float time = 10;
     bool countingDown;
 
+    Coroutine countdown;
+
 
     void Start()
     {
