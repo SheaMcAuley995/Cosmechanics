@@ -46,6 +46,14 @@ public class Grid : MonoBehaviour {
         CreateGrid();
     }
 
+    public void Update()
+    {
+        for (int i = 0; i < fires.Count; ++i)
+        {
+            onFire(fires[i]);
+        }
+    }
+
     void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
@@ -59,7 +67,7 @@ public class Grid : MonoBehaviour {
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
                 grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
                 grid[x, y].fireEffect.SetActive(false);
-                if(grid[x, y].isFlamable)
+                if (grid[x, y].isFlamable)
                 {
                     alertUI.problemMax += 1;
                     alertUI.problemCurrent += 1;
@@ -68,7 +76,7 @@ public class Grid : MonoBehaviour {
         }
 
 
-        
+
         //Debug.Log("Length of grid is " + grid.Length);
     }
 
@@ -96,26 +104,37 @@ public class Grid : MonoBehaviour {
     }
 
 
-    public void GenerateLaserFire(Node firePos)
+    public List<Node> GetFlamableNeighbors(Node node)
     {
-        int chanceToStartFire = Random.Range(1, 11);
+        List<Node> neighbours = new List<Node>();
 
-        if (chanceToStartFire > 5)
+        for (int x = -1; x <= 1; x++)
         {
-            //Debug.Log("In this house we stan the fire gods");
-            Collider[] fireLocation = Physics.OverlapSphere(firePos.worldPosition, 1f, flamableMask);
-            foreach (var firePosition in fireLocation)
+            for (int y = -1; y <= 1; y++)
             {
-                if (firePos.isFlamable)
+                if (x == 0 && y == 0)
+                    continue;
+
+                int checkX = node.gridX + x;
+                int checkY = node.gridY + y;
+
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
                 {
-                    if(grid[checkX, checkY].isFlamable)
+                    if (grid[checkX, checkY].isFlamable)
                     {
                         neighbours.Add(grid[checkX, checkY]);
                     }
                 }
             }
         }
-        else
+        return neighbours;
+    }
+
+    public void GenerateLaserFire(Node firePos)
+    {
+        int chanceToStartFire = Random.Range(0, 100);
+
+        if (chanceToStartFire < fireStartPercentage)
         {
             if (firePos.isFlamable)
             {
@@ -128,9 +147,9 @@ public class Grid : MonoBehaviour {
         }
     }
 
-    public void GenerateEngineFire()
+    public void GenerateFire(Node firePos)
     {
-        if(firePos.isFlamable && firePos != null)
+        if (firePos.isFlamable && firePos != null)
         {
             alertUI.problemCurrent -= 1;
             firePos.fireTimer = fireTimer;
@@ -139,15 +158,8 @@ public class Grid : MonoBehaviour {
             fires.Add(firePos);
         }
 
-        //int safetyNet = 0;
-        //while (fireStartPosition.isFlamable != true)
-        //{
-        //    fireStartPosition = grid[Random.Range(0, gridSizeX), Random.Range(0, gridSizeY)];
-        //    safetyNet++;
+    }
 
-        //    //Debug.Log("Fiyah");
-        //    GameObject fire = Instantiate(fireEffect, fireStartPosition.worldPosition, Quaternion.Euler(-90f, 0f, 0f));
-        //    fires.Add(fire);
 
     public void onFire(Node firePos)
     {
@@ -155,7 +167,7 @@ public class Grid : MonoBehaviour {
 
         for (int i = 0; i < castedObjects.Length; i++)
         {
-            if(castedObjects[i].CompareTag("Extinguisher"))
+            if (castedObjects[i].CompareTag("Extinguisher"))
             {
                 alertUI.problemCurrent += 1;
                 fires.Remove(firePos);
@@ -163,14 +175,14 @@ public class Grid : MonoBehaviour {
                 firePos.fireEffect.SetActive(false);
                 return;
             }
-            if(castedObjects[i].GetComponent<PlayerController>() != null)
+            if (castedObjects[i].GetComponent<PlayerController>() != null)
             {
                 castedObjects[i].GetComponent<PlayerController>().onFireTimerCur -= Time.time * 2;
             }
         }
 
         firePos.fireTimer -= Time.deltaTime;
-        if(firePos.fireTimer < 0)
+        if (firePos.fireTimer < 0)
         {
             List<Node> flameableNeighbors = GetFlamableNeighbors(firePos);
 
@@ -191,10 +203,10 @@ public class Grid : MonoBehaviour {
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
 
-        if(GenerateGrid)
+        if (GenerateGrid)
             CreateGrid();
 
-        if(LightFire)
+        if (LightFire)
         {
             //GenerateFire();
             LightFire = false;
@@ -207,6 +219,11 @@ public class Grid : MonoBehaviour {
             {
                 Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
                 Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+            }
+            foreach (Node fire in fires)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(fire.worldPosition, 1);
             }
         }
 

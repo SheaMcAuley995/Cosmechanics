@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4607012907771578}
   - component: {fileID: 198380138788186904}
   - component: {fileID: 199099119722976028}
+  - component: {fileID: 114661574986515558}
   m_Layer: 0
   m_Name: Starticle
   m_TagString: Untagged
@@ -35,12 +36,24 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1953537626210886}
   m_LocalRotation: {x: 0.70710677, y: 0.7071068, z: 0.0000001791241, w: 0.00000017912409}
-  m_LocalPosition: {x: -55.76, y: -40.42, z: 70.85}
+  m_LocalPosition: {x: -51.76, y: -30.69, z: 48.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 90.00001}
+--- !u!114 &114661574986515558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953537626210886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69c4acea258984a47a91535dadf33b3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSpeed: 2
 --- !u!198 &198380138788186904
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -814,7 +827,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 15
+      scalar: 20
       minScalar: 10
       maxCurve:
         serializedVersion: 2

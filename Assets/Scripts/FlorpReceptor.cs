@@ -13,7 +13,7 @@ public class FlorpReceptor : MonoBehaviour {
         {
             if (other.GetComponent<Florp>().isFilled)
             {
-                EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
+                //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
                 engine.InsertFlorp();
                 Destroy(other.gameObject);
                 AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
