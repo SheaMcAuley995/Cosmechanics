@@ -100,9 +100,6 @@ public class Fire : MonoBehaviour
     void Extinguish()
     {
         thisNode.isFlamable = true;
-        EndGameScore.instance.FirePutOut(1);
-        EndGameScore.instance.FiresActive(-1);
         Destroy(this.gameObject);
-       
     }
 }

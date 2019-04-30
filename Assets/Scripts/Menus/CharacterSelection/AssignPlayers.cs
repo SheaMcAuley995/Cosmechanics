@@ -27,8 +27,6 @@ public class AssignPlayers : MonoBehaviour
     float time = 10;
     bool countingDown;
 
-    Coroutine countdown = null;
-
 
     void Start()
     {
@@ -70,14 +68,13 @@ public class AssignPlayers : MonoBehaviour
             controller.getInput();
 
             // For joining the game
-            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting)
+            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
             {
-                cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
+                joinedStatus[controller.playerId].selecting = true;
+                StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
 
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
-                joinedStatus[controller.playerId].DisableJoinUI();
             }
 
             // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
@@ -137,7 +134,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            if (controller.readyUp && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -178,7 +175,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+            if (controller.cancel && !cards[controller.playerId].selecting)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
