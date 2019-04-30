@@ -73,6 +73,9 @@ public class ButtonSelectionManager : MonoBehaviour
             {
                 lastSelectedButton = mainMenuButtons.Count - 1;
             }
+
+            lastAnimator = mainMenuButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = mainMenuButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inOverworld)
         {
@@ -86,6 +89,9 @@ public class ButtonSelectionManager : MonoBehaviour
             {
                 lastSelectedButton = overworldButtons.Count - 1;
             }
+
+            lastAnimator = overworldButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = overworldButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inWinScreen)
         {
@@ -99,6 +105,9 @@ public class ButtonSelectionManager : MonoBehaviour
             {
                 lastSelectedButton = winScreenButtons.Count - 1;
             }
+
+            lastAnimator = winScreenButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = winScreenButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inLoseScreen)
         {
@@ -112,16 +121,23 @@ public class ButtonSelectionManager : MonoBehaviour
             {
                 lastSelectedButton = loseScreenButtons.Count - 1;
             }
+
+            lastAnimator = loseScreenButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = loseScreenButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else
         {
             Debug.LogError("You're trying to select a button but aren't in a menu. This shouldn't be possible...");
         }
 
-        lastAnimator = mainMenuButtons[lastSelectedButton].GetComponent<Animator>();
-        animator = mainMenuButtons[selectedButtonIndex].GetComponent<Animator>();
-        lastAnimator.SetBool("isSelecting", false);
-        animator.SetBool("isSelecting", true);
+        if (lastAnimator != null)
+        {
+            lastAnimator.SetBool("isSelecting", false);
+        }
+        if (animator != null)
+        {
+            animator.SetBool("isSelecting", true);
+        }
     }
 
     void SelectButtonUpward()
@@ -141,55 +157,71 @@ public class ButtonSelectionManager : MonoBehaviour
             {
                 lastSelectedButton = 0;
             }
+
+            lastAnimator = mainMenuButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = mainMenuButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inOverworld)
         {
             selectedButtonIndex--;
             if (selectedButtonIndex < 0)
             {
-                selectedButtonIndex = overworldButtons.Count + 1;
+                selectedButtonIndex = overworldButtons.Count - 1;
             }
             lastSelectedButton = selectedButtonIndex + 1;
-            if (lastSelectedButton > mainMenuButtons.Count - 1)
+            if (lastSelectedButton > overworldButtons.Count - 1)
             {
                 lastSelectedButton = 0;
             }
+
+            lastAnimator = overworldButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = overworldButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inWinScreen)
         {
             selectedButtonIndex--;
             if (selectedButtonIndex < 0)
             {
-                selectedButtonIndex = winScreenButtons.Count + 1;
+                selectedButtonIndex = winScreenButtons.Count - 1;
             }
             lastSelectedButton = selectedButtonIndex + 1;
-            if (lastSelectedButton > mainMenuButtons.Count - 1)
+            if (lastSelectedButton > winScreenButtons.Count - 1)
             {
                 lastSelectedButton = 0;
             }
+
+            lastAnimator = winScreenButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = winScreenButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inLoseScreen)
         {
             selectedButtonIndex--;
             if (selectedButtonIndex < 0)
             {
-                selectedButtonIndex = loseScreenButtons.Count + 1;
+                selectedButtonIndex = loseScreenButtons.Count - 1;
             }
             lastSelectedButton = selectedButtonIndex + 1;
-            if (lastSelectedButton > mainMenuButtons.Count - 1)
+            if (lastSelectedButton > loseScreenButtons.Count - 1)
             {
                 lastSelectedButton = 0;
             }
+
+            lastAnimator = loseScreenButtons[lastSelectedButton].GetComponent<Animator>();
+            animator = loseScreenButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else
         {
             Debug.LogError("You're trying to select a button but aren't in a menu. This shouldn't be possible...");
         }
 
-        lastAnimator = mainMenuButtons[lastSelectedButton].GetComponent<Animator>();
-        animator = mainMenuButtons[selectedButtonIndex].GetComponent<Animator>();
-        lastAnimator.SetBool("isSelecting", false);
-        animator.SetBool("isSelecting", true);
+        if (lastAnimator != null)
+        {
+            lastAnimator.SetBool("isSelecting", false);
+        }
+        if (animator != null)
+        {
+            animator.SetBool("isSelecting", true);
+        }
     }
 
     void PressButton()
@@ -203,7 +235,10 @@ public class ButtonSelectionManager : MonoBehaviour
         }
         else if (inOverworld)
         {
-            overworldButtons[selectedButtonIndex].onClick.Invoke();
+            if (overworldButtons[selectedButtonIndex].interactable && !selecting)
+            {
+                overworldButtons[selectedButtonIndex].onClick.Invoke();
+            }
         }
         else if (inWinScreen)
         {

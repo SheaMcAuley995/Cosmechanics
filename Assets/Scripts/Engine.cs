@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Engine : MonoBehaviour {
 
+    public static Engine instance;
     [Header("Engine Statistics")]
     public float engineHeat;
     public float maxHeat;
@@ -26,6 +27,17 @@ public class Engine : MonoBehaviour {
 
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
+    private void Awake()
+    {
+        if (instance != null)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+    }
     public void Start()
     {
         winGameUI.SetActive(false);

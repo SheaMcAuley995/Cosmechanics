@@ -22,9 +22,16 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     {
         if (other.GetComponent<Florp>() != null)
         {
-            dump = true;
-            other.GetComponent<Florp>().doFill = true;
+            interactedFlorp = other.GetComponent<Florp>();
+            interactedFlorp.doFill = true;
         }
+        if (other.GetComponent<Florp>() != null /*&& dump*/)
+        {
+            other.GetComponent<Florp>().doFill = true;
+            DoDump();
+        }
+        else { dump = false; }
+        dump = false;
     }
     void OnTriggerExit()
     {
@@ -38,6 +45,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         {
             GameObject part = Instantiate(particle, point, Quaternion.identity);
             part.GetComponent<ParticleSystem>().Play();
+            AudioEventManager.instance.PlaySound("splat",.8f,.8f,0);
             dump = false;
         }
     }

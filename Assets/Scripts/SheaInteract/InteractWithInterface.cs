@@ -10,6 +10,12 @@ public class InteractWithInterface : MonoBehaviour
     public float radius;
     public LayerMask interactableLayer;
 
+    [Space]
+    [Header("Pick 'Um Up")]
+    public GameObject puuPrefab;
+    GameObject puu;
+    bool isPuu = false;
+
     GameObject interactedObject;
 
 
@@ -84,7 +90,8 @@ public class InteractWithInterface : MonoBehaviour
                 {
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
                     interactedObject = hitColliders[i].gameObject;
-                    
+                    isPuu = true;
+                    puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
                     break;
                 }
             }
@@ -105,7 +112,13 @@ public class InteractWithInterface : MonoBehaviour
                 }
             }
             interactedObject.GetComponent<PickUp>().putMeDown();
+            isPuu = false;
+            Destroy(puu);
             interactedObject = null;
+        }
+        if (!isPuu)
+        {
+            Destroy(puu);
         }
     }
 

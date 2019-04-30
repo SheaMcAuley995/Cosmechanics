@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 114134710701707538}
   - component: {fileID: 114707529639851100}
   - component: {fileID: 114724697320170636}
+  - component: {fileID: 114103672328636558}
   m_Layer: 5
   m_Name: LoseGameCanvas
   m_TagString: Untagged
@@ -73,11 +74,13 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 224404468153733972}
-  - component: {fileID: 222028893180068360}
-  - component: {fileID: 114616158839710468}
+  - component: {fileID: 224614137263544548}
+  - component: {fileID: 222091139166193178}
+  - component: {fileID: 114489375969623838}
+  - component: {fileID: 114984657618778982}
+  - component: {fileID: 95204571426027252}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Quit_Lose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,9 +93,11 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 224758366414007028}
-  - component: {fileID: 222828620873717086}
-  - component: {fileID: 114260055887376930}
+  - component: {fileID: 224081801638623100}
+  - component: {fileID: 222410276618025174}
+  - component: {fileID: 114627990148505620}
+  - component: {fileID: 114809960218788330}
+  - component: {fileID: 95571757298248580}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -135,6 +140,90 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!95 &95204571426027252
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1251333858334106}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f89c2ab9e077c9743aa941e06ce47528, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!95 &95571757298248580
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1262134110887054}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2c5b1f7695e7c934a8b30c294687be65, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114087788967734160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1311137558709410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 4b34f7a90d2fe2246858fe7a4cd13b70, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!114 &114103672328636558
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1120300782942198}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9af3eec3355177d49a4e4c9d29cbe970, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inMainMenu: 0
+  inOverworld: 0
+  inWinScreen: 0
+  inLoseScreen: 1
+  mainMenuButtons: []
+  overworldButtons: []
+  winScreenButtons: []
+  loseScreenButtons:
+  - {fileID: 114809960218788330}
+  - {fileID: 114984657618778982}
 --- !u!114 &114134710701707538
 MonoBehaviour:
   m_ObjectHideFlags: 1

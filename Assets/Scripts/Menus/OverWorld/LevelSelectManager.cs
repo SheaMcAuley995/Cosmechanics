@@ -5,19 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelSelectManager : MonoBehaviour
 {
-    //fuck you vv
-    public PlayerController[] players;
-    //fuck you ^^
-    private void Awake()
-    {
-        players = FindObjectsOfType<PlayerController>();
-        //I hate this ^^
-    }
-
     // TODO: Store user data on levels they've beaten & lock levels 2 and 3 until reached
     public void LaunchLevel(string scene)
     {
-        //And this vv
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:

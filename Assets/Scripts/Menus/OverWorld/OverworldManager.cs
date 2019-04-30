@@ -142,7 +142,10 @@ public class OverworldManager : MonoBehaviour
             else if (player.pickUp && ableToLaunch)
             {
                 // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                data.launchButton.onClick.Invoke();
+                if (data.launchButton.interactable)
+                {
+                    data.launchButton.onClick.Invoke();
+                }
             }
 
             // Cancelation input
