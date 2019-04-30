@@ -29,7 +29,7 @@ Shader "Custom/EmissionPulse" {
             #include "UnityCG.cginc"
             #pragma multi_compile_fwdbase_fullshadows
             #pragma multi_compile_fog
-            #pragma only_renderers d3d9 d3d11 glcore gles 
+            #pragma only_renderers d3d9 d3d11 glcore gles xboxone ps4 switch 
             #pragma target 3.0
             uniform sampler2D _Normal; uniform float4 _Normal_ST;
             uniform float4 __Color;
