@@ -66,7 +66,10 @@ public class InteractWithInterface : MonoBehaviour
                 }
                 else
                 {
-                    hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    if(hitColliders[i].GetComponent<IInteractable>() != null)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    }
                     break;
                 }
 
