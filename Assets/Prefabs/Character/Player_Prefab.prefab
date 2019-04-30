@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 54913305579472442}
   - component: {fileID: 136949587108373350}
   - component: {fileID: 114858732792571700}
+  - component: {fileID: 114417824484577140}
   m_Layer: 0
   m_Name: Player_Prefab
   m_TagString: Untagged
@@ -2650,7 +2651,7 @@ MonoBehaviour:
   controller: {fileID: 0}
 --- !u!114 &114417824484577140
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238068019863090}
@@ -2722,6 +2723,7 @@ MonoBehaviour:
   cameraTrans: {fileID: 0}
   animators: []
   onFiretimer: 1
+  onFireTimerCur: 0
   onFireEffect: {fileID: 1892146819469740}
 --- !u!136 &136949587108373350
 CapsuleCollider:
