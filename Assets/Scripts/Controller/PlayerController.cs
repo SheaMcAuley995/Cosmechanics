@@ -8,14 +8,10 @@ using Rewired;
 public class PlayerController : MonoBehaviour
 {
 
-    //Call this delegate to change the interaction depending on the item in the player's hands.
+
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
 
-    /// <summary>
-    /// I need you to make a function that will change what is happening in this delegate. An example would be that if you pick up a broom then your current interaction
-    /// is to sweep. So do all the functions you need to do in this delegate. I may have actually made two delegates for the same thing on accident I don't know.
-    /// </summary>
     public delegate void Interactions();
     public Interactions myInteractions;
 
@@ -61,23 +57,31 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     InteractWithInterface interact;
-    [SerializeField] Animator animator;
+    public Animator[] animators;
 
     GameObject interactedObject;
+    public float onFiretimer;
+    public float onFireTimerCur;
+    public GameObject onFireEffect;
+    private bool onFire;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
+        onFireTimerCur = onFiretimer;
+        animators = GetComponentsInChildren<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
+        interact.controller = this;
     }
 
     void Update()
     {
         getInput();
         ProcessInput();
+        onFireCheck();
+        onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
 
     public void getInput()
@@ -137,6 +141,10 @@ public class PlayerController : MonoBehaviour
         if(pickUp)
         {
             interact.pickUpObject();
+            animators[0].SetBool("ButtonPress", true);
+            animators[1].SetBool("ButtonPress", true);
+            animators[0].SetBool("ButtonPress", false);
+            animators[1].SetBool("ButtonPress", false);
         }
 
     }
@@ -182,19 +190,71 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
-
-        if (inputDir != Vector2.zero)
+        if(!onFire)
         {
-            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
-            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            animators[0].SetBool("OnFire", false);
+            animators[1].SetBool("OnFire", false);
+            if (inputDir != Vector2.zero)
+            {
+                float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            }
+
+            float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+            if (targetSpeed > 0)
+            {
+                animators[0].SetBool("Move", true);
+                animators[1].SetBool("Move", true);
+            }
+            else
+            {
+                animators[0].SetBool("Move", false);
+                animators[1].SetBool("Move", false);
+            }
+
         }
 
-        float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
-        animator.SetFloat("Movement", targetSpeed);
+
+
+
+        if (onFire)
+        {
+            animators[0].SetBool("OnFire", true);
+            animators[1].SetBool("OnFire", true);
+            onFireEffect.SetActive(true);
+
+            if (inputDir != Vector2.zero)
+            {
+                float targetRotation = (Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y);
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            }
+
+            float targetSpeed = walkSpeed;
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        }
+        else
+        {
+            onFireEffect.SetActive(false);
+        }
+
+
+
         rb.velocity = transform.forward * currentSpeed;
 
     }
 
+    public void onFireCheck()
+    {
+        if (onFireTimerCur < onFiretimer / 2)
+        {
+            onFire = true;
+        }
+        else
+        {
+            onFire = false;
+        }
+    }
 
 }

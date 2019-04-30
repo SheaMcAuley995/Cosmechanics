@@ -26,10 +26,6 @@ public class PickUp : MonoBehaviour {
    
     public void putMeDown()
     {
-        if (transform.gameObject.GetComponent<FireExtinguisher>())
-        {
-            transform.gameObject.GetComponent<FireExtinguisher>().StopExtinguisher();
-        }
         transform.SetParent(null);
         rb.isKinematic = false;
        // Destroy(puu);

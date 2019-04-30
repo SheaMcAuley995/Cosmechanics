@@ -21,7 +21,9 @@ public class AlertUI : MonoBehaviour {
         {
             image = GetComponent<Image>();
         }
-	}
+        startingScalex = lightingImage.rectTransform.localScale.x;
+        startingScaley = lightingImage.rectTransform.localScale.y;
+    }
     public void Update()
     {
         setCurrentAlarmStatus();
@@ -52,3 +54,7 @@ public class AlertUI : MonoBehaviour {
         return (problemCurrent / problemMax);
     }
 }
+
+        startingScalex = lightingImage.rectTransform.localScale.x;
+        startingScaley = lightingImage.rectTransform.localScale.y;
+    }
