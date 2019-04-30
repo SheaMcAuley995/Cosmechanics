@@ -62,12 +62,14 @@ public class PlayerController : MonoBehaviour
     Rigidbody rb;
     InteractWithInterface interact;
     [SerializeField] Animator animator;
+    [SerializeField] Animator headAnimator;
 
     GameObject interactedObject;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        headAnimator = GetComponentInChildren<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
