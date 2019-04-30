@@ -20,11 +20,13 @@ public class Grid : MonoBehaviour {
     [Header("Fire Statistics")]
     public float fireStartPercentage;
     public float fireTimer;
+    public AlertUI alertUI;
 
     [Header("Debug tools")]
     [SerializeField] bool GenerateGrid;
     [SerializeField] bool LightFire;
     [SerializeField] bool showGrid;
+
 
     void Awake()
     {
@@ -65,8 +67,15 @@ public class Grid : MonoBehaviour {
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
                 grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
                 grid[x, y].fireEffect.SetActive(false);
+                if(grid[x, y].isFlamable)
+                {
+                    alertUI.problemMax += 1;
+                    alertUI.problemCurrent += 1;
+                }
             }
         }
+
+
         
         //Debug.Log("Length of grid is " + grid.Length);
     }
@@ -129,6 +138,7 @@ public class Grid : MonoBehaviour {
         {
             if (firePos.isFlamable)
             {
+                alertUI.problemCurrent -= 1;
                 firePos.fireTimer = fireTimer;
                 firePos.isFlamable = false;
                 firePos.fireEffect.SetActive(true);
@@ -141,6 +151,7 @@ public class Grid : MonoBehaviour {
     {
         if(firePos.isFlamable && firePos != null)
         {
+            alertUI.problemCurrent -= 1;
             firePos.fireTimer = fireTimer;
             firePos.isFlamable = false;
             firePos.fireEffect.SetActive(true);
@@ -158,10 +169,15 @@ public class Grid : MonoBehaviour {
         {
             if(castedObjects[i].CompareTag("Extinguisher"))
             {
+                alertUI.problemCurrent += 1;
                 fires.Remove(firePos);
                 firePos.isFlamable = true;
                 firePos.fireEffect.SetActive(false);
                 return;
+            }
+            if(castedObjects[i].GetComponent<PlayerController>() != null)
+            {
+                castedObjects[i].GetComponent<PlayerController>().onFireTimerCur -= Time.time * 2;
             }
         }
 
@@ -173,7 +189,6 @@ public class Grid : MonoBehaviour {
             if (flameableNeighbors.Count > 0)
             {
                 int index = Random.Range(0, flameableNeighbors.Count);
-                Debug.Log("List size was :" + flameableNeighbors.Count + " Index chosen :" + index);
                 GenerateFire(flameableNeighbors[index]);
             }
             firePos.fireTimer = fireTimer;
