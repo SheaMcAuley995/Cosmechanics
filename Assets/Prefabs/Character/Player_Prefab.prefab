@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 54913305579472442}
   - component: {fileID: 136949587108373350}
   - component: {fileID: 114858732792571700}
+  - component: {fileID: 114417824484577140}
   m_Layer: 0
   m_Name: Player_Prefab
   m_TagString: Untagged
@@ -2647,10 +2648,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   puuPrefab: {fileID: 1701411228122146, guid: 1933a8d7fc9da544c9f3de06bd79f650, type: 2}
-  controller: {fileID: 0}
 --- !u!114 &114417824484577140
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1238068019863090}
@@ -2720,9 +2720,7 @@ MonoBehaviour:
   turnSmoothTime: 0.05
   speedSmoothTime: 0
   cameraTrans: {fileID: 0}
-  animators: []
-  onFiretimer: 1
-  onFireEffect: {fileID: 1892146819469740}
+  animator: {fileID: 0}
 --- !u!136 &136949587108373350
 CapsuleCollider:
   m_ObjectHideFlags: 1
