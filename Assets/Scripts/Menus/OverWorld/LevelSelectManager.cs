@@ -11,17 +11,16 @@ public class LevelSelectManager : MonoBehaviour
         switch (OverworldManager.instance.level)
         {
             case OverworldManager.Level.Level1:
-                scene = "CopyOfMainMAp";
+                scene = "ZachShipTest";
                 break;
             case OverworldManager.Level.Level2:
-                scene = "BetaMichaelTest";
+                scene = "Ship_Level_1";
                 break;
             case OverworldManager.Level.Level3:
-                scene = "NewMichaelTest";
+                scene = "BetaMichaelTest";
                 break;
         }
 
         SceneFader.instance.FadeTo(scene);
     }
 }
-//FUUUUUUUUUUUCK
