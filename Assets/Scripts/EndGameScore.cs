@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndGameScore : MonoBehaviour {
+public class EndGameScore : MonoBehaviour
+{
 
     public static EndGameScore instance;
-    [Space][Header("Totals")]
+    [Space]
+    [Header("Totals")]
     public int finalScore;
     public int bonusScores;
     #region individual component ints
 
-    [Space][Header("Individual components")][Tooltip("These populate automaticly")]
+    [Space]
+    [Header("Individual components")]
+    [Tooltip("These populate automaticly")]
     [SerializeField]
     int bottles = 0;
     [SerializeField]
@@ -44,7 +48,7 @@ public class EndGameScore : MonoBehaviour {
     public void AddBottleScore(int score)
     {
         bottles += score;
-       
+
     }
     public void AddInsertedFlorp(int score)
     {
@@ -53,7 +57,7 @@ public class EndGameScore : MonoBehaviour {
     public void FixedPipes(int score)
     {
         pipesFixed += score;
-    } 
+    }
     public void FirePutOut(int score)
     {
         firesPutOut += score;

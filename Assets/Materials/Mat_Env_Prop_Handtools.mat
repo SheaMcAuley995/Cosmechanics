@@ -8,8 +8,8 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: Mat_Env_Prop_Handtools
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _EMISSION _METALLICGLOSSMAP
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _METALLICGLOSSMAP
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -34,24 +34,16 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _Diffuse:
-        m_Texture: {fileID: 2800000, guid: 376089cbdf1771348a265e83d5dafc50, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 0f31b9e4cb3d0a546aff8367741dd9ea, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 376089cbdf1771348a265e83d5dafc50, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9d68a2357b3943340925aa575acf74fe, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: f748540d7848d7a42b9a22e8bd80b259, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Normals:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 4ce37f803def10840bd52b91ccfc62b7, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -63,12 +55,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Bands: 3
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Gloss: 0.4511278
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,7 +71,6 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
-    - _outlinewidth: 0
     m_Colors:
-    - _Color: {r: 0.3962264, g: 0.3943574, b: 0.3943574, a: 1}
-    - _EmissionColor: {r: 1.2311444, g: 1.2311444, b: 1.2311444, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

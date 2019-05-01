@@ -67,10 +67,11 @@ public class AudioEventManager : MonoBehaviour {
             return;
         }
         s.source.volume = volume;
+        s.source.Play();
     }
     private void Start()
     {
-        PlaySound("Theme",.9f,1,0);
+        PlaySound("Theme");
         PlaySound("Ambient", .8f);        
     }
     

@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,12 +17,13 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         point = dispensePoint.position;
     }
 
-    public void InteractWith(){
+    public void InteractWith()
+    {
         dump = true;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if(interactedFlorp != null)
+        if (interactedFlorp != null)
         {
             interactedFlorp = other.GetComponent<Florp>();
             interactedFlorp.doFill = true;
@@ -40,22 +40,47 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     private void DoDump()
     {
         if (dump)
-        {       
+        {
             GameObject part = Instantiate(particle, point, Quaternion.identity);
             part.GetComponent<ParticleSystem>().Play();
-            AudioEventManager.instance.PlaySound("splat",.8f,.8f,0);
+            AudioEventManager.instance.PlaySound("splat", .8f, .8f, 0);
             dump = false;
         }
     }
 
-    //void OnTriggerExit(Collider other)
-    //{
-    //    if(interactedFlorp.GetComponent<GameObject>() == other.GetComponent<GameObject>())
-    //    {
-    //        dump = false;
-    //        interactedFlorp.doFill = false;
-    //        interactedFlorp = null;
-    //    }
-    //}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+//public GameObject florpPrefab;
+//public static FlorpDespenser instance;
+//public Transform florpEjection;
+//[SerializeField]private float lerpTime = 1f;
+
+//public float speed = 20f;
+//GameObject dispensedFlorp;
+
+//public void InteractWith()
+//{ 
+//       GiveFlorp();   
+
+//}
+
+
+//private void GiveFlorp()
+//{
+
+//    dispensedFlorp = Instantiate(florpPrefab, florpEjection.position + new Vector3(0,2,0), Quaternion.identity);
+//    AudioEventManager.instance.PlaySound("splat", .3f, Random.Range(.9f, 1f), 0);
+
+
+//}

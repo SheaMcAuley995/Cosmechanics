@@ -48,6 +48,7 @@ public class Engine : MonoBehaviour {
 
     public void Update()
     {
+        
         engineHeat -= Time.deltaTime * engineCoolingAmount;
         
         if(testInputFlorp)
