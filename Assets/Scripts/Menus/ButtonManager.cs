@@ -33,7 +33,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to current scene
     public void RetryLevel()
     {
-        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name.ToString());
     }
 
     // Fades to character selection
