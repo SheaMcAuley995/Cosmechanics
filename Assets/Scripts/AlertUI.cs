@@ -15,8 +15,8 @@ public class AlertUI : MonoBehaviour {
     private float startingScaley;
     AlarmStatus alarmStatus;
 
-     public float problemCurrent;
-     public float problemMax;
+    [HideInInspector] public float problemCurrent;
+    [HideInInspector] public float problemMax;
     public AnimationCurve curve;
 
     void Start()
