@@ -96,8 +96,8 @@ public class ButtonSelectionManager : MonoBehaviour
                 lastSelectedButton = overworldButtons.Count - 1;
             }
 
-            lastAnimator = overworldButtons[lastSelectedButton].GetComponent<Animator>();
-            animator = overworldButtons[selectedButtonIndex].GetComponent<Animator>();
+            //lastAnimator = overworldButtons[lastSelectedButton].GetComponent<Animator>();
+            //animator = overworldButtons[selectedButtonIndex].GetComponent<Animator>();
         }
         else if (inWinScreen)
         {

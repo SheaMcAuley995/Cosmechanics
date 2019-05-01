@@ -8,7 +8,7 @@ public class PlayerSetter : MonoBehaviour
     
 	IEnumerator Start ()
     {
-        yield return null;
+        yield return new WaitForSeconds(0.2f);
         players = FindObjectsOfType<PlayerController>();
         CameraMultiTarget example = FindObjectOfType<CameraMultiTarget>();
         var targets = new List<GameObject>(players.Length);
@@ -30,8 +30,8 @@ public class PlayerSetter : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].transform.localScale = new Vector3(1f, 1f, 1f);
-            players[i].walkSpeed = 5.5f;
-            players[i].runSpeed = 5.5f;
+            players[i].walkSpeed = 6;
+            players[i].runSpeed = 6;
             players[i].turnSmoothTime = 0.05f;
         }
 	}
