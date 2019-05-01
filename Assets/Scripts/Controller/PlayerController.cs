@@ -1,32 +1,42 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Rewired;
 
-public class PlayerController : MonoBehaviour {
 
-    //Call this delegate to change the interaction depending on the item in the player's hands.
+public class PlayerController : MonoBehaviour
+{
+
+
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
 
-    /// <summary>
-    /// I need you to make a function that will change what is happening in this delegate. An example would be that if you pick up a broom then your current interaction
-    /// is to sweep. So do all the functions you need to do in this delegate. I may have actually made two delegates for the same thing on accident I don't know.
-    /// </summary>
     public delegate void Interactions();
     public Interactions myInteractions;
 
     //Rewired ID
     public int playerId = 0;
-    private Player player;
+    [HideInInspector] public Player player;
 
-    private Vector2 movementVector;
+    [HideInInspector] public Vector2 movementVector;
     private Vector2 movementDir;
-    private bool Interact;
-    private bool sprint;
-    CharacterController cc;
+    [HideInInspector] public bool Interact;
+    [HideInInspector] public bool sprint;
+    [HideInInspector] public bool bumper;
+    [HideInInspector] public bool pauseButton;
 
-    bool pickUp = false;
+    [HideInInspector] public Vector2 selectModel;
+    [HideInInspector] public bool selectCrime;
+    [HideInInspector] public bool previousCrime;
+    [HideInInspector] public bool selectColourRight;
+    [HideInInspector] public bool selectColourLeft;
+    [HideInInspector] public bool readyUp;
+    [HideInInspector] public bool cancel;
+    CharacterController cc;
+    public bool normalMovement = true;
+
+    [HideInInspector] public bool pickUp = false;
     public Transform pickUpTransform;
 
     // preReWired scripts
@@ -46,30 +56,66 @@ public class PlayerController : MonoBehaviour {
     public Transform cameraTrans;
 
     Rigidbody rb;
-    Interact interact;
+    InteractWithInterface interact;
+    public Animator[] animators;
 
+    GameObject interactedObject;
+    public float onFiretimer;
+    public float onFireTimerCur;
+    public GameObject onFireEffect;
+    private bool onFire;
 
     private void Start()
     {
+        onFireTimerCur = onFiretimer;
+        animators = GetComponentsInChildren<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
-        interact = GetComponentInChildren<Interact>();
+        interact = GetComponentInChildren<InteractWithInterface>();
+        interact.controller = this;
     }
 
-    void Update () {
+    void Update()
+    {
         getInput();
         ProcessInput();
+        onFireCheck();
+        onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
 
-    private void getInput()
+    public void getInput()
     {
-        movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
-        movementVector.y = player.GetAxisRaw("Move Vertical");
+        #region Main Game Input
+        // Normal axis when player is not on fire
+        if (normalMovement)
+        {
+            movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Vertical");
+        }
+        // Flipped axis when a player is on fire
+        else
+        {
+            movementVector.x = player.GetAxisRaw("Move Vertical"); // get input by name or action id
+            movementVector.y = player.GetAxisRaw("Move Horizontal");
+        }
         movementDir = movementVector.normalized;
         Interact = player.GetButtonDown("Interact");
         sprint = player.GetButton("Sprint");
+        pickUp = player.GetButtonDown("PickUp");
+        bumper = player.GetButtonDown("Bumper");
+        pauseButton = player.GetButtonDown("Pause");
+        #endregion
 
+        #region Char Select Input
+        selectModel.x = player.GetAxisRaw("ModelSelect");
+        selectCrime = player.GetButtonDown("SelectCrime");
+        previousCrime = player.GetButtonDown("PrevCrime");
+        selectColourRight = player.GetButtonDown("ColourSelectRight");
+        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
+        readyUp = player.GetButtonDown("ReadyUp");
+        cancel = player.GetButtonDown("Cancel");
+        #endregion
     }
 
     private void ProcessInput()
@@ -88,10 +134,19 @@ public class PlayerController : MonoBehaviour {
 
         if (Interact)
         {
-            interact.InteractWith();
+            interact.InteractWithObject();
             Interaction();
         }
-        
+
+        if(pickUp)
+        {
+            interact.pickUpObject();
+            animators[0].SetBool("ButtonPress", true);
+            animators[1].SetBool("ButtonPress", true);
+            animators[0].SetBool("ButtonPress", false);
+            animators[1].SetBool("ButtonPress", false);
+        }
+
     }
     public void pickUpInteraction()
     {
@@ -101,7 +156,7 @@ public class PlayerController : MonoBehaviour {
     {
         if (interact.interactableObject != null)
         {
-            if(myInteractions == null)
+            if (myInteractions == null)
             {
                 if (myCurrentInteraction == null)
                 {
@@ -116,17 +171,17 @@ public class PlayerController : MonoBehaviour {
                     interact.callInteract();
                 }
             }
-            else if(myInteractions != null)
+            else if (myInteractions != null)
             {
                 myInteractions();
                 Debug.Log("Running " + myInteractions);
             }
-            
-            
+
+
         }
         else if (interact.interactableObject == null)
         {
-            if(myCurrentInteraction != null)
+            if (myCurrentInteraction != null)
             {
                 myCurrentInteraction = null;
             }
@@ -135,20 +190,71 @@ public class PlayerController : MonoBehaviour {
 
     void Move(Vector2 inputDir, bool running)
     {
-
-        if (inputDir != Vector2.zero)
+        if(!onFire)
         {
-            float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
-            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            animators[0].SetBool("OnFire", false);
+            animators[1].SetBool("OnFire", false);
+            if (inputDir != Vector2.zero)
+            {
+                float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            }
+
+            float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+            if (targetSpeed > 0)
+            {
+                animators[0].SetBool("Move", true);
+                animators[1].SetBool("Move", true);
+            }
+            else
+            {
+                animators[0].SetBool("Move", false);
+                animators[1].SetBool("Move", false);
+            }
+
         }
-        
-        float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
-        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+
+
+
+
+        if (onFire)
+        {
+            animators[0].SetBool("OnFire", true);
+            animators[1].SetBool("OnFire", true);
+            onFireEffect.SetActive(true);
+
+            if (inputDir != Vector2.zero)
+            {
+                float targetRotation = (Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y);
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+            }
+
+            float targetSpeed = walkSpeed;
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+        }
+        else
+        {
+            onFireEffect.SetActive(false);
+        }
+
 
 
         rb.velocity = transform.forward * currentSpeed;
 
     }
 
+    public void onFireCheck()
+    {
+        if (onFireTimerCur < onFiretimer / 2)
+        {
+            onFire = true;
+        }
+        else
+        {
+            onFire = false;
+        }
+    }
 
 }
