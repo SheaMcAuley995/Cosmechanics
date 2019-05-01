@@ -72,7 +72,7 @@ public class AudioEventManager : MonoBehaviour {
     private void Start()
     {
         PlaySound("Theme");
-        PlaySound("Ambient", .8f,1,0);        
+        PlaySound("Ambient", .8f);        
     }
     
 

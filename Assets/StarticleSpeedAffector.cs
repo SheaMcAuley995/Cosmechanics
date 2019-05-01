@@ -10,13 +10,13 @@ public class StarticleSpeedAffector : MonoBehaviour {
     private void Start()
     {
         starticle = GetComponent<ParticleSystem>();
-      
+     
     }
     private void Update()
     {
         var main = starticle.main;
-        main.simulationSpeed
-            = (Engine.instance.engineHeat/Engine.instance.maxHeat) * particleSpeed;
+        main.simulationSpeed = (Engine.instance.engineHeat / Engine.instance.maxHeat) * particleSpeed;
+
     }
 
 }
