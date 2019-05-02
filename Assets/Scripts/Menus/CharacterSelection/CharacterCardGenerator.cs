@@ -374,7 +374,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousModel(int playerId)
     {
-        if (timesGoneBackHead == previousNames.Count - 1)
+        if (timesGoneBackHead == previousNames.Count)
         {
             timesGoneBackHead = 0;
         }
@@ -433,7 +433,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // Cycles through the materials instead of generating them randomly
         lastMat++;
-        if (lastMat >= materialList.Count - 1)
+        if (lastMat >= materialList.Count)
         {
             lastMat = 0;
         }
@@ -441,7 +441,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousColour()
     {
-        if (timesGoneBackColour == previousNames.Count - 1)
+        if (timesGoneBackColour == previousNames.Count)
         {
             timesGoneBackColour = 0;
         }
@@ -484,7 +484,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousCrime()
     {
-        if (timesGoneBackCrime == previousNames.Count - 1)
+        if (timesGoneBackCrime == previousNames.Count)
         {
             timesGoneBackCrime = 0;
         }
