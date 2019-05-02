@@ -11,6 +11,7 @@ public class SceneFader : MonoBehaviour
     [Header("Scene Transition Setup")]
     public Image image;
     public AnimationCurve curve;
+    public float sceneFadeTime = 1f;
 
     void Awake()
     {
@@ -43,7 +44,7 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        float t = 1f;
+        float t = sceneFadeTime;
 
         while (t > 0f)
         {
@@ -58,7 +59,7 @@ public class SceneFader : MonoBehaviour
     {
         float t = 0f;
 
-        while (t < 1f)
+        while (t < sceneFadeTime)
         {
             t += Time.deltaTime;
             float a = curve.Evaluate(t);
@@ -73,7 +74,7 @@ public class SceneFader : MonoBehaviour
     {
         float t = 0f;
 
-        while (t < 1f)
+        while (t < sceneFadeTime)
         {
             t += Time.deltaTime;
             float a = curve.Evaluate(t);
