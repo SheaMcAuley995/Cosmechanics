@@ -109,6 +109,7 @@ public class OverworldManager : MonoBehaviour
     {       
         GetInput(); // Checks for input to select a level
         CheckIfOrbiting(); // Checks if the ship is supposed to be orbiting
+        selectedPlanet();
     }
 
     // See Update() for explanation
@@ -124,6 +125,21 @@ public class OverworldManager : MonoBehaviour
     void OrbitShip(Vector3 dir)
     {
         shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
+    }
+
+    void selectedPlanet()
+    {
+        for(int i = 0; i < levelObjects.Length; i++)
+        {
+            if(i == selectedLevel - 1)
+            {
+                levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            }
+        }
     }
 
     // See Update() for explanation
