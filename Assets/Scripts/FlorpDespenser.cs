@@ -5,22 +5,25 @@ using UnityEngine;
 
 public class FlorpDespenser : MonoBehaviour , IInteractable {
 
+    Florp interactedFlorp;
     public GameObject particle;
     public Transform dispensePoint;
     Vector3 point;
-    bool dump;
+    [SerializeField]
+    bool dump = false;
     private void Start()
     {
         dump = false;
         point = dispensePoint.position;
     }
 
-    public void InteractWith(){
+    public void InteractWith()
+    {
         dump = true;
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Florp>() != null)
+        if (interactedFlorp != null)
         {
             interactedFlorp = other.GetComponent<Florp>();
             interactedFlorp.doFill = true;
@@ -33,19 +36,14 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         else { dump = false; }
         dump = false;
     }
-    void OnTriggerExit()
-    {
-        dump = false;
-        
-    }
-    
-    private void Update()
+
+    private void DoDump()
     {
         if (dump)
         {
             GameObject part = Instantiate(particle, point, Quaternion.identity);
             part.GetComponent<ParticleSystem>().Play();
-            AudioEventManager.instance.PlaySound("splat",.8f,.8f,0);
+            AudioEventManager.instance.PlaySound("splat", .8f, .8f, 0);
             dump = false;
         }
     }

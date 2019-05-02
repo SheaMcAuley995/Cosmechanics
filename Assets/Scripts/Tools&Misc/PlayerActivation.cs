@@ -7,7 +7,7 @@ public class PlayerActivation : MonoBehaviour
 {
     public static PlayerActivation instance = null;
 
-    public PlayerController[] chosenCharacters;
+    public SelectedPlayer[] chosenCharacters;
 
     #region Singleton
     void Awake ()
@@ -27,7 +27,7 @@ public class PlayerActivation : MonoBehaviour
 
     public void ContinueToGame()
     {
-        chosenCharacters = GameObject.FindObjectsOfType<PlayerController>();
+        chosenCharacters = FindObjectsOfType<SelectedPlayer>();
 
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {

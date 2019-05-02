@@ -64,11 +64,13 @@ public class OverworldManager : MonoBehaviour
     [Header("Orbit Settings")]
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
+    [SerializeField] Vector3 orbitOffset = new Vector3(15f, 0f, 10f);
     Vector3 direction = -Vector3.up; // The direction in which the ship orbits
 
     // These should be fairly self-explanatory 
     bool moving, orbiting;
     bool ableToLaunch;
+    bool selecting;
 
 
     #region Singleton
@@ -108,6 +110,7 @@ public class OverworldManager : MonoBehaviour
     {       
         GetInput(); // Checks for input to select a level
         CheckIfOrbiting(); // Checks if the ship is supposed to be orbiting
+        selectedPlanet();
     }
 
     // See Update() for explanation
@@ -125,6 +128,21 @@ public class OverworldManager : MonoBehaviour
         shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
     }
 
+    void selectedPlanet()
+    {
+        for(int i = 0; i < levelObjects.Length; i++)
+        {
+            if(i == selectedLevel - 1)
+            {
+                levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+            }
+            else
+            {
+                levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            }
+        }
+    }
+
     // See Update() for explanation
     void GetInput()
     {
@@ -134,29 +152,17 @@ public class OverworldManager : MonoBehaviour
             player.getInput(); // Checks for input from each player's PlayerController script
 
             // Selection input
-            if (player.pickUp && !ableToLaunch)
+            if (player.pickUp && !ableToLaunch && !selecting)
             {
+                selecting = true;
+                StartCoroutine(SelectionDelay());
+
                 // Opens the mission panel UI
                 SelectLevel();
             }
-            else if (player.pickUp && ableToLaunch)
-            {
-                // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                if (data.launchButton.interactable)
-                {
-                    data.launchButton.onClick.Invoke();
-                }
-            }
-
-            // Cancelation input
-            if (player.sprint)
-            {
-                // Clicks the "CANCEL" button on the mission panel (cancels selection)
-                data.cancelButton.onClick.Invoke();
-            }
 
             // Directional movement input (RIGHT)
-            if (player.movementVector.x > 0 && !moving)
+            if (player.movementVector.x > 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
@@ -187,7 +193,7 @@ public class OverworldManager : MonoBehaviour
             }
 
             // Directional movement input (LEFT)
-            if (player.movementVector.x < 0 && !moving)
+            if (player.movementVector.x < 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
@@ -272,7 +278,7 @@ public class OverworldManager : MonoBehaviour
 
         // Gets the ship's current position and orbit position of the next level
         shipPos = shipTransform.position;
-        shipDest = orbitPositions[selectedLevel - 1].transform.position;
+        shipDest = levelObjects[selectedLevel - 1].transform.position + orbitOffset;
 
         // Starts the moving animation
         StartCoroutine(WaitAndMove());
@@ -299,5 +305,12 @@ public class OverworldManager : MonoBehaviour
     void ApplyText()
     {
         levelSelectedText.text = "Level " + selectedLevel.ToString();
+    }
+
+    IEnumerator SelectionDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        selecting = false;
+        yield return null;
     }
 }
