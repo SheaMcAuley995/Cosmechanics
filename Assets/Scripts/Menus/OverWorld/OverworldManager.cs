@@ -64,6 +64,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Orbit Settings")]
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
+    [SerializeField] Vector3 orbitOffset = new Vector3(15f, 0f, 10f);
     Vector3 direction = -Vector3.up; // The direction in which the ship orbits
 
     // These should be fairly self-explanatory 
@@ -277,7 +278,7 @@ public class OverworldManager : MonoBehaviour
 
         // Gets the ship's current position and orbit position of the next level
         shipPos = shipTransform.position;
-        shipDest = orbitPositions[selectedLevel - 1].transform.position;
+        shipDest = levelObjects[selectedLevel - 1].transform.position + orbitOffset;
 
         // Starts the moving animation
         StartCoroutine(WaitAndMove());
