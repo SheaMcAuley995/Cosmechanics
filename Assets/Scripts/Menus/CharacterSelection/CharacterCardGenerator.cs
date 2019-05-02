@@ -221,6 +221,7 @@ public class CharacterCardGenerator : MonoBehaviour
         newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
         newPlayer.AddComponent<SelectedPlayer>();
         childHeads = newPlayer.GetComponentsInChildren<Head>();
+
         for (int i = 0; i < childHeads.Length; i++)
         {
             headsList.Add(childHeads[i].gameObject);
