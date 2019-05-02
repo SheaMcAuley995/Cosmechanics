@@ -59,7 +59,7 @@ public class CharacterCardGenerator : MonoBehaviour
     List<int> previousSentences = new List<int>();
     List<int> previousMaterials = new List<int>();
 
-    GameObject lastSelectedHead;
+    GameObject lastSelected;
     [HideInInspector] public Vector3 spawnPos;
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
     Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
@@ -198,6 +198,8 @@ public class CharacterCardGenerator : MonoBehaviour
     // Generates a full new prisoner card
     public void GenerateFullCard(int playerId)
     {
+        //Destroy(lastSelected);
+
         // Sets random values for each card parameter
         int headIndex = Random.Range(0, 2);
         int nameIndex = Random.Range(0, namesList.Count);
@@ -250,7 +252,7 @@ public class CharacterCardGenerator : MonoBehaviour
             locator.color = materialList[materialIndex].color;
         }
 
-        lastSelectedHead = newPlayer.gameObject;
+        lastSelected = newPlayer.gameObject;
 
         // Assigns newly created characters a playerId for ReWired
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
@@ -297,7 +299,7 @@ public class CharacterCardGenerator : MonoBehaviour
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
-            if (child.gameObject.layer != 16)
+            if (child.gameObject.CompareTag("Head"))
             {
                 child.material = materialList[materialIndex];
             }
@@ -309,7 +311,7 @@ public class CharacterCardGenerator : MonoBehaviour
             locator.color = materialList[materialIndex].color;
         }
 
-        lastSelectedHead = newPlayer.gameObject;
+        lastSelected = newPlayer.gameObject;
         timesGoneBack++;
 
         // Assigns newly created characters a playerId for ReWired
@@ -345,7 +347,7 @@ public class CharacterCardGenerator : MonoBehaviour
         }
         headsList[headIndex].SetActive(true);
 
-        lastSelectedHead = headsList[headIndex].gameObject;
+        lastSelected = headsList[headIndex].gameObject;
 
         // Cycles through the heads instead of generating them randomly
         lastHead++;

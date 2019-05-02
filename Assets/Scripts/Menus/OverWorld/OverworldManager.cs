@@ -159,30 +159,9 @@ public class OverworldManager : MonoBehaviour
                 // Opens the mission panel UI
                 SelectLevel();
             }
-            else if (player.pickUp && ableToLaunch && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                if (data.launchButton.interactable)
-                {
-                    data.launchButton.onClick.Invoke();
-                }
-            }
-
-            // Cancelation input
-            if (player.sprint && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "CANCEL" button on the mission panel (cancels selection)
-                data.cancelButton.onClick.Invoke();
-            }
 
             // Directional movement input (RIGHT)
-            if (player.movementVector.x > 0 && !moving)
+            if (player.movementVector.x > 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
@@ -213,7 +192,7 @@ public class OverworldManager : MonoBehaviour
             }
 
             // Directional movement input (LEFT)
-            if (player.movementVector.x < 0 && !moving)
+            if (player.movementVector.x < 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
