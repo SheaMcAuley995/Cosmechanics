@@ -81,6 +81,7 @@ public class Engine : MonoBehaviour {
     private void StopGame()
     {
         enabled = false;
+        progressionMultiplier = 0;
     }
 
     public void InsertFlorp()
