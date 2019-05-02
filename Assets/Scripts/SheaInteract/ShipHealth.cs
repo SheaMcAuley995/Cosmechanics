@@ -157,6 +157,11 @@ public class ShipHealth : MonoBehaviour {
         Time.timeScale = 0f;
     }
 
+    void StopGame()
+    {
+        shipMaxHealth = int.MaxValue; // hehehehehehe
+    }
+
     private void OnDrawGizmosSelected()
     {
         foreach (AttackLocation attackPosition in possibleAttackPositions)
