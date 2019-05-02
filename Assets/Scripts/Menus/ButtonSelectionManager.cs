@@ -117,8 +117,8 @@ public class ButtonSelectionManager : MonoBehaviour
     {
         if (menuButtons[selectedButtonIndex].interactable && !selecting)
         {
-            selecting = true;
-            StartCoroutine(WaitForNextSelection());
+            //selecting = true;
+            //StartCoroutine(WaitForNextSelection());
 
             menuButtons[selectedButtonIndex].onClick.Invoke();
         }
