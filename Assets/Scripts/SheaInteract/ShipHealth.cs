@@ -158,7 +158,7 @@ public class ShipHealth : MonoBehaviour {
 
     void StopGame()
     {
-        shipMaxHealth = int.MaxValue; // hehehehehehe
+        //shipMaxHealth = int.MaxValue; // hehehehehehe
     }
 
     private void OnDrawGizmosSelected()
