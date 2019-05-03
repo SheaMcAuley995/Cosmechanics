@@ -113,7 +113,6 @@ public class ShipHealth : MonoBehaviour {
         yield return new WaitForSeconds(.5f);     //delay in travel time of laser
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
-        Debug.Log("Calling " + shake.Shake(0.15f, 0.4f));
         StartCoroutine(shake.Shake(0.15f, 0.2f));
         
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
