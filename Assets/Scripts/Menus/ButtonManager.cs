@@ -11,6 +11,8 @@ public class ButtonManager : MonoBehaviour
     // 2 = ZachOverWorld
     // 3 = NewMichaelTest
 
+    SelectedPlayer[] players;
+
     // Fades to character selection
     public void StartGame()
     {
@@ -27,13 +29,23 @@ public class ButtonManager : MonoBehaviour
     //Fades to main menu
     public void ReturnToMenu()
     {
+        players = FindObjectsOfType<SelectedPlayer>();
+
         SceneFader.instance.FadeTo("MainMenu_Update");
+        Time.timeScale = 1f;
+
+        foreach (SelectedPlayer player in players)
+        {
+            player.gameObject.AddComponent<CharToDestroy>();
+            Destroy(player);
+        }
     }
 
     // Fades to current scene
     public void RetryLevel()
     {
         SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name.ToString());
+        Time.timeScale = 1f;
     }
 
     // Fades to character selection
