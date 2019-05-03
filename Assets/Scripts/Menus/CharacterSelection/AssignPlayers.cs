@@ -163,17 +163,24 @@ public class AssignPlayers : MonoBehaviour
                     }
                 }
 
-                if (halfReady && !countingDown)
+                //if (halfReady && !countingDown)
+                //{
+                //    countdownToStartText.enabled = true;
+                //    time = 10f;
+                //    countdown = StartCoroutine(CountdownToGame());
+                //}
+
+                if (allReady && !countingDown)
                 {
                     countdownToStartText.enabled = true;
-                    time = 10f;
+                    time = 4f;
                     countdown = StartCoroutine(CountdownToGame());
                 }
 
-                if (allReady && countingDown)
-                {
-                    time = 3f;
-                }
+                //if (allReady && countingDown)
+                //{
+                //    time = 3f;
+                //}
             }
 
             // Player presses B - reverts character status to previous state
