@@ -71,6 +71,7 @@ public class CharacterCardGenerator : MonoBehaviour
     Head[] childHeads;
     GameObject newPlayer;
     Renderer[] children;
+    Animator animator;
 
     public TextMeshProUGUI joinText;
     public Image joinImage;
@@ -226,6 +227,7 @@ public class CharacterCardGenerator : MonoBehaviour
         newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
         newPlayer.AddComponent<SelectedPlayer>();
         childHeads = newPlayer.GetComponentsInChildren<Head>();
+        animator = newPlayer.GetComponent<Animator>();
 
         for (int i = 0; i < childHeads.Length; i++)
         {
@@ -349,6 +351,7 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.Play("Idle", -1, 0);
 
         lastSelected = headsList[headIndex].gameObject;
 

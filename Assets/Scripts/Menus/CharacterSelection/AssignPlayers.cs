@@ -123,17 +123,17 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].GeneratePreviousColour();
             }
 
-            // Player presses left action button - selects a new crime / sentence if that setting is enabled
-            if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].GenerateCrime();
-            }
+            //// Player presses left action button - selects a new crime / sentence if that setting is enabled
+            //if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            //{
+            //    cards[controller.playerId].GenerateCrime();
+            //}
 
-            // Player presses top action button - selects the previous crime / sentence if that setting is enabled
-            if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].GeneratePreviousCrime();
-            }
+            //// Player presses top action button - selects the previous crime / sentence if that setting is enabled
+            //if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            //{
+            //    cards[controller.playerId].GeneratePreviousCrime();
+            //}
 
             // Player presses A - advances character status to READY
             if (controller.readyUp && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
