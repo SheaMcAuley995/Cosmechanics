@@ -7,7 +7,7 @@ public class ButtonManager : MonoBehaviour
 {
     // BUILD INDEX KEY:
     // 0 = MainMenu_Updated
-    // 1 = CharacterSelection
+    // 1 = CharacterSelection_Update
     // 2 = ZachOverWorld
     // 3 = BetaMichaelTest
     // 4 = Ship_Level_1Final
@@ -18,7 +18,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to character selection
     public void StartGame()
     {
-        SceneFader.instance.FadeTo("CharacterSelection");
+        SceneFader.instance.FadeTo("CharacterSelection_Update");
     }
 
     // Fades to quit

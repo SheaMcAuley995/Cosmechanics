@@ -8,10 +8,10 @@ using TMPro;
 public struct CharacterData
 {
     /// Display fields on the character card
-    public TextMeshProUGUI nameField, crimeField, sentenceField;
+    public Text nameField, crimeField, sentenceField;
 
     /// Constructor for creating new character cards
-    public CharacterData(TextMeshProUGUI _nameField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
+    public CharacterData(Text _nameField, Text _crimeField, Text _sentenceField)
     {
         nameField = _nameField;
         crimeField = _crimeField;
@@ -73,7 +73,7 @@ public class CharacterCardGenerator : MonoBehaviour
     Renderer[] children;
     Animator animator;
 
-    public TextMeshProUGUI joinText;
+    public Text joinText;
     public Image joinImage;
 
     /// Random selection variables
@@ -103,7 +103,7 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Names
-        /// 90 names added to the list using the ListExtension class
+        /// 91 names added to the list using the ListExtension class
         namesList.AddMany("Wroelk", "Gaohq", "Eisk", "Brozzyhm", "Struets",
             "Kruazek", "Strouerq", "Couz'lp", "Pheoblepsua", "Effyls",
             "Klecl", "Globbens", "Marohne", "Poesoth", "Treoffmm", "Knoziet",
@@ -119,7 +119,7 @@ public class CharacterCardGenerator : MonoBehaviour
             "Vrauxxt", "Em", "Kriwrk", "Yk'lp", "Duttesk", "Wauqrhm", "Qleir'lt",
             "Qlats", "Plaem", "Uaclohs", "Ecle", "Nuama", "Faep", "Aloulmie",
             "Gnohnartue", "Prypihl", "Zythylph", "Buodhael", "Sukmilz", "Buylsyd",
-            "Mith'ob Omega Supreme", "Corwaldron", "Zoriel", "EchoZoolu");
+            "Mith'ob Omega Supreme", "Corwaldron", "Zoriel", "EchoZoolu", "MimsyWinters");
         #endregion
 
         #region Crimes
@@ -158,7 +158,7 @@ public class CharacterCardGenerator : MonoBehaviour
         sentencesList.AddMany("1e+08 quantum galactic cycles cleaning the Aether",
             "500 years in the spice mines of Druffel", "Food for the broodmother",
             "Community service", "Rehabilitation classes", "Extra math homework",
-            "Fined 25 million aliencoin", "Infinite existence in a cyclical time loop",
+            "Fined 25 million spacecoin", "Infinite existence in a cyclical time loop",
             "Doesn't have to go home, but they can't stay here",
             "Handcuffed to their clone",
             "To be exposed to a vacuum for approximately 3.4111111176 seconds",
@@ -377,7 +377,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousModel(int playerId)
     {
-        if (timesGoneBackHead == previousNames.Count)
+        if (timesGoneBackHead >= previousNames.Count)
         {
             timesGoneBackHead = 0;
         }
@@ -395,6 +395,7 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.Play("Idle", -1, 0);
 
         timesGoneBackHead++;
 
