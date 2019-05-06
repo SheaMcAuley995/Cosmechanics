@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class AssignPlayers : MonoBehaviour
@@ -9,7 +10,7 @@ public class AssignPlayers : MonoBehaviour
     public GameObject[] characterCards;
     public CharacterCardGenerator[] cards;
     public JoinGame[] joinedStatus;
-    public TextMeshProUGUI countdownToStartText;
+    public Text countdownToStartText;
 
     public PlayerController[] playerControllers;
     int currentPlayerId = 0;
@@ -163,17 +164,24 @@ public class AssignPlayers : MonoBehaviour
                     }
                 }
 
-                if (halfReady && !countingDown)
+                //if (halfReady && !countingDown)
+                //{
+                //    countdownToStartText.enabled = true;
+                //    time = 10f;
+                //    countdown = StartCoroutine(CountdownToGame());
+                //}
+
+                if (allReady && !countingDown)
                 {
                     countdownToStartText.enabled = true;
-                    time = 10f;
+                    time = 4f;
                     countdown = StartCoroutine(CountdownToGame());
                 }
 
-                if (allReady && countingDown)
-                {
-                    time = 3f;
-                }
+                //if (allReady && countingDown)
+                //{
+                //    time = 3f;
+                //}
             }
 
             // Player presses B - reverts character status to previous state
