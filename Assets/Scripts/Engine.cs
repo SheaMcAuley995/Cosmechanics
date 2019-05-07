@@ -38,7 +38,6 @@ public class Engine : MonoBehaviour {
     }
     public void Start()
     {
-        winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
         currentProgress = winConditionLimit / 10;
         alertUI.problemMax = maxHeat;
