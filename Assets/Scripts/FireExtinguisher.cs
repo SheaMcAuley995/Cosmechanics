@@ -11,7 +11,8 @@ public class FireExtinguisher : MonoBehaviour
 
     private void Start()
     {
-        box = GetComponent<BoxCollider>();    
+        box = GetComponentInChildren<BoxCollider>();
+        box.enabled = false;
     }
 
     public void Update()

@@ -64,6 +64,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Orbit Settings")]
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
+    [SerializeField] Vector3 orbitOffset = new Vector3(15f, 0f, 10f);
     Vector3 direction = -Vector3.up; // The direction in which the ship orbits
 
     // These should be fairly self-explanatory 
@@ -159,30 +160,9 @@ public class OverworldManager : MonoBehaviour
                 // Opens the mission panel UI
                 SelectLevel();
             }
-            else if (player.pickUp && ableToLaunch && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                if (data.launchButton.interactable)
-                {
-                    data.launchButton.onClick.Invoke();
-                }
-            }
-
-            // Cancelation input
-            if (player.sprint && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "CANCEL" button on the mission panel (cancels selection)
-                data.cancelButton.onClick.Invoke();
-            }
 
             // Directional movement input (RIGHT)
-            if (player.movementVector.x > 0 && !moving)
+            if (player.movementVector.x > 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
@@ -213,7 +193,7 @@ public class OverworldManager : MonoBehaviour
             }
 
             // Directional movement input (LEFT)
-            if (player.movementVector.x < 0 && !moving)
+            if (player.movementVector.x < 0 && !moving && !ableToLaunch)
             {
                 /// SUMMARY: If the player moves to another level, data needs to be updated
                 switch (selectedLevel)
@@ -298,7 +278,7 @@ public class OverworldManager : MonoBehaviour
 
         // Gets the ship's current position and orbit position of the next level
         shipPos = shipTransform.position;
-        shipDest = orbitPositions[selectedLevel - 1].transform.position;
+        shipDest = levelObjects[selectedLevel - 1].transform.position + orbitOffset;
 
         // Starts the moving animation
         StartCoroutine(WaitAndMove());

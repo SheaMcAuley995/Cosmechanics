@@ -29,7 +29,7 @@ public class PlayerSetter : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].transform.localScale = new Vector3(1f, 1f, 1f);
+            //players[i].transform.localScale = new Vector3(1f, 1f, 1f);
             players[i].walkSpeed = 6;
             players[i].runSpeed = 6;
             players[i].turnSmoothTime = 0.05f;

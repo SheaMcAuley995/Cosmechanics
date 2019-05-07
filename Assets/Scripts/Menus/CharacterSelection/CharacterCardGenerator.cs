@@ -8,10 +8,10 @@ using TMPro;
 public struct CharacterData
 {
     /// Display fields on the character card
-    public TextMeshProUGUI nameField, crimeField, sentenceField;
+    public Text nameField, crimeField, sentenceField;
 
     /// Constructor for creating new character cards
-    public CharacterData(TextMeshProUGUI _nameField, TextMeshProUGUI _crimeField, TextMeshProUGUI _sentenceField)
+    public CharacterData(Text _nameField, Text _crimeField, Text _sentenceField)
     {
         nameField = _nameField;
         crimeField = _crimeField;
@@ -53,13 +53,15 @@ public class CharacterCardGenerator : MonoBehaviour
     List<GameObject> headsList = new List<GameObject>();
     List<Material> materialList = new List<Material>();
 
+    List<string> questionables = new List<string>();
+
     List<int> previousHeads = new List<int>();
     List<int> previousNames = new List<int>();
     List<int> previousCrimes = new List<int>();
     List<int> previousSentences = new List<int>();
     List<int> previousMaterials = new List<int>();
 
-    GameObject lastSelectedHead;
+    GameObject lastSelected;
     [HideInInspector] public Vector3 spawnPos;
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
     Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
@@ -69,8 +71,9 @@ public class CharacterCardGenerator : MonoBehaviour
     Head[] childHeads;
     GameObject newPlayer;
     Renderer[] children;
+    Animator animator;
 
-    public TextMeshProUGUI joinText;
+    public Text joinText;
     public Image joinImage;
 
     /// Random selection variables
@@ -100,7 +103,7 @@ public class CharacterCardGenerator : MonoBehaviour
         #endregion
 
         #region Names
-        /// 90 names added to the list using the ListExtension class
+        /// 91 names added to the list using the ListExtension class
         namesList.AddMany("Wroelk", "Gaohq", "Eisk", "Brozzyhm", "Struets",
             "Kruazek", "Strouerq", "Couz'lp", "Pheoblepsua", "Effyls",
             "Klecl", "Globbens", "Marohne", "Poesoth", "Treoffmm", "Knoziet",
@@ -116,14 +119,14 @@ public class CharacterCardGenerator : MonoBehaviour
             "Vrauxxt", "Em", "Kriwrk", "Yk'lp", "Duttesk", "Wauqrhm", "Qleir'lt",
             "Qlats", "Plaem", "Uaclohs", "Ecle", "Nuama", "Faep", "Aloulmie",
             "Gnohnartue", "Prypihl", "Zythylph", "Buodhael", "Sukmilz", "Buylsyd",
-            "Mith'ob Omega Supreme", "Corwaldron", "Zoriel", "EchoZoolu");
+            "Mith'ob Omega Supreme", "Corwaldron", "Zoriel", "EchoZoolu", "MimsyWinters");
         #endregion
 
         #region Crimes
-        /// 65 crimes added to the list using the ListExtension class
-        crimesList.AddMany("Astrolarsony", "Public inflorpication", "Space-whale poaching",
+        /// 60 crimes added to the list using the ListExtension class
+        crimesList.AddMany("Astrolarsony", "Space-whale poaching",
             "Not completing a dyson sphere", "Non-consensual evacuation of planets",
-            "Space littering", "Something about opening an airlock in the wrong situation",
+            "Space littering", "Opening an airlock in the wrong situation",
             "Serial cereal eating", "Accelerating the big crunch", "Public dabbing", 
             "Overpaying crewmembers", "Wearing the wrong shoe size", "Lollygagging",
             "Selling florponade without a permit", "Owning too many cats",
@@ -133,53 +136,54 @@ public class CharacterCardGenerator : MonoBehaviour
             "Unsanctioned rapid unscheduled disassembly", "Unlicensed terraforming", "Unsafe hyperlane change", 
             "Calling yourself a space pirate", "Drinking the florp", "Panicking at the disco",
             "Couldn't handle the truth", "Failing to study history... and then repeating it",
-            "Launching a spacecraft out of the solar system with a map to the home planet on it",
             "Failing to provide more cowbell", "Failing to construct additional pylons",
             "Fighting for their right to party", "Star arson", "Crashing the LAN party",
             "Removing the watermark", "Coloring outside the lines", "Sneezing without covering their mouth",
             "Leaving someone on 'read'", "Eating all of the cookies", "Novel reading",
-            "Boring when inflorpicated", "Obsession with anime", "Failing a Turing test while biological",
+            "Failing a Turing test while biological",
             "Feebleness of intellect", "Video game addiction", "Using only 10% of the brain",
-            "Use of imperial units instead of metric", "Piloting under the influence of spice",
+            "Use of imperial units instead of metric",
             "Noise ordinance violation: playing music too loudly in space", "Poor taste in art",
             "Untidy computer desktop", "Timeline destabilization",
             "Desynchronizing the phase cycles of a quantum entanglement tunneler",
-            "Unsanctioned alteration of a moon's orbit", "Possession of florp with intent to redistribute",
+            "Unsanctioned alteration of a moon's orbit", 
             "Hitting all of the buttons on a space elevator",
             "Speeding - going warp 80 in a warp 65 zone", "Public indecency and indecent publicity",
             "Traumatizing a Class 0 Civilization with a fake alien invasion",
-            "Seeing someone sneeze... and not saying 'bless you'", "Florp-juggling without a license",
-            "Article 13 Violation: Posting Memes");
+            "Seeing someone sneeze... and not saying 'bless you'", "Florp-juggling without a license");
         #endregion
 
         #region Sentences
-        /// 35 sentences added to the list using the ListExtension class
+        /// 29 sentences added to the list using the ListExtension class
         sentencesList.AddMany("1e+08 quantum galactic cycles cleaning the Aether",
             "500 years in the spice mines of Druffel", "Food for the broodmother",
             "Community service", "Rehabilitation classes", "Extra math homework",
-            "Fined 25 million aliencoin", "Infinite suffering in a cyclical time loop",
-            "Minus 50 DKP", "Doesn't have to go home, but they can't stay here",
+            "Fined 25 million spacecoin", "Infinite existence in a cyclical time loop",
+            "Doesn't have to go home, but they can't stay here",
             "Handcuffed to their clone",
-            "To be exposed to a vacuum for approximately 20.4111111176 seconds",
+            "To be exposed to a vacuum for approximately 3.4111111176 seconds",
             "THE CLAW", "Something really, really bad", "Has to wear wet socks",
-            "To be used as a test subject", "No wifi",
-            "Has to do the Druffel run in less than 11 parsecs",
+            "No wifi", "Has to do the Druffel run in less than 11 parsecs",
             "Must memorize the SpaceTunes terms and conditions",
             "Internet access restricted to 56k modem",
             "Has to program an operating system entirely in binary",
             "10 years of hard labor as a trash compactor inspector",
-            "To be marooned on a desert planet with two suns and two idiotic droids",
+            "To be marooned on a desert planet with two suns and two troublesome droids",
             "To be used to plug a hole the size of a dinner plate in the airlock",
-            "Must run a barefoot marathon on a path strewn with legos",
-            "Disassembly by nanobots", "Involuntary organ donation",
-            "Brain to be removed from body and inserted into a manufacturing robot",
-            "Body to be donated to science prior to death",
+            "Must run a barefoot marathon on a path strewn with legos",                               
             "Atmospheric reentry without a heat shield",
             "To be replaced by a clone and forced to watch it live out it's life",
             "To have 50% of all good memories removed",
             "Banished to a wretched hive of scum and villainy",
             "To be given laxatives and pushed into space so that their last act will be to boldly go where no one has gone before",
             "To be stranded on an ocean planet near the event horizon of a black hole");
+        #endregion
+
+        #region Questionable Crimes & Sentences
+        questionables.AddMany("Public inflorpication", "Boring when inflorpicated", "Piloting under the influence of spice",
+            "Possession of florp with intent to redistribute", "Minus 50 DKP", "To be used as a test subject", "Involuntary organ donation",
+            "Disassembly by nanobots", "Brain to be removed from body and inserted into a manufacturing robot", 
+            "Body to be donated to science prior to death");
         #endregion
 
         #region Materials
@@ -198,8 +202,10 @@ public class CharacterCardGenerator : MonoBehaviour
     // Generates a full new prisoner card
     public void GenerateFullCard(int playerId)
     {
+        //Destroy(lastSelected);
+
         // Sets random values for each card parameter
-        int headIndex = Random.Range(0, 2);
+        int headIndex = Random.Range(0, 3);
         int nameIndex = Random.Range(0, namesList.Count);
         int crimeIndex = Random.Range(0, crimesList.Count);
         int sentenceIndex = Random.Range(0, sentencesList.Count);
@@ -221,6 +227,7 @@ public class CharacterCardGenerator : MonoBehaviour
         newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
         newPlayer.AddComponent<SelectedPlayer>();
         childHeads = newPlayer.GetComponentsInChildren<Head>();
+        animator = newPlayer.GetComponent<Animator>();
 
         for (int i = 0; i < childHeads.Length; i++)
         {
@@ -250,7 +257,7 @@ public class CharacterCardGenerator : MonoBehaviour
             locator.color = materialList[materialIndex].color;
         }
 
-        lastSelectedHead = newPlayer.gameObject;
+        lastSelected = newPlayer.gameObject;
 
         // Assigns newly created characters a playerId for ReWired
         PlayerController controller = newPlayer.GetComponent<PlayerController>();
@@ -297,7 +304,7 @@ public class CharacterCardGenerator : MonoBehaviour
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
-            if (child.gameObject.layer != 16)
+            if (child.gameObject.CompareTag("Head"))
             {
                 child.material = materialList[materialIndex];
             }
@@ -309,7 +316,7 @@ public class CharacterCardGenerator : MonoBehaviour
             locator.color = materialList[materialIndex].color;
         }
 
-        lastSelectedHead = newPlayer.gameObject;
+        lastSelected = newPlayer.gameObject;
         timesGoneBack++;
 
         // Assigns newly created characters a playerId for ReWired
@@ -344,8 +351,9 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.Play("Idle", -1, 0);
 
-        lastSelectedHead = headsList[headIndex].gameObject;
+        lastSelected = headsList[headIndex].gameObject;
 
         // Cycles through the heads instead of generating them randomly
         lastHead++;
@@ -369,7 +377,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousModel(int playerId)
     {
-        if (timesGoneBackHead == previousNames.Count - 1)
+        if (timesGoneBackHead >= previousNames.Count)
         {
             timesGoneBackHead = 0;
         }
@@ -387,6 +395,7 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.Play("Idle", -1, 0);
 
         timesGoneBackHead++;
 
@@ -428,7 +437,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // Cycles through the materials instead of generating them randomly
         lastMat++;
-        if (lastMat >= materialList.Count - 1)
+        if (lastMat >= materialList.Count)
         {
             lastMat = 0;
         }
@@ -436,7 +445,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousColour()
     {
-        if (timesGoneBackColour == previousNames.Count - 1)
+        if (timesGoneBackColour == previousNames.Count)
         {
             timesGoneBackColour = 0;
         }
@@ -479,7 +488,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void GeneratePreviousCrime()
     {
-        if (timesGoneBackCrime == previousNames.Count - 1)
+        if (timesGoneBackCrime == previousNames.Count)
         {
             timesGoneBackCrime = 0;
         }
