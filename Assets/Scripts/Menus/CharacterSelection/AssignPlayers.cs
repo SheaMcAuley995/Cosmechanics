@@ -21,8 +21,6 @@ public class AssignPlayers : MonoBehaviour
     Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     [Header("Mechanic Settings")]
-    public bool multipleButtonsForCustomization;
-    public bool oneButtonForRandomCharacter;
     bool halfReady, allReady;
     int numOfPlayersReady;
     float time = 10;
@@ -86,14 +84,7 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
 
-                if (multipleButtonsForCustomization)
-                {
-                    cards[controller.playerId].GenerateModel(controller.playerId);
-                }
-                else if (oneButtonForRandomCharacter)
-                {
-                    cards[controller.playerId].GenerateFullCard(controller.playerId);
-                }
+                cards[controller.playerId].GenerateModel(controller.playerId);
             }
 
             // Player moves analog stick LEFT - selects either the previous card or the previous model depending on which setting is used
@@ -102,38 +93,19 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
 
-                if (multipleButtonsForCustomization)
-                {
-                    cards[controller.playerId].GeneratePreviousModel(controller.playerId);
-                }
-                else if (oneButtonForRandomCharacter)
-                {
-                    cards[controller.playerId].GeneratePreviousCard(controller.playerId);
-                }
+                cards[controller.playerId].GeneratePreviousModel(controller.playerId);
             }
 
-            // Player presses the right controller bumper - selects a new colour if that setting is enabled
-            if (controller.selectColourRight && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            // Player presses the right controller bumper - selects a new colour
+            if (controller.selectColourRight && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].GenerateColour();
             }
 
-            //Player presses the left controller bumper -selects the previous colour if that setting is enabled
-            if (controller.selectColourLeft && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            //Player presses the left controller bumper - selects the previous colour
+            if (controller.selectColourLeft && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].GeneratePreviousColour();
-            }
-
-            // Player presses left action button - selects a new crime / sentence if that setting is enabled
-            if (controller.selectCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].GenerateCrime();
-            }
-
-            // Player presses top action button - selects the previous crime / sentence if that setting is enabled
-            if (controller.previousCrime && !cards[controller.playerId].selecting && multipleButtonsForCustomization && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].GeneratePreviousCrime();
             }
 
             // Player presses A - advances character status to READY
@@ -164,12 +136,7 @@ public class AssignPlayers : MonoBehaviour
                     }
                 }
 
-                //if (halfReady && !countingDown)
-                //{
-                //    countdownToStartText.enabled = true;
-                //    time = 10f;
-                //    countdown = StartCoroutine(CountdownToGame());
-                //}
+                // TODO: If more than half of the players are ready, display an option to start game manually, which then initiates the countdown
 
                 if (allReady && !countingDown)
                 {
@@ -177,11 +144,6 @@ public class AssignPlayers : MonoBehaviour
                     time = 4f;
                     countdown = StartCoroutine(CountdownToGame());
                 }
-
-                //if (allReady && countingDown)
-                //{
-                //    time = 3f;
-                //}
             }
 
             // Player presses B - reverts character status to previous state
