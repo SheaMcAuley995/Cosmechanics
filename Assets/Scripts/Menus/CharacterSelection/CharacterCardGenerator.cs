@@ -199,11 +199,9 @@ public class CharacterCardGenerator : MonoBehaviour
         readyStatusBar.sprite = statusSprites[0];
     }
 
-    // Generates a full new prisoner card
+    // Generates a full new prisoner card (done the first time to give players a default character)
     public void GenerateFullCard(int playerId)
     {
-        //Destroy(lastSelected);
-
         // Sets random values for each card parameter
         int headIndex = Random.Range(0, 3);
         int nameIndex = Random.Range(0, namesList.Count);
@@ -229,12 +227,15 @@ public class CharacterCardGenerator : MonoBehaviour
         childHeads = newPlayer.GetComponentsInChildren<Head>();
         animator = newPlayer.GetComponent<Animator>();
 
+        // Adds all of the player's head options to a list
         for (int i = 0; i < childHeads.Length; i++)
         {
             headsList.Add(childHeads[i].gameObject);
         }
+        // Displays the first randomly selected head
         for (int i = 0; i < headsList.Count; i++)
         {
+            // Sets all heads as inactive first just to make sure it nevers lets two heads be active
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
@@ -244,7 +245,7 @@ public class CharacterCardGenerator : MonoBehaviour
         foreach (Renderer child in children)
         {
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
-            if (!child.gameObject.CompareTag("Head"))
+            if (child.gameObject.layer != 16)
             {
                 child.material = materialList[materialIndex];
             }
@@ -254,7 +255,8 @@ public class CharacterCardGenerator : MonoBehaviour
         locatorDots = newPlayer.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
-            locator.color = materialList[materialIndex].color;
+            Color emissColor = materialList[materialIndex].GetColor("_EmissionColor");
+            locator.color = emissColor;
         }
 
         lastSelected = newPlayer.gameObject;
@@ -272,67 +274,6 @@ public class CharacterCardGenerator : MonoBehaviour
         controller.turnSmoothTime = 100f;
     }
 
-    // Generates previous character cards
-    public void GeneratePreviousCard(int playerId)
-    {
-        if (timesGoneBack == previousNames.Count - 1)
-        {
-            timesGoneBack = 0;
-        }
-
-        // Sets values for each card parameter
-        int headIndex = previousHeads[previousHeads.Count - 2 - timesGoneBack];
-        int nameIndex = previousNames[previousNames.Count - 2 - timesGoneBack];
-        int crimeIndex = previousCrimes[previousCrimes.Count - 2 - timesGoneBack];
-        int sentenceIndex = previousSentences[previousSentences.Count - 2 - timesGoneBack];
-        int materialIndex = previousMaterials[previousMaterials.Count - 2 - timesGoneBack];
-
-        // Applies above values to card
-        newCharacter.nameField.text = namesList[nameIndex];
-        newCharacter.crimeField.text = crimesList[crimeIndex];
-        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
-
-        // Assigns the new head
-        for (int i = 0; i < headsList.Count; i++)
-        {
-            headsList[i].SetActive(false);
-        }
-        headsList[headIndex].SetActive(true);
-
-        // Gets all of the character's renderers
-        children = newPlayer.GetComponentsInChildren<Renderer>();
-        foreach (Renderer child in children)
-        {
-            // Sets each renderer's material (except for the head) to the corresponding material (colour)
-            if (child.gameObject.CompareTag("Head"))
-            {
-                child.material = materialList[materialIndex];
-            }
-        }
-
-        // Sets the character's locator circle to the above colour
-        foreach (Image locator in locatorDots)
-        {
-            locator.color = materialList[materialIndex].color;
-        }
-
-        lastSelected = newPlayer.gameObject;
-        timesGoneBack++;
-
-        // Assigns newly created characters a playerId for ReWired
-        PlayerController controller = newPlayer.GetComponent<PlayerController>();
-        currentPlayerId = playerId;
-        controller.playerId = currentPlayerId;
-        currentPlayerId++;
-
-        // This prevents characters from moving around when players are selecting characters
-        controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
-    }
-
-    #region Methods For: Customize Character - Multiple Buttons
     public void GenerateModel(int playerId)
     {
         // Sets values for each card parameter
@@ -430,7 +371,8 @@ public class CharacterCardGenerator : MonoBehaviour
         // Sets the character's locator circle to the above colour
         foreach (Image locator in locatorDots)
         {
-            locator.color = materialList[materialIndex].color;
+            Color emissColor = materialList[materialIndex].GetColor("_EmissionColor");
+            locator.color = emissColor;
         }
 
         previousMaterials.Add(materialIndex);
@@ -471,39 +413,6 @@ public class CharacterCardGenerator : MonoBehaviour
 
         timesGoneBackColour++;
     }
-
-    public void GenerateCrime()
-    {
-        // Sets values for each card parameter
-        crimeIndex = Random.Range(0, crimesList.Count);
-        sentenceIndex = Random.Range(0, sentencesList.Count);
-
-        // Assigns each card parameter the above corresponding value
-        newCharacter.crimeField.text = crimesList[crimeIndex];
-        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
-
-        previousCrimes.Add(crimeIndex);
-        previousSentences.Add(sentenceIndex);
-    }
-
-    public void GeneratePreviousCrime()
-    {
-        if (timesGoneBackCrime == previousNames.Count)
-        {
-            timesGoneBackCrime = 0;
-        }
-
-        // Sets values for each card parameter
-        crimeIndex = previousCrimes[previousCrimes.Count - 2 - timesGoneBackCrime];
-        sentenceIndex = previousSentences[previousSentences.Count - 2 - timesGoneBackCrime];
-
-        // Assigns each card parameter the above corresponding value
-        newCharacter.crimeField.text = crimesList[crimeIndex];
-        newCharacter.sentenceField.text = sentencesList[sentenceIndex];
-
-        timesGoneBackCrime++;
-    }
-    #endregion
 
     // Used in AssignPlayers to prevent accidential selection spamming
     public IEnumerator SelectionDelay()

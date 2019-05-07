@@ -35,6 +35,7 @@ public class LevelSelectManager : MonoBehaviour
             Destroy(charsToDestroy[j].gameObject);
         }
 
+        PlayerActivation.instance.chosenCharacters[0].GetLevelScene(scene);
         SceneFader.instance.FadeTo(scene);
     }
 }

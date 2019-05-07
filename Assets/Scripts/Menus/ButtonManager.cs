@@ -11,6 +11,8 @@ public class ButtonManager : MonoBehaviour
     // 2 = ZachOverWorld
     // 3 = BetaMichaelTest
     // 4 = Ship_Level_1Final
+    // 5 = LoseScene
+    // 6 = WinScene
 
     SelectedPlayer[] players;
 
@@ -42,12 +44,12 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // Fades to current scene
+    // Fades to last level attempted
     public void RetryLevel()
     {
         players = FindObjectsOfType<SelectedPlayer>();
-
-        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name.ToString());
+        
+        SceneFader.instance.FadeTo(players[0].currentScene);
         Time.timeScale = 1f;
 
         for (int i = 0; i < players.Length; i++)
