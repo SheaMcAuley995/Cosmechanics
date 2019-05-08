@@ -13,8 +13,6 @@ public class Engine : MonoBehaviour {
     [Range(0, 1)] public float florpCoolingPercentage;
 
     [Header("Win Condition")]
-    public GameObject winGameUI;
-    public GameObject looseGameUI;
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
@@ -40,7 +38,6 @@ public class Engine : MonoBehaviour {
     }
     public void Start()
     {
-        winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
         currentProgress = winConditionLimit / 10;
         alertUI.problemMax = maxHeat;
@@ -66,30 +63,24 @@ public class Engine : MonoBehaviour {
 
         if(currentProgress > winConditionLimit)
         {
-            winGameUI.SetActive(true);
-            //BroadcastMessage("StopGame");
-            StopGame();
+            WinGame();
         }
         if(enemyProgress > currentProgress)
         {
-            looseGameUI.SetActive(true);
-            BroadcastMessage("StopGame");
+            LoseGame();
         }
         AudioEventManager.instance.PlaySound("engine");
         alertUI.problemCurrent = engineHeat;
     }
 
-    private void StopGame()
+    private void WinGame()
     {
-        //Time.timeScale = 0f;
-        ShipHealth.instance.enabled = false;
-        ShipHealth.instance.GetComponent<EnemyShip>().enabled = false;
-        AudioSource[] audio = AudioEventManager.instance.GetComponents<AudioSource>();
-        foreach (AudioSource audioSource in audio)
-        {
-            audioSource.enabled = false;
-        }
-        this.enabled = false;
+        ASyncManager.instance.winOperation.allowSceneActivation = true;
+    }
+
+    private void LoseGame()
+    {
+        ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     public void InsertFlorp()

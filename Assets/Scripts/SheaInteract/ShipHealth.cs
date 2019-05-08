@@ -35,7 +35,6 @@ public class ShipHealth : MonoBehaviour {
 
     [Header("UI Elements")]
     public Slider healthBar;
-    public GameObject loseGameScreen;
 
     int index;
 
@@ -151,22 +150,7 @@ public class ShipHealth : MonoBehaviour {
 
     void LoseGame()
     {
-        // TODO: Make UI prettier and animate
-        loseGameScreen.SetActive(true);
-        //BroadcastMessage("StopGame");
-    }
-
-    void StopGame()
-    {
-        //Time.timeScale = 0f;
-        Engine.instance.enabled = false;
-        GetComponent<EnemyShip>().enabled = false;
-        AudioSource[] audio = AudioEventManager.instance.GetComponents<AudioSource>();
-        foreach (AudioSource audioSource in audio)
-        {
-            audioSource.enabled = false;
-        }
-        this.enabled = false;
+        ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     private void OnDrawGizmosSelected()
