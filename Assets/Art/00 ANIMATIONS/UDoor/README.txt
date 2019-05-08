@@ -1,0 +1,1 @@
+to correctly place the blank door rig and the doorframe, be sure to import them both at 0,0,0. Not sure if that's standard procedure or not. 
