@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TutorialEventManager : MonoBehaviour{
 
+    //event tutorialEvents[] events; 
+
     [SerializeField] public float explosionRadius;
     [SerializeField] public LayerMask interactableLayerMask;
     [SerializeField] public int explosionDamage;
@@ -11,6 +13,8 @@ public class TutorialEventManager : MonoBehaviour{
     [SerializeField] GameObject[] Doors;
     List<Collider> doorCollider;
     List<Animator> doorAnimator;
+
+
     
     void Start () {
     
