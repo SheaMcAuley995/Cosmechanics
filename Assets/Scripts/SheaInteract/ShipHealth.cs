@@ -150,7 +150,8 @@ public class ShipHealth : MonoBehaviour {
 
     void LoseGame()
     {
-        ASyncManager.instance.loseOperation.allowSceneActivation = true;
+        SceneFader.instance.FadeTo("LoseScene");
+        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     private void OnDrawGizmosSelected()
