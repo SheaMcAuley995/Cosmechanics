@@ -15,6 +15,7 @@ public class ButtonManager : MonoBehaviour
     // 6 = WinScene
 
     SelectedPlayer[] players;
+    PickUp[] pickups;
 
 
     // Fades to character selection
@@ -33,6 +34,12 @@ public class ButtonManager : MonoBehaviour
     public void ReturnToMenu()
     {
         players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
 
         SceneFader.instance.FadeTo("MainMenu_Update");
         Time.timeScale = 1f;
@@ -48,7 +55,13 @@ public class ButtonManager : MonoBehaviour
     public void RetryLevel()
     {
         players = FindObjectsOfType<SelectedPlayer>();
-        
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+
         SceneFader.instance.FadeTo(players[0].currentScene);
         Time.timeScale = 1f;
 
@@ -62,6 +75,12 @@ public class ButtonManager : MonoBehaviour
     public void ContinueGame()
     {
         players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
 
         SceneFader.instance.FadeTo("ZachOverWorld");
         Time.timeScale = 1f;

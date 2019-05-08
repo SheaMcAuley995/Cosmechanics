@@ -7,10 +7,10 @@ using TMPro;
 [System.Serializable]
 public struct CharacterData
 {
-    /// Display fields on the character card
+    // Display fields on the character card
     public Text nameField, crimeField, sentenceField;
 
-    /// Constructor for creating new character cards
+    // Constructor for creating new character cards
     public CharacterData(Text _nameField, Text _crimeField, Text _sentenceField)
     {
         nameField = _nameField;
@@ -45,7 +45,7 @@ public class CharacterCardGenerator : MonoBehaviour
     public Image readyStatusBar;
     public Sprite[] statusSprites;
 
-    /// Lists
+    // Lists
     List<RenderTexture> videoFeedList = new List<RenderTexture>();
     List<string> namesList = new List<string>();
     List<string> crimesList = new List<string>();
@@ -76,10 +76,10 @@ public class CharacterCardGenerator : MonoBehaviour
     public Text joinText;
     public Image joinImage;
 
-    /// Random selection variables
+    // Random selection variables
     int nameIndex, crimeIndex, sentenceIndex, headIndex, materialIndex;
 
-    int currentPlayerId = 0;
+    [HideInInspector] public int currentPlayerId = 0;
 
     int lastMat = 0;
     int lastHead = 0;
@@ -161,7 +161,7 @@ public class CharacterCardGenerator : MonoBehaviour
         }
         #endregion
 
-        //#region Questionable Or Too Long Crimes & Sentences
+        #region Questionable Or Too Long Crimes & Sentences
         //questionables.AddMany("Public inflorpication", "Boring when inflorpicated", "Piloting under the influence of spice",
         //    "Possession of florp with intent to redistribute", "Minus 50 DKP", "To be used as a test subject", "Involuntary organ donation",
         //    "Disassembly by nanobots", "Brain to be removed from body and inserted into a manufacturing robot", 
@@ -186,7 +186,7 @@ public class CharacterCardGenerator : MonoBehaviour
         //    "Jigglegaffing within 30 parsecs of the big bang", "Failure to properly shuffle cards", "Selling florponade without a permit",
         //    "Wearing the wrong shoe size", "Opening an airlock in the wrong situation", "Not completing a dyson sphere", "Space-whale poaching",
         //    "Non-consensual evacuation of planets", "Something really, really bad", "Food for the broodmother");
-        //#endregion
+        #endregion
 
         #endregion
 

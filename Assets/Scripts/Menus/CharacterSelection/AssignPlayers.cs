@@ -25,6 +25,7 @@ public class AssignPlayers : MonoBehaviour
     int numOfPlayersReady;
     float time = 10;
     bool countingDown;
+    int playerId = 0;
 
     Coroutine countdown;
 
@@ -73,12 +74,14 @@ public class AssignPlayers : MonoBehaviour
             {
                 joinedStatus[controller.playerId].selecting = true;
                 StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
+
                 cards[controller.playerId].DeactivateJoinIcons();
+
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
             }
 
-            // Player moves analog stick RIGHT - selects either a new model or an entirely new card depending on which bool you have checked
+            // Player moves analog stick RIGHT - selects a new model
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
@@ -87,7 +90,7 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].GenerateModel(controller.playerId);
             }
 
-            // Player moves analog stick LEFT - selects either the previous card or the previous model depending on which setting is used
+            // Player moves analog stick LEFT - selects the previous model
             if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
