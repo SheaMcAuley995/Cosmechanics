@@ -20,12 +20,3 @@ public interface IInteractableTool
     void toolInteraction();
 }
 
-// For applying status effects to objects
-public interface IStatusEffect
-{
-    void Wet();
-    void Electricity();
-    void Fire();
-    void Florp();
-    void Blunt();
-}
