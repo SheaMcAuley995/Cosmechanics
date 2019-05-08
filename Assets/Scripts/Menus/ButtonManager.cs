@@ -11,8 +11,11 @@ public class ButtonManager : MonoBehaviour
     // 2 = ZachOverWorld
     // 3 = BetaMichaelTest
     // 4 = Ship_Level_1Final
+    // 5 = LoseScene
+    // 6 = WinScene
 
     SelectedPlayer[] players;
+    PickUp[] pickups;
 
 
     // Fades to character selection
@@ -31,6 +34,12 @@ public class ButtonManager : MonoBehaviour
     public void ReturnToMenu()
     {
         players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
 
         SceneFader.instance.FadeTo("MainMenu_Update");
         Time.timeScale = 1f;
@@ -42,12 +51,18 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // Fades to current scene
+    // Fades to last level attempted
     public void RetryLevel()
     {
         players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
 
-        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name.ToString());
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+
+        SceneFader.instance.FadeTo(players[0].currentScene);
         Time.timeScale = 1f;
 
         for (int i = 0; i < players.Length; i++)
@@ -60,6 +75,12 @@ public class ButtonManager : MonoBehaviour
     public void ContinueGame()
     {
         players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
 
         SceneFader.instance.FadeTo("ZachOverWorld");
         Time.timeScale = 1f;
