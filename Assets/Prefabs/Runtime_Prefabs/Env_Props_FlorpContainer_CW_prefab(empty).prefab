@@ -40,8 +40,8 @@ GameObject:
   - component: {fileID: 33337552770726268}
   - component: {fileID: 23737082498478414}
   - component: {fileID: 54421142714237530}
-  - component: {fileID: 64925528896356534}
   - component: {fileID: 114027887805981108}
+  - component: {fileID: 65047535425785596}
   m_Layer: 9
   m_Name: Env_Props_FlorpContainer_CW_prefab(empty)
   m_TagString: Florp
@@ -248,20 +248,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64925528896356534
-MeshCollider:
+--- !u!65 &65047535425785596
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1667745528943260}
-  m_Material: {fileID: 13400000, guid: 45645c62b772cf8478359776eb3bfe1f, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: -1
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: df009bac15e083345b027c063607887a, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 1.1740677, y: 1.2583219, z: 0.40646112}
+  m_Center: {x: -0.00000008940697, y: 0.027165473, z: 0}
 --- !u!114 &114027887805981108
 MonoBehaviour:
   m_ObjectHideFlags: 1

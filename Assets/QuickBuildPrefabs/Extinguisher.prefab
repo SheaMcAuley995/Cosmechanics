@@ -11,31 +11,15 @@ Prefab:
   m_SourcePrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1999353402904676}
   m_IsPrefabAsset: 1
---- !u!1 &1232759376202160
+--- !u!1 &1013877946030514
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4836824646893290}
-  - component: {fileID: 108669522598007350}
-  m_Layer: 9
-  m_Name: Point Light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1330629868175340
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4924830849220928}
-  - component: {fileID: 108751986237248146}
+  - component: {fileID: 4764196674798018}
+  - component: {fileID: 108530642581559158}
   m_Layer: 9
   m_Name: Point Light (1)
   m_TagString: Untagged
@@ -87,11 +71,11 @@ GameObject:
   - component: {fileID: 4041537154182258}
   - component: {fileID: 33866021064479326}
   - component: {fileID: 23041097880113468}
-  - component: {fileID: 64623071800460118}
   - component: {fileID: 54640710983352714}
   - component: {fileID: 114822821860180282}
   - component: {fileID: 114003535255809376}
   - component: {fileID: 65927247406412666}
+  - component: {fileID: 65241909650807926}
   m_Layer: 9
   m_Name: Extinguisher
   m_TagString: Extinguisher
@@ -106,13 +90,12 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1999353402904676}
   m_LocalRotation: {x: -0, y: -0.25042447, z: -0, w: 0.9681362}
-  m_LocalPosition: {x: -1.86, y: 0.82, z: -16.593971}
+  m_LocalPosition: {x: -4.6, y: 0.74976826, z: -2.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4171644076766772}
   - {fileID: 4053284256742818}
-  - {fileID: 4836824646893290}
-  - {fileID: 4924830849220928}
+  - {fileID: 4764196674798018}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -29.005001, z: 0}
@@ -142,31 +125,18 @@ Transform:
   m_Father: {fileID: 4041537154182258}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4836824646893290
+--- !u!4 &4764196674798018
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1232759376202160}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.675, y: 0.844, z: 0.201}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4041537154182258}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4924830849220928
-Transform:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330629868175340}
+  m_GameObject: {fileID: 1013877946030514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.368, y: 0.844, z: 0.201}
   m_LocalScale: {x: 1.0000005, y: 1, z: 1.0000005}
   m_Children: []
   m_Father: {fileID: 4041537154182258}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23031005826091868
 MeshRenderer:
@@ -183,7 +153,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c0476155550ea984aa6430267a980f9f, type: 2}
+  - {fileID: 2100000, guid: 0f82c74ba65587d488be5e20f1d3946f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -218,7 +188,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: c0476155550ea984aa6430267a980f9f, type: 2}
+  - {fileID: 2100000, guid: 0f82c74ba65587d488be5e20f1d3946f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -267,8 +237,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!64 &64623071800460118
-MeshCollider:
+--- !u!65 &65241909650807926
+BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -276,11 +246,9 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_SkinWidth: 0.01
-  m_Mesh: {fileID: 4300000, guid: 82ad203d78ebaec46a29f6a8b873fa05, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.7427503, y: 1.8051435, z: 1.2798225}
+  m_Center: {x: -0.000000044703484, y: 0.15280348, z: 0.2282779}
 --- !u!65 &65927247406412666
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -293,49 +261,12 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: -0.11, y: 0, z: 1.64}
---- !u!108 &108669522598007350
+--- !u!108 &108530642581559158
 Light:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1232759376202160}
-  m_Enabled: 1
-  serializedVersion: 8
-  m_Type: 2
-  m_Color: {r: 0.9339623, g: 0.9248057, b: 0.39208794, a: 1}
-  m_Intensity: 1.44
-  m_Range: 1.62
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_CustomResolution: -1
-    m_Strength: 1
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.2
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 4
-  m_LightShadowCasterMode: 0
-  m_AreaSize: {x: 1, y: 1}
-  m_BounceIntensity: 0
-  m_ColorTemperature: 6570
-  m_UseColorTemperature: 0
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
---- !u!108 &108751986237248146
-Light:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1330629868175340}
+  m_GameObject: {fileID: 1013877946030514}
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 2
@@ -2372,7 +2303,7 @@ ParticleSystem:
     m_Curve:
       serializedVersion: 2
       minMaxState: 1
-      scalar: 0.6
+      scalar: 0.2
       minScalar: 0
       maxCurve:
         serializedVersion: 2

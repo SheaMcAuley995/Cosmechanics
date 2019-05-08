@@ -18,6 +18,8 @@ MonoBehaviour:
   - {fileID: 114978687546031424}
   - {fileID: 114590409409812124}
   - {fileID: 114398488690182606}
+  - {fileID: 114487234788970680}
+  - {fileID: 114758891864571062}
 --- !u!114 &114387019695740072
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -29,7 +31,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adb84e30e02715445aeb9959894e3b4d, type: 3}
   m_Name: ColorGrading
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -42,7 +44,7 @@ MonoBehaviour:
     defaultState: 1
   tonemapper:
     overrideState: 1
-    value: 2
+    value: 1
   toneCurveToeStrength:
     overrideState: 0
     value: 0
@@ -69,8 +71,8 @@ MonoBehaviour:
     overrideState: 0
     value: 1
   temperature:
-    overrideState: 1
-    value: -13.99
+    overrideState: 0
+    value: 0
   tint:
     overrideState: 0
     value: 0
@@ -81,17 +83,17 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   saturation:
-    overrideState: 0
-    value: 20
+    overrideState: 1
+    value: 6.6
   brightness:
     overrideState: 0
     value: 0
   postExposure:
     overrideState: 1
-    value: 0.29
+    value: 0.7
   contrast:
-    overrideState: 0
-    value: 4.92
+    overrideState: 1
+    value: 10
   mixerRedOutRedIn:
     overrideState: 0
     value: 100
@@ -120,13 +122,13 @@ MonoBehaviour:
     overrideState: 0
     value: 100
   lift:
-    overrideState: 1
+    overrideState: 0
     value: {x: 1, y: 0.9876982, z: 0.93842626, w: 0}
   gamma:
-    overrideState: 1
-    value: {x: 0.90789646, y: 0.95922065, z: 1, w: 0}
+    overrideState: 0
+    value: {x: 0.98653233, y: 0.85985, z: 1, w: -0.20602217}
   gain:
-    overrideState: 1
+    overrideState: 0
     value: {x: 0.84889996, y: 0.9115205, z: 1, w: 0.5705229}
   masterCurve:
     overrideState: 0
@@ -1397,6 +1399,31 @@ MonoBehaviour:
   vignette:
     overrideState: 0
     value: 0.5
+--- !u!114 &114487234788970680
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6050e2d5de785ce4d931e4dbdbf2d755, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  enabled:
+    overrideState: 1
+    value: 1
+  spectralLut:
+    overrideState: 0
+    value: {fileID: 0}
+    defaultState: 1
+  intensity:
+    overrideState: 0
+    value: 0
+  fastMode:
+    overrideState: 0
+    value: 0
 --- !u!114 &114590409409812124
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1408,7 +1435,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d65e486e4de6e5448a8fbb43dc8756a0, type: 3}
   m_Name: Grain
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   enabled:
     overrideState: 1
     value: 1
@@ -1441,19 +1468,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 0.26
+    value: 0.5
   threshold:
     overrideState: 1
-    value: 1.12
+    value: 0.45
   softKnee:
-    overrideState: 1
-    value: 1
+    overrideState: 0
+    value: 0.76
   clamp:
     overrideState: 0
     value: 65472
   diffusion:
     overrideState: 1
-    value: 7.03
+    value: 5
   anamorphicRatio:
     overrideState: 1
     value: 0
@@ -1469,7 +1496,43 @@ MonoBehaviour:
     defaultState: 1
   dirtIntensity:
     overrideState: 1
-    value: 0.75
+    value: 0.5
+--- !u!114 &114758891864571062
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f6f3f7c722b4544b97e3c75840aa33, type: 3}
+  m_Name: AutoExposure
+  m_EditorClassIdentifier: 
+  active: 0
+  enabled:
+    overrideState: 1
+    value: 1
+  filtering:
+    overrideState: 1
+    value: {x: 1, y: 29.13982}
+  minLuminance:
+    overrideState: 0
+    value: 0
+  maxLuminance:
+    overrideState: 0
+    value: 0
+  keyValue:
+    overrideState: 0
+    value: 1.59
+  eyeAdaptation:
+    overrideState: 1
+    value: 0
+  speedUp:
+    overrideState: 1
+    value: 2
+  speedDown:
+    overrideState: 1
+    value: 1
 --- !u!114 &114978687546031424
 MonoBehaviour:
   m_ObjectHideFlags: 3
