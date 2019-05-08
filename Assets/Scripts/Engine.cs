@@ -63,19 +63,24 @@ public class Engine : MonoBehaviour {
 
         if(currentProgress > winConditionLimit)
         {
-            StopGame("WinScene");
+            WinGame();
         }
         if(enemyProgress > currentProgress)
         {
-            StopGame("LoseScene");
+            LoseGame();
         }
         AudioEventManager.instance.PlaySound("engine");
         alertUI.problemCurrent = engineHeat;
     }
 
-    private void StopGame(string scene)
+    private void WinGame()
     {
-        SceneFader.instance.FadeTo(scene);
+        ASyncManager.instance.winOperation.allowSceneActivation = true;
+    }
+
+    private void LoseGame()
+    {
+        ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     public void InsertFlorp()
