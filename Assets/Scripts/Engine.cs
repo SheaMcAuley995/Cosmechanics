@@ -75,12 +75,14 @@ public class Engine : MonoBehaviour {
 
     private void WinGame()
     {
-        ASyncManager.instance.winOperation.allowSceneActivation = true;
+        SceneFader.instance.FadeTo("WinScene");
+        //ASyncManager.instance.winOperation.allowSceneActivation = true;
     }
 
     private void LoseGame()
     {
-        ASyncManager.instance.loseOperation.allowSceneActivation = true;
+        SceneFader.instance.FadeTo("LoseScene");
+        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     public void InsertFlorp()
