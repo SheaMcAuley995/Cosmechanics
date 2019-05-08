@@ -6,17 +6,21 @@ public class FlorpReceptor : MonoBehaviour {
 
 
     [SerializeField] Engine engine;
-    int insertedFlorps = 1;
+    public ParticleSystem particle;
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.GetComponent<Florp>().isFilled)
+        if(other.GetComponent<Florp>() != null)
         {
-            EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-            engine.InsertFlorp();
-            Destroy(other.gameObject);
-            AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
+            if (other.GetComponent<Florp>().isFilled)
+            {
+                particle.Play();
+                //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
+                engine.InsertFlorp();
+                BottleDispenser.instance.bottlesDispensed--;
+                Destroy(other.gameObject);
+                AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
+            }
+            else { return; }
         }
-        else { return; }
     }
 }

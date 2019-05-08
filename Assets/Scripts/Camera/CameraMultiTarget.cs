@@ -20,14 +20,13 @@ public class CameraMultiTarget : MonoBehaviour
 	enum DebugProjection { DISABLE, IDENTITY, ROTATED }
 	enum ProjectionEdgeHits { TOP_BOTTOM, LEFT_RIGHT }
 
-	
-	private void Awake()
+    private void Awake()
 	{
 		_camera = gameObject.GetComponent<Camera>();
 		_debugProjection = DebugProjection.ROTATED;
 	}
 
-	private void LateUpdate() {
+    private void LateUpdate() {
 		if (_targets.Length == 0)
 			return;
 		
@@ -105,4 +104,6 @@ public class CameraMultiTarget : MonoBehaviour
     {
         _targets = targets;
     }
+
+
 }
