@@ -39,11 +39,9 @@ public class InteractWithInterface : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        controller.animators[0].SetBool("FixPipe", true);
-                        controller.animators[1].SetBool("FixPipe", true);
+                        controller.animators[0].SetTrigger("PipeFix");
+                        controller.animators[1].SetTrigger("PipeFix");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
-                        controller.animators[0].SetBool("FixPipe", false);
-                        controller.animators[1].SetBool("FixPipe", false);
                         break;
                     }
                 }
