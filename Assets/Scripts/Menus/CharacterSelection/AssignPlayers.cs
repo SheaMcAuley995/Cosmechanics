@@ -12,7 +12,7 @@ public class AssignPlayers : MonoBehaviour
     public JoinGame[] joinedStatus;
     public Text countdownToStartText;
 
-    public PlayerController[] playerControllers;
+    public PlayerController[] controllers;
     int currentPlayerId = 0;
 
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
@@ -38,6 +38,7 @@ public class AssignPlayers : MonoBehaviour
         {
             GameObject tempPlayer = ExampleGameController.instance.addPlayer();
         }
+        controllers = FindObjectsOfType<PlayerController>();
 
         // Assigns each player a spawn position
         characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
@@ -45,9 +46,7 @@ public class AssignPlayers : MonoBehaviour
         characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
         characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
 
-        playerControllers = FindObjectsOfType<PlayerController>();
-
-        foreach (PlayerController controller in playerControllers)
+        foreach (PlayerController controller in controllers)
         {
             controller.playerId = currentPlayerId;
             currentPlayerId++;
@@ -55,6 +54,7 @@ public class AssignPlayers : MonoBehaviour
 
         halfReady = false;
         allReady = false;
+
         countdownToStartText.enabled = false;
     }
 
@@ -65,7 +65,7 @@ public class AssignPlayers : MonoBehaviour
 
     void GetInput()
     {
-        foreach (PlayerController controller in playerControllers)
+        foreach (PlayerController controller in controllers)
         {
             controller.getInput();
 
@@ -79,6 +79,9 @@ public class AssignPlayers : MonoBehaviour
 
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
+
+                countdownToStartText.enabled = true;
+                countdownToStartText.text = "Press 'START' to begin the game!";
             }
 
             // Player moves analog stick RIGHT - selects a new model
@@ -139,14 +142,33 @@ public class AssignPlayers : MonoBehaviour
                     }
                 }
 
-                // TODO: If more than half of the players are ready, display an option to start game manually, which then initiates the countdown
+                // Might fix the bug?? Can't test right now cause my 2nd controller is broken. D: 
+                //foreach (SelectedPlayer player in players)
+                //{
+                //    if (player.GetComponent<CharacterCardGenerator>().characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
+                //    {
+                //        break;
+                //    }
+                //    else
+                //    {
+                //        PlayerActivation.instance.ContinueToGame();
+                //    }
+                //}
 
-                if (allReady && !countingDown)
+                if (allReady)
                 {
-                    countdownToStartText.enabled = true;
-                    time = 4f;
-                    countdown = StartCoroutine(CountdownToGame());
+                    PlayerActivation.instance.ContinueToGame();
                 }
+            }
+
+            // Player presses START - begins the countdown to start game
+            if (controller.start && !cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
+
+                time = 4f;
+                countdown = StartCoroutine(CountdownToGame());
             }
 
             // Player presses B - reverts character status to previous state
@@ -163,7 +185,7 @@ public class AssignPlayers : MonoBehaviour
                 countingDown = false;
                 halfReady = false;
                 allReady = false;
-                countdownToStartText.enabled = false;
+                countdownToStartText.text = "Press 'START' to begin the game!";
                 time = 10;
             }
         }

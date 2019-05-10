@@ -35,6 +35,7 @@ public class PauseGame : MonoBehaviour
     Vector3 one = Vector3.one;
     Vector3 fullSize = new Vector3(1.5f, 1.5f, 1.5f);
     bool input, paused;
+    bool canCheck = false;
 
     PlayerController[] playerControllers;
 
@@ -45,10 +46,12 @@ public class PauseGame : MonoBehaviour
     #endregion
 
     // Use this for initialization
-    void Start ()
+    IEnumerator Start ()
     {
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
+        yield return new WaitForSeconds(0.2f);
+        canCheck = true;
     }
 
     void SetDefaultButtons()
@@ -103,7 +106,10 @@ public class PauseGame : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        DetectInput();
+        if (canCheck)
+        {
+            DetectInput();
+        }
 	}
 
     IEnumerator FadeIn(Image[] images, TextMeshProUGUI[] texts)
