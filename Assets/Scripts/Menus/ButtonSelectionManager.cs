@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonSelectionManager : MonoBehaviour
 {
     PlayerController[] controlers;
-    Animator animator, lastAnimator;
+    ShipController shipController;
+
     Image selector, lastSelector;
 
     public List<Button> menuButtons = new List<Button>();
@@ -14,7 +16,9 @@ public class ButtonSelectionManager : MonoBehaviour
     public List<Image> buttonSelectors = new List<Image>();
 
     int selectedButtonIndex, lastSelectedButton;
+
     bool selecting, ableToGetInput;
+    string currentScene;
 
 
     IEnumerator Start()
@@ -24,12 +28,14 @@ public class ButtonSelectionManager : MonoBehaviour
         SelectButtonDownward();
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
+        shipController = FindObjectOfType<ShipController>();
         ableToGetInput = true;
+        currentScene = SceneManager.GetActiveScene().name;
     }
 
     void Update()
     {
-        if (ableToGetInput)
+        if (ableToGetInput && currentScene != "ZachOverWorld")
         {
             foreach (PlayerController controler in controlers)
             {
@@ -49,6 +55,26 @@ public class ButtonSelectionManager : MonoBehaviour
                 {
                     PressButton();
                 }
+            }
+        }
+
+        if (ableToGetInput && currentScene == "ZachOverWorld")
+        {
+            shipController.GetInput();
+
+            if (shipController.movementVector.y < 0 && !selecting)
+            {
+                SelectButtonDownward();
+            }
+
+            if (shipController.movementVector.y > 0 && !selecting)
+            {
+                SelectButtonUpward();
+            }
+
+            if (shipController.pickUp && !selecting)
+            {
+                PressButton();
             }
         }
     }

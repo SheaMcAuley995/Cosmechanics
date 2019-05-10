@@ -265,9 +265,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GenerateModel(int playerId)
@@ -307,9 +305,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GeneratePreviousModel(int playerId)
@@ -344,9 +340,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GenerateColour()
@@ -404,7 +398,8 @@ public class CharacterCardGenerator : MonoBehaviour
         // Sets the character's locator circle to the above colour
         foreach (Image locator in locatorDots)
         {
-            locator.color = materialList[materialIndex].color;
+            Color emissColor = materialList[materialIndex].GetColor("_EmissionColor");
+            locator.color = emissColor;
         }
 
         timesGoneBackColour++;
