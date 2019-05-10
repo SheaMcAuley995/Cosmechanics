@@ -253,7 +253,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[2];
                 selectionPanel.levelName.text = levelNames[2];
                 selectionPanel.description.text = descriptions[2];
-                selectionPanel.launchButton.interactable = false;
+                selectionPanel.launchButton.interactable = true;
                 break;
         }
     }
