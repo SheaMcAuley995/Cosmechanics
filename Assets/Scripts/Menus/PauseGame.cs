@@ -10,9 +10,10 @@ public class PauseGame : MonoBehaviour
     [Header("UI Elements")]
     public Canvas pauseCanvas;
     public Image[] images;
-    public TextMeshProUGUI[] texts;
+    public Text[] texts;
 
     [Header("Configurations")]
+    public ButtonSelectionManager selection;
     public KeyCode pauseButton1;
     public KeyCode pauseButton2;
     public string menuScene;
@@ -48,6 +49,7 @@ public class PauseGame : MonoBehaviour
     // Use this for initialization
     IEnumerator Start ()
     {
+        selection.enabled = false;
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
         yield return new WaitForSeconds(0.2f);
@@ -86,19 +88,14 @@ public class PauseGame : MonoBehaviour
                 StartCoroutine(FadeIn(images, texts));
             }
 
-            if (player.pickUp)
+            if (player.pickUp && selection.isActiveAndEnabled)
             {
                 ResumeGame();
             }
 
-            if (player.sprint)
+            if (player.sprint && selection.isActiveAndEnabled)
             {
                 QuitGame();
-            }
-
-            if (player.Interact)
-            {
-                OptionsMenu();
             }
         }
     }
@@ -112,8 +109,9 @@ public class PauseGame : MonoBehaviour
         }
 	}
 
-    IEnumerator FadeIn(Image[] images, TextMeshProUGUI[] texts)
+    IEnumerator FadeIn(Image[] images, Text[] texts)
     {
+        selection.enabled = true;
         paused = true;
         Time.timeScale = 0f;
 
@@ -140,8 +138,9 @@ public class PauseGame : MonoBehaviour
         StopCoroutine(FadeIn(images, texts));
     }
 
-    public IEnumerator FadeOut(Image[] images, TextMeshProUGUI[] texts)
+    public IEnumerator FadeOut(Image[] images, Text[] texts)
     {
+        selection.enabled = false;
         paused = false;
 
         for (float time = 0.01f; time < fadeOutTime; time += 0.1f)
@@ -184,6 +183,7 @@ public class PauseGame : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneFader.instance.FadeTo("MainMenu");
+        ResumeGame();
+        SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }
