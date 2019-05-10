@@ -6,8 +6,11 @@ using UnityEngine.SceneManagement;
 public class ASyncManager : MonoBehaviour
 {
     public static ASyncManager instance;
+
     public AsyncOperation winOperation;
     public AsyncOperation loseOperation;
+
+    [HideInInspector] public bool winning, losing;
 
     void Awake()
     {
@@ -25,34 +28,49 @@ public class ASyncManager : MonoBehaviour
 
     void Start()
     {
-        LoadScenes();
+        LoadLoseScene();
+        LoadWinScene();
     }
 
-    public void LoadScenes()
+    void LoadLoseScene()
     {
-        StartCoroutine(LoadWinSceneAsync("WinScene"));
+        losing = false;
         StartCoroutine(LoadLoseSceneAsync("LoseScene"));
     }
 
-    IEnumerator LoadWinSceneAsync(string scene)
+    void LoadWinScene()
     {
-        winOperation = SceneManager.LoadSceneAsync(scene);
-        winOperation.allowSceneActivation = false;
-
-        while (!winOperation.isDone)
-        {
-            yield return null;
-        }
+        winning = false;
+        StartCoroutine(LoadWinSceneAsync("WinScene"));
     }
 
-    IEnumerator LoadLoseSceneAsync(string scene)
+    IEnumerator LoadWinSceneAsync(string winScene)
     {
-        loseOperation = SceneManager.LoadSceneAsync(scene);
+        yield return null;
+
+        winOperation = SceneManager.LoadSceneAsync(winScene);
+        winOperation.allowSceneActivation = false;
+
+        if (winning)
+        {
+            winOperation.allowSceneActivation = true;
+        }
+
+        yield return null;
+    }
+
+    IEnumerator LoadLoseSceneAsync(string loseScene)
+    {
+        yield return null;
+
+        loseOperation = SceneManager.LoadSceneAsync(loseScene);
         loseOperation.allowSceneActivation = false;
 
-        while (!loseOperation.isDone)
+        if (losing)
         {
-            yield return null;
+            loseOperation.allowSceneActivation = true;
         }
+
+        yield return null;
     }
 }
