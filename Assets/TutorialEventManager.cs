@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TutorialEventManager : MonoBehaviour{
 
-    //event tutorialEvents[] events; 
+    int Stages;
 
     [SerializeField] public float explosionRadius;
     [SerializeField] public LayerMask interactableLayerMask;
@@ -15,9 +15,12 @@ public class TutorialEventManager : MonoBehaviour{
     List<Animator> doorAnimator;
 
 
+
+
     
     void Start () {
-    
+
+        Stages = 0;
         Collider[] damagedObjects = Physics.OverlapSphere(transform.position, explosionRadius, interactableLayerMask);
     
         foreach (Collider damagedObject in damagedObjects)
@@ -33,6 +36,12 @@ public class TutorialEventManager : MonoBehaviour{
             doorCollider[i] = Doors[i].GetComponent<Collider>();
             doorAnimator[i] = Doors[i].GetComponent<Animator>();
         }
+    }
+
+    private void Update()
+    {
+
+
     }
 
     private void OnDrawGizmosSelected()
