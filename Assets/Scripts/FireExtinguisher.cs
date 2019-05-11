@@ -11,6 +11,7 @@ public class FireExtinguisher : PickUp
 
     private void Start()
     {
+        rb = GetComponent<Rigidbody>();
         box = GetComponentInChildren<BoxCollider>();
         box.enabled = false;
     }
