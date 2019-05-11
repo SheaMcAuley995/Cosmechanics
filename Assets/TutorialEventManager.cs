@@ -40,11 +40,7 @@ public class TutorialEventManager : MonoBehaviour{
 
     private void Update()
     {
-        switch (Stages)
-        {
-            case 0:
 
-        }
 
     }
 
