@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool selectColourLeft;
     [HideInInspector] public bool readyUp;
     [HideInInspector] public bool cancel;
+    [HideInInspector] public bool start;
     CharacterController cc;
     public bool normalMovement = true;
 
@@ -115,6 +116,7 @@ public class PlayerController : MonoBehaviour
         selectColourLeft = player.GetButtonDown("ColourSelectLeft");
         readyUp = player.GetButtonDown("ReadyUp");
         cancel = player.GetButtonDown("Cancel");
+        start = player.GetButtonDown("Start");
         #endregion
     }
 

@@ -181,7 +181,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: fa8f2ddb908535446bea1ee918c679fb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: adfb55c501ad9834cb7ad8a2b0f4158f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -1677,6 +1677,11 @@ Prefab:
       objectReference: {fileID: 1686294027}
     - target: {fileID: 114260673156198218, guid: 8d2f1f34e8044914ab38ffcb0e566180,
         type: 2}
+      propertyPath: shipController
+      value: 
+      objectReference: {fileID: 1630753479}
+    - target: {fileID: 114260673156198218, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+        type: 2}
       propertyPath: shipTransform
       value: 
       objectReference: {fileID: 1630753475}
@@ -1729,6 +1734,12 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 765679134}
   m_Script: {fileID: 11500000, guid: d52e8f6e0785f304aad47ca78cec8ed0, type: 3}
+--- !u!114 &765679137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114206786905761604, guid: 8d2f1f34e8044914ab38ffcb0e566180,
+    type: 2}
+  m_PrefabInternal: {fileID: 765679134}
+  m_Script: {fileID: 11500000, guid: 9a4a445048c095f4db35d60de2fb2a2f, type: 3}
 --- !u!1 &844937033
 GameObject:
   m_ObjectHideFlags: 0
@@ -3067,7 +3078,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 765679137}
         m_MethodName: LaunchLevel
         m_Mode: 5
         m_Arguments:
@@ -3125,6 +3136,7 @@ GameObject:
   - component: {fileID: 1630753476}
   - component: {fileID: 1630753478}
   - component: {fileID: 1630753477}
+  - component: {fileID: 1630753479}
   m_Layer: 5
   m_Name: Ship
   m_TagString: Untagged
@@ -3222,6 +3234,21 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1630753474}
   m_CullTransparentMesh: 0
+--- !u!114 &1630753479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1630753474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b767a1df598f2fa40bc9c2251c1000d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  movementVector: {x: 0, y: 0}
+  pickUp: 0
+  sprint: 0
 --- !u!1 &1686294025
 GameObject:
   m_ObjectHideFlags: 0

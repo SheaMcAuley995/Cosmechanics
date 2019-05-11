@@ -31,6 +31,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         if (other.GetComponent<Florp>() != null /*&& dump*/)
         {
             other.GetComponent<Florp>().doFill = true;
+            AudioEventManager.instance.PlaySound("splat", .7f, .8f, 0);
             DoDump();
         }
         else { dump = false; }
@@ -43,7 +44,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
         {
             GameObject part = Instantiate(particle, point, Quaternion.identity);
             part.GetComponent<ParticleSystem>().Play();
-            AudioEventManager.instance.PlaySound("splat", .8f, .8f, 0);
+            
             dump = false;
         }
     }

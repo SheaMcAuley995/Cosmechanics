@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4429803208913620}
   - component: {fileID: 114260673156198218}
+  - component: {fileID: 114206786905761604}
   m_Layer: 0
   m_Name: OverworldManager
   m_TagString: Untagged
@@ -40,6 +41,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114206786905761604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241169576177650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4a445048c095f4db35d60de2fb2a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114260673156198218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -57,6 +69,7 @@ MonoBehaviour:
     description: {fileID: 0}
     launchButton: {fileID: 0}
     cancelButton: {fileID: 0}
+  shipController: {fileID: 0}
   level: 0
   shipTransform: {fileID: 0}
   levelObjects:
@@ -70,9 +83,9 @@ MonoBehaviour:
   levelPanel: {fileID: 0}
   levelSelectedText: {fileID: 0}
   mapImages:
+  - {fileID: 21300000, guid: 6bed4e9d2c962fe49986f9c9c79133e5, type: 3}
   - {fileID: 21300000, guid: d64f50175cf1df9488b6b1cf2bbd8993, type: 3}
   - {fileID: 21300000, guid: 6fd127022db309145b4adfb46fc669e9, type: 3}
-  - {fileID: 21300000, guid: c01121ac5d0c7494f82f1fa214358338, type: 3}
   levelNames:
   - Ship One
   - Ship Two
@@ -80,7 +93,7 @@ MonoBehaviour:
   descriptions:
   - 'This is the tutorial level, where you will learn the basic game mechanics. '
   - This is your first mission. Good luck, try to bring the ship back in one piece!
-  - -LOCKED-
+  - Good job on your last mission! This one will be more challenging. Good luck!
   travelTime: 1
   orbitSpeed: 80
   orbitOffset: {x: 15, y: 0, z: 10}
