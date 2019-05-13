@@ -7,6 +7,11 @@ public class FlorpReceptorTutorial : MonoBehaviour {
     public int isFilled;
     public ParticleSystem particle;
 
+    private void Start()
+    {
+        isFilled = 0;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Florp>() != null)
