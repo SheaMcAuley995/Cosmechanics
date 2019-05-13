@@ -1,0 +1,93 @@
+Rewired Nintendo Switch Plugin
+
+v13:
+
+  Changes:
+    - Added Use Vibration Thread option to Rewired Nintendo Switch Input Manager.
+    
+  API Changes:
+    - Added SwitchInput.Config.useVibrationThread property.
+
+  Bug Fixes:
+    - Setting vibration to all zero values as opposed to calling StopVibration will now stop the vibration motors.
+
+v12:
+  
+  Changes:
+    - Added workaround for .Net 4.6 backend System.IO directory separator bugs causing "Rewired Nintendo Switch plugin was found at an unexpected path." exception to be thrown in the Unity editor.
+
+v11:
+
+  Changes:
+    - Added workaround for Unity AssetDatabase bug that caused the Nintendo Switch plugin to run upgrade installer every time the app domain was reloaded.
+
+v10:
+  
+  Changes:
+    - Added PlayMaker integration.
+
+v9:
+  
+  Changes:
+    - Added HandheldExtension class.
+    - Color and left/right Joy-Con connected states now work on the Handheld controller using the new HandheldExtension class.
+    - Unknown NpadStyles are now handled as gamepads as a precaution in case new NpadStyles are added in the future in the Nintendo SDK.
+    - NpadStyle.Invalid is now ignored when creating Joysticks.
+    - SwitchInput.ControllerApplet.Show is now thread safe.
+    - All changes made to Npad id's or modes through the Rewired API now trigger a refresh of controllers on the next frame.
+  
+  Bug Fixes:
+    - Joystick Auto-Assignment now works properly when "Assign Joysticks to Playing Players Only" is disabled with "Assign Joysticks by Npad Id" enabled and a Joystick should be assigned to a non-playing Player.
+  
+v8:
+  
+  Changes:
+    - Added Unity 2018 branch.
+    - Changed minimum supported Nintendo SDK version to 4.5.0 on Unity 2017 branch.
+    - changed minimum supported Unity version to 2017.4.0f1 on Unity 2017 branch.
+
+v7:
+
+  Changes:
+    - Changed minimum supported Nintendo SDK version to 3.4.0.
+    - Changed minimum supported Unity version to 5.6.2p4.
+    - Added Unity 2017 support.
+
+v6:
+  
+  Bug Fixes:
+    - Eliminated 384-500 byte memory allocation every frame due to List.Reverse call.
+
+v5:
+
+  Changes:
+    - Added support for the Debug Pad.
+
+  API Changes:
+    - Added Rewired.Platforms.Switch.DebugPadSettings class.
+    - Added Rewired.Platforms.Switch.Config.IDebugPadSettings interface.
+    - Added Rewired.Platforms.Switch.SwitchInput.Config.GetDebugPadSettings method.
+
+v4:
+
+  API Changes:
+    - Added Rewired.Platforms.Switch.SwitchInput.ControllerApplet class.
+    - Added Rewired.Platforms.Switch.ControllerAppletOptions class.
+    - Added Rewired.Platforms.Switch.ControllerAppletOptions.PlayerOptions class.
+    - Added Rewired.Platforms.Switch.ControllerAppletResult class.
+
+v3:
+
+  Changes:
+    - Added "Unmodified" option for Joy-Con Assignment Mode setting to allow leaving the currently set Joy-Con Assignment Mode settings on initialization.
+
+  API Changes:
+    - Added Rewired.Platforms.Switch.Config.JoyConAssignmentModeOption enum.
+    - Added Rewired.Platforms.Switch.Config.INpadSettings interface.
+    - NintendoSwitchInputManager.GetNpadSettings return type changed to Rewired.Platforms.Switch.Config.INpadSettings.
+
+v2:
+  - Fixed issue in newest versions of the Unity for Switch editor caused by breaking change in Unity PlayerSettings.Switch class.
+
+v1:
+  - Initial release.
