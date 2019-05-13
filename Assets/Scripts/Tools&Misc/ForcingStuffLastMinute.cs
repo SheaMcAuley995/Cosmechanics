@@ -22,6 +22,7 @@ public class ForcingStuffLastMinute : MonoBehaviour
         else
         {
             ExampleGameController.instance.transform.position = new Vector3(-1.81f, 0.05f, -13.5f);
+            StartCoroutine(IHateEverything());
         }
 
         for (int i = 0; i < players.Length; i++)
@@ -36,6 +37,16 @@ public class ForcingStuffLastMinute : MonoBehaviour
         for (int i = 0; i < players.Length; i++)
         {
             players[i].gameObject.transform.position = new Vector3(-1f, 0.05f, -4f);
+        }
+        yield return null;
+    }
+
+    IEnumerator IHateEverything()
+    {
+        yield return new WaitForSeconds(0.2f);
+        for (int i = 0; i < players.Length; i++)
+        {
+            players[i].gameObject.transform.position = new Vector3(-1.81f, 0.05f, -13.5f);
         }
         yield return null;
     }
