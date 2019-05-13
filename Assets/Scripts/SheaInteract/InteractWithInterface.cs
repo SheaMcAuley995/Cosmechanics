@@ -73,14 +73,11 @@ public class InteractWithInterface : MonoBehaviour
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
 
-                    if (interactedObject.GetComponent<FireExtinguisher>() != null)
-                    {
-                        interactedObject.GetComponent<FireExtinguisher>().playerController = controller;
-                    }
 
                     break;
                 }
