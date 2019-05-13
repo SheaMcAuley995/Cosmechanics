@@ -21,9 +21,9 @@ public class TutorialEventManager : MonoBehaviour{
     [SerializeField] List<Animator> doorAnimator;
 
 
+    [SerializeField] FlorpReceptorTutorial florpReceptor;
 
 
-    
     void Start () {
 
         grid = Grid.instance;
@@ -65,6 +65,7 @@ public class TutorialEventManager : MonoBehaviour{
         if(pipeMax == pipeCur)
         {
             doorAnimator[0].SetBool("Open", true);
+            doorCollider[0].enabled = false;
             myTutorial = checkFire;
             //Debug.Log("WORKS");
         }
@@ -85,7 +86,17 @@ public class TutorialEventManager : MonoBehaviour{
         }
         if(isAllChecked)
         {
-            Debug.Log("WORKS 2");
+            doorAnimator[1].SetBool("Open", true);
+            doorCollider[1].enabled = false;
+            myTutorial = checkEngine;
+        }
+    }
+
+    void checkEngine()
+    {
+        if(florpReceptor.isFilled > 3)
+        {
+            SceneFader.instance.FadeTo("WinScene");
         }
     }
 
