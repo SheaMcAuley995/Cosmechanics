@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
 
 public class AudioEventManager : MonoBehaviour {
@@ -72,7 +73,11 @@ public class AudioEventManager : MonoBehaviour {
     private void Start()
     {
         PlaySound("Theme");
-        PlaySound("Ambient", .8f);        
+        PlaySound("Ambient", .8f);
+        if (SceneManager.GetSceneByName("Ship_Level_Tutorial").isLoaded)
+        {
+            PlaySound("AlarmLeft", .5f, 1, -.8f);
+        }
     }
     
 

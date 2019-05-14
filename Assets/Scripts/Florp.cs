@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Florp : PickUp, IInteractableTool
+public class Florp : PickUp
 {
     Vector3 zero = Vector3.zero;
     Vector3 one = Vector3.one;
