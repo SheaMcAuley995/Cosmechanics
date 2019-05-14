@@ -90,8 +90,8 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         {
             health -= damageTaken;
             currentMesh += 1;
-            //filter.mesh = meshes[currentMesh];
-            //mesh.material.color += Color.red;
+            filter.mesh = meshes[currentMesh];
+            mesh.material.color += Color.red;
             if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
             if(ShipHealth.instance != null)
             {

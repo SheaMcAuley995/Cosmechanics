@@ -23,13 +23,16 @@ public class TutorialEventManager : MonoBehaviour{
 
     [SerializeField] FlorpReceptorTutorial florpReceptor;
 
+    [SerializeField] Collider[] damagedObjects;
 
     void Start () {
+
+        pipes = FindObjectsOfType<RepairableObject>();
 
         grid = Grid.instance;
         myTutorial = checkPipes;
 
-        Collider[] damagedObjects = Physics.OverlapSphere(transform.position, explosionRadius, interactableLayerMask);
+        damagedObjects = Physics.OverlapSphere(transform.position, explosionRadius, interactableLayerMask);
     
         foreach (Collider damagedObject in damagedObjects)
         {
@@ -78,7 +81,7 @@ public class TutorialEventManager : MonoBehaviour{
         {
             for (int y = 0; y < grid.gridSizeX; y++)
             {
-                if (isAllChecked)
+                if (!grid.grid[x, y].isFlamable)
                 {
                     isAllChecked = grid.grid[x,y].isFlamable;
                 }
