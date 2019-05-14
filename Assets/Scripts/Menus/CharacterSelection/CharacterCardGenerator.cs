@@ -199,7 +199,7 @@ public class CharacterCardGenerator : MonoBehaviour
     public void GenerateFullCard(int playerId)
     {
         // Sets random values for each card parameter
-        int headIndex = Random.Range(0, 3);
+        int headIndex = Random.Range(0, 4);
         int nameIndex = Random.Range(0, namesList.Count);
         int crimeIndex = Random.Range(0, crimesList.Count);
         int sentenceIndex = Random.Range(0, sentencesList.Count);
