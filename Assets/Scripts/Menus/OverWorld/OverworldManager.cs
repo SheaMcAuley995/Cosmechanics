@@ -220,6 +220,14 @@ public class OverworldManager : MonoBehaviour
             MoveShip();
             ApplyText();
         }
+
+        if (shipController.sprint && !ableToLaunch && !selecting)
+        {
+            selecting = true;
+            StartCoroutine(SelectionDelay());
+
+            SceneFader.instance.FadeTo("CharacterSelection_Update");
+        }
     }
 
     // Opens the mission panel UI
