@@ -32,7 +32,7 @@ public class EnemyShip : MonoBehaviour {
             {    
                 GameObject bolt = Instantiate(laserPrefab, enemyShipPosition.position, laserPrefab.transform.rotation);
                 //laserPrefab.transform.LookAt(ShipHealth.instance.attackLocation);
-             AudioEventManager.instance.PlaySound("enemyfire", .7f, 1, 1);
+             AudioEventManager.instance.PlaySound("enemyfire", 1, 1, 1);
                 bolt.transform.LookAt(laserImpactPoint);
                 lasers.Add(bolt);
                 ShipHealth.instance.gotHit = false;
@@ -53,6 +53,20 @@ public class EnemyShip : MonoBehaviour {
             }
 
         }      
+    }
+
+    void StopGame()
+    {
+        //Time.timeScale = 0f;
+        Engine.instance.enabled = false;
+        ShipHealth.instance.enabled = false;
+        ShipHealth.instance.GetComponent<EnemyShip>().enabled = false;
+        AudioSource[] audio = AudioEventManager.instance.GetComponents<AudioSource>();
+        foreach (AudioSource audioSource in audio)
+        {
+            audioSource.enabled = false;
+        }
+        this.enabled = false;
     }
    
 

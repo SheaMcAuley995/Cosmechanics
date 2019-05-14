@@ -6,9 +6,9 @@ public class PlayerSetter : MonoBehaviour
 {
     PlayerController[] players;
     
-	IEnumerator Start ()
+	void Start ()
     {
-        yield return new WaitForSeconds(0.2f);
+        //yield return new WaitForSeconds(0.2f);
         players = FindObjectsOfType<PlayerController>();
         CameraMultiTarget example = FindObjectOfType<CameraMultiTarget>();
         var targets = new List<GameObject>(players.Length);
@@ -29,10 +29,8 @@ public class PlayerSetter : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].transform.localScale = new Vector3(1f, 1f, 1f);
-            players[i].walkSpeed = 6;
-            players[i].runSpeed = 6;
-            players[i].turnSmoothTime = 0.05f;
+            players[i].enabled = true;
+            players[i].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
         }
 	}
 }
