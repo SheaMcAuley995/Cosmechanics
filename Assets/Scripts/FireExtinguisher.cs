@@ -2,31 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireExtinguisher : MonoBehaviour, IInteractableTool
+public class FireExtinguisher : MonoBehaviour
 {
     public ParticleSystem waterHoseEffect;
     public bool isExtinguishing = false;
-    bool input;
+    public PlayerController playerController;
+    BoxCollider box;
 
-    public void toolInteraction()
+    private void Start()
     {
-        StopCoroutine(UseExtinguisher());
-        isExtinguishing = true;
-        StartCoroutine(UseExtinguisher());
+        box = GetComponent<BoxCollider>();    
     }
 
-    IEnumerator UseExtinguisher()
+    public void Update()
     {
-        waterHoseEffect.Play();
-        yield return new WaitForSeconds(2.5f);
-        isExtinguishing = false;
-        yield return null;
-    }
+        if (playerController != null)
+        {
+            isExtinguishing = playerController.player.GetButton("Interact");
 
-    public void StopExtinguisher()
-    {
-        StopCoroutine(UseExtinguisher());
-        waterHoseEffect.Stop();
-        isExtinguishing = false;
+            if (isExtinguishing)
+            {
+                if (!waterHoseEffect.isPlaying)
+                {
+                    waterHoseEffect.Play();
+                }
+                box.enabled = true;
+            }
+            else
+            {
+                if (!waterHoseEffect.isStopped)
+                {
+                    waterHoseEffect.Stop();
+                }
+                box.enabled = false;
+            }
+        }
     }
 }

@@ -69,6 +69,7 @@ public class OverworldManager : MonoBehaviour
     // These should be fairly self-explanatory 
     bool moving, orbiting;
     bool ableToLaunch;
+    bool selecting;
 
 
     #region Singleton
@@ -134,13 +135,19 @@ public class OverworldManager : MonoBehaviour
             player.getInput(); // Checks for input from each player's PlayerController script
 
             // Selection input
-            if (player.pickUp && !ableToLaunch)
+            if (player.pickUp && !ableToLaunch && !selecting)
             {
+                selecting = true;
+                StartCoroutine(SelectionDelay());
+
                 // Opens the mission panel UI
                 SelectLevel();
             }
-            else if (player.pickUp && ableToLaunch)
+            else if (player.pickUp && ableToLaunch && !selecting)
             {
+                selecting = true;
+                StartCoroutine(SelectionDelay());
+
                 // Clicks the "LAUNCH" button on the mission panel (starts the level)
                 if (data.launchButton.interactable)
                 {
@@ -149,8 +156,11 @@ public class OverworldManager : MonoBehaviour
             }
 
             // Cancelation input
-            if (player.sprint)
+            if (player.sprint && !selecting)
             {
+                selecting = true;
+                StartCoroutine(SelectionDelay());
+
                 // Clicks the "CANCEL" button on the mission panel (cancels selection)
                 data.cancelButton.onClick.Invoke();
             }
@@ -299,5 +309,12 @@ public class OverworldManager : MonoBehaviour
     void ApplyText()
     {
         levelSelectedText.text = "Level " + selectedLevel.ToString();
+    }
+
+    IEnumerator SelectionDelay()
+    {
+        yield return new WaitForSeconds(0.2f);
+        selecting = false;
+        yield return null;
     }
 }

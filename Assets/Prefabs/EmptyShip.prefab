@@ -63,7 +63,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1798124972451326}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -12.99, y: 0, z: -2.0500011}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4396566245215040}
@@ -99,32 +99,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5d73219a7b82a14f92dbfc154a5de79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenNEvents: 20
+  timeBetweenNEvents: 2
   shipCurrenHealth: 0
   shipMaxHealth: 0
-  blastEffectPrefab: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 2}
+  blastEffectPrefab: {fileID: 1347158233925450, guid: b8ff373a2f7203346aa4ba3c356e9f18,
+    type: 2}
   explosionRadius: 3
   explosionDamage: 1
   interactableLayerMask:
     serializedVersion: 2
     m_Bits: 512
-  possibleAttackPositions:
-  - worldPositon: {x: 14.81, y: 0, z: -2.51}
-    nodes: []
-  - worldPositon: {x: 5.5, y: 0, z: -10.57}
-    nodes: []
-  - worldPositon: {x: 8.04, y: 0, z: -2.35}
-    nodes: []
-  - worldPositon: {x: 19.6, y: 0, z: -8.81}
-    nodes: []
-  - worldPositon: {x: 15.4, y: 0, z: -13.7}
-    nodes: []
-  - worldPositon: {x: 10.1, y: 0, z: -13.7}
-    nodes: []
-  - worldPositon: {x: 12.2, y: 0, z: -8.55}
-    nodes: []
-  - worldPositon: {x: 1.4, y: 0, z: -3.03}
-    nodes: []
+  possibleAttackPositions: []
   attackLocation: {x: 0, y: 0, z: 0}
   gotHit: 0
   healthBar: {fileID: 0}

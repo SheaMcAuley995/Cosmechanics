@@ -48,7 +48,7 @@ public class Engine : MonoBehaviour {
 
     public void Update()
     {
-        Debug.Log(engineHeatPercentage());
+        
         engineHeat -= Time.deltaTime * engineCoolingAmount;
         
         if(testInputFlorp)
