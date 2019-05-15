@@ -8,6 +8,7 @@ public class PlayerActivation : MonoBehaviour
     public static PlayerActivation instance = null;
 
     public SelectedPlayer[] chosenCharacters;
+    Animator[] animators;
 
     #region Singleton
     void Awake ()
@@ -32,6 +33,12 @@ public class PlayerActivation : MonoBehaviour
         for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
         {
             DontDestroyOnLoad(chosenCharacters[numOfChars]);
+
+            animators = chosenCharacters[numOfChars].GetComponentsInChildren<Animator>();
+            for (int i = 0; i < animators.Length; i++)
+            {
+                animators[i].SetBool("CharSelect", false);
+            }
         }
 
         SceneFader.instance.FadeTo("ZachOverWorld");
