@@ -235,6 +235,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         // Gets all of the character's renderers
         children = newPlayer.GetComponentsInChildren<Renderer>();
@@ -286,7 +290,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
-        animator.Play("Idle", -1, 0);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         lastSelected = headsList[headIndex].gameObject;
 
@@ -328,7 +335,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
-        animator.Play("Idle", -1, 0);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         timesGoneBackHead++;
 
