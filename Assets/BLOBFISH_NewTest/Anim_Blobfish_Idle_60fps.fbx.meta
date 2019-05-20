@@ -1,37 +1,40 @@
 fileFormatVersion: 2
-guid: 8f8cc662fe3ddf54797c8ffab4bbe7fa
+guid: 5386769ffd62a394e8859e5438db1d13
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: ALIEN
-    100002: ALIEN_ROOT
-    100004: //RootNode
-    100006: Head
-    100008: L_Ear_1
-    100010: L_Ear_2
-    100012: L_Eye
-    100014: Neck
-    100016: Nose
-    100018: R_Ear_1
-    100020: R_Ear_2
-    100022: R_Eye
-    400000: ALIEN
-    400002: ALIEN_ROOT
-    400004: //RootNode
-    400006: Head
-    400008: L_Ear_1
-    400010: L_Ear_2
-    400012: L_Eye
-    400014: Neck
-    400016: Nose
-    400018: R_Ear_1
-    400020: R_Ear_2
-    400022: R_Eye
-    2100000: Alien
-    4300000: ALIEN
+    100000: //RootNode
+    100002: Body_Main
+    100004: Bowl
+    100006: L_Eye
+    100008: L_Fin1
+    100010: L_Fin2
+    100012: R_Eye
+    100014: R_Fin1
+    100016: R_Fin2
+    100018: ROOT_Blobfish
+    100020: Tail
+    100022: Tailfin_1
+    100024: Tailfin_2
+    400000: //RootNode
+    400002: Body_Main
+    400004: Bowl
+    400006: L_Eye
+    400008: L_Fin1
+    400010: L_Fin2
+    400012: R_Eye
+    400014: R_Fin1
+    400016: R_Fin2
+    400018: ROOT_Blobfish
+    400020: Tail
+    400022: Tailfin_1
+    400024: Tailfin_2
+    2100000: blinn1
+    2100002: lambert3
+    4300000: Bowl
     7400000: Take 001
     9500000: //RootNode
-    13700000: ALIEN
+    13700000: Bowl
   externalObjects: {}
   materials:
     importMaterials: 1
@@ -41,7 +44,7 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
-    resampleCurves: 1
+    resampleCurves: 0
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
@@ -51,7 +54,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
-    importConstraints: 0
+    importConstraints: 1
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
@@ -59,7 +62,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Take 001
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
