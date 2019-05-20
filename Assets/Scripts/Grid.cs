@@ -70,18 +70,29 @@ public class Grid : MonoBehaviour {
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
                 if(spawnTheFires)
                 {
-                    grid[x, y] = new Node(startOnFire ? startOnFire : flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
                     grid[x, y].fireEffect.SetActive(startOnFire);
                 }
                 else
                 {
-                    grid[x, y] = new Node(startOnFire ? startOnFire : flameable, worldPoint, x, y, fireTimer, null);
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null);
                 }
 
                 if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
                 {
                     alertUI.problemMax += 1;
                     alertUI.problemCurrent += 1;
+                }
+            }
+        }
+
+        if(startOnFire)
+        {
+            for (int x = 0; x < gridSizeX; x++)
+            {
+                for (int y = 0; y < gridSizeY; y++)
+                {
+                    fires.Add(grid[x, y]);
                 }
             }
         }
@@ -167,7 +178,6 @@ public class Grid : MonoBehaviour {
             }
             
             firePos.fireTimer = fireTimer;
-            firePos.isFlamable = false;
             firePos.fireEffect.SetActive(true);
             fires.Add(firePos);
         }
@@ -190,15 +200,15 @@ public class Grid : MonoBehaviour {
     public void onFire(Node firePos)
     {
         Collider[] castedObjects = Physics.OverlapSphere(firePos.worldPosition, 1);
-
+        firePos.isFlamable = false;
         for (int i = 0; i < castedObjects.Length; i++)
         {
             if (castedObjects[i].CompareTag("Extinguisher"))
             {
-                if (nullCheck<AlertUI>(alertUI))
-                {
-                    alertUI.problemCurrent += 1;
-                }
+               //if (nullCheck<AlertUI>(alertUI))
+               //{
+               //    alertUI.problemCurrent += 1;
+               //}
                 fires.Remove(firePos);
                 firePos.isFlamable = true;
                 firePos.fireEffect.SetActive(false);

@@ -1,30 +1,21 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
-public class DialogueManager : MonoBehaviour
-{
-    public DialogueTrigger trigger;
+public class DialogueManager : MonoBehaviour {
 
-    [Header("Text Objects")]
-    //public TextMeshProUGUI nameText;
-    public TextMeshProUGUI dialogueText;
-    Queue<string> sentences = new Queue<string>();
+    public Queue<string> sentences;
 
-    [Header("Speed Settings")]
-    public float letterPause = 0.1f;
+	void Start () {
+        sentences = new Queue<string>();
+	}
 
-	
-    // Call this in DialogueTrigger whenever you wish to start the tutorial interaction
-	public void StartDialogue(Dialogue dialogue)
+    public void startDialogue(Dialogue dialogue)
     {
-        //nameText.text = dialogue.name;
-
         sentences.Clear();
 
-        foreach (string sentence in dialogue.sentences)
+        foreach(string sentence in sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -32,39 +23,19 @@ public class DialogueManager : MonoBehaviour
         DisplayNextSentence();
     }
 
-    // Runs through the next inspector set dialogue
-    public void DisplayNextSentence()
+    private void DisplayNextSentence()
     {
-        if (sentences.Count == 0)
+        if(sentences.Count == 0)
         {
             EndDialogue();
             return;
         }
 
         string sentence = sentences.Dequeue();
-
-        StopAllCoroutines();
-
-        StartCoroutine(TypeSentence(sentence));
     }
 
-    // Plays one letter at a time for each sentence
-    IEnumerator TypeSentence(string sentence)
+    private void EndDialogue()
     {
-        dialogueText.text = "";
-        foreach (char letter in sentence.ToCharArray())
-        {
-            dialogueText.text += letter;
-
-            // Sound manager stuff
-
-            yield return new WaitForSeconds(letterPause);
-        }
-    }
-
-    // Self explanatory
-    public void EndDialogue()
-    {
-        StopAllCoroutines();
+        throw new NotImplementedException();
     }
 }
