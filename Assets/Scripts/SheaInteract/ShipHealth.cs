@@ -131,7 +131,7 @@ public class ShipHealth : MonoBehaviour {
 
         if (shipCurrenHealth <= shipMaxHealth * 0.25)
         {
-            LoseGame("LoseScene");
+            LoseGame();
         }
 
         yield return new WaitForSeconds(1.5f);
@@ -148,9 +148,10 @@ public class ShipHealth : MonoBehaviour {
        // healthText.text = shipCurrenHealth.ToString();
     }
 
-    void LoseGame(string scene)
+    void LoseGame()
     {
-        SceneFader.instance.FadeTo(scene);
+        SceneFader.instance.FadeTo("LoseScene");
+        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     private void OnDrawGizmosSelected()

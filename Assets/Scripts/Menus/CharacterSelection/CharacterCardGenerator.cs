@@ -199,7 +199,7 @@ public class CharacterCardGenerator : MonoBehaviour
     public void GenerateFullCard(int playerId)
     {
         // Sets random values for each card parameter
-        int headIndex = Random.Range(0, 3);
+        int headIndex = Random.Range(0, 4);
         int nameIndex = Random.Range(0, namesList.Count);
         int crimeIndex = Random.Range(0, crimesList.Count);
         int sentenceIndex = Random.Range(0, sentencesList.Count);
@@ -235,6 +235,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         // Gets all of the character's renderers
         children = newPlayer.GetComponentsInChildren<Renderer>();
@@ -265,9 +269,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GenerateModel(int playerId)
@@ -288,7 +290,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
-        animator.Play("Idle", -1, 0);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         lastSelected = headsList[headIndex].gameObject;
 
@@ -307,9 +312,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GeneratePreviousModel(int playerId)
@@ -332,7 +335,10 @@ public class CharacterCardGenerator : MonoBehaviour
             headsList[i].SetActive(false);
         }
         headsList[headIndex].SetActive(true);
-        animator.Play("Idle", -1, 0);
+        animator.SetBool("CharSelect", true);
+        animator.Play("CharSelect Idle", -1, 0);
+        headsList[headIndex].GetComponent<Animator>().SetBool("CharSelect", true);
+        headsList[headIndex].GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
 
         timesGoneBackHead++;
 
@@ -344,9 +350,7 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.cameraTrans = Camera.main.transform;
-        controller.walkSpeed = 0.0f;
-        controller.runSpeed = 0.0f;
-        controller.turnSmoothTime = 100f;
+        controller.enabled = false;
     }
 
     public void GenerateColour()
@@ -404,7 +408,8 @@ public class CharacterCardGenerator : MonoBehaviour
         // Sets the character's locator circle to the above colour
         foreach (Image locator in locatorDots)
         {
-            locator.color = materialList[materialIndex].color;
+            Color emissColor = materialList[materialIndex].GetColor("_EmissionColor");
+            locator.color = emissColor;
         }
 
         timesGoneBackColour++;

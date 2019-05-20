@@ -22,7 +22,7 @@ public class JoinGame : MonoBehaviour
 
     public void CreateAndAssignPlayer(int id)
     {
-        card.GenerateFullCard(id + 1);
+        card.GenerateFullCard(id);
         isJoined = true;
     }
 

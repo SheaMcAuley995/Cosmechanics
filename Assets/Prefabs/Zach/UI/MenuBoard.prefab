@@ -636,6 +636,7 @@ GameObject:
   - component: {fileID: 224408510603572766}
   - component: {fileID: 114595546619927748}
   - component: {fileID: 114217319377517178}
+  - component: {fileID: 114522389449941020}
   m_Layer: 5
   m_Name: CharacterCard2
   m_TagString: CharacterCard
@@ -670,6 +671,7 @@ GameObject:
   - component: {fileID: 224346429788499086}
   - component: {fileID: 114372561302642280}
   - component: {fileID: 114040409750374724}
+  - component: {fileID: 114517754777635474}
   m_Layer: 5
   m_Name: CharacterCard3
   m_TagString: CharacterCard
@@ -929,6 +931,7 @@ GameObject:
   - component: {fileID: 224410580378180786}
   - component: {fileID: 114987009168801836}
   - component: {fileID: 114050995029031190}
+  - component: {fileID: 114855002310786844}
   m_Layer: 5
   m_Name: CharacterCard4
   m_TagString: CharacterCard
@@ -981,6 +984,7 @@ GameObject:
   - component: {fileID: 224180276697435870}
   - component: {fileID: 114903188380854496}
   - component: {fileID: 114876704104551534}
+  - component: {fileID: 114055023522327156}
   m_Layer: 5
   m_Name: CharacterCard
   m_TagString: CharacterCard
@@ -1363,6 +1367,26 @@ MonoBehaviour:
   card: {fileID: 114987009168801836}
   isJoined: 0
   selecting: 0
+--- !u!114 &114055023522327156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805602666718546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f870ef17631fec4ca4721d5c8686429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  selectModel: {x: 0, y: 0}
+  selectCrime: 0
+  previousCrime: 0
+  selectColourRight: 0
+  selectColourLeft: 0
+  readyUp: 0
+  cancel: 0
+  start: 0
 --- !u!114 &114062336523257694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2034,6 +2058,7 @@ MonoBehaviour:
   - {fileID: 1978953235343840, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1715629821391104, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1110224888722816, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
+  - {fileID: 100016, guid: 7bf6c78cd0d9b994eaf7fa7be49ec244, type: 3}
   materials:
   - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
   - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
@@ -2049,6 +2074,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0, z: 0}
   joinText: {fileID: 114942627975130428}
   joinImage: {fileID: 114246355485828096}
+  currentPlayerId: 0
   selecting: 0
 --- !u!114 &114376732136406772
 MonoBehaviour:
@@ -2284,6 +2310,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ????
+--- !u!114 &114517754777635474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1534332936531170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f870ef17631fec4ca4721d5c8686429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  selectModel: {x: 0, y: 0}
+  selectCrime: 0
+  previousCrime: 0
+  selectColourRight: 0
+  selectColourLeft: 0
+  readyUp: 0
+  cancel: 0
+  start: 0
 --- !u!114 &114521920820824742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2317,6 +2363,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ????
+--- !u!114 &114522389449941020
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1515809073528326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f870ef17631fec4ca4721d5c8686429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  selectModel: {x: 0, y: 0}
+  selectCrime: 0
+  previousCrime: 0
+  selectColourRight: 0
+  selectColourLeft: 0
+  readyUp: 0
+  cancel: 0
+  start: 0
 --- !u!114 &114560670968498356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2496,7 +2562,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Starting Game In: 10'
+  m_Text: Press START to begin!
 --- !u!114 &114589614297097116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2551,6 +2617,7 @@ MonoBehaviour:
   - {fileID: 1978953235343840, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1715629821391104, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1110224888722816, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
+  - {fileID: 100016, guid: 7bf6c78cd0d9b994eaf7fa7be49ec244, type: 3}
   materials:
   - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
   - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
@@ -2566,6 +2633,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0, z: 0}
   joinText: {fileID: 114928377162622100}
   joinImage: {fileID: 114589614297097116}
+  currentPlayerId: 0
   selecting: 0
 --- !u!114 &114596608771588446
 MonoBehaviour:
@@ -2773,9 +2841,7 @@ MonoBehaviour:
   - {fileID: 114040409750374724}
   - {fileID: 114050995029031190}
   countdownToStartText: {fileID: 114586652502597436}
-  playerControllers: []
-  multipleButtonsForCustomization: 1
-  oneButtonForRandomCharacter: 0
+  controllers: []
 --- !u!114 &114687800562028832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3188,6 +3254,26 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: ????
+--- !u!114 &114855002310786844
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1777152124598020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f870ef17631fec4ca4721d5c8686429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerId: 0
+  selectModel: {x: 0, y: 0}
+  selectCrime: 0
+  previousCrime: 0
+  selectColourRight: 0
+  selectColourLeft: 0
+  readyUp: 0
+  cancel: 0
+  start: 0
 --- !u!114 &114856366705808560
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3303,6 +3389,7 @@ MonoBehaviour:
   - {fileID: 1978953235343840, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1715629821391104, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1110224888722816, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
+  - {fileID: 100016, guid: 7bf6c78cd0d9b994eaf7fa7be49ec244, type: 3}
   materials:
   - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
   - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
@@ -3318,6 +3405,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0, z: 0}
   joinText: {fileID: 114864164160645532}
   joinImage: {fileID: 114969048087879934}
+  currentPlayerId: 0
   selecting: 0
 --- !u!114 &114923696804898004
 MonoBehaviour:
@@ -3707,6 +3795,7 @@ MonoBehaviour:
   - {fileID: 1978953235343840, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1715629821391104, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
   - {fileID: 1110224888722816, guid: 592d767253ae042428293b0c7ce2ae9d, type: 2}
+  - {fileID: 100016, guid: 7bf6c78cd0d9b994eaf7fa7be49ec244, type: 3}
   materials:
   - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
   - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
@@ -3722,6 +3811,7 @@ MonoBehaviour:
   spawnPos: {x: 0, y: 0, z: 0}
   joinText: {fileID: 114698036996223342}
   joinImage: {fileID: 114927997881911400}
+  currentPlayerId: 0
   selecting: 0
 --- !u!222 &222001986414082878
 CanvasRenderer:
@@ -4305,7 +4395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.00965625, y: 0.018168867}
   m_AnchorMax: {x: 0.08778126, y: 0.15377925}
-  m_AnchoredPosition: {x: -0.18017578, y: -0.3499756}
+  m_AnchoredPosition: {x: -0.18017578, y: -0.34985352}
   m_SizeDelta: {x: -0.36, y: 0.70004}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224130612273093652
@@ -4781,7 +4871,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.77000004, y: 0.37983114}
   m_AnchorMax: {x: 0.82500005, y: 0.48183116}
-  m_AnchoredPosition: {x: 0.30003715, y: 0.26501465}
+  m_AnchoredPosition: {x: 0.30004883, y: 0.26501465}
   m_SizeDelta: {x: -0.00008392334, y: 0.13000011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224392279478909952
@@ -4932,7 +5022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.37134373, y: 0.37983114}
   m_AnchorMax: {x: 0.42612496, y: 0.48183116}
-  m_AnchoredPosition: {x: 0.2999761, y: 0.099975586}
+  m_AnchoredPosition: {x: 0.2999878, y: 0.099975586}
   m_SizeDelta: {x: -0.0002593994, y: 0.13000011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224421487537225036
@@ -5060,7 +5150,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.17212503, y: 0.37983114}
   m_AnchorMax: {x: 0.22656251, y: 0.48183116}
-  m_AnchoredPosition: {x: 0.30241752, y: 0.26498413}
+  m_AnchoredPosition: {x: 0.30236816, y: 0.26498413}
   m_SizeDelta: {x: 0.004989624, y: 0.13000011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224577473777356606
@@ -5114,7 +5204,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.571125, y: 0.37983114}
   m_AnchorMax: {x: 0.62534374, y: 0.48183116}
-  m_AnchoredPosition: {x: 0.29999995, y: 0.23001099}
+  m_AnchoredPosition: {x: 0.2999878, y: 0.23001099}
   m_SizeDelta: {x: -0.00009918213, y: 0.13000011}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224620131633864792

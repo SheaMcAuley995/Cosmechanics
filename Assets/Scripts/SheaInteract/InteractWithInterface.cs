@@ -39,11 +39,9 @@ public class InteractWithInterface : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        controller.animators[0].SetBool("FixPipe", true);
-                        controller.animators[1].SetBool("FixPipe", true);
+                        controller.animators[0].SetTrigger("PipeFix");
+                        controller.animators[1].SetTrigger("PipeFix");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
-                        controller.animators[0].SetBool("FixPipe", false);
-                        controller.animators[1].SetBool("FixPipe", false);
                         break;
                     }
                 }
@@ -75,14 +73,11 @@ public class InteractWithInterface : MonoBehaviour
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
 
-                    if (interactedObject.GetComponent<FireExtinguisher>() != null)
-                    {
-                        interactedObject.GetComponent<FireExtinguisher>().playerController = controller;
-                    }
 
                     break;
                 }

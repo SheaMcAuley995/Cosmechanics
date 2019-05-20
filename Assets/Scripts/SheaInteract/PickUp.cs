@@ -6,6 +6,7 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
     public Rigidbody rb;
+    public PlayerController playerController;
     //public GameObject PUU_ShaderPrefab;
    // GameObject puu;
 
