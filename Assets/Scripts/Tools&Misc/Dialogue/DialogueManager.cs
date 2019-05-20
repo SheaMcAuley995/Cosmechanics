@@ -9,7 +9,7 @@ public class DialogueManager : MonoBehaviour
     public DialogueTrigger trigger;
 
     [Header("Text Objects")]
-    //public TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     Queue<string> sentences = new Queue<string>();
 
@@ -20,7 +20,7 @@ public class DialogueManager : MonoBehaviour
     // Call this in DialogueTrigger whenever you wish to start the tutorial interaction
 	public void StartDialogue(Dialogue dialogue)
     {
-        //nameText.text = dialogue.name;
+        nameText.text = dialogue.name;
 
         sentences.Clear();
 

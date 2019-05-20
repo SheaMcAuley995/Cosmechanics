@@ -9,6 +9,7 @@ public class Dialogue
     //public string name;
 
     [Header("Add to and fill these out in order of appearance")]
+    public string name;
     [TextArea(3, 10)]
     public string[] sentences;
 }
