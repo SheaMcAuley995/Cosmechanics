@@ -25,8 +25,15 @@ public class TutorialEventManager : MonoBehaviour{
 
     [SerializeField] Collider[] damagedObjects;
 
+    [Space]
+    [Header("Dialogue settings")]
+    public DialogueManager dialogueManager;
+    public DialogueTrigger[] dialogueTriggers;
+
     void Start () {
 
+        dialogueManager.trigger = dialogueTriggers[0];
+        dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
         pipes = FindObjectsOfType<RepairableObject>();
 
         grid = Grid.instance;
@@ -67,6 +74,8 @@ public class TutorialEventManager : MonoBehaviour{
 
         if(pipeMax == pipeCur)
         {
+            dialogueManager.trigger = dialogueTriggers[1];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[0].SetBool("Open", true);
             doorCollider[0].enabled = false;
             myTutorial = checkFire;
@@ -89,6 +98,8 @@ public class TutorialEventManager : MonoBehaviour{
         }
         if(isAllChecked)
         {
+            dialogueManager.trigger = dialogueTriggers[2];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("Open", true);
             doorCollider[1].enabled = false;
             myTutorial = checkEngine;
