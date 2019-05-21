@@ -24,6 +24,6 @@ public class DialogueTrigger : MonoBehaviour
     // Ends the current dialogue
     public void ExitDialogue()
     {
-        manager.EndDialogue();
+        StartCoroutine(manager.EndDialogue());
     }
 }
