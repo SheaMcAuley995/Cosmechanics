@@ -19,8 +19,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4941199873456916}
-  - component: {fileID: 114969316000593534}
-  - component: {fileID: 114711872659433846}
+  - component: {fileID: 114756188691160360}
   m_Layer: 0
   m_Name: DialogueManager
   m_TagString: Untagged
@@ -28,6 +27,93 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1698716615869774
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4614679074211642}
+  - component: {fileID: 114721034658905354}
+  m_Layer: 0
+  m_Name: Trigger_2_Fire
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1735517516209126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4344487870254930}
+  - component: {fileID: 114966375538388474}
+  m_Layer: 0
+  m_Name: Trigger_3_Florp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1999580207863746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4289325389980868}
+  - component: {fileID: 114774887614243662}
+  m_Layer: 0
+  m_Name: Trigger_1_Pipes
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4289325389980868
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999580207863746}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4941199873456916}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4344487870254930
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735517516209126}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4941199873456916}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4614679074211642
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1698716615869774}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4941199873456916}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4941199873456916
 Transform:
   m_ObjectHideFlags: 1
@@ -35,33 +121,34 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1585109254714246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 32.694996, y: 4.3290613e-17, z: -0.63967615}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4289325389980868}
+  - {fileID: 4614679074211642}
+  - {fileID: 4344487870254930}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114711872659433846
+--- !u!114 &114721034658905354
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1585109254714246}
+  m_GameObject: {fileID: 1698716615869774}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 908773ae8a82f0f4a8f2a1e296a7a653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  manager: {fileID: 114969316000593534}
+  manager: {fileID: 114756188691160360}
   dialogue:
+    name: Boss
     sentences:
-    - Hello, players! *Insert introductory dialogue here*
-    - '*Explain mechanic #1*'
-    - '*Explain mechanic #2*'
-    - '*Explain mechanic #3*'
-    - Congratulations! You've completed the tutorial. *Insert conclusive dialogue
-      here*
---- !u!114 &114969316000593534
+    - 'Now we''ll test your maintinance skills by actually setting your ship on fire! '
+    - 'Pick up objects - like the fire extinguisher - by pressing <A>. '
+    - Then press and hold <X> to extinguish fires!
+--- !u!114 &114756188691160360
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,6 +159,53 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb60d6a642fd3074499ec7f7025ca4b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trigger: {fileID: 114711872659433846}
+  trigger: {fileID: 114774887614243662}
+  nameText: {fileID: 0}
   dialogueText: {fileID: 0}
-  letterPause: 0.1
+  letterPause: 0.02
+  timeBetweenSentences: 2.5
+  animator: {fileID: 0}
+--- !u!114 &114774887614243662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1999580207863746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908773ae8a82f0f4a8f2a1e296a7a653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114756188691160360}
+  dialogue:
+    name: Boss
+    sentences:
+    - "Hello Cosmechanics! Welcome to your official, union mandated \"Definitely Super
+      Safe Training Course\"\u2122."
+    - The pipes in this room are badly damaged, reducing the ship's hull integrity.
+      Repair the pipes to prevent further damage!
+    - '(Repair damaged pipes by approaching them and pressing <X>. Note: you must
+      drop any items you''re holding first). '
+--- !u!114 &114966375538388474
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1735517516209126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 908773ae8a82f0f4a8f2a1e296a7a653, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  manager: {fileID: 114756188691160360}
+  dialogue:
+    name: Boss
+    sentences:
+    - 'The ship''s engine needs florp in order to keep running. Florp is your fuel
+      source. '
+    - 'Head over to the florp slide, and press <X> to receive a florp bottle. '
+    - 'Then pick up the empty bottle (Press <A>!), and bring it to the faucet to fill
+      it with florp. '
+    - 'Once you''ve filled a bottle with florp, bring it over to the engine to fill
+      it. Keep filling the engine with florp, and you''ll make it to your destination
+      in no time! '

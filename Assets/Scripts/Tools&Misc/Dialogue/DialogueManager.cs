@@ -16,6 +16,7 @@ public class DialogueManager : MonoBehaviour
 
     [Header("Speed Settings")]
     public float letterPause = 0.1f;
+    public float timeBetweenSentences = 3f;
 
     [Space]
     public Animator animator;
@@ -42,7 +43,7 @@ public class DialogueManager : MonoBehaviour
     {
         if (sentences.Count == 0)
         {
-            EndDialogue();
+            StartCoroutine(EndDialogue());
             return;
         }
 
@@ -69,13 +70,15 @@ public class DialogueManager : MonoBehaviour
             
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(timeBetweenSentences);
         DisplayNextSentence();
     }
 
     // Self explanatory
-    public void EndDialogue()
+    public IEnumerator EndDialogue()
     {
+        yield return new WaitForSeconds(3f);
+
         animator.SetBool("IsOpen", false);
         StopAllCoroutines();
     }
