@@ -2,20 +2,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
-public class DialogueManager : MonoBehaviour {
+public class DialogueManager : MonoBehaviour
+{
+    public DialogueTrigger trigger;
 
-    public Queue<string> sentences;
+    [Header("Text Objects")]
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
+    Queue<string> sentences = new Queue<string>();
 
-	void Start () {
-        sentences = new Queue<string>();
-	}
+    [Header("Speed Settings")]
+    public float letterPause = 0.1f;
+    public float timeBetweenSentences = 3f;
 
-    public void startDialogue(Dialogue dialogue)
+    [Space]
+    public Animator animator;
+
+    // Call this in DialogueTrigger whenever you wish to start the tutorial interaction
+    public void StartDialogue(Dialogue dialogue)
     {
+        animator.SetBool("IsOpen", true);
+
+        nameText.text = dialogue.name;
+
         sentences.Clear();
 
-        foreach(string sentence in sentences)
+        foreach (string sentence in dialogue.sentences)
         {
             sentences.Enqueue(sentence);
         }
@@ -23,19 +38,48 @@ public class DialogueManager : MonoBehaviour {
         DisplayNextSentence();
     }
 
-    private void DisplayNextSentence()
+    // Runs through the next inspector set dialogue
+    public void DisplayNextSentence()
     {
-        if(sentences.Count == 0)
+        if (sentences.Count == 0)
         {
-            EndDialogue();
+            StartCoroutine(EndDialogue());
             return;
         }
 
         string sentence = sentences.Dequeue();
+
+        StopAllCoroutines();
+
+        StartCoroutine(TypeSentence(sentence));
     }
 
-    private void EndDialogue()
+    // Plays one letter at a time for each sentence
+    IEnumerator TypeSentence(string sentence)
     {
-        throw new NotImplementedException();
+        dialogueText.text = "";
+
+        foreach (char letter in sentence.ToCharArray())
+        {
+            
+            dialogueText.text += letter;
+
+            // Sound manager stuff
+
+            yield return new WaitForSeconds(letterPause);
+            
+        }
+
+        yield return new WaitForSeconds(timeBetweenSentences);
+        DisplayNextSentence();
+    }
+
+    // Self explanatory
+    public IEnumerator EndDialogue()
+    {
+        yield return new WaitForSeconds(3f);
+
+        animator.SetBool("IsOpen", false);
+        StopAllCoroutines();
     }
 }
