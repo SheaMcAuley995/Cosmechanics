@@ -192,6 +192,8 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
+
+
         if(!onFire)
         {
             animators[0].SetBool("OnFire", false);
@@ -218,7 +220,7 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
+        
 
 
         if (onFire)

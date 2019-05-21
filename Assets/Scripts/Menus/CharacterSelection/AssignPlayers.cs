@@ -84,34 +84,36 @@ public class AssignPlayers : MonoBehaviour
                 countdownToStartText.text = "Press 'START' to begin the game!";
             }
 
-            // Player moves analog stick RIGHT - selects a new model
+            // Player moves analog stick RIGHT - selects a new head
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
-
-                cards[controller.playerId].GenerateModel(controller.playerId);
+                cards[controller.playerId].NextHead();
             }
 
-            // Player moves analog stick LEFT - selects the previous model
+            // Player moves analog stick LEFT - selects the previous head
             if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
-
-                cards[controller.playerId].GeneratePreviousModel(controller.playerId);
+                cards[controller.playerId].PreviousHead();
             }
 
-            // Player presses the right controller bumper - selects a new colour
+            // Turns off 'selecting' when the analog stick returns to 0
+            if (controller.selectModel.x == 0 && cards[controller.playerId].selecting)
+            {
+                cards[controller.playerId].selecting = false;
+            }
+
+            // Player presses the right controller bumper - selects the next colour
             if (controller.selectColourRight && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
-                cards[controller.playerId].GenerateColour();
+                cards[controller.playerId].NextColour();
             }
 
             //Player presses the left controller bumper - selects the previous colour
             if (controller.selectColourLeft && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
-                cards[controller.playerId].GeneratePreviousColour();
+                cards[controller.playerId].PreviousColour();
             }
 
             // Player presses A - advances character status to READY
