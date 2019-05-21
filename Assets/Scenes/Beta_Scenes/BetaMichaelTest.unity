@@ -1904,6 +1904,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4041537154182258, guid: c22523af144598f42af51a66ef9e5e6e,
     type: 2}
   m_PrefabInternal: {fileID: 1655046875}
+--- !u!4 &406706054 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1247644100}
 --- !u!1001 &418400209
 Prefab:
   m_ObjectHideFlags: 0
@@ -3325,6 +3330,101 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
       propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: SizeBySpeedModule.range.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114661574986515558, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: particleSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: SizeBySpeedModule.range.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.worldSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 199099119722976028, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c52b85fd036cfaa479172e3b85dcf1bd, type: 2}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.inheritParticleColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.textureMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199099119722976028, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.maxNumParticles
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: useRigidbodyForVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.widthOverTrail.minMaxState
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6219,6 +6319,7 @@ Transform:
   - {fileID: 996263547}
   - {fileID: 1034886849}
   - {fileID: 297127785}
+  - {fileID: 406706054}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6535,10 +6636,163 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1072880345584264, guid: a29446a4595c4324383ed77e9141abe5, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a29446a4595c4324383ed77e9141abe5, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1001 &1247644100
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1211625149}
+    m_Modifications:
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -51.76
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -49
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 48.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.4304604
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.43046016
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0.560985
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: -0.5609846
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953537626210886, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_Name
+      value: Starticle (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -105
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 4607012907771578, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.99999
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: SizeBySpeedModule.range.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114661574986515558, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: particleSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.startSpeed.minScalar
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: SizeBySpeedModule.range.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: simulationSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.worldSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.lifetime.scalar
+      value: 0.005
+      objectReference: {fileID: 0}
+    - target: {fileID: 199099119722976028, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c52b85fd036cfaa479172e3b85dcf1bd, type: 2}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.inheritParticleColor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.textureMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.minVertexDistance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.ratio
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199099119722976028, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: m_ApplyActiveColorSpace
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: InitialModule.maxNumParticles
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: useRigidbodyForVelocity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198380138788186904, guid: c85d40c78308f0e4fb97d99cf5296cc3,
+        type: 2}
+      propertyPath: TrailModule.widthOverTrail.minMaxState
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c85d40c78308f0e4fb97d99cf5296cc3, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1 &1255529901
 GameObject:
@@ -9433,11 +9687,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4041537154182258, guid: c22523af144598f42af51a66ef9e5e6e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 2.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4041537154182258, guid: c22523af144598f42af51a66ef9e5e6e, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -1.29
+      value: -1.2900009
       objectReference: {fileID: 0}
     - target: {fileID: 4041537154182258, guid: c22523af144598f42af51a66ef9e5e6e, type: 2}
       propertyPath: m_LocalRotation.x
