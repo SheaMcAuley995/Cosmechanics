@@ -84,6 +84,7 @@ public class PauseGame : MonoBehaviour
 
             if (player.pauseButton)
             {
+                Debug.Log("PAUSING");
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
