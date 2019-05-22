@@ -156,7 +156,8 @@ public class AssignPlayers : MonoBehaviour
 
                 if (allReady)
                 {
-                    PlayerActivation.instance.ContinueToGame();
+                    time = 4f;
+                    countdown = StartCoroutine(CountdownToGame());
                 }
             }
 
@@ -185,7 +186,7 @@ public class AssignPlayers : MonoBehaviour
                 countingDown = false;
                 halfReady = false;
                 allReady = false;
-                countdownToStartText.text = "Press 'START' to begin the game!";
+                countdownToStartText.enabled = false;
                 time = 10;
             }
         }
