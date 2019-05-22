@@ -13,6 +13,7 @@ public class AssignPlayers : MonoBehaviour
     public Text countdownToStartText;
 
     public PlayerController[] controllers;
+    SelectedPlayer[] players;
     int currentPlayerId = 0;
 
     Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
@@ -79,9 +80,18 @@ public class AssignPlayers : MonoBehaviour
 
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
+                players = FindObjectsOfType<SelectedPlayer>();
+            }
 
-                countdownToStartText.enabled = true;
-                countdownToStartText.text = "Press 'START' to begin the game!";
+            // For un-joining the game
+            if (controller.cancel && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
+
+                cards[controller.playerId].ActivateJoinIcons();
+                joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
+                ExampleGameController.instance.numberOfPlayers--;
             }
 
             // Player moves analog stick RIGHT - selects a new head
@@ -126,7 +136,7 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
 
                 numOfPlayersReady = 0;
-                for (int i = 0; i < ExampleGameController.instance.numberOfPlayers; i++)
+                for (int i = 0; i < cards.Length; i++)
                 {
                     if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
                     {
@@ -144,37 +154,26 @@ public class AssignPlayers : MonoBehaviour
                     }
                 }
 
-                // Might fix the bug?? Can't test right now cause my 2nd controller is broken. D: 
-                //foreach (SelectedPlayer player in players)
-                //{
-                //    if (player.GetComponent<CharacterCardGenerator>().characterStatus == CharacterCardGenerator.CharacterStatus.SELECTING)
-                //    {
-                //        break;
-                //    }
-                //    else
-                //    {
-                //        PlayerActivation.instance.ContinueToGame();
-                //    }
-                //}
-
                 if (allReady)
                 {
-                    PlayerActivation.instance.ContinueToGame();
+                    time = 4f;
+                    countdown = StartCoroutine(CountdownToGame());
                 }
             }
 
-            // Player presses START - begins the countdown to start game
-            if (controller.start && !cards[controller.playerId].selecting)
-            {
-                cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
+            // This is no longer needed because I'm not being a dumb dumb anymore :D 
+            //// Player presses START - begins the countdown to start game
+            //if (controller.start && !cards[controller.playerId].selecting)
+            //{
+            //    cards[controller.playerId].selecting = true;
+            //    StartCoroutine(cards[controller.playerId].SelectionDelay());
 
-                time = 4f;
-                countdown = StartCoroutine(CountdownToGame());
-            }
+            //    time = 4f;
+            //    countdown = StartCoroutine(CountdownToGame());
+            //}
 
             // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting)
+            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -187,7 +186,7 @@ public class AssignPlayers : MonoBehaviour
                 countingDown = false;
                 halfReady = false;
                 allReady = false;
-                countdownToStartText.text = "Press 'START' to begin the game!";
+                countdownToStartText.enabled = false;
                 time = 10;
             }
         }
