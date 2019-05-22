@@ -55,6 +55,7 @@ public class CharacterCardGenerator : MonoBehaviour
     Renderer[] childRenderers;
     Animator animator;
 
+    PlayerController controller;
     [HideInInspector] public int currentPlayerId = 0;
 
     [HideInInspector] public bool selecting;
@@ -108,7 +109,7 @@ public class CharacterCardGenerator : MonoBehaviour
         AssignColour();
 
         // Assigns newly created characters a playerId for ReWired, and assigns the camera
-        PlayerController controller = newPlayer.GetComponent<PlayerController>();
+        controller = newPlayer.GetComponent<PlayerController>();
         currentPlayerId = playerId;
         controller.playerId = currentPlayerId;
         currentPlayerId++;
@@ -218,6 +219,11 @@ public class CharacterCardGenerator : MonoBehaviour
         }
     }
 
+    public void RemovePlayer(int playerId)
+    {
+        //Destroy(controller[playerId].gameObject);
+    }
+
     // Used in AssignPlayers to prevent accidential selection spamming
     public IEnumerator SelectionDelay()
     {
@@ -231,5 +237,11 @@ public class CharacterCardGenerator : MonoBehaviour
     {
         joinImage.enabled = false;
         joinText.enabled = false;
+    }
+
+    public void ActivateJoinIcons()
+    {
+        joinImage.enabled = true;
+        joinText.enabled = true;
     }
 }

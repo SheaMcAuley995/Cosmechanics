@@ -84,6 +84,18 @@ public class AssignPlayers : MonoBehaviour
                 countdownToStartText.text = "Press 'START' to begin the game!";
             }
 
+            // For un-joining the game
+            if (controller.cancel && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            {
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(cards[controller.playerId].SelectionDelay());
+
+                cards[controller.playerId].ActivateJoinIcons();
+
+                //joinedStatus[controller.playerId].UnjoinGame();
+                ExampleGameController.instance.numberOfPlayers--;
+            }
+
             // Player moves analog stick RIGHT - selects a new head
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
@@ -174,7 +186,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting)
+            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
