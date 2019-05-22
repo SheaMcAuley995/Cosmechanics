@@ -221,7 +221,8 @@ public class CharacterCardGenerator : MonoBehaviour
 
     public void RemovePlayer(int playerId)
     {
-        //Destroy(controller[playerId].gameObject);
+        Destroy(newPlayer.gameObject);
+        newCharacter.nameField.text = "??";
     }
 
     // Used in AssignPlayers to prevent accidential selection spamming
