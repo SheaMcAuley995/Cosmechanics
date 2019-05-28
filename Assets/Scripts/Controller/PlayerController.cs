@@ -58,6 +58,11 @@ public class PlayerController : MonoBehaviour
 
     Rigidbody rb;
     InteractWithInterface interact;
+    public int maxPossibleCollisions;
+    public LayerMask collisionLayer;
+    public float radius;
+    Collider[] possibleColliders;
+    private Collider thisCollider;
     public Animator[] animators;
 
     GameObject interactedObject;
@@ -68,6 +73,8 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        thisCollider = GetComponent<CapsuleCollider>();
+        possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
         player = ReInput.players.GetPlayer(playerId);
@@ -193,8 +200,33 @@ public class PlayerController : MonoBehaviour
     void Move(Vector2 inputDir, bool running)
     {
 
-
-        if(!onFire)
+       // int count = Physics.OverlapSphereNonAlloc(transform.position, radius, possibleColliders);
+       //
+       // for (int i = 0; i < count; ++i)
+       // {
+       //     var collider = possibleColliders[i];
+       //
+       //     if (collider == thisCollider)
+       //         continue; // skip ourself
+       //
+       //     Vector3 otherPosition = collider.gameObject.transform.position;
+       //     Quaternion otherRotation = collider.gameObject.transform.rotation;
+       //
+       //     Vector3 direction;
+       //     float distance;
+       //
+       //     bool overlapped = Physics.ComputePenetration(
+       //         thisCollider, transform.position, transform.rotation,
+       //         collider, otherPosition, otherRotation,
+       //         out direction, out distance
+       //     );
+       //     if(overlapped)
+       //     {
+       //         Debug.Log("Collision");
+       //         Debug.DrawRay(otherPosition, direction * distance);
+       //     }
+       // }
+        if (!onFire)
         {
             animators[0].SetBool("OnFire", false);
             animators[1].SetBool("OnFire", false);
@@ -219,9 +251,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
-        
-
 
         if (onFire)
         {
@@ -260,5 +289,5 @@ public class PlayerController : MonoBehaviour
             onFire = false;
         }
     }
-
+    
 }
