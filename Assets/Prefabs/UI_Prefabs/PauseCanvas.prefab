@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 114392657509650576}
   - component: {fileID: 114356659664733720}
   - component: {fileID: 114480638221573058}
+  - component: {fileID: 114519730059321730}
   m_Layer: 5
   m_Name: PauseCanvas
   m_TagString: Untagged
@@ -348,12 +349,12 @@ MonoBehaviour:
   - {fileID: 114866911868755652}
   - {fileID: 114829156951610404}
   buttonSelectors:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 114389916574757610}
+  - {fileID: 114529904357752900}
   highlightSprites:
   - {fileID: 21300000, guid: c9f6452b128fdaf43b8c4378060c59f9, type: 3}
-  - {fileID: 21300000, guid: e92ea0d3d4b30f846b01273f9c0d5242, type: 3}
-  - {fileID: 21300000, guid: 1081136f4551ee245910a47625b1442a, type: 3}
+  - {fileID: 21300000, guid: c9f6452b128fdaf43b8c4378060c59f9, type: 3}
+  - {fileID: 21300000, guid: c9f6452b128fdaf43b8c4378060c59f9, type: 3}
 --- !u!114 &114503535976874692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -387,6 +388,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Resume (A)
+--- !u!114 &114519730059321730
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681336875611612}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91774a4d13949c04d9442105c1dba7eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114529904357752900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -488,8 +500,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
+    m_PressedColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -540,8 +552,8 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_HighlightedColor: {r: 0.59607846, g: 0.59607846, b: 0.59607846, a: 1}
+    m_PressedColor: {r: 0.31132078, g: 0.31132078, b: 0.31132078, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -673,7 +685,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 5
   m_TargetDisplay: 0
 --- !u!224 &224089783197757756
 RectTransform:
