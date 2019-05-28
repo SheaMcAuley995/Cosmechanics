@@ -82,7 +82,7 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo("ZachOverWorld");
+        SceneFader.instance.FadeTo("CacieOverworld");
         Time.timeScale = 1f;
 
         foreach (SelectedPlayer player in players)
