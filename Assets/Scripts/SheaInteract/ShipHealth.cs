@@ -116,7 +116,7 @@ public class ShipHealth : MonoBehaviour {
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
         StartCoroutine(shake.Shake(0.15f, 0.2f));
-        shipShakingAnim.Play();
+        //shipShakingAnim.Play();
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 
