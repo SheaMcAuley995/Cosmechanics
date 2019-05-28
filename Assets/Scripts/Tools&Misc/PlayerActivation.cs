@@ -42,6 +42,6 @@ public class PlayerActivation : MonoBehaviour
             }
         }
 
-        SceneFader.instance.FadeTo("ZachOverWorld");
+        SceneFader.instance.FadeTo("CacieOverworld");
     }
 }
