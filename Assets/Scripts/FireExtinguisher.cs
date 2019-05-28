@@ -7,12 +7,12 @@ public class FireExtinguisher : PickUp
     public ParticleSystem waterHoseEffect;
     public bool isExtinguishing = false;
     //public PlayerController playerController;
-    BoxCollider box;
+    [SerializeField] BoxCollider box;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        box = GetComponentInChildren<BoxCollider>();
+        //box = GetComponentInChildren<BoxCollider>();
         box.enabled = false;
     }
 

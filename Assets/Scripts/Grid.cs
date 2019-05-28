@@ -20,6 +20,7 @@ public class Grid : MonoBehaviour {
     [Header("Fire Statistics")]
     public float fireStartPercentage;
     public float fireTimer;
+    public LayerMask playerLayer;
     public AlertUI alertUI;
 
     [Header("Debug tools")]
@@ -70,12 +71,12 @@ public class Grid : MonoBehaviour {
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
                 if(spawnTheFires)
                 {
-                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)));
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)), new Collider[4]);
                     grid[x, y].fireEffect.SetActive(startOnFire);
                 }
                 else
                 {
-                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null);
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4]);
                 }
 
                 if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
@@ -199,11 +200,12 @@ public class Grid : MonoBehaviour {
 
     public void onFire(Node firePos)
     {
-        Collider[] castedObjects = Physics.OverlapSphere(firePos.worldPosition, 1);
+        int count = Physics.OverlapSphereNonAlloc(firePos.worldPosition, 1, firePos.playerArray, playerLayer);
+        //Collider[] castedObjects = Physics.OverlapSphere(firePos.worldPosition, 1);
         firePos.isFlamable = false;
-        for (int i = 0; i < castedObjects.Length; i++)
+        for (int i = 0; i < count; i++)
         {
-            if (castedObjects[i].CompareTag("Extinguisher"))
+            if (firePos.playerArray[i].CompareTag("Extinguisher"))
             {
                //if (nullCheck<AlertUI>(alertUI))
                //{
@@ -214,9 +216,10 @@ public class Grid : MonoBehaviour {
                 firePos.fireEffect.SetActive(false);
                 return;
             }
-            if (castedObjects[i].GetComponent<PlayerController>() != null)
+            var playerCon = firePos.playerArray[i].GetComponent<PlayerController>();
+            if (playerCon != null)
             {
-                castedObjects[i].GetComponent<PlayerController>().onFireTimerCur -= Time.time * 2;
+                playerCon.onFireTimerCur -= Time.time * 2;
             }
         }
 

@@ -26,6 +26,12 @@ public class JoinGame : MonoBehaviour
         isJoined = true;
     }
 
+    public void UnjoinGame(int id)
+    {
+        card.RemovePlayer(id);
+        isJoined = false;
+    }
+
     public IEnumerator SelectionDelay()
     {
         yield return new WaitForSeconds(0.2f);
