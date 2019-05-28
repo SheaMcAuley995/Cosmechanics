@@ -158,7 +158,7 @@ public class OverworldManager : MonoBehaviour
             selecting = true;
             StartCoroutine(SelectionDelay());
 
-            levelObjects[selectedLevel].sprite = highlightSprites[2];
+            levelObjects[selectedLevel - 1].sprite = highlightSprites[2];
 
             // Opens the mission panel UI
             SelectLevel();
@@ -316,7 +316,14 @@ public class OverworldManager : MonoBehaviour
     // Updates primary Overworld UI
     void ApplyText()
     {
-        levelSelectedText.text = "Level " + selectedLevel.ToString();
+        if (selectedLevel == 1)
+        {
+            levelSelectedText.text = "Tutorial";
+        }
+        else
+        {
+            levelSelectedText.text = "Level " + selectedLevel.ToString();
+        }
     }
 
     IEnumerator SelectionDelay()
