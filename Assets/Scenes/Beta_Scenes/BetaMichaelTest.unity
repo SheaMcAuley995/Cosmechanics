@@ -3381,12 +3381,12 @@ Prefab:
     - target: {fileID: 114822026692148512, guid: 20b9586834c71084c8cb42739b52dc6a,
         type: 2}
       propertyPath: engineCoolingAmount
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114822026692148512, guid: 20b9586834c71084c8cb42739b52dc6a,
         type: 2}
       propertyPath: florpCoolingPercentage
-      value: 0.825
+      value: 0.33
       objectReference: {fileID: 0}
     - target: {fileID: 4676645161022038, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -3396,6 +3396,16 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114822026692148512, guid: 20b9586834c71084c8cb42739b52dc6a,
+        type: 2}
+      propertyPath: enemyProgressionMultiplier
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114822026692148512, guid: 20b9586834c71084c8cb42739b52dc6a,
+        type: 2}
+      propertyPath: progressionMultiplier
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20b9586834c71084c8cb42739b52dc6a, type: 2}
@@ -7657,7 +7667,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1180316402}
-  m_RootOrder: 55
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1034886848
 GameObject:
@@ -8823,6 +8833,7 @@ Transform:
   - {fileID: 1335033411}
   - {fileID: 1506815723}
   - {fileID: 98362433}
+  - {fileID: 1016833623}
   - {fileID: 1996867403}
   - {fileID: 2016442411}
   - {fileID: 1654743932}
@@ -8866,7 +8877,6 @@ Transform:
   - {fileID: 900362119}
   - {fileID: 1457384752}
   - {fileID: 537292015}
-  - {fileID: 1016833623}
   - {fileID: 198199806}
   - {fileID: 1837540770}
   - {fileID: 856918435}
