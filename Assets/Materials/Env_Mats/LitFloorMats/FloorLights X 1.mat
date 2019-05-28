@@ -6,11 +6,11 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: ReverseFlorp 1
-  m_Shader: {fileID: 4800000, guid: e2e6284cf153a7746b3f78de116ef08e, type: 3}
+  m_Name: FloorLights X 1
+  m_Shader: {fileID: 4800000, guid: 7fd5339cf26dd4a46ba8e32309f70f8f, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 1
+  m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -18,6 +18,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Albedo:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -34,6 +38,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _EmissionMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -46,9 +54,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    - _NormalMap:
-        m_Texture: {fileID: 2800000, guid: ab3d4d8911df3d5478aedddc224e8e96, type: 3}
-        m_Scale: {x: 0.1, y: 0.1}
+    - _Normal:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
         m_Texture: {fileID: 0}
@@ -58,27 +66,36 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Roughness:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _FR: -1
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
+    - _LineScale: 0.1
     - _Metallic: 0
+    - _MetallicValue: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0
     - _Parallax: 0.02
-    - _RefractionValue: 0.07
+    - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _TimeMult: 200
     - _UVSec: 0
+    - _XZ: 0
     - _ZWrite: 1
-    - _fres: 0.5
     m_Colors:
-    - _Color: {r: 0.10588233, g: 0.3489715, b: 0.49803922, a: 0.11764706}
-    - _Color2: {r: 0.25490198, g: 0.51051664, b: 0.7529412, a: 1}
+    - _AlbedoColor: {r: 0, g: 0, b: 0, a: 1}
+    - _BLACK: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Emissive: {r: 23.968628, g: 4.80776, b: 0, a: 1}
