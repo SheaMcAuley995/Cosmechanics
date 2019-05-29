@@ -122,7 +122,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonStartColor, buttonEndColor, time / fadeInTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, fullSize, time / fadeInTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, one, time / fadeInTime);
             }
             
             texts[0].color = Color.Lerp(pauseTextStartColor, pauseTextEndColor, time / fadeInTime);
@@ -150,7 +150,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonEndColor, buttonStartColor, time / fadeOutTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(fullSize, zero, time / fadeOutTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(one, zero, time / fadeOutTime);
             }
 
             texts[0].color = Color.Lerp(pauseTextEndColor, pauseTextStartColor, time / fadeOutTime);
@@ -185,6 +185,10 @@ public class PauseGame : MonoBehaviour
     public void QuitGame()
     {
         ResumeGame();
+        foreach (PlayerController player in playerControllers)
+        {
+            player.gameObject.AddComponent<CharToDestroy>();
+        }
         SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }

@@ -21,6 +21,7 @@ public class ShipHealth : MonoBehaviour {
 
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
+    [SerializeField] Animation shipShakingAnim;
     [SerializeField] float explosionRadius;
     [SerializeField] int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
@@ -85,6 +86,8 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator eventSystem()
     {
+        yield return new WaitForSeconds(4);
+        Engine.instance.startEngineBehavior = true;
         while(true)
         {
             yield return new WaitForSeconds(timeBetweenNEvents);
@@ -113,7 +116,7 @@ public class ShipHealth : MonoBehaviour {
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
         StartCoroutine(shake.Shake(0.15f, 0.2f));
-        
+        //shipShakingAnim.Play();
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 

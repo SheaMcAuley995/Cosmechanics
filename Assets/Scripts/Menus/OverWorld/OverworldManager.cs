@@ -48,7 +48,7 @@ public class OverworldManager : MonoBehaviour
     public Transform shipTransform;
     
     [Header("Orbital Components")]
-    public GameObject[] levelObjects;
+    public Image[] levelObjects;
     public GameObject[] orbitPositions;
     Vector3 shipPos; // Ship's current position at time of MoveShip() being called
     Vector3 shipDest; // Ship's target destination
@@ -56,6 +56,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Overworld UI")]
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
+    public Sprite[] highlightSprites;
 
     [Header("Selected Level UI Pool")]
     public Sprite[] mapImages;
@@ -135,11 +136,13 @@ public class OverworldManager : MonoBehaviour
         {
             if(i == selectedLevel - 1)
             {
-                levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+                levelObjects[i].sprite = highlightSprites[1];
             }
             else
             {
-                levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                levelObjects[i].sprite = highlightSprites[0];
             }
         }
     }
@@ -154,6 +157,8 @@ public class OverworldManager : MonoBehaviour
         {
             selecting = true;
             StartCoroutine(SelectionDelay());
+
+            levelObjects[selectedLevel - 1].sprite = highlightSprites[2];
 
             // Opens the mission panel UI
             SelectLevel();
@@ -187,6 +192,7 @@ public class OverworldManager : MonoBehaviour
 
             // Moves the ship and updates the UI according to the new selected level
             MoveShip();
+            DeactivatePanel();
             ApplyText();
         }
 
@@ -218,6 +224,7 @@ public class OverworldManager : MonoBehaviour
 
             // Moves the ship and updates the UI according to the new selected level
             MoveShip();
+            DeactivatePanel();
             ApplyText();
         }
 
@@ -309,7 +316,14 @@ public class OverworldManager : MonoBehaviour
     // Updates primary Overworld UI
     void ApplyText()
     {
-        levelSelectedText.text = "Level " + selectedLevel.ToString();
+        if (selectedLevel == 1)
+        {
+            levelSelectedText.text = "Tutorial";
+        }
+        else
+        {
+            levelSelectedText.text = "Level " + (selectedLevel - 1).ToString();
+        }
     }
 
     IEnumerator SelectionDelay()

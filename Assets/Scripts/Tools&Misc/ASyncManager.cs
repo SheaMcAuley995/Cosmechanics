@@ -28,8 +28,8 @@ public class ASyncManager : MonoBehaviour
 
     void Start()
     {
-        LoadLoseScene();
-        LoadWinScene();
+        //LoadLoseScene();
+        //LoadWinScene();
     }
 
     void LoadLoseScene()
