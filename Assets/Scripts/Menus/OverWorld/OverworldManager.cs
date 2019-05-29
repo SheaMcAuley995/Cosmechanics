@@ -322,7 +322,7 @@ public class OverworldManager : MonoBehaviour
         }
         else
         {
-            levelSelectedText.text = "Level " + selectedLevel.ToString();
+            levelSelectedText.text = "Level " + (selectedLevel - 1).ToString();
         }
     }
 
