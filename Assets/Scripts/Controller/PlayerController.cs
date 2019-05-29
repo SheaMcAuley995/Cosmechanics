@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTrans;
 
     Rigidbody rb;
-    InteractWithInterface interact;
+    public InteractWithInterface interact;
     public int maxPossibleCollisions;
     public LayerMask collisionLayer;
     public float radius;
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     public float onFireTimerCur;
     public GameObject onFireEffect;
     private bool onFire;
-
+    public Collider myCollider;
     private void Start()
     {
         thisCollider = GetComponent<CapsuleCollider>();
@@ -149,11 +149,7 @@ public class PlayerController : MonoBehaviour
 
         if(pickUp)
         {
-            interact.pickUpObject();
-            animators[0].SetBool("ButtonPress", true);
-            animators[1].SetBool("ButtonPress", true);
-            animators[0].SetBool("ButtonPress", false);
-            animators[1].SetBool("ButtonPress", false);
+            interact.pickUpObject(myCollider);
         }
 
     }

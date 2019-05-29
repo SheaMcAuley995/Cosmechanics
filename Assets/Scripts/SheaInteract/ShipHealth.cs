@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ShipHealth : MonoBehaviour {
-
+    
     public static ShipHealth instance;
     public cameraShake shake;
     public delegate void DamageAction();
@@ -20,6 +20,7 @@ public class ShipHealth : MonoBehaviour {
     public int shipMaxHealth;
 
     [Header("Ship Blast Attributes")]
+    public float timeBeforeEventsStart;    
     [SerializeField] GameObject blastEffectPrefab;
     [SerializeField] Animation shipShakingAnim;
     [SerializeField] float explosionRadius;
@@ -86,7 +87,7 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator eventSystem()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(timeBeforeEventsStart);
         Engine.instance.startEngineBehavior = true;
         while(true)
         {

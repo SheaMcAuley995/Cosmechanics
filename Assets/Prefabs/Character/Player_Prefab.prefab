@@ -1439,6 +1439,7 @@ GameObject:
   - component: {fileID: 54730330787868172}
   - component: {fileID: 136650645927904474}
   - component: {fileID: 114092620267416716}
+  - component: {fileID: 135916360088757896}
   m_Layer: 10
   m_Name: Player_Prefab
   m_TagString: Char
@@ -1812,7 +1813,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1951382722408284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3758869, y: 3.0556753e-17, z: -15.09239}
+  m_LocalPosition: {x: -1.4498894, y: 4.166293e-17, z: -15.750532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4325682474147808}
@@ -2978,6 +2979,7 @@ MonoBehaviour:
   turnSmoothTime: 0.05
   speedSmoothTime: 0
   cameraTrans: {fileID: 0}
+  interact: {fileID: 0}
   maxPossibleCollisions: 5
   collisionLayer:
     serializedVersion: 2
@@ -2987,6 +2989,7 @@ MonoBehaviour:
   onFiretimer: 3
   onFireTimerCur: 0
   onFireEffect: {fileID: 1045824128199880}
+  myCollider: {fileID: 135916360088757896}
 --- !u!114 &114319832105741914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3128,6 +3131,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   puuPrefab: {fileID: 1701411228122146, guid: 1933a8d7fc9da544c9f3de06bd79f650, type: 2}
+  puu: {fileID: 0}
+  interactedObject: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &114880216021397486
 MonoBehaviour:
@@ -3140,6 +3145,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2824cfbb6918d47acc8c2ba6d51222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135916360088757896
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1951382722408284}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0.5, z: 1}
 --- !u!136 &136650645927904474
 CapsuleCollider:
   m_ObjectHideFlags: 1

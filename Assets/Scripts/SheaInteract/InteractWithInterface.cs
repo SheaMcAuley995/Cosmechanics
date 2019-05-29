@@ -13,10 +13,10 @@ public class InteractWithInterface : MonoBehaviour
     [Space]
     [Header("Pick 'Um Up")]
     public GameObject puuPrefab;
-    GameObject puu;
+    [HideInInspector] public GameObject puu;
     bool isPuu = false;
 
-    GameObject interactedObject;
+    public GameObject interactedObject;
     public PlayerController controller;
 
     public void InteractWithObject()
@@ -31,7 +31,6 @@ public class InteractWithInterface : MonoBehaviour
         else
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-            //Debug.Log("InteractWithObject()");
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
@@ -60,16 +59,13 @@ public class InteractWithInterface : MonoBehaviour
         
     
 
-    public void pickUpObject()
+    public void pickUpObject(Collider box)
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-        //Debug.Log("Calling pickUpObject()");
-        //Debug.Log(hitColliders.Length);
         if(interactedObject == null)
         {
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                //  Debug.Log("Calling object " + hitColliders[i]);
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
@@ -77,7 +73,7 @@ public class InteractWithInterface : MonoBehaviour
                     interactedObject = hitColliders[i].gameObject;
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
-
+                    box.enabled = true;
 
                     break;
                 }
@@ -92,6 +88,7 @@ public class InteractWithInterface : MonoBehaviour
             interactedObject.GetComponent<PickUp>().putMeDown();
             isPuu = false;
             Destroy(puu);
+            box.enabled = false;
             interactedObject = null;
         }
         if (!isPuu)
@@ -117,49 +114,5 @@ public class InteractWithInterface : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
-
-    //public void grabObject()
-    //{
-    //    if(interactedObject != null)
-    //    {
-    //        interactedObject.transform.position = transform.position;
-    //        interactedObject.transform.eulerAngles = transform.eulerAngles;
-    //    }
-    //}
-    //
-    //public void throwObject()
-    //{
-    //    if (interactedObject != null)
-    //    {
-    //        interactedObject.GetComponent<Rigidbody>().velocity = transform.forward * throwForce;
-    //    }
-    //}
-
-    //public void InteractWith()
-    //{
-    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-    //    Debug.Log("Calling InteractWith()");
-    //    Debug.Log(hitColliders.Length);
-    //    for (int i = 0; i < hitColliders.Length; i++)
-    //    {
-    //        // Chache this later once the check becomes larger
-    //        Debug.Log("Calling object " + i);
-    //        if (hitColliders[i].GetComponent<Interactable>() != null)
-    //        {
-    //            Interactable testedInteractable = hitColliders[i].GetComponent<Interactable>();
-    //
-    //            if (testedInteractable.pickedUp == false)
-    //            {
-    //                if (interactableObject == null)
-    //                {
-    //                    Debug.Log("Setting interactable to " + hitColliders[i]);
-    //                    interactableObject = testedInteractable;
-    //                    return;
-    //                }
-    //            }
-    //
-    //        }
-    //    }
-    //}
-
+   
 }
