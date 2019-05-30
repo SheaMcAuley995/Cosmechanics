@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Engine : MonoBehaviour {
 
+
     public static Engine instance;
     [Header("Engine Statistics")]
     public float engineHeat;
@@ -12,9 +13,9 @@ public class Engine : MonoBehaviour {
     public float engineCoolingAmount;
     [Range(0, 1)] public float florpCoolingPercentage;
 
+    [HideInInspector] public bool startEngineBehavior = false;
+
     [Header("Win Condition")]
-    public GameObject winGameUI;
-    public GameObject looseGameUI;
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
@@ -40,13 +41,20 @@ public class Engine : MonoBehaviour {
     }
     public void Start()
     {
-        winGameUI.SetActive(false);
         engineHeat = maxHeat / 2;
-        currentProgress = winConditionLimit / 10;
+        currentProgress = winConditionLimit / 25;
         alertUI.problemMax = maxHeat;
     }
 
-    public void Update()
+    private void Update()
+    {
+        if(startEngineBehavior)
+        {
+            EngineUpdate();
+        }
+    }
+
+    public void EngineUpdate()
     {
         
         engineHeat -= Time.deltaTime * engineCoolingAmount;
@@ -58,7 +66,7 @@ public class Engine : MonoBehaviour {
         }
 
         currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        enemyProgress += Time.deltaTime * 50 * progressionMultiplier;
+        enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
         ShipProgressSlider.value = currentProgress / winConditionLimit;
         enemyShipProgressSlider.value = enemyProgress / winConditionLimit;
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
@@ -66,21 +74,26 @@ public class Engine : MonoBehaviour {
 
         if(currentProgress > winConditionLimit)
         {
-            winGameUI.SetActive(true);
-            BroadcastMessage("StopGame");
+            WinGame();
         }
         if(enemyProgress > currentProgress)
         {
-            looseGameUI.SetActive(true);
-            BroadcastMessage("StopGame");
+            LoseGame();
         }
         AudioEventManager.instance.PlaySound("engine");
         alertUI.problemCurrent = engineHeat;
     }
 
-    private void StopGame()
+    private void WinGame()
     {
-        enabled = false;
+        SceneFader.instance.FadeTo("WinScene");
+        //ASyncManager.instance.winOperation.allowSceneActivation = true;
+    }
+
+    private void LoseGame()
+    {
+        SceneFader.instance.FadeTo("LoseScene");
+        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     public void InsertFlorp()

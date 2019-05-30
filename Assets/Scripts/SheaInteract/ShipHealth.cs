@@ -7,7 +7,7 @@ using TMPro;
 public class ShipHealth : MonoBehaviour {
 
     public static ShipHealth instance;
-
+    public cameraShake shake;
     public delegate void DamageAction();
     public static event DamageAction onDamagedAction;
 
@@ -21,6 +21,7 @@ public class ShipHealth : MonoBehaviour {
 
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
+    [SerializeField] Animation shipShakingAnim;
     [SerializeField] float explosionRadius;
     [SerializeField] int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
@@ -35,7 +36,6 @@ public class ShipHealth : MonoBehaviour {
 
     [Header("UI Elements")]
     public Slider healthBar;
-    public GameObject loseGameScreen;
 
     int index;
 
@@ -86,6 +86,8 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator eventSystem()
     {
+        yield return new WaitForSeconds(4);
+        Engine.instance.startEngineBehavior = true;
         while(true)
         {
             yield return new WaitForSeconds(timeBetweenNEvents);
@@ -113,8 +115,8 @@ public class ShipHealth : MonoBehaviour {
         yield return new WaitForSeconds(.5f);     //delay in travel time of laser
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
-
-        
+        StartCoroutine(shake.Shake(0.15f, 0.2f));
+        //shipShakingAnim.Play();
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 
@@ -145,15 +147,14 @@ public class ShipHealth : MonoBehaviour {
     public void AdjustUI()
     {
         //Debug.Log(shipCurrenHealth / shipMaxHealth);
-        healthBar.value =(float)shipCurrenHealth / shipMaxHealth;
+        healthBar.value =((float)shipCurrenHealth / shipMaxHealth);
        // healthText.text = shipCurrenHealth.ToString();
     }
 
     void LoseGame()
     {
-        // TODO: Make UI prettier and animate
-        loseGameScreen.SetActive(true);
-        Time.timeScale = 0f;
+        SceneFader.instance.FadeTo("LoseScene");
+        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     private void OnDrawGizmosSelected()

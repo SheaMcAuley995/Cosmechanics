@@ -2,19 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ButtonSelectionManager : MonoBehaviour
 {
     PlayerController[] controlers;
-    Animator animator, lastAnimator;
-    Image selector, lastSelector;
+    ShipController shipController;
+
+    Image selector, lastSelector, buttonImage, lastButtonImage;
 
     public List<Button> menuButtons = new List<Button>();
     [Space]
     public List<Image> buttonSelectors = new List<Image>();
+    [Space]
+    public List<Sprite> highlightSprites = new List<Sprite>();
 
     int selectedButtonIndex, lastSelectedButton;
+
     bool selecting, ableToGetInput;
+    string currentScene;
 
 
     IEnumerator Start()
@@ -24,12 +30,14 @@ public class ButtonSelectionManager : MonoBehaviour
         SelectButtonDownward();
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
+        shipController = FindObjectOfType<ShipController>();
         ableToGetInput = true;
+        currentScene = SceneManager.GetActiveScene().name;
     }
 
     void Update()
     {
-        if (ableToGetInput)
+        if (ableToGetInput && currentScene != "CacieOverworld")
         {
             foreach (PlayerController controler in controlers)
             {
@@ -49,6 +57,26 @@ public class ButtonSelectionManager : MonoBehaviour
                 {
                     PressButton();
                 }
+            }
+        }
+
+        if (ableToGetInput && currentScene == "CacieOverworld")
+        {
+            shipController.GetInput();
+
+            if (shipController.movementVector.y < 0 && !selecting)
+            {
+                SelectButtonDownward();
+            }
+
+            if (shipController.movementVector.y > 0 && !selecting)
+            {
+                SelectButtonUpward();
+            }
+
+            if (shipController.pickUp && !selecting)
+            {
+                PressButton();
             }
         }
     }
@@ -71,6 +99,8 @@ public class ButtonSelectionManager : MonoBehaviour
 
         lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
         selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
+        buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
 
         if (lastSelector != null)
         {
@@ -80,6 +110,16 @@ public class ButtonSelectionManager : MonoBehaviour
         if (selector != null)
         {
             selector.enabled = true;
+        }
+
+        if (lastButtonImage != null)
+        {
+            lastButtonImage.sprite = highlightSprites[0];
+        }
+
+        if (buttonImage != null)
+        {
+            buttonImage.sprite = highlightSprites[1];
         }
     }
 
@@ -101,6 +141,8 @@ public class ButtonSelectionManager : MonoBehaviour
 
         lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
         selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
+        buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
 
         if (lastSelector != null)
         {
@@ -111,15 +153,26 @@ public class ButtonSelectionManager : MonoBehaviour
         {
             selector.enabled = true;
         }
+
+        if (lastButtonImage != null)
+        {
+            lastButtonImage.sprite = highlightSprites[0];
+        }
+
+        if (buttonImage != null)
+        {
+            buttonImage.sprite = highlightSprites[1];
+        }
     }
 
     void PressButton()
     {
         if (menuButtons[selectedButtonIndex].interactable && !selecting)
         {
-            selecting = true;
-            StartCoroutine(WaitForNextSelection());
+            //selecting = true;
+            //StartCoroutine(WaitForNextSelection());
 
+            menuButtons[selectedButtonIndex].GetComponent<Image>().sprite = highlightSprites[2];
             menuButtons[selectedButtonIndex].onClick.Invoke();
         }
     }

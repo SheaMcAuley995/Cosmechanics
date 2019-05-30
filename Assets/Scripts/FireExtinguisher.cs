@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FireExtinguisher : MonoBehaviour
+public class FireExtinguisher : PickUp
 {
     public ParticleSystem waterHoseEffect;
     public bool isExtinguishing = false;
-    public PlayerController playerController;
-    BoxCollider box;
+    //public PlayerController playerController;
+    [SerializeField] BoxCollider box;
 
     private void Start()
     {
-        box = GetComponent<BoxCollider>();    
+        rb = GetComponent<Rigidbody>();
+        //box = GetComponentInChildren<BoxCollider>();
+        box.enabled = false;
     }
 
     public void Update()
@@ -36,6 +38,10 @@ public class FireExtinguisher : MonoBehaviour
                 }
                 box.enabled = false;
             }
+        }
+        else
+        {
+            waterHoseEffect.Stop();
         }
     }
 }

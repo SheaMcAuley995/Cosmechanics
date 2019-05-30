@@ -10,9 +10,10 @@ public class PauseGame : MonoBehaviour
     [Header("UI Elements")]
     public Canvas pauseCanvas;
     public Image[] images;
-    public TextMeshProUGUI[] texts;
+    public Text[] texts;
 
     [Header("Configurations")]
+    public ButtonSelectionManager selection;
     public KeyCode pauseButton1;
     public KeyCode pauseButton2;
     public string menuScene;
@@ -35,6 +36,7 @@ public class PauseGame : MonoBehaviour
     Vector3 one = Vector3.one;
     Vector3 fullSize = new Vector3(1.5f, 1.5f, 1.5f);
     bool input, paused;
+    bool canCheck = false;
 
     PlayerController[] playerControllers;
 
@@ -45,10 +47,13 @@ public class PauseGame : MonoBehaviour
     #endregion
 
     // Use this for initialization
-    void Start ()
+    IEnumerator Start ()
     {
+        selection.enabled = false;
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
+        yield return new WaitForSeconds(0.2f);
+        canCheck = true;
     }
 
     void SetDefaultButtons()
@@ -79,23 +84,19 @@ public class PauseGame : MonoBehaviour
 
             if (player.pauseButton)
             {
+                Debug.Log("PAUSING");
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
 
-            if (player.pickUp)
+            if (player.pickUp && selection.isActiveAndEnabled)
             {
                 ResumeGame();
             }
 
-            if (player.sprint)
+            if (player.sprint && selection.isActiveAndEnabled)
             {
                 QuitGame();
-            }
-
-            if (player.Interact)
-            {
-                OptionsMenu();
             }
         }
     }
@@ -103,11 +104,15 @@ public class PauseGame : MonoBehaviour
     // Update is called once per frame
     void Update ()
     {
-        DetectInput();
+        if (canCheck)
+        {
+            DetectInput();
+        }
 	}
 
-    IEnumerator FadeIn(Image[] images, TextMeshProUGUI[] texts)
+    IEnumerator FadeIn(Image[] images, Text[] texts)
     {
+        selection.enabled = true;
         paused = true;
         Time.timeScale = 0f;
 
@@ -117,7 +122,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonStartColor, buttonEndColor, time / fadeInTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, fullSize, time / fadeInTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, one, time / fadeInTime);
             }
             
             texts[0].color = Color.Lerp(pauseTextStartColor, pauseTextEndColor, time / fadeInTime);
@@ -134,8 +139,9 @@ public class PauseGame : MonoBehaviour
         StopCoroutine(FadeIn(images, texts));
     }
 
-    public IEnumerator FadeOut(Image[] images, TextMeshProUGUI[] texts)
+    public IEnumerator FadeOut(Image[] images, Text[] texts)
     {
+        selection.enabled = false;
         paused = false;
 
         for (float time = 0.01f; time < fadeOutTime; time += 0.1f)
@@ -144,7 +150,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonEndColor, buttonStartColor, time / fadeOutTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(fullSize, zero, time / fadeOutTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(one, zero, time / fadeOutTime);
             }
 
             texts[0].color = Color.Lerp(pauseTextEndColor, pauseTextStartColor, time / fadeOutTime);
@@ -178,6 +184,11 @@ public class PauseGame : MonoBehaviour
 
     public void QuitGame()
     {
-        SceneFader.instance.FadeTo("MainMenu");
+        ResumeGame();
+        foreach (PlayerController player in playerControllers)
+        {
+            player.gameObject.AddComponent<CharToDestroy>();
+        }
+        SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }

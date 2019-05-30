@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1241169576177650}
+  m_IsPrefabAsset: 1
+--- !u!1 &1241169576177650
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4429803208913620}
+  - component: {fileID: 114260673156198218}
+  - component: {fileID: 114206786905761604}
+  m_Layer: 0
+  m_Name: OverworldManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4429803208913620
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241169576177650}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114206786905761604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241169576177650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4a445048c095f4db35d60de2fb2a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114260673156198218
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1241169576177650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52e8f6e0785f304aad47ca78cec8ed0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data:
+    mapPreview: {fileID: 0}
+    levelName: {fileID: 0}
+    description: {fileID: 0}
+    launchButton: {fileID: 0}
+    cancelButton: {fileID: 0}
+  shipController: {fileID: 0}
+  level: 0
+  shipTransform: {fileID: 0}
+  levelObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  orbitPositions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  levelPanel: {fileID: 0}
+  levelSelectedText: {fileID: 0}
+  highlightSprites:
+  - {fileID: 21300000, guid: adfb55c501ad9834cb7ad8a2b0f4158f, type: 3}
+  - {fileID: 21300000, guid: 507d34a9d5553834fb20ac4c47e208e8, type: 3}
+  - {fileID: 21300000, guid: 96deb0006d85615469a0d30cc9056db2, type: 3}
+  mapImages:
+  - {fileID: 21300000, guid: 6bed4e9d2c962fe49986f9c9c79133e5, type: 3}
+  - {fileID: 21300000, guid: ebd4b12eedb442b4d978395f1c081627, type: 3}
+  - {fileID: 21300000, guid: 5222e311cc8c4f742879cccb91a9a585, type: 3}
+  levelNames:
+  - Tutorial Ship
+  - Ship One
+  - Ship Two
+  descriptions:
+  - 'This is the tutorial level, where you will learn the basic game mechanics. '
+  - This is your first mission. Good luck, try to bring the ship back in one piece!
+  - Good job on your last mission! This one will be more challenging. Good luck!
+  travelTime: 0.25
+  orbitSpeed: 80
+  orbitOffset: {x: 15, y: 0, z: 10}
