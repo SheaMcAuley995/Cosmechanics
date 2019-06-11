@@ -32,6 +32,8 @@ public class TutorialEventManager : MonoBehaviour{
 
     void Start () {
 
+        damagedObjects = new Collider[12];
+
         dialogueManager.trigger = dialogueTriggers[0];
         dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
         pipes = FindObjectsOfType<RepairableObject>();
@@ -39,14 +41,16 @@ public class TutorialEventManager : MonoBehaviour{
         grid = Grid.instance;
         myTutorial = checkPipes;
 
-        damagedObjects = Physics.OverlapSphere(transform.position, explosionRadius, interactableLayerMask);
+        Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
     
-        foreach (Collider damagedObject in damagedObjects)
+        for(int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
         {
-            IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-            //shipCurrenHealth -= explosionDamage;
-            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
-            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
+            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
+            //IDamageable<int> caughtObject = damagedObject[i].GetComponent<IDamageable<int>>();
+            ////shipCurrenHealth -= explosionDamage;
+            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
         //for(int i = 0; i < Doors.Length; i++)
