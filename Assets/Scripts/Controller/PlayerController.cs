@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTrans;
 
     Rigidbody rb;
-    InteractWithInterface interact;
+    public InteractWithInterface interact;
     public int maxPossibleCollisions;
     public LayerMask collisionLayer;
     public float radius;
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
     public float onFireTimerCur;
     public GameObject onFireEffect;
     private bool onFire;
+    public Collider myCollider;
 
     private void Start()
     {
@@ -149,11 +150,7 @@ public class PlayerController : MonoBehaviour
 
         if(pickUp)
         {
-            interact.pickUpObject();
-            animators[0].SetBool("ButtonPress", true);
-            animators[1].SetBool("ButtonPress", true);
-            animators[0].SetBool("ButtonPress", false);
-            animators[1].SetBool("ButtonPress", false);
+            interact.pickUpObject(myCollider);
         }
 
     }
@@ -199,33 +196,6 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
-
-       // int count = Physics.OverlapSphereNonAlloc(transform.position, radius, possibleColliders);
-       //
-       // for (int i = 0; i < count; ++i)
-       // {
-       //     var collider = possibleColliders[i];
-       //
-       //     if (collider == thisCollider)
-       //         continue; // skip ourself
-       //
-       //     Vector3 otherPosition = collider.gameObject.transform.position;
-       //     Quaternion otherRotation = collider.gameObject.transform.rotation;
-       //
-       //     Vector3 direction;
-       //     float distance;
-       //
-       //     bool overlapped = Physics.ComputePenetration(
-       //         thisCollider, transform.position, transform.rotation,
-       //         collider, otherPosition, otherRotation,
-       //         out direction, out distance
-       //     );
-       //     if(overlapped)
-       //     {
-       //         Debug.Log("Collision");
-       //         Debug.DrawRay(otherPosition, direction * distance);
-       //     }
-       // }
         if (!onFire)
         {
             animators[0].SetBool("OnFire", false);

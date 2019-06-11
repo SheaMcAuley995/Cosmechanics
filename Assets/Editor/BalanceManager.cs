@@ -15,7 +15,7 @@ public class BalanceManager : EditorWindow
     
     [Header("PlayerInfo")]
     [SerializeField] ExampleGameController gameController;
-    
+    [SerializeField] Grid grid;
     
     Color color;
     
@@ -23,6 +23,7 @@ public class BalanceManager : EditorWindow
     {
         engine = FindObjectOfType<Engine>();
         shipHealth = FindObjectOfType<ShipHealth>();
+        grid = FindObjectOfType<Grid>();
         
     }
     
@@ -45,10 +46,16 @@ public class BalanceManager : EditorWindow
 
         GUILayout.Label("Ship Health Scipt edits", EditorStyles.boldLabel);
         shipHealth.timeBetweenNEvents = EditorGUILayout.Slider(new GUIContent("Time Between Events", "Time between the blasts. Or the time between the events that will cause damage to the ship."), shipHealth.timeBetweenNEvents, 0.1f, 15);
+        shipHealth.timeBeforeEventsStart = EditorGUILayout.Slider(new GUIContent("Time Before Event Starts", "Time between the blasts. Or the time between the events that will cause damage to the ship."), shipHealth.timeBeforeEventsStart, 0.1f, 15);
+        GUILayout.Label("Fire Scipt edits", EditorStyles.boldLabel);
+        grid.fireStartPercentage = EditorGUILayout.Slider(new GUIContent("Fire Start Percentage", "Time between the blasts. Or the time between the events that will cause damage to the ship."), grid.fireStartPercentage, 1, 100);
+        grid.fireTimer = EditorGUILayout.Slider(new GUIContent("Fire Spread timer", "Time between the blasts. Or the time between the events that will cause damage to the ship."), grid.fireTimer, 0.1f, 15);
+        GUILayout.Space(25);
         if (GUILayout.Button("RESET CONNECTIONS"))
         {
             engine = FindObjectOfType<Engine>();
             shipHealth = FindObjectOfType<ShipHealth>();
+            grid = FindObjectOfType<Grid>();
         }
     }
 
