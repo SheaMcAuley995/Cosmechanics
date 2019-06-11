@@ -173,22 +173,22 @@ public class AssignPlayers : MonoBehaviour
             //}
 
             // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-            {
-                cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
+            //if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+            //{
+            //    cards[controller.playerId].selecting = true;
+            //    StartCoroutine(cards[controller.playerId].SelectionDelay());
 
-                cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
-                cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
+            //    cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
+            //    cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
 
-                numOfPlayersReady--;
-                StopCoroutine(countdown);
-                countingDown = false;
-                halfReady = false;
-                allReady = false;
-                countdownToStartText.enabled = false;
-                time = 10;
-            }
+            //    numOfPlayersReady--;
+            //    StopCoroutine(countdown);
+            //    countingDown = false;
+            //    halfReady = false;
+            //    allReady = false;
+            //    countdownToStartText.enabled = false;
+            //    time = 10;
+            //}
         }
     }
 

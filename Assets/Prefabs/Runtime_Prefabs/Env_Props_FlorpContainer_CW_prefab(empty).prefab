@@ -273,6 +273,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
   playerController: {fileID: 0}
+  myCollider: {fileID: 0}
+  isFilling: 0
   initTime: 0
   lerpTime: 1.25
   curve:
@@ -322,6 +324,9 @@ MonoBehaviour:
   isFilled: 0
   innerContObj: {fileID: 1614738668713840}
   florpFillAmount: 0.2
+  interactableLayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!114 &114946531464936332
 MonoBehaviour:
   m_ObjectHideFlags: 1
