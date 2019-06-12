@@ -30,16 +30,18 @@ public class PlayerActivation : MonoBehaviour
     {
         chosenCharacters = FindObjectsOfType<SelectedPlayer>();
 
-        for (int numOfChars = 0; numOfChars < chosenCharacters.Length; numOfChars++)
+        for (int i = 0; i < chosenCharacters.Length; i++)
         {
-            DontDestroyOnLoad(chosenCharacters[numOfChars]);
+            DontDestroyOnLoad(chosenCharacters[i]);
 
-            animators = chosenCharacters[numOfChars].GetComponentsInChildren<Animator>();
-            for (int i = 0; i < animators.Length; i++)
+            animators = chosenCharacters[i].GetComponentsInChildren<Animator>();
+            for (int j = 0; j < animators.Length; j++)
             {
-                animators[i].Play("CharSelect Idle", -1, 0.8f);
-                animators[i].SetBool("CharSelect", false);
+                animators[j].Play("CharSelect Idle", -1, 0.8f);
+                animators[j].SetBool("CharSelect", false);
             }
+
+            chosenCharacters[i].GetComponent<PlayerController>().enabled = true;
         }
 
         SceneFader.instance.FadeTo("CacieOverworld");

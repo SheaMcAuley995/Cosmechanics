@@ -49,7 +49,7 @@ public class PauseGame : MonoBehaviour
     // Use this for initialization
     IEnumerator Start ()
     {
-        selection.enabled = false;
+        //selection.enabled = false;
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
         yield return new WaitForSeconds(0.2f);
@@ -89,15 +89,15 @@ public class PauseGame : MonoBehaviour
                 StartCoroutine(FadeIn(images, texts));
             }
 
-            if (player.pickUp && selection.isActiveAndEnabled)
-            {
-                ResumeGame();
-            }
+            //if (player.pickUp && selection.isActiveAndEnabled)
+            //{
+            //    ResumeGame();
+            //}
 
-            if (player.sprint && selection.isActiveAndEnabled)
-            {
-                QuitGame();
-            }
+            //if (player.sprint && selection.isActiveAndEnabled)
+            //{
+            //    QuitGame();
+            //}
         }
     }
 
@@ -112,9 +112,10 @@ public class PauseGame : MonoBehaviour
 
     IEnumerator FadeIn(Image[] images, Text[] texts)
     {
-        selection.enabled = true;
+        //selection.enabled = true;
         paused = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        GameStateManager.instance.SetGameState(GameState.Paused);
 
         for (float time = 0.01f; time < fadeInTime; time += 0.1f)
         {
@@ -141,7 +142,7 @@ public class PauseGame : MonoBehaviour
 
     public IEnumerator FadeOut(Image[] images, Text[] texts)
     {
-        selection.enabled = false;
+        //selection.enabled = false;
         paused = false;
 
         for (float time = 0.01f; time < fadeOutTime; time += 0.1f)
@@ -164,7 +165,8 @@ public class PauseGame : MonoBehaviour
             yield return null;
         }
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        GameStateManager.instance.SetGameState(GameState.Running);
         StopCoroutine(FadeOut(images, texts));
     }
 
