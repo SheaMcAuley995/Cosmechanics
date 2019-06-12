@@ -10,9 +10,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public int repairAmount = 1;
 
-    MeshRenderer mesh;
-    MeshFilter filter;
-    [SerializeField]Mesh[] meshes;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] MeshFilter filter;
+    [SerializeField] Mesh[] meshes;
     int currentMesh;
     //public GameObject steamParticlePrefab;
     public GameObject repairEffect;
@@ -22,14 +22,16 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
+        if(filter == null) { filter = GetComponent<MeshFilter>(); }
+        if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
+        
         if(ShipHealth.instance != null)
         {
             ShipHealth.instance.shipMaxHealth += healthMax;
             ShipHealth.instance.shipCurrenHealth += health;
         }
 
-        filter = GetComponent<MeshFilter>();
+        
         if(alertUI != null)
         {
             alertUI.problemMax += healthMax;

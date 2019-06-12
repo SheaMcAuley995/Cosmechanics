@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 54702587655811668}
   - component: {fileID: 136211942563265540}
   - component: {fileID: 114979511795015946}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: TEST
   m_TagString: Char
   m_Icon: {fileID: 0}
@@ -1867,7 +1867,8 @@ MonoBehaviour:
   start: 0
   normalMovement: 1
   pickUp: 0
-  pickUpTransform: {fileID: 4417544135575548}
+  pickUpTransform: {fileID: 4592010599831842, guid: 592d767253ae042428293b0c7ce2ae9d,
+    type: 2}
   walkSpeed: 6
   runSpeed: 6
   gravity: -12
@@ -1875,10 +1876,16 @@ MonoBehaviour:
   turnSmoothTime: 0.05
   speedSmoothTime: 0
   cameraTrans: {fileID: 0}
+  maxPossibleCollisions: 5
+  collisionLayer:
+    serializedVersion: 2
+    m_Bits: 1025
+  radius: 1
   animators: []
   onFiretimer: 3
   onFireTimerCur: 0
-  onFireEffect: {fileID: 1137652419932716}
+  onFireEffect: {fileID: 1045824128199880, guid: 592d767253ae042428293b0c7ce2ae9d,
+    type: 2}
 --- !u!136 &136211942563265540
 CapsuleCollider:
   m_ObjectHideFlags: 1

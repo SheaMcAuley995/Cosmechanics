@@ -12,6 +12,19 @@ public class FlorpReceptorTutorial : MonoBehaviour {
         isFilled = 0;
     }
 
+    public void fillTheEngine(Florp other)
+    {
+
+        particle.Play();
+        //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
+        //if (engine != null) { engine.InsertFlorp(); }
+
+        BottleDispenser.instance.bottlesDispensed--;
+        Destroy(other.gameObject);
+        AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
+        isFilled++;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<Florp>() != null)

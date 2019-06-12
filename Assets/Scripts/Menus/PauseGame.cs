@@ -185,6 +185,10 @@ public class PauseGame : MonoBehaviour
     public void QuitGame()
     {
         ResumeGame();
+        foreach (PlayerController player in playerControllers)
+        {
+            player.gameObject.AddComponent<CharToDestroy>();
+        }
         SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }

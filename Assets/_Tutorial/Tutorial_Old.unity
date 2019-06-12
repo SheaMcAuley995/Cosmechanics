@@ -9573,6 +9573,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b0cf2d2ab18574b857c717c90aa472, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pipes: []
+  grid: {fileID: 0}
   explosionRadius: 8.7
   interactableLayerMask:
     serializedVersion: 2
@@ -9582,6 +9584,12 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  doorCollider: []
+  doorAnimator: []
+  florpReceptor: {fileID: 0}
+  damagedObjects: []
+  dialogueManager: {fileID: 0}
+  dialogueTriggers: []
 --- !u!4 &1498459805
 Transform:
   m_ObjectHideFlags: 0
@@ -12932,6 +12940,9 @@ MonoBehaviour:
   gridSizeY: 4
   fireStartPercentage: 0
   fireTimer: 0
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
   alertUI: {fileID: 0}
   GenerateGrid: 0
   LightFire: 0
