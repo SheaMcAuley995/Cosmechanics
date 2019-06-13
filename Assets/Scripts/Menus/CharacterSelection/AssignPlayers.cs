@@ -29,9 +29,10 @@ public class AssignPlayers : MonoBehaviour
     int playerId = 0;
 
     Coroutine countdown;
+    bool checkingInput = false;
 
 
-    void Start()
+    IEnumerator Start()
     {
         ExampleGameController.instance.setSpawnPoints();
         ExampleGameController.instance.numberOfPlayers = 0;
@@ -57,11 +58,15 @@ public class AssignPlayers : MonoBehaviour
         allReady = false;
 
         countdownToStartText.enabled = false;
+
+        yield return new WaitForSeconds(0.2f);
+        checkingInput = true;
     }
 
     void Update()
     {
-        GetInput();
+        if (checkingInput)
+            GetInput();
     }
 
     void GetInput()
