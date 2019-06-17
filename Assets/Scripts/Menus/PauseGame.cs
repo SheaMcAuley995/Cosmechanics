@@ -51,7 +51,7 @@ public class PauseGame : MonoBehaviour
     // Use this for initialization
     IEnumerator Start ()
     {
-        //selection.enabled = false;
+        selection.enabled = false;
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
         yield return new WaitForSeconds(0.2f);
