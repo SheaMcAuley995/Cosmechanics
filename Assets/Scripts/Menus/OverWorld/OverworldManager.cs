@@ -31,6 +31,7 @@ public class OverworldManager : MonoBehaviour
     public OverworldData data; // Reference to the struct containing the constructor
     public ShipController shipController; // For handling input
     PlayerController[] playerControllers;
+    SelectedPlayer[] selectedPlayers;
 
     // Enum for handling selected level states
     public enum Level
@@ -229,9 +230,16 @@ public class OverworldManager : MonoBehaviour
 
         if (shipController.sprint && !ableToLaunch && !selecting)
         {
+            selectedPlayers = FindObjectsOfType<SelectedPlayer>();
+
             selecting = true;
             StartCoroutine(SelectionDelay());
 
+            foreach (SelectedPlayer player in selectedPlayers)
+            {
+                player.gameObject.AddComponent<CharToDestroy>();
+                Destroy(player.gameObject);
+            }
             SceneFader.instance.FadeTo("CharacterSelection_Update");
         }
     }
