@@ -27,12 +27,12 @@ public class ButtonSelectionManager : MonoBehaviour
     {
         ableToGetInput = false;
         selectedButtonIndex = -1;
-        SelectButtonDownward();
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
         shipController = FindObjectOfType<ShipController>();
         ableToGetInput = true;
         currentScene = SceneManager.GetActiveScene().name;
+        SelectButtonDownward();
     }
 
     void Update()

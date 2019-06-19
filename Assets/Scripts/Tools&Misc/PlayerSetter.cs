@@ -5,12 +5,13 @@ using UnityEngine;
 public class PlayerSetter : MonoBehaviour
 {
     PlayerController[] players;
-    
-	void Start ()
+    CameraMultiTarget example;
+
+
+    void Start ()
     {
-        //yield return new WaitForSeconds(0.2f);
         players = FindObjectsOfType<PlayerController>();
-        CameraMultiTarget example = FindObjectOfType<CameraMultiTarget>();
+        example = FindObjectOfType<CameraMultiTarget>();
         var targets = new List<GameObject>(players.Length);
 
         ExampleGameController.instance.setSpawnPoints();
@@ -26,11 +27,5 @@ public class PlayerSetter : MonoBehaviour
         }
 
         example.SetTargets(targets.ToArray());
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].enabled = true;
-            players[i].gameObject.transform.localScale = new Vector3(1f, 1f, 1f);
-        }
 	}
 }
