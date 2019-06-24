@@ -39,6 +39,8 @@ public class PauseGame : MonoBehaviour
     bool canCheck = false;
 
     PlayerController[] playerControllers;
+    SelectedPlayer[] players;
+    PickUp[] pickups;
 
     #region KeyCode caching
     KeyCode defaultPauseButton1 = KeyCode.Escape;
@@ -49,7 +51,7 @@ public class PauseGame : MonoBehaviour
     // Use this for initialization
     IEnumerator Start ()
     {
-        //selection.enabled = false;
+        selection.enabled = false;
         SetDefaultButtons();
         playerControllers = FindObjectsOfType<PlayerController>();
         yield return new WaitForSeconds(0.2f);
@@ -112,7 +114,7 @@ public class PauseGame : MonoBehaviour
 
     IEnumerator FadeIn(Image[] images, Text[] texts)
     {
-        //selection.enabled = true;
+        selection.enabled = true;
         paused = true;
         //Time.timeScale = 0f;
         GameStateManager.instance.SetGameState(GameState.Paused);
@@ -142,7 +144,7 @@ public class PauseGame : MonoBehaviour
 
     public IEnumerator FadeOut(Image[] images, Text[] texts)
     {
-        //selection.enabled = false;
+        selection.enabled = false;
         paused = false;
 
         for (float time = 0.01f; time < fadeOutTime; time += 0.1f)
@@ -187,10 +189,21 @@ public class PauseGame : MonoBehaviour
     public void QuitGame()
     {
         ResumeGame();
-        foreach (PlayerController player in playerControllers)
+
+        players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+
+        SceneFader.instance.FadeTo("MainMenu_Update");
+
+        foreach (SelectedPlayer player in players)
         {
             player.gameObject.AddComponent<CharToDestroy>();
+            Destroy(player);
         }
-        SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }
