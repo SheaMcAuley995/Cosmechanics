@@ -76,7 +76,7 @@ public class AssignPlayers : MonoBehaviour
             controller.getInput();
 
             // For joining the game
-            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
+            if (controller.Button_A && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
             {
                 joinedStatus[controller.playerId].selecting = true;
                 StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
@@ -89,7 +89,7 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // For un-joining the game
-            if (controller.cancel && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            if (controller.Button_B && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
@@ -120,19 +120,19 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // Player presses the right controller bumper - selects the next colour
-            if (controller.selectColourRight && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            if (controller.Button_RB && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].NextColour();
             }
 
             //Player presses the left controller bumper - selects the previous colour
-            if (controller.selectColourLeft && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
+            if (controller.Button_LB && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].PreviousColour();
             }
 
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
+            if (controller.Button_A && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());

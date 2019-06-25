@@ -10167,7 +10167,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &759758918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10849,6 +10849,10 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: -0.099975586
+      objectReference: {fileID: 0}
+    - target: {fileID: 1681336875611612, guid: 7daa5219d5394c440ac6c03faa330224, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7daa5219d5394c440ac6c03faa330224, type: 2}
@@ -21558,6 +21562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cdcdef1295f1c442a5743235b556612, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inputEvent: 0
   canvasView: {fileID: 367455808}
   images:
   - {fileID: 1027438943}
@@ -21566,15 +21571,20 @@ MonoBehaviour:
   - {fileID: 2146104101}
   - {fileID: 419818829}
   - {fileID: 1988658023}
-  buttons:
+  buttonSprites:
   - {fileID: 21300000, guid: 73bdb756761e3ae449ce98b5e79a417f, type: 3}
   - {fileID: 21300000, guid: 790645208b41e534a8c998019e5e941a, type: 3}
   - {fileID: 21300000, guid: 03b45c6dae6d1414b9cf712725d33818, type: 3}
   - {fileID: 21300000, guid: 947015e95a5d16b499d84d80cda681ba, type: 3}
-  - {fileID: 21300000, guid: 8b61215f0cf5319498e13cf2e78586be, type: 3}
   - {fileID: 21300000, guid: 0a4f9644c4518194d9985954034848d7, type: 3}
-  - {fileID: 21300000, guid: 546bf6c397a8d574c96f32a6d68ed921, type: 3}
-  - {fileID: 21300000, guid: 0925577a202e6af4a9b679d59b97d255, type: 3}
+  - {fileID: 21300000, guid: 8b61215f0cf5319498e13cf2e78586be, type: 3}
+  inputs:
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
 --- !u!65 &1452339605
 BoxCollider:
   m_ObjectHideFlags: 0

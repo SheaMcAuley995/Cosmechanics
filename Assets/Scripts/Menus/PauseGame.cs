@@ -72,21 +72,10 @@ public class PauseGame : MonoBehaviour
 
     void DetectInput()
     {
-        input = Input.GetKeyDown(pauseButton1) || Input.GetKeyDown(pauseButton2);
-
-        if (input && !paused)
-        {
-            StopCoroutine(FadeOut(images, texts));
-            StartCoroutine(FadeIn(images, texts));
-        }
-
         foreach (PlayerController player in playerControllers)
         {
-            player.getInput();
-
-            if (player.pauseButton)
+            if (player.pauseButton && !paused)
             {
-                Debug.Log("PAUSING");
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
