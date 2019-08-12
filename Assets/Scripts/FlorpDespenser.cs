@@ -5,44 +5,57 @@ using UnityEngine;
 
 public class FlorpDespenser : MonoBehaviour , IInteractable {
 
+
+
+    public Transform lockPosition;
+    public GameObject[] switches = new GameObject[2];
+
     Florp interactedFlorp;
     public GameObject particle;
+    private ParticleSystem particleFlorp;
     public Transform dispensePoint;
     Vector3 point;
     [SerializeField]
     bool dump = false;
+
     private void Start()
     {
+        particle = Instantiate(particle, point, Quaternion.identity);
+        particleFlorp = particle.GetComponent<ParticleSystem>();
         dump = false;
         point = dispensePoint.position;
     }
 
     public void InteractWith()
     {
-        dump = true;
-    }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (interactedFlorp != null)
+        if(interactedFlorp == null)
         {
-            interactedFlorp = other.GetComponent<Florp>();
-            interactedFlorp.doFill = true;
+
         }
-        if (other.GetComponent<Florp>() != null /*&& dump*/)
-        {
-            other.GetComponent<Florp>().doFill = true;
-            other.GetComponent<Florp>().toolInteraction();
-            AudioEventManager.instance.PlaySound("splat", .7f, .8f, 0);
-            DoDump();
-        }
-        else { dump = false; }
-        dump = false;
     }
+
+
+   // private void OnTriggerEnter(Collider other)
+   // {
+   //     if (interactedFlorp != null)
+   //     {
+   //         interactedFlorp = other.GetComponent<Florp>();
+   //         interactedFlorp.doFill = true;
+   //     }
+   //     if (other.GetComponent<Florp>() != null /*&& dump*/)
+   //     {
+   //         other.GetComponent<Florp>().doFill = true;
+   //         other.GetComponent<Florp>().toolInteraction();
+   //         AudioEventManager.instance.PlaySound("splat", .7f, .8f, 0);
+   //         DoDump();
+   //     }
+   //     else { dump = false; }
+   //     dump = false;
+   // }
 
     private void DoDump()
     {
-        GameObject uh = Instantiate(particle, point, Quaternion.identity);
-        uh.GetComponent<ParticleSystem>().Play();
+        particleFlorp.Play();
 
         dump = false;
 
