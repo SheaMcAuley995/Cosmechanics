@@ -44,6 +44,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Level Management")]
     [Space] public Level level;
     int selectedLevel = 1;
+    public string charSelectSceneName;
 
     [Header("Ship Components")]
     public Transform shipTransform;
@@ -167,7 +168,7 @@ public class OverworldManager : MonoBehaviour
         // Directional movement input (RIGHT)
         if (shipController.movementVector.x > 0 && !moving && !ableToLaunch)
         {
-            /// SUMMARY: If the player moves to another level, data needs to be updated
+            // SUMMARY: If the player moves to another level, data needs to be updated
             switch (selectedLevel)
             {
                 // If level 1 had been selected...
@@ -237,10 +238,10 @@ public class OverworldManager : MonoBehaviour
 
             foreach (SelectedPlayer player in selectedPlayers)
             {
-                player.gameObject.AddComponent<CharToDestroy>();
+                //player.gameObject.AddComponent<CharToDestroy>();
                 Destroy(player.gameObject);
             }
-            SceneFader.instance.FadeTo("CharacterSelection_Update");
+            SceneFader.instance.FadeTo(charSelectSceneName);
         }
     }
 
