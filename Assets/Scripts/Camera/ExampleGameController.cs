@@ -17,11 +17,6 @@ public class ExampleGameController : MonoBehaviour
     [HideInInspector] public Vector3[] spawnPoints;
     public List<string> spawnableScenes;
 
-    private void OnValidate()
-    {
-        
-    }
-
     private void Awake()
     {
        // DontDestroyOnLoad(this.gameObject);
@@ -36,22 +31,26 @@ public class ExampleGameController : MonoBehaviour
 
     }
 
-    
     private void Start()
     {
+        InitializeGameStart();
+    }
+
+
+    private void InitializeGameStart()
+    {
             if (true)
-              {
+            {
                 setSpawnPoints();
                 var targets = new List<GameObject>(numberOfPlayers);
 
-            for (int i = 0; i < numberOfPlayers; i++)
-            {
-
-                targets.Add(addPlayer());
-                cameraMultiTarget.SetTargets(targets.ToArray());
-            }
-
+                for (int i = 0; i < numberOfPlayers; i++)
+                {
+                    targets.Add(addPlayer());
+                    cameraMultiTarget.SetTargets(targets.ToArray());
                 }
+
+            }
 
         SceneManager.activeSceneChanged += MakePlayers;
         SceneManager.activeSceneChanged += cameraCheck;
