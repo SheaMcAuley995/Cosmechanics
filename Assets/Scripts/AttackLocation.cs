@@ -6,4 +6,5 @@ using UnityEngine;
 public class AttackLocation  {
     public Vector3 worldPositon;
     public List<Node> nodes = new List<Node>();
+    public List<RepairableObject> repairables = new List<RepairableObject>();
 }

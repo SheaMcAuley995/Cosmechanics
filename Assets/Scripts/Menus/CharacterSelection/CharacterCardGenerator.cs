@@ -225,7 +225,7 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.nameField.text = "??";
     }
 
-    // Used in AssignPlayers to prevent accidential selection spamming
+    // Used in AssignPlayers to prevent accidental selection spamming
     public IEnumerator SelectionDelay()
     {
         yield return new WaitForSeconds(0.2f);

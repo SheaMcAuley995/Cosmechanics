@@ -17,7 +17,7 @@ public class EngineFireAffector : MonoBehaviour {
         var em = engineFire.emission;
         //var main = engineFire.main;
         em.rateOverTimeMultiplier = (Engine.instance.engineHeat / Engine.instance.maxHeat) * particleEmissionRate;
-        float heatlvl = Engine.instance.engineHeat / Engine.instance.maxHeat;
+       // float heatlvl = Engine.instance.engineHeat / Engine.instance.maxHeat;
         //Debug.LogWarning(heatlvl + " heat level");
         //var startSpeed = main.startSpeed;
         //startSpeed.constant -= (Engine.instance.engineHeat / Engine.instance.maxHeat)/10;
