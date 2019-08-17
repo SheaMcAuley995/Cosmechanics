@@ -10,7 +10,7 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     public Transform lockPosition;
     public GameObject[] switches = new GameObject[2];
 
-    Florp interactedFlorp;
+    public Florp interactedFlorp;
     public GameObject particle;
     private ParticleSystem particleFlorp;
     public Transform dispensePoint;
@@ -35,23 +35,23 @@ public class FlorpDespenser : MonoBehaviour , IInteractable {
     }
 
 
-   // private void OnTriggerEnter(Collider other)
-   // {
-   //     if (interactedFlorp != null)
-   //     {
-   //         interactedFlorp = other.GetComponent<Florp>();
-   //         interactedFlorp.doFill = true;
-   //     }
-   //     if (other.GetComponent<Florp>() != null /*&& dump*/)
-   //     {
-   //         other.GetComponent<Florp>().doFill = true;
-   //         other.GetComponent<Florp>().toolInteraction();
-   //         AudioEventManager.instance.PlaySound("splat", .7f, .8f, 0);
-   //         DoDump();
-   //     }
-   //     else { dump = false; }
-   //     dump = false;
-   // }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (interactedFlorp != null)
+        {
+            interactedFlorp = other.GetComponent<Florp>();
+            interactedFlorp.doFill = true;
+        }
+        if (other.GetComponent<Florp>() != null /*&& dump*/)
+        {
+            other.GetComponent<Florp>().doFill = true;
+            other.GetComponent<Florp>().toolInteraction();
+            AudioEventManager.instance.PlaySound("splat", .7f, .8f, 0);
+            DoDump();
+        }
+        else { dump = false; }
+        dump = false;
+    }
 
     private void DoDump()
     {
