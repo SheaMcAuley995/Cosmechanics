@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool pauseButton;
 
     [HideInInspector] public Vector2 selectModel;
-    [HideInInspector] public bool selectCrime;
-    [HideInInspector] public bool previousCrime;
-    [HideInInspector] public bool selectColourRight;
-    [HideInInspector] public bool selectColourLeft;
-    [HideInInspector] public bool readyUp;
-    [HideInInspector] public bool cancel;
+    [HideInInspector] public bool Button_Y;
+    [HideInInspector] public bool Button_X;
+    [HideInInspector] public bool Button_RB;
+    [HideInInspector] public bool Button_LB;
+    [HideInInspector] public bool Button_A;
+    [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
     CharacterController cc;
     public bool normalMovement = true;
@@ -57,7 +57,12 @@ public class PlayerController : MonoBehaviour
     public Transform cameraTrans;
 
     Rigidbody rb;
-    InteractWithInterface interact;
+    public InteractWithInterface interact;
+    public int maxPossibleCollisions;
+    public LayerMask collisionLayer;
+    public float radius;
+    Collider[] possibleColliders;
+    private Collider thisCollider;
     public Animator[] animators;
 
     GameObject interactedObject;
@@ -65,9 +70,12 @@ public class PlayerController : MonoBehaviour
     public float onFireTimerCur;
     public GameObject onFireEffect;
     private bool onFire;
+    public Collider myCollider;
 
     private void Start()
     {
+        thisCollider = GetComponent<CapsuleCollider>();
+        possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
         animators = GetComponentsInChildren<Animator>();
         player = ReInput.players.GetPlayer(playerId);
@@ -110,12 +118,12 @@ public class PlayerController : MonoBehaviour
 
         #region Char Select Input
         selectModel.x = player.GetAxisRaw("ModelSelect");
-        selectCrime = player.GetButtonDown("SelectCrime");
-        previousCrime = player.GetButtonDown("PrevCrime");
-        selectColourRight = player.GetButtonDown("ColourSelectRight");
-        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
-        readyUp = player.GetButtonDown("ReadyUp");
-        cancel = player.GetButtonDown("Cancel");
+        Button_Y = player.GetButtonDown("SelectCrime");
+        Button_X = player.GetButtonDown("PrevCrime");
+        Button_RB = player.GetButtonDown("ColourSelectRight");
+        Button_LB = player.GetButtonDown("ColourSelectLeft");
+        Button_A = player.GetButtonDown("ReadyUp");
+        Button_B = player.GetButtonDown("Cancel");
         start = player.GetButtonDown("Start");
         #endregion
     }
@@ -142,11 +150,7 @@ public class PlayerController : MonoBehaviour
 
         if(pickUp)
         {
-            interact.pickUpObject();
-            animators[0].SetBool("ButtonPress", true);
-            animators[1].SetBool("ButtonPress", true);
-            animators[0].SetBool("ButtonPress", false);
-            animators[1].SetBool("ButtonPress", false);
+            interact.pickUpObject(myCollider);
         }
 
     }
@@ -192,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
-        if(!onFire)
+        if (!onFire)
         {
             animators[0].SetBool("OnFire", false);
             animators[1].SetBool("OnFire", false);
@@ -218,9 +222,6 @@ public class PlayerController : MonoBehaviour
 
         }
 
-
-
-
         if (onFire)
         {
             animators[0].SetBool("OnFire", true);
@@ -242,7 +243,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
         rb.velocity = transform.forward * currentSpeed;
 
     }
@@ -258,5 +258,5 @@ public class PlayerController : MonoBehaviour
             onFire = false;
         }
     }
-
+    
 }

@@ -9,11 +9,13 @@ public class ButtonSelectionManager : MonoBehaviour
     PlayerController[] controlers;
     ShipController shipController;
 
-    Image selector, lastSelector;
+    Image selector, lastSelector, buttonImage, lastButtonImage;
 
     public List<Button> menuButtons = new List<Button>();
     [Space]
     public List<Image> buttonSelectors = new List<Image>();
+    [Space]
+    public List<Sprite> highlightSprites = new List<Sprite>();
 
     int selectedButtonIndex, lastSelectedButton;
 
@@ -25,17 +27,17 @@ public class ButtonSelectionManager : MonoBehaviour
     {
         ableToGetInput = false;
         selectedButtonIndex = -1;
-        SelectButtonDownward();
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
         shipController = FindObjectOfType<ShipController>();
         ableToGetInput = true;
         currentScene = SceneManager.GetActiveScene().name;
+        SelectButtonDownward();
     }
 
     void Update()
     {
-        if (ableToGetInput && currentScene != "ZachOverWorld")
+        if (ableToGetInput && currentScene != "CacieOverworld")
         {
             foreach (PlayerController controler in controlers)
             {
@@ -58,7 +60,7 @@ public class ButtonSelectionManager : MonoBehaviour
             }
         }
 
-        if (ableToGetInput && currentScene == "ZachOverWorld")
+        if (ableToGetInput && currentScene == "CacieOverworld")
         {
             shipController.GetInput();
 
@@ -97,6 +99,8 @@ public class ButtonSelectionManager : MonoBehaviour
 
         lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
         selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
+        buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
 
         if (lastSelector != null)
         {
@@ -106,6 +110,16 @@ public class ButtonSelectionManager : MonoBehaviour
         if (selector != null)
         {
             selector.enabled = true;
+        }
+
+        if (lastButtonImage != null)
+        {
+            lastButtonImage.sprite = highlightSprites[0];
+        }
+
+        if (buttonImage != null)
+        {
+            buttonImage.sprite = highlightSprites[1];
         }
     }
 
@@ -127,6 +141,8 @@ public class ButtonSelectionManager : MonoBehaviour
 
         lastSelector = buttonSelectors[lastSelectedButton].GetComponent<Image>();
         selector = buttonSelectors[selectedButtonIndex].GetComponent<Image>();
+        lastButtonImage = menuButtons[lastSelectedButton].GetComponent<Image>();
+        buttonImage = menuButtons[selectedButtonIndex].GetComponent<Image>();
 
         if (lastSelector != null)
         {
@@ -137,6 +153,16 @@ public class ButtonSelectionManager : MonoBehaviour
         {
             selector.enabled = true;
         }
+
+        if (lastButtonImage != null)
+        {
+            lastButtonImage.sprite = highlightSprites[0];
+        }
+
+        if (buttonImage != null)
+        {
+            buttonImage.sprite = highlightSprites[1];
+        }
     }
 
     void PressButton()
@@ -146,6 +172,7 @@ public class ButtonSelectionManager : MonoBehaviour
             //selecting = true;
             //StartCoroutine(WaitForNextSelection());
 
+            menuButtons[selectedButtonIndex].GetComponent<Image>().sprite = highlightSprites[2];
             menuButtons[selectedButtonIndex].onClick.Invoke();
         }
     }

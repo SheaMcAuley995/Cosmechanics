@@ -10,9 +10,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public int repairAmount = 1;
 
-    MeshRenderer mesh;
-    MeshFilter filter;
-    [SerializeField]Mesh[] meshes;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] MeshFilter filter;
+    [SerializeField] Mesh[] meshes;
     int currentMesh;
     //public GameObject steamParticlePrefab;
     public GameObject repairEffect;
@@ -22,14 +22,16 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
+        if(filter == null) { filter = GetComponent<MeshFilter>(); }
+        if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
+        
         if(ShipHealth.instance != null)
         {
             ShipHealth.instance.shipMaxHealth += healthMax;
             ShipHealth.instance.shipCurrenHealth += health;
         }
 
-        filter = GetComponent<MeshFilter>();
+        
         if(alertUI != null)
         {
             alertUI.problemMax += healthMax;
@@ -49,7 +51,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
              
-            AudioEventManager.instance.PlaySound("clang", .2f, Random.Range(.9f,1f), 0);    //play clang audio
+            AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
            //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -101,7 +103,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             //Debug.Log("Health Points : " + health);
             if (AudioEventManager.instance != null)
             {
-                AudioEventManager.instance.PlaySound("pipebreak", .2f, 1, 0);
+                AudioEventManager.instance.PlaySound("pipebreak", .7f, 1, 0);
             }
             
             if(!steamEffect.isPlaying)

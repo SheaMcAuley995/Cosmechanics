@@ -39,6 +39,8 @@ public class PauseGame : MonoBehaviour
     bool canCheck = false;
 
     PlayerController[] playerControllers;
+    SelectedPlayer[] players;
+    PickUp[] pickups;
 
     #region KeyCode caching
     KeyCode defaultPauseButton1 = KeyCode.Escape;
@@ -70,33 +72,23 @@ public class PauseGame : MonoBehaviour
 
     void DetectInput()
     {
-        input = Input.GetKeyDown(pauseButton1) || Input.GetKeyDown(pauseButton2);
-
-        if (input && !paused)
-        {
-            StopCoroutine(FadeOut(images, texts));
-            StartCoroutine(FadeIn(images, texts));
-        }
-
         foreach (PlayerController player in playerControllers)
         {
-            player.getInput();
-
-            if (player.pauseButton)
+            if (player.pauseButton && !paused)
             {
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
 
-            if (player.pickUp && selection.isActiveAndEnabled)
-            {
-                ResumeGame();
-            }
+            //if (player.pickUp && selection.isActiveAndEnabled)
+            //{
+            //    ResumeGame();
+            //}
 
-            if (player.sprint && selection.isActiveAndEnabled)
-            {
-                QuitGame();
-            }
+            //if (player.sprint && selection.isActiveAndEnabled)
+            //{
+            //    QuitGame();
+            //}
         }
     }
 
@@ -113,7 +105,8 @@ public class PauseGame : MonoBehaviour
     {
         selection.enabled = true;
         paused = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        GameStateManager.instance.SetGameState(GameState.Paused);
 
         for (float time = 0.01f; time < fadeInTime; time += 0.1f)
         {
@@ -121,7 +114,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonStartColor, buttonEndColor, time / fadeInTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, fullSize, time / fadeInTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(zero, one, time / fadeInTime);
             }
             
             texts[0].color = Color.Lerp(pauseTextStartColor, pauseTextEndColor, time / fadeInTime);
@@ -149,7 +142,7 @@ public class PauseGame : MonoBehaviour
             for (int i = 1; i < images.Length; i++)
             {
                 images[i].color = Color.Lerp(buttonEndColor, buttonStartColor, time / fadeOutTime);
-                images[i].gameObject.transform.localScale = Vector3.Lerp(fullSize, zero, time / fadeOutTime);
+                images[i].gameObject.transform.localScale = Vector3.Lerp(one, zero, time / fadeOutTime);
             }
 
             texts[0].color = Color.Lerp(pauseTextEndColor, pauseTextStartColor, time / fadeOutTime);
@@ -163,7 +156,8 @@ public class PauseGame : MonoBehaviour
             yield return null;
         }
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        GameStateManager.instance.SetGameState(GameState.Running);
         StopCoroutine(FadeOut(images, texts));
     }
 
@@ -184,6 +178,21 @@ public class PauseGame : MonoBehaviour
     public void QuitGame()
     {
         ResumeGame();
+
+        players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+
         SceneFader.instance.FadeTo("MainMenu_Update");
+
+        foreach (SelectedPlayer player in players)
+        {
+            player.gameObject.AddComponent<CharToDestroy>();
+            Destroy(player);
+        }
     }
 }

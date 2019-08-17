@@ -25,21 +25,32 @@ public class TutorialEventManager : MonoBehaviour{
 
     [SerializeField] Collider[] damagedObjects;
 
+    [Space]
+    [Header("Dialogue settings")]
+    public DialogueManager dialogueManager;
+    public DialogueTrigger[] dialogueTriggers;
+
     void Start () {
 
+        damagedObjects = new Collider[12];
+
+        dialogueManager.trigger = dialogueTriggers[0];
+        dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
         pipes = FindObjectsOfType<RepairableObject>();
 
         grid = Grid.instance;
         myTutorial = checkPipes;
 
-        damagedObjects = Physics.OverlapSphere(transform.position, explosionRadius, interactableLayerMask);
+        Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
     
-        foreach (Collider damagedObject in damagedObjects)
+        for(int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
         {
-            IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-            //shipCurrenHealth -= explosionDamage;
-            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
-            if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
+            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
+            //IDamageable<int> caughtObject = damagedObject[i].GetComponent<IDamageable<int>>();
+            ////shipCurrenHealth -= explosionDamage;
+            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
+            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
         //for(int i = 0; i < Doors.Length; i++)
@@ -67,6 +78,8 @@ public class TutorialEventManager : MonoBehaviour{
 
         if(pipeMax == pipeCur)
         {
+            dialogueManager.trigger = dialogueTriggers[1];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[0].SetBool("Open", true);
             doorCollider[0].enabled = false;
             myTutorial = checkFire;
@@ -89,6 +102,8 @@ public class TutorialEventManager : MonoBehaviour{
         }
         if(isAllChecked)
         {
+            dialogueManager.trigger = dialogueTriggers[2];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("Open", true);
             doorCollider[1].enabled = false;
             myTutorial = checkEngine;

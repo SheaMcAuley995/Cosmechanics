@@ -14,14 +14,31 @@ public class ButtonManager : MonoBehaviour
     // 5 = LoseScene
     // 6 = WinScene
 
+    PlayerController[] controllers;
     SelectedPlayer[] players;
+    CharToDestroy[] oldPlayers;
     PickUp[] pickups;
 
+
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.2f);
+        controllers = FindObjectsOfType<PlayerController>();
+        foreach (PlayerController controller in controllers)
+        {
+            controller.cameraTrans = Camera.main.transform;
+        }
+    }
 
     // Fades to character selection
     public void StartGame()
     {
+        oldPlayers = FindObjectsOfType<CharToDestroy>();
         SceneFader.instance.FadeTo("CharacterSelection_Update");
+        foreach (CharToDestroy player in oldPlayers)
+        {
+            Destroy(player.gameObject);
+        }
     }
 
     // Fades to quit
@@ -82,7 +99,7 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo("ZachOverWorld");
+        SceneFader.instance.FadeTo("CacieOverworld");
         Time.timeScale = 1f;
 
         foreach (SelectedPlayer player in players)

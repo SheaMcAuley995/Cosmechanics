@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33114502154767956}
   - component: {fileID: 23588626389942584}
   - component: {fileID: 64159394590943578}
+  - component: {fileID: 64405251434139118}
   m_Layer: 0
   m_Name: Env_Ctn_Floor_CW
   m_TagString: Untagged
@@ -57,7 +58,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 2100000, guid: 0dcfea4c941551b4c9a6ff7a9c82a259, type: 2}
+  - {fileID: 2100000, guid: 89ce3b148b664844ba4d695dd1d8016f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,6 +86,20 @@ MeshFilter:
   m_GameObject: {fileID: 1559874105803232}
   m_Mesh: {fileID: 4300000, guid: 675b2d4069c2a7e4985cbc21162b55e0, type: 3}
 --- !u!64 &64159394590943578
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1559874105803232}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: 675b2d4069c2a7e4985cbc21162b55e0, type: 3}
+--- !u!64 &64405251434139118
 MeshCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

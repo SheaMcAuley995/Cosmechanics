@@ -1,13 +1,15 @@
 // Shader created with Shader Forge v1.38 
 // Shader Forge (c) Freya Holmer - http://www.acegikmo.com/shaderforge/
 // Note: Manually altering this data may prevent you from opening it in Shader Forge
-/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:False,hqlp:False,rprd:False,enco:False,rmgx:True,imps:True,rpth:1,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:6610,x:32719,y:32712,varname:node_6610,prsc:2|diff-5961-OUT,spec-5654-OUT,gloss-7783-OUT,normal-7206-RGB;n:type:ShaderForge.SFN_Tex2d,id:2183,x:31325,y:31857,ptovrint:False,ptlb:Albedo,ptin:_Albedo,varname:_Albedo,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Color,id:2216,x:31325,y:32029,ptovrint:False,ptlb:AlbedoColor,ptin:_AlbedoColor,varname:_AlbedoColor,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,c1:1,c2:1,c3:1,c4:1;n:type:ShaderForge.SFN_Multiply,id:5961,x:31569,y:31970,varname:node_5961,prsc:2|A-2216-RGB,B-2183-RGB;n:type:ShaderForge.SFN_Tex2d,id:2271,x:31325,y:32189,ptovrint:False,ptlb:Metallic,ptin:_Metallic,varname:_Metallic,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Slider,id:5654,x:31183,y:32388,ptovrint:False,ptlb:MetallicValue,ptin:_MetallicValue,varname:_MetallicValue,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;n:type:ShaderForge.SFN_Multiply,id:4718,x:31517,y:32189,varname:node_4718,prsc:2|A-2271-RGB,B-5654-OUT;n:type:ShaderForge.SFN_Tex2d,id:7206,x:31327,y:32562,ptovrint:False,ptlb:Normal,ptin:_Normal,varname:_Normal,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:3,isnm:True;n:type:ShaderForge.SFN_Slider,id:7783,x:31183,y:32469,ptovrint:False,ptlb:Smoothness,ptin:_Smoothness,varname:_Smoothness,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;proporder:2216-2183-7206-5654-7783;pass:END;sub:END;*/
+/*SF_DATA;ver:1.38;sub:START;pass:START;ps:flbk:,iptp:0,cusa:False,bamd:0,cgin:,lico:1,lgpr:1,limd:3,spmd:1,trmd:0,grmd:0,uamb:True,mssp:True,bkdf:False,hqlp:False,rprd:False,enco:False,rmgx:True,imps:True,rpth:1,vtps:0,hqsc:True,nrmq:1,nrsp:0,vomd:0,spxs:False,tesm:0,olmd:1,culm:0,bsrc:0,bdst:1,dpts:2,wrdp:True,dith:0,atcv:False,rfrpo:True,rfrpn:Refraction,coma:15,ufog:True,aust:True,igpj:False,qofs:0,qpre:1,rntp:1,fgom:False,fgoc:False,fgod:False,fgor:False,fgmd:0,fgcr:0.5,fgcg:0.5,fgcb:0.5,fgca:1,fgde:0.01,fgrn:0,fgrf:300,stcl:False,atwp:False,stva:128,stmr:255,stmw:255,stcp:6,stps:0,stfa:0,stfz:0,ofsf:0,ofsu:0,f2p0:False,fnsp:False,fnfb:False,fsmp:False;n:type:ShaderForge.SFN_Final,id:6610,x:32719,y:32712,varname:node_6610,prsc:2|diff-5961-OUT,spec-4718-OUT,gloss-7783-OUT,normal-7206-RGB,emission-2208-RGB;n:type:ShaderForge.SFN_Tex2d,id:2183,x:31325,y:31857,ptovrint:False,ptlb:Albedo,ptin:_Albedo,varname:_Albedo,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Color,id:2216,x:31325,y:32029,ptovrint:False,ptlb:AlbedoColor,ptin:_AlbedoColor,varname:_AlbedoColor,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,c1:1,c2:1,c3:1,c4:1;n:type:ShaderForge.SFN_Multiply,id:5961,x:31569,y:31970,varname:node_5961,prsc:2|A-2216-RGB,B-2183-RGB;n:type:ShaderForge.SFN_Tex2d,id:2271,x:31325,y:32189,ptovrint:False,ptlb:Metallic,ptin:_Metallic,varname:_Metallic,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:0,isnm:False;n:type:ShaderForge.SFN_Slider,id:5654,x:31183,y:32388,ptovrint:False,ptlb:MetallicValue,ptin:_MetallicValue,varname:_MetallicValue,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;n:type:ShaderForge.SFN_Multiply,id:4718,x:31517,y:32189,varname:node_4718,prsc:2|A-2271-R,B-5654-OUT;n:type:ShaderForge.SFN_Tex2d,id:7206,x:31327,y:32562,ptovrint:False,ptlb:Normal,ptin:_Normal,varname:_Normal,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:3,isnm:True;n:type:ShaderForge.SFN_Slider,id:7783,x:31183,y:32469,ptovrint:False,ptlb:Smoothness,ptin:_Smoothness,varname:_Smoothness,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,min:0,cur:0,max:1;n:type:ShaderForge.SFN_Tex2d,id:2208,x:31327,y:32758,ptovrint:False,ptlb:Emission,ptin:_Emission,varname:node_2208,prsc:2,glob:False,taghide:False,taghdr:False,tagprd:False,tagnsco:False,tagnrm:False,ntxv:2,isnm:False;proporder:2216-2183-7206-2271-2208-5654-7783;pass:END;sub:END;*/
 
 Shader "Custom/FloorNoLighting" {
     Properties {
         _AlbedoColor ("AlbedoColor", Color) = (1,1,1,1)
         _Albedo ("Albedo", 2D) = "white" {}
         _Normal ("Normal", 2D) = "bump" {}
+        _Metallic ("Metallic", 2D) = "white" {}
+        _Emission ("Emission", 2D) = "black" {}
         _MetallicValue ("MetallicValue", Range(0, 1)) = 0
         _Smoothness ("Smoothness", Range(0, 1)) = 0
     }
@@ -38,9 +40,11 @@ Shader "Custom/FloorNoLighting" {
             #pragma target 3.0
             uniform sampler2D _Albedo; uniform float4 _Albedo_ST;
             uniform float4 _AlbedoColor;
+            uniform sampler2D _Metallic; uniform float4 _Metallic_ST;
             uniform float _MetallicValue;
             uniform sampler2D _Normal; uniform float4 _Normal_ST;
             uniform float _Smoothness;
+            uniform sampler2D _Emission; uniform float4 _Emission_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -101,7 +105,8 @@ Shader "Custom/FloorNoLighting" {
                 ugls_en_data.reflUVW = viewReflectDirection;
                 UnityGI gi = UnityGlobalIllumination(d, 1, normalDirection, ugls_en_data );
 ////// Specular:
-                float3 specularColor = _MetallicValue;
+                float4 _Metallic_var = tex2D(_Metallic,TRANSFORM_TEX(i.uv0, _Metallic));
+                float3 specularColor = (_Metallic_var.r*_MetallicValue);
                 float specularMonochrome;
                 float4 _Albedo_var = tex2D(_Albedo,TRANSFORM_TEX(i.uv0, _Albedo));
                 float3 diffuseColor = (_AlbedoColor.rgb*_Albedo_var.rgb); // Need this for specular when using metallic
@@ -109,11 +114,14 @@ Shader "Custom/FloorNoLighting" {
                 specularMonochrome = 1.0-specularMonochrome;
                 float NdotV = max(0.0,dot( normalDirection, viewDirection ));
 /////// Diffuse:
+////// Emissive:
+                float4 _Emission_var = tex2D(_Emission,TRANSFORM_TEX(i.uv0, _Emission));
+                float3 emissive = _Emission_var.rgb;
 /// Final Color:
                 outDiffuse = half4( diffuseColor, 1 );
                 outSpecSmoothness = half4( specularColor, gloss );
                 outNormal = half4( normalDirection * 0.5 + 0.5, 1 );
-                outEmission = half4(0,0,0,1);
+                outEmission = half4( _Emission_var.rgb, 1 );
                 #ifndef UNITY_HDR_ON
                     outEmission.rgb = exp2(-outEmission.rgb);
                 #endif
@@ -141,9 +149,11 @@ Shader "Custom/FloorNoLighting" {
             #pragma target 3.0
             uniform sampler2D _Albedo; uniform float4 _Albedo_ST;
             uniform float4 _AlbedoColor;
+            uniform sampler2D _Metallic; uniform float4 _Metallic_ST;
             uniform float _MetallicValue;
             uniform sampler2D _Normal; uniform float4 _Normal_ST;
             uniform float _Smoothness;
+            uniform sampler2D _Emission; uniform float4 _Emission_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -219,7 +229,8 @@ Shader "Custom/FloorNoLighting" {
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
                 float LdotH = saturate(dot(lightDirection, halfDirection));
-                float3 specularColor = _MetallicValue;
+                float4 _Metallic_var = tex2D(_Metallic,TRANSFORM_TEX(i.uv0, _Metallic));
+                float3 specularColor = (_Metallic_var.r*_MetallicValue);
                 float specularMonochrome;
                 float4 _Albedo_var = tex2D(_Albedo,TRANSFORM_TEX(i.uv0, _Albedo));
                 float3 diffuseColor = (_AlbedoColor.rgb*_Albedo_var.rgb); // Need this for specular when using metallic
@@ -250,8 +261,11 @@ Shader "Custom/FloorNoLighting" {
                 float3 indirectDiffuse = float3(0,0,0);
                 indirectDiffuse += UNITY_LIGHTMODEL_AMBIENT.rgb; // Ambient Light
                 float3 diffuse = (directDiffuse + indirectDiffuse) * diffuseColor;
+////// Emissive:
+                float4 _Emission_var = tex2D(_Emission,TRANSFORM_TEX(i.uv0, _Emission));
+                float3 emissive = _Emission_var.rgb;
 /// Final Color:
-                float3 finalColor = diffuse + specular;
+                float3 finalColor = diffuse + specular + emissive;
                 fixed4 finalRGBA = fixed4(finalColor,1);
                 UNITY_APPLY_FOG(i.fogCoord, finalRGBA);
                 return finalRGBA;
@@ -280,9 +294,11 @@ Shader "Custom/FloorNoLighting" {
             #pragma target 3.0
             uniform sampler2D _Albedo; uniform float4 _Albedo_ST;
             uniform float4 _AlbedoColor;
+            uniform sampler2D _Metallic; uniform float4 _Metallic_ST;
             uniform float _MetallicValue;
             uniform sampler2D _Normal; uniform float4 _Normal_ST;
             uniform float _Smoothness;
+            uniform sampler2D _Emission; uniform float4 _Emission_ST;
             struct VertexInput {
                 float4 vertex : POSITION;
                 float3 normal : NORMAL;
@@ -335,7 +351,8 @@ Shader "Custom/FloorNoLighting" {
 ////// Specular:
                 float NdotL = saturate(dot( normalDirection, lightDirection ));
                 float LdotH = saturate(dot(lightDirection, halfDirection));
-                float3 specularColor = _MetallicValue;
+                float4 _Metallic_var = tex2D(_Metallic,TRANSFORM_TEX(i.uv0, _Metallic));
+                float3 specularColor = (_Metallic_var.r*_MetallicValue);
                 float specularMonochrome;
                 float4 _Albedo_var = tex2D(_Albedo,TRANSFORM_TEX(i.uv0, _Albedo));
                 float3 diffuseColor = (_AlbedoColor.rgb*_Albedo_var.rgb); // Need this for specular when using metallic

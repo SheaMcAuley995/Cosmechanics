@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ShipHealth : MonoBehaviour {
-
+    
     public static ShipHealth instance;
     public cameraShake shake;
     public delegate void DamageAction();
@@ -20,6 +20,7 @@ public class ShipHealth : MonoBehaviour {
     public int shipMaxHealth;
 
     [Header("Ship Blast Attributes")]
+    public float timeBeforeEventsStart;    
     [SerializeField] GameObject blastEffectPrefab;
     [SerializeField] float explosionRadius;
     [SerializeField] int explosionDamage;
@@ -54,10 +55,22 @@ public class ShipHealth : MonoBehaviour {
 
     private void Start()
     {
-        for(int i = 0; i < possibleAttackPositions.Length; i++)
+
+        for (int i = 0; i < possibleAttackPositions.Length; i++)
         {
+            Collider[] damagedObjects = Physics.OverlapSphere(possibleAttackPositions[i].worldPositon, explosionRadius, interactableLayerMask);
+
+            foreach (Collider damageableObject in damagedObjects)
+            {
+                RepairableObject newRepairable = damageableObject.GetComponent<RepairableObject>();
+                if (newRepairable != null)
+                {
+                    possibleAttackPositions[i].repairables.Add(newRepairable);
+                }
+            }
+
             //Debug.Log("I :" + i);
-            for(int j = 0; j < Grid.instance.gridSizeX; j++)
+            for (int j = 0; j < Grid.instance.gridSizeX; j++)
             {
                 //Debug.Log("J :" +j);
                 for (int k = 0; k < Grid.instance.gridSizeY; k++)
@@ -66,8 +79,7 @@ public class ShipHealth : MonoBehaviour {
                     if ((Vector3.Distance(Grid.instance.grid[j,k].worldPosition , possibleAttackPositions[i].worldPositon) <= explosionRadius))
                     {
                         if(Grid.instance.grid[j, k].isFlamable)
-                        {
-                            
+                        {   
                             possibleAttackPositions[i].nodes.Add(Grid.instance.grid[j, k]);
                         }
                     }
@@ -85,6 +97,8 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator eventSystem()
     {
+        yield return new WaitForSeconds(timeBeforeEventsStart);
+        Engine.instance.startEngineBehavior = true;
         while(true)
         {
             yield return new WaitForSeconds(timeBetweenNEvents);
@@ -94,18 +108,37 @@ public class ShipHealth : MonoBehaviour {
 
     IEnumerator shipBlast()
     {
-        if (attackLocation != null)
+        List<AttackLocation> damagableAttackPositions = new List<AttackLocation>();
+
+        for (int i = 0; i < possibleAttackPositions.Length; i++)
         {
-            while (attackLocation == lastHitLocaton)
+            int healthCur = 0;
+            for(int j = 0; j < possibleAttackPositions[i].repairables.Count; j++)
             {
-                locationIndex = Random.Range(0, possibleAttackPositions.Length);
-                attackLocation = possibleAttackPositions[locationIndex].worldPositon;
+                healthCur += possibleAttackPositions[i].repairables[j].health;
+            }
+            if(healthCur > 0)
+            {
+                damagableAttackPositions.Add(possibleAttackPositions[i]);
             }
         }
-        else
-        {
-            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
-        }
+
+        attackLocation = damagableAttackPositions[Random.Range(0, damagableAttackPositions.Count)].worldPositon;
+
+       // if (attackLocation != null)
+       // {
+       //
+       //
+       //    // while (attackLocation == lastHitLocaton)
+       //    // {
+       //    //     locationIndex = Random.Range(0, possibleAttackPositions.Length);
+       //    //     attackLocation = possibleAttackPositions[locationIndex].worldPositon;
+       //    // }
+       // }
+       // else
+       // {
+       //     attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
+       // }
 
         lastHitLocaton = attackLocation;
         gotHit = true;                          //michael add
@@ -113,7 +146,7 @@ public class ShipHealth : MonoBehaviour {
 
         GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
         StartCoroutine(shake.Shake(0.15f, 0.2f));
-        
+        //shipShakingAnim.Play();
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 

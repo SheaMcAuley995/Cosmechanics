@@ -31,6 +31,7 @@ public class OverworldManager : MonoBehaviour
     public OverworldData data; // Reference to the struct containing the constructor
     public ShipController shipController; // For handling input
     PlayerController[] playerControllers;
+    SelectedPlayer[] selectedPlayers;
 
     // Enum for handling selected level states
     public enum Level
@@ -43,12 +44,13 @@ public class OverworldManager : MonoBehaviour
     [Header("Level Management")]
     [Space] public Level level;
     int selectedLevel = 1;
+    public string charSelectSceneName;
 
     [Header("Ship Components")]
     public Transform shipTransform;
     
     [Header("Orbital Components")]
-    public GameObject[] levelObjects;
+    public Image[] levelObjects;
     public GameObject[] orbitPositions;
     Vector3 shipPos; // Ship's current position at time of MoveShip() being called
     Vector3 shipDest; // Ship's target destination
@@ -56,6 +58,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Overworld UI")]
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
+    public Sprite[] highlightSprites;
 
     [Header("Selected Level UI Pool")]
     public Sprite[] mapImages;
@@ -88,7 +91,7 @@ public class OverworldManager : MonoBehaviour
     }
     #endregion
 
-    IEnumerator Start ()
+    void Start ()
     {
         ableToLaunch = false;
 
@@ -100,10 +103,9 @@ public class OverworldManager : MonoBehaviour
         MoveShip();
         ApplyText();
 
-        yield return new WaitForSeconds(0.2f);
-        for (int i = 0; i < playerControllers.Length; i++)
+        foreach (PlayerController player in playerControllers)
         {
-            playerControllers[i].gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+            player.cameraTrans = Camera.main.transform;
         }
     }
 	
@@ -135,11 +137,13 @@ public class OverworldManager : MonoBehaviour
         {
             if(i == selectedLevel - 1)
             {
-                levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+                levelObjects[i].sprite = highlightSprites[1];
             }
             else
             {
-                levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                levelObjects[i].sprite = highlightSprites[0];
             }
         }
     }
@@ -155,6 +159,8 @@ public class OverworldManager : MonoBehaviour
             selecting = true;
             StartCoroutine(SelectionDelay());
 
+            levelObjects[selectedLevel - 1].sprite = highlightSprites[2];
+
             // Opens the mission panel UI
             SelectLevel();
         }
@@ -162,7 +168,7 @@ public class OverworldManager : MonoBehaviour
         // Directional movement input (RIGHT)
         if (shipController.movementVector.x > 0 && !moving && !ableToLaunch)
         {
-            /// SUMMARY: If the player moves to another level, data needs to be updated
+            // SUMMARY: If the player moves to another level, data needs to be updated
             switch (selectedLevel)
             {
                 // If level 1 had been selected...
@@ -187,6 +193,7 @@ public class OverworldManager : MonoBehaviour
 
             // Moves the ship and updates the UI according to the new selected level
             MoveShip();
+            DeactivatePanel();
             ApplyText();
         }
 
@@ -218,15 +225,23 @@ public class OverworldManager : MonoBehaviour
 
             // Moves the ship and updates the UI according to the new selected level
             MoveShip();
+            DeactivatePanel();
             ApplyText();
         }
 
         if (shipController.sprint && !ableToLaunch && !selecting)
         {
+            selectedPlayers = FindObjectsOfType<SelectedPlayer>();
+
             selecting = true;
             StartCoroutine(SelectionDelay());
 
-            SceneFader.instance.FadeTo("CharacterSelection_Update");
+            foreach (SelectedPlayer player in selectedPlayers)
+            {
+                //player.gameObject.AddComponent<CharToDestroy>();
+                Destroy(player.gameObject);
+            }
+            SceneFader.instance.FadeTo(charSelectSceneName);
         }
     }
 
@@ -309,7 +324,14 @@ public class OverworldManager : MonoBehaviour
     // Updates primary Overworld UI
     void ApplyText()
     {
-        levelSelectedText.text = "Level " + selectedLevel.ToString();
+        if (selectedLevel == 1)
+        {
+            levelSelectedText.text = "Tutorial";
+        }
+        else
+        {
+            levelSelectedText.text = "Level " + (selectedLevel - 1).ToString();
+        }
     }
 
     IEnumerator SelectionDelay()
