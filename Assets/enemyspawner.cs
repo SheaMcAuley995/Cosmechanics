@@ -4,38 +4,35 @@ using UnityEngine;
 
 public class enemyspawner : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    public Vector3[] spawnPositions;
 
+    public float timeBetweenSpawns;
+    public GameObject enemyObject;
 
+    private float countdown;
 
-   // IEnumerator CountdownToSpawn()
-   // {
-   //     countingDown = true;
-   //     countdownToStartText.enabled = true;
-   //
-   //     while (true)
-   //     {
-   //         if (time > 0f)
-   //         {
-   //             time -= 1f;
-   //             countdownToStartText.text = "Starting Game In: " + Mathf.RoundToInt(time).ToString();
-   //
-   //             yield return new WaitForSeconds(1f);
-   //         }
-   //         else
-   //         {
-   //             PlayerActivation.instance.ContinueToGame();
-   //             countingDown = false;
-   //             break;
-   //         }
-   //     }
-   // }
+    private void Update()
+    {
+        if(countdown <= 0)
+        {
+            spawnEnemy();
+            countdown = timeBetweenSpawns;
+        }
 
-    // Update is called once per frame
-    void Update () {
-		
-	}
+        countdown -= Time.deltaTime;
+    }
+
+    private void spawnEnemy()
+    {
+        Instantiate(enemyObject, spawnPositions[Random.Range(0, spawnPositions.Length)], Quaternion.identity);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.blue;
+        foreach(Vector3 spawnPos in spawnPositions)
+        {
+            Gizmos.DrawWireSphere(spawnPos, 1);
+        }
+    }
 }
