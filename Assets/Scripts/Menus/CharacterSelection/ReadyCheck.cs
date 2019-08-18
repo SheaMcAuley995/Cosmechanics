@@ -12,6 +12,7 @@ public class ReadyCheck : MonoBehaviour
 
     [SerializeField] int playersReady = 0;
     [SerializeField] float time = 10;
+    bool countingDown;
 
 
     #region Singleton
@@ -37,10 +38,9 @@ public class ReadyCheck : MonoBehaviour
     {
         playersReady++;
 
-        if (playersReady >= ExampleGameController.instance.numberOfPlayers)
+        if (AllPlayersReady())
         {
-            time = 4f;
-            countdown = StartCoroutine(CountdownToGame());
+            StartCountdown();
         }
     }
 
@@ -48,19 +48,43 @@ public class ReadyCheck : MonoBehaviour
     {
         playersReady--;
 
-        if (playersReady < ExampleGameController.instance.numberOfPlayers)
+        if (!AllPlayersReady())
         {
-            StopCoroutine(countdown);
-            countdownToStartText.enabled = false;
-            time = 10;
+            StopCountdown();
         }
+    }
+
+    public bool AllPlayersReady()
+    {
+        if (playersReady >= ExampleGameController.instance.numberOfPlayers && playersReady != 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void StartCountdown()
+    {
+        time = 4f;
+        countingDown = true;
+        countdown = StartCoroutine(CountdownToGame());
+    }
+
+    public void StopCountdown()
+    {
+        time = 10;
+        //countdown = StartCoroutine(CountdownToGame());
+        //StopCoroutine(countdown);
+        countingDown = false;
+        countdown = null;
+        countdownToStartText.enabled = false;
     }
 
     IEnumerator CountdownToGame()
     {
         countdownToStartText.enabled = true;
 
-        while (true)
+        while (countingDown)
         {
             if (time > 0f)
             {
