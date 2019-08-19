@@ -243,7 +243,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
         rb.velocity = transform.forward * currentSpeed;
 
     }

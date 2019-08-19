@@ -62,6 +62,12 @@ public class AssignPlayers : MonoBehaviour
 
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers++;
+
+                //If a player joins during the countdown, stop the countdown
+                if (!ReadyCheck.instance.AllPlayersReady())
+                {
+                    ReadyCheck.instance.StopCountdown();
+                }
             }
 
             // For un-joining the game
@@ -73,6 +79,12 @@ public class AssignPlayers : MonoBehaviour
                 cards[controller.playerId].ActivateJoinIcons();
                 joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers--;
+
+                // If a player leaves and everyone else is ready, start the countdown
+                if (ReadyCheck.instance.AllPlayersReady())
+                {
+                    ReadyCheck.instance.StartCountdown();
+                }
             }
 
             // Player moves analog stick RIGHT - selects a new head
