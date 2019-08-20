@@ -63,6 +63,7 @@ public class CharacterCardGenerator : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        currentPlayerId = 0;
         newCharacter = new CharacterData(displayFields.nameField);
 
         // 91
