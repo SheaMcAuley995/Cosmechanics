@@ -8,7 +8,7 @@ public class ButtonManager : MonoBehaviour
     // BUILD INDEX KEY:
     // 0 = MainMenu_Updated
     // 1 = CharacterSelection_Update
-    // 2 = ZachOverWorld
+    // 2 = CacieOverWorld
     // 3 = BetaMichaelTest
     // 4 = Ship_Level_1Final
     // 5 = LoseScene
@@ -58,8 +58,9 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo("MainMenu_Update");
         Time.timeScale = 1f;
+        SceneFader.instance.FadeTo("MainMenu_Update");
+        GameStateManager.instance.SetGameState(GameState.Playing);
 
         foreach (SelectedPlayer player in players)
         {
@@ -80,6 +81,7 @@ public class ButtonManager : MonoBehaviour
         }
 
         SceneFader.instance.FadeTo(players[0].currentScene);
+        GameStateManager.instance.SetGameState(GameState.Playing);
         Time.timeScale = 1f;
 
         for (int i = 0; i < players.Length; i++)
@@ -88,7 +90,7 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // Fades to character selection
+    // Fades to overworld
     public void ContinueGame()
     {
         players = FindObjectsOfType<SelectedPlayer>();
