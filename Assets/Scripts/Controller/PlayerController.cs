@@ -87,8 +87,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        getInput();
-        ProcessInput();
+        // If the game isn't paused
+        if (GameStateManager.instance.GetState() != GameState.Paused)
+        {
+            getInput();
+            ProcessInput();
+        }
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
