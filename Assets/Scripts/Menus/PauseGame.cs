@@ -72,21 +72,10 @@ public class PauseGame : MonoBehaviour
 
     void DetectInput()
     {
-        input = Input.GetKeyDown(pauseButton1) || Input.GetKeyDown(pauseButton2);
-
-        if (input && !paused)
-        {
-            StopCoroutine(FadeOut(images, texts));
-            StartCoroutine(FadeIn(images, texts));
-        }
-
         foreach (PlayerController player in playerControllers)
         {
-            player.getInput();
-
-            if (player.pauseButton)
+            if (player.pauseButton && !paused)
             {
-                Debug.Log("PAUSING");
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
@@ -118,6 +107,7 @@ public class PauseGame : MonoBehaviour
         paused = true;
         //Time.timeScale = 0f;
         GameStateManager.instance.SetGameState(GameState.Paused);
+        AudioEventManager.instance.GetComponent<AudioSource>().Pause();
 
         for (float time = 0.01f; time < fadeInTime; time += 0.1f)
         {
@@ -168,7 +158,8 @@ public class PauseGame : MonoBehaviour
         }
 
         //Time.timeScale = 1f;
-        GameStateManager.instance.SetGameState(GameState.Running);
+        GameStateManager.instance.SetGameState(GameState.Playing);
+        AudioEventManager.instance.GetComponent<AudioSource>().UnPause();
         StopCoroutine(FadeOut(images, texts));
     }
 

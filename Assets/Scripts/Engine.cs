@@ -48,7 +48,8 @@ public class Engine : MonoBehaviour {
 
     private void Update()
     {
-        if(startEngineBehavior)
+        // If the engine event can run & the game isn't paused
+        if(startEngineBehavior && GameStateManager.instance.GetState() != GameState.Paused)
         {
             EngineUpdate();
         }
@@ -93,6 +94,7 @@ public class Engine : MonoBehaviour {
     private void LoseGame()
     {
         SceneFader.instance.FadeTo("LoseScene");
+        GameStateManager.instance.SetGameState(GameState.LostByFlorp);
         //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 

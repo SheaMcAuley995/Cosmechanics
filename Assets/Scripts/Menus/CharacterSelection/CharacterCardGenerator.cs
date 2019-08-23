@@ -44,10 +44,6 @@ public class CharacterCardGenerator : MonoBehaviour
     Image[] locatorDots;
 
     [HideInInspector] public Vector3 spawnPos;
-    Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     GameObject newPlayer;
     GameObject newHead;
@@ -225,7 +221,7 @@ public class CharacterCardGenerator : MonoBehaviour
         newCharacter.nameField.text = "??";
     }
 
-    // Used in AssignPlayers to prevent accidential selection spamming
+    // Used in AssignPlayers to prevent accidental selection spamming
     public IEnumerator SelectionDelay()
     {
         yield return new WaitForSeconds(0.2f);
