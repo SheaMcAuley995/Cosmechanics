@@ -69,8 +69,8 @@ public class SceneFader : MonoBehaviour
             float a = curve.Evaluate(t);
             image.color = new Color(0f, 0f, 0f, a);
 
-            float c = curve.Evaluate(t);
-            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, c);
+            float interploation = curve.Evaluate(t);
+            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
 
             yield return 0;
         }
@@ -90,8 +90,8 @@ public class SceneFader : MonoBehaviour
             float a = curve.Evaluate(t);
             image.color = new Color(0f, 0f, 0f, a);
 
-            float c = curve.Evaluate(t);
-            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, c);
+            float interploation = curve.Evaluate(t);
+            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
 
             yield return 0;
         }
