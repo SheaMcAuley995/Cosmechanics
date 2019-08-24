@@ -7,36 +7,58 @@ public class DoorButton : MonoBehaviour, IInteractable {
     [SerializeField] GameObject[] doors;
     [SerializeField] float doorTime;
     bool isOpen = false;
-
+    bool isRunning = false;
 
     public void InteractWith()
     {
-        isOpen = !isOpen;
-
-        foreach(GameObject door in doors)
+        if(!isRunning)
         {
-            door.GetComponent<Animator>().SetBool("IsOpen", isOpen);
-            door.GetComponent<Collider>().enabled = isOpen;
+            StartCoroutine(doorTimer());
         }
     }
 
     IEnumerator doorTimer()
     {
-        float time = doorTime;
 
-        if(time > 0)
+        isOpen = !isOpen;
+
+        foreach (GameObject door in doors)
         {
-            time -= Time.deltaTime;
-            yield return null;
+            door.GetComponent<Animator>().SetBool("IsOpen", isOpen);
+            door.GetComponent<Collider>().enabled = !isOpen;
+        }
+
+        if (doorTime != 0)
+        {
+            isRunning = true;
+            float time = doorTime;
+
+            while (time > 0)
+            {
+                time -= Time.deltaTime;
+                Debug.Log(time);
+                yield return null;
+            }
+
+            isOpen = !isOpen;
+
+            foreach (GameObject door in doors)
+            {
+                 door.GetComponent<Animator>().SetBool("IsOpen", isOpen);
+                 door.GetComponent<Collider>().enabled = !isOpen;
+            }
+            isRunning = false;
         }
         else
         {
-            foreach (GameObject door in doors)
+            float waitTime = 1.5f;
+            isRunning = true;
+            while(waitTime > 0)
             {
-                door.GetComponent<Animator>().SetBool("IsOpen", isOpen);
-                door.GetComponent<Collider>().enabled = isOpen;
+                waitTime -= Time.deltaTime;
+                yield return null;
             }
+            isRunning = false;
         }
     }
-
 }
