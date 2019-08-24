@@ -56,6 +56,7 @@ public class AssignPlayers : MonoBehaviour
             if (controller.Button_A && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
             {
                 joinedStatus[controller.playerId].selecting = true;
+                cards[controller.playerId].selecting = true;
                 StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
 
                 cards[controller.playerId].DeactivateJoinIcons();
@@ -71,11 +72,8 @@ public class AssignPlayers : MonoBehaviour
             }
 
             // For un-joining the game
-            if (controller.Button_B && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
-                cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
-
                 cards[controller.playerId].ActivateJoinIcons();
                 joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
                 ExampleGameController.instance.numberOfPlayers--;
