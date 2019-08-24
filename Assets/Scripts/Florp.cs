@@ -46,6 +46,17 @@ public class Florp : PickUp , IInteractableTool
     }
     public void toolInteraction()
     {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1, interactableLayer);
+        FlorpDespenser despenser = null;
+        for (int i = 0; i < hitColliders.Length; i++)
+        {
+            despenser = hitColliders[i].GetComponent<FlorpDespenser>();
+
+            if(despenser != null)
+            {
+
+            }
+        }
 
         if (doFill)
         {

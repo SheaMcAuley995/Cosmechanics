@@ -27,12 +27,12 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool pauseButton;
 
     [HideInInspector] public Vector2 selectModel;
-    [HideInInspector] public bool selectCrime;
-    [HideInInspector] public bool previousCrime;
-    [HideInInspector] public bool selectColourRight;
-    [HideInInspector] public bool selectColourLeft;
-    [HideInInspector] public bool readyUp;
-    [HideInInspector] public bool cancel;
+    [HideInInspector] public bool Button_Y;
+    [HideInInspector] public bool Button_X;
+    [HideInInspector] public bool Button_RB;
+    [HideInInspector] public bool Button_LB;
+    [HideInInspector] public bool Button_A;
+    [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
     CharacterController cc;
     public bool normalMovement = true;
@@ -87,8 +87,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        getInput();
-        ProcessInput();
+        // If the game isn't paused
+        if (GameStateManager.instance.GetState() != GameState.Paused)
+        {
+            getInput();
+            ProcessInput();
+        }
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -118,12 +122,12 @@ public class PlayerController : MonoBehaviour
 
         #region Char Select Input
         selectModel.x = player.GetAxisRaw("ModelSelect");
-        selectCrime = player.GetButtonDown("SelectCrime");
-        previousCrime = player.GetButtonDown("PrevCrime");
-        selectColourRight = player.GetButtonDown("ColourSelectRight");
-        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
-        readyUp = player.GetButtonDown("ReadyUp");
-        cancel = player.GetButtonDown("Cancel");
+        Button_Y = player.GetButtonDown("SelectCrime");
+        Button_X = player.GetButtonDown("PrevCrime");
+        Button_RB = player.GetButtonDown("ColourSelectRight");
+        Button_LB = player.GetButtonDown("ColourSelectLeft");
+        Button_A = player.GetButtonDown("ReadyUp");
+        Button_B = player.GetButtonDown("Cancel");
         start = player.GetButtonDown("Start");
         #endregion
     }
@@ -241,7 +245,6 @@ public class PlayerController : MonoBehaviour
         {
             onFireEffect.SetActive(false);
         }
-
 
 
         rb.velocity = transform.forward * currentSpeed;

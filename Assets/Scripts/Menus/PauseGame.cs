@@ -39,6 +39,8 @@ public class PauseGame : MonoBehaviour
     bool canCheck = false;
 
     PlayerController[] playerControllers;
+    SelectedPlayer[] players;
+    PickUp[] pickups;
 
     #region KeyCode caching
     KeyCode defaultPauseButton1 = KeyCode.Escape;
@@ -70,34 +72,23 @@ public class PauseGame : MonoBehaviour
 
     void DetectInput()
     {
-        input = Input.GetKeyDown(pauseButton1) || Input.GetKeyDown(pauseButton2);
-
-        if (input && !paused)
-        {
-            StopCoroutine(FadeOut(images, texts));
-            StartCoroutine(FadeIn(images, texts));
-        }
-
         foreach (PlayerController player in playerControllers)
         {
-            player.getInput();
-
-            if (player.pauseButton)
+            if (player.pauseButton && !paused)
             {
-                Debug.Log("PAUSING");
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
 
-            if (player.pickUp && selection.isActiveAndEnabled)
-            {
-                ResumeGame();
-            }
+            //if (player.pickUp && selection.isActiveAndEnabled)
+            //{
+            //    ResumeGame();
+            //}
 
-            if (player.sprint && selection.isActiveAndEnabled)
-            {
-                QuitGame();
-            }
+            //if (player.sprint && selection.isActiveAndEnabled)
+            //{
+            //    QuitGame();
+            //}
         }
     }
 
@@ -114,7 +105,9 @@ public class PauseGame : MonoBehaviour
     {
         selection.enabled = true;
         paused = true;
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
+        GameStateManager.instance.SetGameState(GameState.Paused);
+        AudioEventManager.instance.GetComponent<AudioSource>().Pause();
 
         for (float time = 0.01f; time < fadeInTime; time += 0.1f)
         {
@@ -164,7 +157,9 @@ public class PauseGame : MonoBehaviour
             yield return null;
         }
 
-        Time.timeScale = 1f;
+        //Time.timeScale = 1f;
+        GameStateManager.instance.SetGameState(GameState.Playing);
+        AudioEventManager.instance.GetComponent<AudioSource>().UnPause();
         StopCoroutine(FadeOut(images, texts));
     }
 
@@ -185,10 +180,21 @@ public class PauseGame : MonoBehaviour
     public void QuitGame()
     {
         ResumeGame();
-        foreach (PlayerController player in playerControllers)
+
+        players = FindObjectsOfType<SelectedPlayer>();
+        pickups = FindObjectsOfType<PickUp>();
+
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+
+        SceneFader.instance.FadeTo("MainMenu_Update");
+
+        foreach (SelectedPlayer player in players)
         {
             player.gameObject.AddComponent<CharToDestroy>();
+            Destroy(player);
         }
-        SceneFader.instance.FadeTo("MainMenu_Update");
     }
 }

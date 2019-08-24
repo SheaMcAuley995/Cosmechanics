@@ -2772,7 +2772,7 @@ Prefab:
         type: 2}
       propertyPath: bottlePrefab
       value: 
-      objectReference: {fileID: 1667745528943260, guid: c313029a5abd5654c865098c98b7bfd5,
+      objectReference: {fileID: 1536699021140770, guid: 9090bb0ce5d9d3a4da82768328ce2fa1,
         type: 2}
     - target: {fileID: 64382546183976126, guid: 7136fa0eba8210a44b416cf49fef4809,
         type: 2}
@@ -8411,6 +8411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1139895430}
   - component: {fileID: 1139895431}
+  - component: {fileID: 1139895432}
   m_Layer: 0
   m_Name: GameObject
   m_TagString: Untagged
@@ -8442,6 +8443,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34d824d9d823faf459c911e239c204f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1139895432
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1139895429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 369efc0abd21fa94abe4be46136c5ea7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: 1
 --- !u!1001 &1147019119
 Prefab:
   m_ObjectHideFlags: 0
@@ -15701,16 +15714,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114841420622151204, guid: 28100759a7c907340918bd79e29592c1,
-        type: 2}
-      propertyPath: image
-      value: 
-      objectReference: {fileID: 1917449440}
-    - target: {fileID: 224792009849570182, guid: 28100759a7c907340918bd79e29592c1,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28100759a7c907340918bd79e29592c1, type: 2}
   m_IsPrefabAsset: 0
@@ -16225,12 +16228,6 @@ Light:
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &1917449440 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114661051175643092, guid: 62352c20d52e3bc4fa5cd17bbd8dbb96,
-    type: 2}
-  m_PrefabInternal: {fileID: 1256180222}
-  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1927641952
 Prefab:
   m_ObjectHideFlags: 0
