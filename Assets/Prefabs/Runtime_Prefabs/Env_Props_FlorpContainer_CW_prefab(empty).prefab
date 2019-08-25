@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4990964208975742}
   - component: {fileID: 33203066653055332}
   - component: {fileID: 23902578882144216}
+  - component: {fileID: 114474979596739468}
   m_Layer: 9
   m_Name: Props_Handtool_FlorpCan_Florp
   m_TagString: Untagged
@@ -127,8 +128,8 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1536699021140770}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.36838907, y: -0, z: -0, w: 0.92967176}
+  m_LocalPosition: {x: -9.53108, y: 0.13978514, z: -17.170477}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4145295120783702}
@@ -136,7 +137,7 @@ Transform:
   - {fileID: 4346852185104814}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -43.233, y: 0, z: 0}
 --- !u!23 &23115708619708758
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -332,6 +333,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.1740677, y: 1.2583219, z: 0.40646112}
   m_Center: {x: -0.00000008940697, y: 0.58, z: 0}
+--- !u!114 &114474979596739468
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1189408370713934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220401e39fac01448b78cb733b14f9f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxWobble: 0.03
+  WobbleSpeed: 1
+  Recovery: 1
 --- !u!114 &114701897561214454
 MonoBehaviour:
   m_ObjectHideFlags: 1
