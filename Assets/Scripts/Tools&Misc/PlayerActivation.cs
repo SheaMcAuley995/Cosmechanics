@@ -41,7 +41,7 @@ public class PlayerActivation : MonoBehaviour
                 animators[j].SetBool("CharSelect", false);
             }
 
-            chosenCharacters[i].GetComponent<PlayerController>().enabled = true;
+            //chosenCharacters[i].GetComponent<PlayerController>().enabled = true;
         }
 
         SceneFader.instance.FadeTo("CacieOverworld");

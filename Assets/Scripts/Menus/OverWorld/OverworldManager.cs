@@ -38,7 +38,8 @@ public class OverworldManager : MonoBehaviour
     {
         Level1,
         Level2,
-        Level3
+        Level3,
+        Level4
     };
 
     [Header("Level Management")]
@@ -185,6 +186,12 @@ public class OverworldManager : MonoBehaviour
                     break;
                 // If level 3 had been selected...
                 case 3:
+                    selectedLevel++;
+                    level = Level.Level4;
+                    direction = Vector3.up;
+                    break;
+                // If level 4 had been selected...
+                case 4:
                     selectedLevel = 1;
                     level = Level.Level1;
                     direction = Vector3.up;
@@ -205,8 +212,8 @@ public class OverworldManager : MonoBehaviour
             {
                 // If level 1 had been selected...
                 case 1:
-                    selectedLevel = 3;
-                    level = Level.Level3;
+                    selectedLevel = 4;
+                    level = Level.Level4;
                     direction = -Vector3.up;
                     break;
                 // If level 2 had been selected...
@@ -219,6 +226,11 @@ public class OverworldManager : MonoBehaviour
                 case 3:
                     selectedLevel--;
                     level = Level.Level2;
+                    direction = Vector3.up;
+                    break;
+                case 4:
+                    selectedLevel--;
+                    level = Level.Level3;
                     direction = Vector3.up;
                     break;
             }
@@ -276,6 +288,13 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[2];
                 selectionPanel.levelName.text = levelNames[2];
                 selectionPanel.description.text = descriptions[2];
+                selectionPanel.launchButton.interactable = true;
+                break;
+            // If it's level 4, set all UI elements to the fourth item in each array pool
+            case Level.Level4:
+                selectionPanel.mapPreview.sprite = mapImages[3];
+                selectionPanel.levelName.text = levelNames[3];
+                selectionPanel.description.text = descriptions[3];
                 selectionPanel.launchButton.interactable = true;
                 break;
         }
