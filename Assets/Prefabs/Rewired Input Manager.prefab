@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 114676488983692684}
   - component: {fileID: 114651852294993260}
   - component: {fileID: 114517639848026370}
-  - component: {fileID: 114243047716347606}
   m_Layer: 0
   m_Name: Rewired Input Manager
   m_TagString: Untagged
@@ -1348,17 +1347,6 @@ MonoBehaviour:
     customControllerIdCounter: 0
   _controllerDataFiles: {fileID: 11400000, guid: d21d2b20df8369642b76aafbb2576ba7,
     type: 2}
---- !u!114 &114243047716347606
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592660755158266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95662b7c1cb99334a9b2543dd356c321, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114517639848026370
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1438,11 +1426,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeacf8de0b42d241a3401b6c1b431c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 1
+  numberOfPlayers: 4
   cameraMultiTarget: {fileID: 0}
   playerPrefab: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d,
     type: 2}
-  spawnPoints: []
+  spawnPoints:
+  - {x: -4, y: 0.05, z: -13}
+  - {x: -3, y: 0.05, z: -13}
+  - {x: -2, y: 0.05, z: -13}
+  - {x: -1, y: 0.05, z: -13}
   spawnableScenes:
   - NewMichaelTest
   - NewMichaelTest
