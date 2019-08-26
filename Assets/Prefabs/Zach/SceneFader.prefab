@@ -124,6 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e627c1241b6e5ae43837924d6e815f67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  volume: {fileID: 0}
   image: {fileID: 114885373931730940}
   curve:
     serializedVersion: 2
@@ -149,6 +150,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  chromAbStartValue: 0
+  chromAbEndValue: 1
   sceneFadeTime: 1
 --- !u!114 &114885373931730940
 MonoBehaviour:
@@ -202,7 +205,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &224323112806419870
 RectTransform:
