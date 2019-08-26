@@ -102,7 +102,11 @@ public class ShipHealth : MonoBehaviour {
         while(true)
         {
             yield return new WaitForSeconds(timeBetweenNEvents);
-            StartCoroutine("shipBlast");
+            // If the game isn't paused
+            if (GameStateManager.instance.GetState() != GameState.Paused)
+            {
+                StartCoroutine("shipBlast");
+            }
         }
     }
 
@@ -184,6 +188,7 @@ public class ShipHealth : MonoBehaviour {
     void LoseGame()
     {
         SceneFader.instance.FadeTo("LoseScene");
+        GameStateManager.instance.SetGameState(GameState.LostByDamage);
         //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 

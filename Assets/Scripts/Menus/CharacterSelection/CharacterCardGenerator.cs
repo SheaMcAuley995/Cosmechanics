@@ -19,7 +19,10 @@ public struct CharacterData
 
 public class CharacterCardGenerator : MonoBehaviour
 {
+    public AssignPlayers assignPlayers;
+
     public enum CharacterStatus { SELECTING, READY };
+    [Space] 
     public CharacterStatus characterStatus;
 
     [Header("Constructor Data")]
@@ -32,9 +35,9 @@ public class CharacterCardGenerator : MonoBehaviour
     [Header("Selection Pool")]
     public GameObject[] heads;
     [Space]
-    public Material[] materials;
     List<string> namesList = new List<string>();
-    int nameIndex, headIndex, materialIndex;
+    public int colorIndex;
+    int nameIndex, headIndex;
 
     [Space]
     public Text joinText;
@@ -44,10 +47,6 @@ public class CharacterCardGenerator : MonoBehaviour
     Image[] locatorDots;
 
     [HideInInspector] public Vector3 spawnPos;
-    Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
 
     GameObject newPlayer;
     GameObject newHead;
@@ -63,6 +62,7 @@ public class CharacterCardGenerator : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        currentPlayerId = 0;
         newCharacter = new CharacterData(displayFields.nameField);
 
         // 91
@@ -95,7 +95,7 @@ public class CharacterCardGenerator : MonoBehaviour
         // Sets random values for each card parameter
         nameIndex = Random.Range(0, namesList.Count);
         headIndex = Random.Range(0, heads.Length);
-        materialIndex = Random.Range(0, materials.Length);
+        colorIndex = Random.Range(0, assignPlayers.availableColors.Count);
 
         // Assigns each card parameter the above corresponding value
         newCharacter.nameField.text = namesList[nameIndex];
@@ -117,6 +117,11 @@ public class CharacterCardGenerator : MonoBehaviour
 
         // This prevents characters from moving around when players are selecting characters
         controller.enabled = false;
+
+        // Adds the generated colour to the list of taken colours, and removes it from the list of available colours
+        //assignPlayers.takenColors.Add(assignPlayers.availableColors[colorIndex]);
+        assignPlayers.takenColors[controller.playerId] = assignPlayers.availableColors[assignPlayers.cards[controller.playerId].colorIndex];
+        assignPlayers.availableColors.RemoveAt(colorIndex);
     }
 
     public void NextHead()
@@ -150,38 +155,6 @@ public class CharacterCardGenerator : MonoBehaviour
         AssignHead();
     }
 
-    public void NextColour()
-    {
-        // Cycles through the array of materials (colours)
-        if (materialIndex >= materials.Length - 1)
-        {
-            materialIndex = 0;
-        }
-        else
-        {
-            materialIndex++;
-        }
-
-        // Assigns the selected colour to the character
-        AssignColour();
-    }
-
-    public void PreviousColour()
-    {
-        // Cycles through the array of materials (colours)
-        if (materialIndex <= 0)
-        {
-            materialIndex = materials.Length - 1;
-        }
-        else
-        {
-            materialIndex--;
-        }
-
-        // Assigns the selected colour to the character
-        AssignColour();
-    }
-
     void AssignHead()
     {
         // Identifies the active head and destroys it
@@ -206,7 +179,7 @@ public class CharacterCardGenerator : MonoBehaviour
             // Sets each renderer's material (except for the head) to the corresponding material (colour)
             if (child.gameObject.layer != 16)
             {
-                child.material = materials[materialIndex];
+                child.material = assignPlayers.availableColors[colorIndex];
             }
         }
 
@@ -214,7 +187,7 @@ public class CharacterCardGenerator : MonoBehaviour
         locatorDots = newPlayer.GetComponentsInChildren<Image>();
         foreach (Image locator in locatorDots)
         {
-            Color emissColor = materials[materialIndex].GetColor("_EmissionColor");
+            Color emissColor = assignPlayers.availableColors[colorIndex].GetColor("_EmissionColor");
             locator.color = emissColor;
         }
     }

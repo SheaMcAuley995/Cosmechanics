@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592660755158266}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.81, y: 0.05, z: -13.594}
+  m_LocalPosition: {x: -5, y: 0.05, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1426,11 +1426,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeacf8de0b42d241a3401b6c1b431c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 1
+  numberOfPlayers: 4
   cameraMultiTarget: {fileID: 0}
   playerPrefab: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d,
     type: 2}
-  spawnPoints: []
+  spawnPoints:
+  - {x: -4, y: 0.05, z: -13}
+  - {x: -3, y: 0.05, z: -13}
+  - {x: -2, y: 0.05, z: -13}
+  - {x: -1, y: 0.05, z: -13}
   spawnableScenes:
   - NewMichaelTest
   - NewMichaelTest

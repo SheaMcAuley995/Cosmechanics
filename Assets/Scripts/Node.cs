@@ -13,8 +13,9 @@ public class Node  {
     public int gridY;
     public float fireTimer;
     public GameObject fireEffect;
+    public float fireHealth;
 
-    public Node(bool _isFlamable, Vector3 _worldPos, int _gridX, int _gridY, float _fireTimer, GameObject _fireEffect, Collider[] _playerArray)
+    public Node(bool _isFlamable, Vector3 _worldPos, int _gridX, int _gridY, float _fireTimer, GameObject _fireEffect, Collider[] _playerArray, float _fireHealth)
     {
         isFlamable = _isFlamable;
         worldPosition = _worldPos;
@@ -23,5 +24,6 @@ public class Node  {
         fireTimer = _fireTimer;
         fireEffect = _fireEffect;
         playerArray = _playerArray;
+        fireHealth = _fireHealth;
     }
 }

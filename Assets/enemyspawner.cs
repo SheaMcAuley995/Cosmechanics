@@ -24,7 +24,10 @@ public class enemyspawner : MonoBehaviour {
 
     private void spawnEnemy()
     {
-        Instantiate(enemyObject, spawnPositions[Random.Range(0, spawnPositions.Length)], Quaternion.identity);
+        if(spawnPositions.Length > 0)
+        {
+            Instantiate(enemyObject, spawnPositions[Random.Range(0, spawnPositions.Length)], Quaternion.identity);
+        }
     }
 
     private void OnDrawGizmosSelected()

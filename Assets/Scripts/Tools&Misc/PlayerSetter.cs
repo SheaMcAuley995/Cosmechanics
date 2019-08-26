@@ -18,6 +18,8 @@ public class PlayerSetter : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
+            players[i].enabled = true;
+
             if (players[i].cameraTrans == null)
             {
                 targets.Add(players[i].gameObject);
