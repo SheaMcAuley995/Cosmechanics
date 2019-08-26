@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1007097589027430
 GameObject:
   m_ObjectHideFlags: 1
@@ -95,7 +95,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1088313340275996
 GameObject:
   m_ObjectHideFlags: 1
@@ -334,7 +334,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1416887961978636
 GameObject:
   m_ObjectHideFlags: 1
@@ -369,7 +369,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1424792556295532
 GameObject:
   m_ObjectHideFlags: 1
@@ -561,7 +561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1548942511914736
 GameObject:
   m_ObjectHideFlags: 1
@@ -648,7 +648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1672660782336574
 GameObject:
   m_ObjectHideFlags: 1
@@ -717,7 +717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1777152124598020
 GameObject:
   m_ObjectHideFlags: 1
@@ -874,7 +874,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1907188403189170
 GameObject:
   m_ObjectHideFlags: 1
@@ -1591,6 +1591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc55c79bfcf9b14393ef3d1007cceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignPlayers: {fileID: 114680726085207464}
   characterStatus: 0
   displayFields:
     nameField: {fileID: 114233941883858100}
@@ -1601,11 +1602,7 @@ MonoBehaviour:
   - {fileID: 1291730791454446, guid: 9992fa14c987a4a4eb2f1efd35425cfe, type: 2}
   - {fileID: 1132333130957944, guid: 6b01f29fb527ef145914c19332aa360d, type: 2}
   - {fileID: 1626386772252174, guid: 2b095bde293478a4f926ddc5b5615c31, type: 2}
-  materials:
-  - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
-  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
-  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
-  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  colorIndex: 0
   joinText: {fileID: 114942627975130428}
   joinImage: {fileID: 114246355485828096}
   readyStatusBar: {fileID: 114104217269295206}
@@ -2026,6 +2023,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc55c79bfcf9b14393ef3d1007cceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignPlayers: {fileID: 114680726085207464}
   characterStatus: 0
   displayFields:
     nameField: {fileID: 114355096529358676}
@@ -2036,11 +2034,7 @@ MonoBehaviour:
   - {fileID: 1291730791454446, guid: 9992fa14c987a4a4eb2f1efd35425cfe, type: 2}
   - {fileID: 1132333130957944, guid: 6b01f29fb527ef145914c19332aa360d, type: 2}
   - {fileID: 1626386772252174, guid: 2b095bde293478a4f926ddc5b5615c31, type: 2}
-  materials:
-  - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
-  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
-  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
-  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  colorIndex: 0
   joinText: {fileID: 114928377162622100}
   joinImage: {fileID: 114589614297097116}
   readyStatusBar: {fileID: 114347531798232068}
@@ -2149,6 +2143,12 @@ MonoBehaviour:
   - {fileID: 114040409750374724}
   - {fileID: 114050995029031190}
   controllers: []
+  availableColors:
+  - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
+  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
+  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
+  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  takenColors: []
   spawnPositions:
   - {x: -450, y: 0.1725311, z: 75.67999}
   - {x: -445, y: 0.1725311, z: 75.67999}
@@ -2454,6 +2454,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc55c79bfcf9b14393ef3d1007cceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignPlayers: {fileID: 114680726085207464}
   characterStatus: 0
   displayFields:
     nameField: {fileID: 114377147855622496}
@@ -2464,11 +2465,7 @@ MonoBehaviour:
   - {fileID: 1291730791454446, guid: 9992fa14c987a4a4eb2f1efd35425cfe, type: 2}
   - {fileID: 1132333130957944, guid: 6b01f29fb527ef145914c19332aa360d, type: 2}
   - {fileID: 1626386772252174, guid: 2b095bde293478a4f926ddc5b5615c31, type: 2}
-  materials:
-  - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
-  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
-  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
-  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  colorIndex: 0
   joinText: {fileID: 114864164160645532}
   joinImage: {fileID: 114969048087879934}
   readyStatusBar: {fileID: 114560670968498356}
@@ -2784,6 +2781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edc55c79bfcf9b14393ef3d1007cceb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  assignPlayers: {fileID: 114680726085207464}
   characterStatus: 0
   displayFields:
     nameField: {fileID: 114166112438510132}
@@ -2794,11 +2792,7 @@ MonoBehaviour:
   - {fileID: 1291730791454446, guid: 9992fa14c987a4a4eb2f1efd35425cfe, type: 2}
   - {fileID: 1132333130957944, guid: 6b01f29fb527ef145914c19332aa360d, type: 2}
   - {fileID: 1626386772252174, guid: 2b095bde293478a4f926ddc5b5615c31, type: 2}
-  materials:
-  - {fileID: 2100000, guid: 44d3c12b0f6a385499815bde1fd013c5, type: 2}
-  - {fileID: 2100000, guid: 92cc04b3b4574c040b2400c5c1a34408, type: 2}
-  - {fileID: 2100000, guid: 11204f5fda56b594eb040ceede7cbc91, type: 2}
-  - {fileID: 2100000, guid: 19d586073c8bf8946818e2a3b9680c6b, type: 2}
+  colorIndex: 0
   joinText: {fileID: 114698036996223342}
   joinImage: {fileID: 114927997881911400}
   readyStatusBar: {fileID: 114455911342921732}
@@ -3131,7 +3125,7 @@ Canvas:
   m_GameObject: {fileID: 1188070325228322}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
