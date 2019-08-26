@@ -119,7 +119,8 @@ public class CharacterCardGenerator : MonoBehaviour
         controller.enabled = false;
 
         // Adds the generated colour to the list of taken colours, and removes it from the list of available colours
-        assignPlayers.takenColors.Add(assignPlayers.availableColors[colorIndex]);
+        //assignPlayers.takenColors.Add(assignPlayers.availableColors[colorIndex]);
+        assignPlayers.takenColors[controller.playerId] = assignPlayers.availableColors[assignPlayers.cards[controller.playerId].colorIndex];
         assignPlayers.availableColors.RemoveAt(colorIndex);
     }
 

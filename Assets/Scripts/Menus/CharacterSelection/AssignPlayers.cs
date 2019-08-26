@@ -75,24 +75,25 @@ public class AssignPlayers : MonoBehaviour
                 }
             }
 
-            // For un-joining the game -- DISABLING UNTIL I CAN FIGURE OUT HOW TO HANDLE COLOR REMOVAL
-            //if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
-            //{
-            //    // Adds the character's color to the list of available colours, and removes it from the list of taken colours
-            //    availableColors.Add(takenColors[controller.playerId]);
-            //    takenColors.RemoveAt(controller.playerId);
-            //    //this doesn't work because if say player 2 tries to un-join but player 1 has already un-joined, the index is OOA. 
+            //For un-joining the game --DISABLING UNTIL I CAN FIGURE OUT HOW TO HANDLE COLOR REMOVAL
+            if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            {
+                // Adds the character's color to the list of available colours, and removes it from the list of taken colours
+                availableColors.Add(takenColors[controller.playerId]);
+                //takenColors.RemoveAt(controller.playerId);
+                takenColors[controller.playerId] = null;
+                //this doesn't work because if say player 2 tries to un-join but player 1 has already un-joined, the index is OOA. 
 
-            //    cards[controller.playerId].ActivateJoinIcons();
-            //    joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
-            //    ExampleGameController.instance.numberOfPlayers--;
+                cards[controller.playerId].ActivateJoinIcons();
+                joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
+                ExampleGameController.instance.numberOfPlayers--;
 
-            //    // If a player leaves and everyone else is ready, start the countdown
-            //    if (ReadyCheck.instance.AllPlayersReady())
-            //    {
-            //        ReadyCheck.instance.StartCountdown();
-            //    }
-            //}
+                // If a player leaves and everyone else is ready, start the countdown
+                if (ReadyCheck.instance.AllPlayersReady())
+                {
+                    ReadyCheck.instance.StartCountdown();
+                }
+            }
 
             // Player moves analog stick RIGHT - selects a new head
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
