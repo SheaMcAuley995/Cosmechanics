@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4037342045524828}
   - component: {fileID: 114011954814127540}
   - component: {fileID: 114676488983692684}
+  - component: {fileID: 114651852294993260}
+  - component: {fileID: 114517639848026370}
   m_Layer: 0
   m_Name: Rewired Input Manager
   m_TagString: Untagged
@@ -35,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1592660755158266}
   m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -4, y: 0.05, z: -13.76}
+  m_LocalPosition: {x: -5, y: 0.05, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -381,6 +383,15 @@ MonoBehaviour:
       _behaviorId: 0
       _userAssignable: 1
       _categoryId: 0
+    - _id: 18
+      _name: Start
+      _type: 1
+      _descriptiveName: Start
+      _positiveDescriptiveName: 
+      _negativeDescriptiveName: 
+      _behaviorId: 0
+      _userAssignable: 1
+      _categoryId: 1
     actionCategories:
     - _name: Default
       _descriptiveName: Default
@@ -397,7 +408,7 @@ MonoBehaviour:
       - categoryId: 0
         actionIds: 00000000010000000200000003000000040000000500000011000000
       - categoryId: 1
-        actionIds: 0600000007000000080000000b0000000c0000000f00000010000000
+        actionIds: 0600000007000000080000000b0000000c0000000f0000001000000012000000
     inputBehaviors:
     - _id: 0
       _name: Default
@@ -619,7 +630,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: 17
+        _actionId: -1
         _elementType: 1
         _elementIdentifierId: 14
         _axisRange: 0
@@ -630,7 +641,7 @@ MonoBehaviour:
         _modifierKey2: 0
         _modifierKey3: 0
       - _actionCategoryId: 0
-        _actionId: -1
+        _actionId: 17
         _elementType: 1
         _elementIdentifierId: 15
         _axisRange: 0
@@ -940,6 +951,17 @@ MonoBehaviour:
         _actionId: 12
         _elementType: 1
         _elementIdentifierId: 5
+        _axisRange: 0
+        _invert: 0
+        _axisContribution: 0
+        _keyboardKeyCode: 0
+        _modifierKey1: 0
+        _modifierKey2: 0
+        _modifierKey3: 0
+      - _actionCategoryId: 0
+        _actionId: 18
+        _elementType: 1
+        _elementIdentifierId: 15
         _axisRange: 0
         _invert: 0
         _axisContribution: 0
@@ -1310,7 +1332,7 @@ MonoBehaviour:
     customControllerMaps: []
     customControllers: []
     playerIdCounter: 5
-    actionIdCounter: 18
+    actionIdCounter: 19
     actionCategoryIdCounter: 2
     inputBehaviorIdCounter: 1
     mapCategoryIdCounter: 4
@@ -1325,6 +1347,74 @@ MonoBehaviour:
     customControllerIdCounter: 0
   _controllerDataFiles: {fileID: 11400000, guid: d21d2b20df8369642b76aafbb2576ba7,
     type: 2}
+--- !u!114 &114517639848026370
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592660755158266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e9c60e1db6fcae4d8667e50bc98c695, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _userData:
+    _allowedNpadStyles: -7
+    _joyConGripStyle: 1
+    _adjustIMUsForGripStyle: 1
+    _handheldActivationMode: 0
+    _assignJoysticksByNpadId: 1
+    _useVibrationThread: 1
+    _npadNo1:
+      _isAllowed: 1
+      _rewiredPlayerId: 0
+      _joyConAssignmentMode: -1
+    _npadNo2:
+      _isAllowed: 1
+      _rewiredPlayerId: 1
+      _joyConAssignmentMode: -1
+    _npadNo3:
+      _isAllowed: 1
+      _rewiredPlayerId: 2
+      _joyConAssignmentMode: -1
+    _npadNo4:
+      _isAllowed: 1
+      _rewiredPlayerId: 3
+      _joyConAssignmentMode: -1
+    _npadNo5:
+      _isAllowed: 1
+      _rewiredPlayerId: 4
+      _joyConAssignmentMode: -1
+    _npadNo6:
+      _isAllowed: 1
+      _rewiredPlayerId: 5
+      _joyConAssignmentMode: -1
+    _npadNo7:
+      _isAllowed: 1
+      _rewiredPlayerId: 6
+      _joyConAssignmentMode: -1
+    _npadNo8:
+      _isAllowed: 1
+      _rewiredPlayerId: 7
+      _joyConAssignmentMode: -1
+    _npadHandheld:
+      _isAllowed: 1
+      _rewiredPlayerId: 0
+      _joyConAssignmentMode: -1
+    _debugPad:
+      _enabled: 0
+      _rewiredPlayerId: 0
+--- !u!114 &114651852294993260
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1592660755158266}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebf90c296cdfa74c9d83e85372b2a13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114676488983692684
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1336,11 +1426,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5aeacf8de0b42d241a3401b6c1b431c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfPlayers: 0
+  numberOfPlayers: 4
   cameraMultiTarget: {fileID: 0}
-  playerPrefab: {fileID: 1825844865210962, guid: 21a6e817b5e34904ab58643d2ab3946e,
+  playerPrefab: {fileID: 1951382722408284, guid: 592d767253ae042428293b0c7ce2ae9d,
     type: 2}
-  spawnPoints: []
+  spawnPoints:
+  - {x: -4, y: 0.05, z: -13}
+  - {x: -3, y: 0.05, z: -13}
+  - {x: -2, y: 0.05, z: -13}
+  - {x: -1, y: 0.05, z: -13}
   spawnableScenes:
   - NewMichaelTest
   - NewMichaelTest

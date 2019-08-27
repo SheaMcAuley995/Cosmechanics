@@ -10,9 +10,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public int repairAmount = 1;
 
-    MeshRenderer mesh;
-    MeshFilter filter;
-    [SerializeField]Mesh[] meshes;
+    [SerializeField] MeshRenderer mesh;
+    [SerializeField] MeshFilter filter;
+    [SerializeField] Mesh[] meshes;
     int currentMesh;
     //public GameObject steamParticlePrefab;
     public GameObject repairEffect;
@@ -22,12 +22,22 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     private void Start()
     {
-        mesh = GetComponent<MeshRenderer>();
-        ShipHealth.instance.shipMaxHealth += healthMax;
-        ShipHealth.instance.shipCurrenHealth += health;
-        filter = GetComponent<MeshFilter>();
-        alertUI.problemMax += healthMax;
-        alertUI.problemCurrent += healthMax;
+        if(filter == null) { filter = GetComponent<MeshFilter>(); }
+        if(mesh == null) { mesh = GetComponent<MeshRenderer>(); }
+        
+        if(ShipHealth.instance != null)
+        {
+            ShipHealth.instance.shipMaxHealth += healthMax;
+            ShipHealth.instance.shipCurrenHealth += health;
+        }
+
+        
+        if(alertUI != null)
+        {
+            alertUI.problemMax += healthMax;
+            alertUI.problemCurrent += healthMax;
+        }
+
         
         //StartCoroutine("takeDamage");
     }
@@ -41,7 +51,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
              
-            AudioEventManager.instance.PlaySound("clang", .05f, Random.Range(.9f,1f), 0);    //play clang audio
+            AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
            //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -64,8 +74,12 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
         alertUI.problemCurrent += repairAmount;
-        ShipHealth.instance.shipCurrenHealth += repairAmount;
-        ShipHealth.instance.AdjustUI();
+        if (ShipHealth.instance != null)
+        {
+            ShipHealth.instance.shipCurrenHealth += repairAmount;
+            ShipHealth.instance.AdjustUI();
+        }
+
         // health = Mathf.Clamp(health + repairAmount, 0, healthMax);
         
     }
@@ -80,11 +94,18 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             currentMesh += 1;
             filter.mesh = meshes[currentMesh];
             mesh.material.color += Color.red;
-            alertUI.problemCurrent -= damageTaken;
-            ShipHealth.instance.shipCurrenHealth -= damageTaken;
-            ShipHealth.instance.AdjustUI();
+            if (alertUI != null) { alertUI.problemCurrent -= damageTaken; }
+            if(ShipHealth.instance != null)
+            {
+                ShipHealth.instance.shipCurrenHealth -= damageTaken;
+                ShipHealth.instance.AdjustUI();
+            }
             //Debug.Log("Health Points : " + health);
-            AudioEventManager.instance.PlaySound("pipebreak",.05f,1,0);
+            if (AudioEventManager.instance != null)
+            {
+                AudioEventManager.instance.PlaySound("pipebreak", .7f, 1, 0);
+            }
+            
             if(!steamEffect.isPlaying)
             {
                 steamEffect.Play();
@@ -103,5 +124,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     private void OnDisable()
     {
         
+    }
+
+    public void TakeDamage(object explosionDamage)
+    {
+        throw new System.NotImplementedException();
     }
 }

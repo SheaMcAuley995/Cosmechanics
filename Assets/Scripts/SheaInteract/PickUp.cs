@@ -6,32 +6,37 @@ using UnityEngine;
 public class PickUp : MonoBehaviour {
 
     public Rigidbody rb;
-    //public GameObject PUU_ShaderPrefab;
-   // GameObject puu;
+    public PlayerController playerController;
+    public Collider myCollider;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
+        myCollider = GetComponent<Collider>();
     }
 
     public virtual void pickMeUp(Transform pickUpTransform)
     {
+        if(myCollider == null)
+        {
+            myCollider = GetComponent<Collider>();
+        }
+        if(playerController != null)
+        {
+            playerController.interact.interactedObject = null;
+            Destroy(playerController.interact.puu);
+        }
+        myCollider.enabled = false;
         rb.isKinematic = true;
         transform.SetParent(pickUpTransform);
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
-        //puu = Instantiate(PUU_ShaderPrefab, pickUpTransform.position, Quaternion.identity, pickUpTransform);
-       
     }
    
     public void putMeDown()
     {
+        myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
-       // Destroy(puu);
     }
-    //private void OnDestroy()
-    //{
-    //   // Destroy(puu);
-    //}
 }

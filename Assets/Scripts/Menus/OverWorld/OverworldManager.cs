@@ -29,25 +29,29 @@ public class OverworldManager : MonoBehaviour
 {
     public static OverworldManager instance; // Singleton instance
     public OverworldData data; // Reference to the struct containing the constructor
-    PlayerController[] playerControllers; // For handling input
+    public ShipController shipController; // For handling input
+    PlayerController[] playerControllers;
+    SelectedPlayer[] selectedPlayers;
 
     // Enum for handling selected level states
     public enum Level
     {
         Level1,
         Level2,
-        Level3
+        Level3,
+        Level4
     };
 
     [Header("Level Management")]
     [Space] public Level level;
     int selectedLevel = 1;
+    public string charSelectSceneName;
 
     [Header("Ship Components")]
     public Transform shipTransform;
     
     [Header("Orbital Components")]
-    public GameObject[] levelObjects;
+    public Image[] levelObjects;
     public GameObject[] orbitPositions;
     Vector3 shipPos; // Ship's current position at time of MoveShip() being called
     Vector3 shipDest; // Ship's target destination
@@ -55,6 +59,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Overworld UI")]
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
+    public Sprite[] highlightSprites;
 
     [Header("Selected Level UI Pool")]
     public Sprite[] mapImages;
@@ -64,6 +69,7 @@ public class OverworldManager : MonoBehaviour
     [Header("Orbit Settings")]
     [SerializeField] float travelTime = 1f;
     [SerializeField] float orbitSpeed = 80f;
+    [SerializeField] Vector3 orbitOffset = new Vector3(15f, 0f, 10f);
     Vector3 direction = -Vector3.up; // The direction in which the ship orbits
 
     // These should be fairly self-explanatory 
@@ -86,7 +92,7 @@ public class OverworldManager : MonoBehaviour
     }
     #endregion
 
-    IEnumerator Start ()
+    void Start ()
     {
         ableToLaunch = false;
 
@@ -98,10 +104,9 @@ public class OverworldManager : MonoBehaviour
         MoveShip();
         ApplyText();
 
-        yield return new WaitForSeconds(0.2f);
-        for (int i = 0; i < playerControllers.Length; i++)
+        foreach (PlayerController player in playerControllers)
         {
-            playerControllers[i].gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+            player.cameraTrans = Camera.main.transform;
         }
     }
 	
@@ -109,6 +114,7 @@ public class OverworldManager : MonoBehaviour
     {       
         GetInput(); // Checks for input to select a level
         CheckIfOrbiting(); // Checks if the ship is supposed to be orbiting
+        selectedPlanet();
     }
 
     // See Update() for explanation
@@ -126,106 +132,128 @@ public class OverworldManager : MonoBehaviour
         shipTransform.RotateAround(levelObjects[selectedLevel - 1].transform.position, dir, orbitSpeed * Time.deltaTime);
     }
 
+    void selectedPlanet()
+    {
+        for(int i = 0; i < levelObjects.Length; i++)
+        {
+            if(i == selectedLevel - 1)
+            {
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(1, 1, 1);
+                levelObjects[i].sprite = highlightSprites[1];
+            }
+            else
+            {
+                //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                levelObjects[i].sprite = highlightSprites[0];
+            }
+        }
+    }
+
     // See Update() for explanation
     void GetInput()
     {
-        // Checks for input from every player
-        foreach (PlayerController player in playerControllers)
+        shipController.GetInput(); // Checks for input from the ship
+
+        // Selection input
+        if (shipController.pickUp && !ableToLaunch && !selecting)
         {
-            player.getInput(); // Checks for input from each player's PlayerController script
+            selecting = true;
+            StartCoroutine(SelectionDelay());
 
-            // Selection input
-            if (player.pickUp && !ableToLaunch && !selecting)
+            levelObjects[selectedLevel - 1].sprite = highlightSprites[2];
+
+            // Opens the mission panel UI
+            SelectLevel();
+        }
+
+        // Directional movement input (RIGHT)
+        if (shipController.movementVector.x > 0 && !moving && !ableToLaunch)
+        {
+            // SUMMARY: If the player moves to another level, data needs to be updated
+            switch (selectedLevel)
             {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Opens the mission panel UI
-                SelectLevel();
-            }
-            else if (player.pickUp && ableToLaunch && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "LAUNCH" button on the mission panel (starts the level)
-                if (data.launchButton.interactable)
-                {
-                    data.launchButton.onClick.Invoke();
-                }
-            }
-
-            // Cancelation input
-            if (player.sprint && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(SelectionDelay());
-
-                // Clicks the "CANCEL" button on the mission panel (cancels selection)
-                data.cancelButton.onClick.Invoke();
-            }
-
-            // Directional movement input (RIGHT)
-            if (player.movementVector.x > 0 && !moving)
-            {
-                /// SUMMARY: If the player moves to another level, data needs to be updated
-                switch (selectedLevel)
-                {
-                    // If level 1 had been selected...
-                    case 1:
-                        selectedLevel++;
-                        level = Level.Level2;
-                        direction = -Vector3.up;
-                        break;
-                    // If level 2 had been selected...
-                    case 2:
-                        selectedLevel++;
-                        level = Level.Level3;
-                        direction = -Vector3.up;
-                        break;
-                    // If level 3 had been selected...
-                    case 3:
-                        selectedLevel = 1;
-                        level = Level.Level1;
-                        direction = Vector3.up;
-                        break;
-                }
-
-                // Moves the ship and updates the UI according to the new selected level
-                MoveShip();
-                ApplyText();
+                // If level 1 had been selected...
+                case 1:
+                    selectedLevel++;
+                    level = Level.Level2;
+                    direction = -Vector3.up;
+                    break;
+                // If level 2 had been selected...
+                case 2:
+                    selectedLevel++;
+                    level = Level.Level3;
+                    direction = -Vector3.up;
+                    break;
+                // If level 3 had been selected...
+                case 3:
+                    selectedLevel++;
+                    level = Level.Level4;
+                    direction = Vector3.up;
+                    break;
+                // If level 4 had been selected...
+                case 4:
+                    selectedLevel = 1;
+                    level = Level.Level1;
+                    direction = Vector3.up;
+                    break;
             }
 
-            // Directional movement input (LEFT)
-            if (player.movementVector.x < 0 && !moving)
-            {
-                /// SUMMARY: If the player moves to another level, data needs to be updated
-                switch (selectedLevel)
-                {
-                    // If level 1 had been selected...
-                    case 1:
-                        selectedLevel = 3;
-                        level = Level.Level3;
-                        direction = -Vector3.up;
-                        break;
-                    // If level 2 had been selected...
-                    case 2:
-                        selectedLevel--;
-                        level = Level.Level1;
-                        direction = Vector3.up;
-                        break;
-                    // If level 3 had been selected...
-                    case 3:
-                        selectedLevel--;
-                        level = Level.Level2;
-                        direction = Vector3.up;
-                        break;
-                }
+            // Moves the ship and updates the UI according to the new selected level
+            MoveShip();
+            DeactivatePanel();
+            ApplyText();
+        }
 
-                // Moves the ship and updates the UI according to the new selected level
-                MoveShip();
-                ApplyText();
+        // Directional movement input (LEFT)
+        if (shipController.movementVector.x < 0 && !moving && !ableToLaunch)
+        {
+            /// SUMMARY: If the player moves to another level, data needs to be updated
+            switch (selectedLevel)
+            {
+                // If level 1 had been selected...
+                case 1:
+                    selectedLevel = 4;
+                    level = Level.Level4;
+                    direction = -Vector3.up;
+                    break;
+                // If level 2 had been selected...
+                case 2:
+                    selectedLevel--;
+                    level = Level.Level1;
+                    direction = Vector3.up;
+                    break;
+                // If level 3 had been selected...
+                case 3:
+                    selectedLevel--;
+                    level = Level.Level2;
+                    direction = Vector3.up;
+                    break;
+                case 4:
+                    selectedLevel--;
+                    level = Level.Level3;
+                    direction = Vector3.up;
+                    break;
             }
+
+            // Moves the ship and updates the UI according to the new selected level
+            MoveShip();
+            DeactivatePanel();
+            ApplyText();
+        }
+
+        if (shipController.sprint && !ableToLaunch && !selecting)
+        {
+            selectedPlayers = FindObjectsOfType<SelectedPlayer>();
+
+            selecting = true;
+            StartCoroutine(SelectionDelay());
+
+            foreach (SelectedPlayer player in selectedPlayers)
+            {
+                //player.gameObject.AddComponent<CharToDestroy>();
+                Destroy(player.gameObject);
+            }
+            SceneFader.instance.FadeTo(charSelectSceneName);
         }
     }
 
@@ -260,7 +288,14 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.mapPreview.sprite = mapImages[2];
                 selectionPanel.levelName.text = levelNames[2];
                 selectionPanel.description.text = descriptions[2];
-                selectionPanel.launchButton.interactable = false;
+                selectionPanel.launchButton.interactable = true;
+                break;
+            // If it's level 4, set all UI elements to the fourth item in each array pool
+            case Level.Level4:
+                selectionPanel.mapPreview.sprite = mapImages[3];
+                selectionPanel.levelName.text = levelNames[3];
+                selectionPanel.description.text = descriptions[3];
+                selectionPanel.launchButton.interactable = true;
                 break;
         }
     }
@@ -282,7 +317,7 @@ public class OverworldManager : MonoBehaviour
 
         // Gets the ship's current position and orbit position of the next level
         shipPos = shipTransform.position;
-        shipDest = orbitPositions[selectedLevel - 1].transform.position;
+        shipDest = levelObjects[selectedLevel - 1].transform.position + orbitOffset;
 
         // Starts the moving animation
         StartCoroutine(WaitAndMove());
@@ -308,7 +343,14 @@ public class OverworldManager : MonoBehaviour
     // Updates primary Overworld UI
     void ApplyText()
     {
-        levelSelectedText.text = "Level " + selectedLevel.ToString();
+        if (selectedLevel == 1)
+        {
+            levelSelectedText.text = "Tutorial";
+        }
+        else
+        {
+            levelSelectedText.text = "Level " + (selectedLevel - 1).ToString();
+        }
     }
 
     IEnumerator SelectionDelay()
