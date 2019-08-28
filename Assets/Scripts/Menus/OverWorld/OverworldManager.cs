@@ -60,6 +60,7 @@ public class OverworldManager : MonoBehaviour
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
     public Sprite[] highlightSprites;
+    public TextMeshProUGUI launchButtonText;
 
     [Header("Selected Level UI Pool")]
     public Sprite[] mapImages;
@@ -145,6 +146,7 @@ public class OverworldManager : MonoBehaviour
             {
                 //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 levelObjects[i].sprite = highlightSprites[0];
+                levelObjects[3].sprite = highlightSprites[3]; // THIS LOCKS SHIP 3 SINCE IT'S NOT FINISHED
             }
         }
     }
@@ -275,6 +277,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[0];
                 selectionPanel.description.text = descriptions[0];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
             // If it's level 2, set all UI elements to the second item in each array pool
             case Level.Level2:
@@ -282,6 +285,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[1];
                 selectionPanel.description.text = descriptions[1];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
             // If it's level 3, set all UI elements to the third item in each array pool
             case Level.Level3:
@@ -289,13 +293,15 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[2];
                 selectionPanel.description.text = descriptions[2];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
             // If it's level 4, set all UI elements to the fourth item in each array pool
             case Level.Level4:
                 selectionPanel.mapPreview.sprite = mapImages[3];
                 selectionPanel.levelName.text = levelNames[3];
                 selectionPanel.description.text = descriptions[3];
-                selectionPanel.launchButton.interactable = true;
+                selectionPanel.launchButton.interactable = false;
+                launchButtonText.text = "CANNOT LAUNCH";
                 break;
         }
     }
