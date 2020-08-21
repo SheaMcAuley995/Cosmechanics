@@ -6,6 +6,7 @@ public class MovingPlatformScript : MonoBehaviour
 {
     Vector3 currentTarget;
     Vector3 startPos;
+    Vector3 prevPos;
 
     public List<Vector3> points;
 
@@ -31,6 +32,7 @@ public class MovingPlatformScript : MonoBehaviour
 
         currentPoint = 0;
         startPos = points[currentPoint];
+        prevPos = points[points.Count - 1];
 
         distance = Vector3.Distance(startPos, currentTarget);
 
@@ -41,6 +43,7 @@ public class MovingPlatformScript : MonoBehaviour
     void ChangeDirection()
     {
         startPos = transform.position;
+        prevPos = points[currentPoint];
 
         currentPoint++;
 
@@ -56,6 +59,7 @@ public class MovingPlatformScript : MonoBehaviour
 
     }
 
+
     IEnumerator PlatformMovement()
     {
         while (!stop)
@@ -67,12 +71,28 @@ public class MovingPlatformScript : MonoBehaviour
             transform.position = Vector3.Lerp(startPos, currentTarget, distanceFraction);
 
 
-            for(int i = 0; i < points.Count; ++i)
+            for (int i = 0; i < points.Count; ++i)
             {
-                if(transform.position == points[i] && points != null)
+                if (transform.position == points[i] && points != null)
                 {
-                    yield return new WaitForSeconds(pauseTime);
-                    ChangeDirection();
+                    if (i == 0)
+                    {
+                        prevPos = points[points.Count - 1];
+
+                        if (prevPos == points[points.Count - 1])
+                        {
+                            yield return new WaitForSeconds(pauseTime);
+                            ChangeDirection();
+                        }
+                    }
+                    else
+                    {
+                        if (prevPos == points[i - 1])
+                        {
+                            yield return new WaitForSeconds(pauseTime);
+                            ChangeDirection();
+                        }
+                    }
                 }
             }
 
