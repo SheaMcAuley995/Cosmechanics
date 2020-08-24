@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Button_A;
     [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
+    [HideInInspector] public bool blockMovement = false;
     CharacterController cc;
     public bool normalMovement = true;
 
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
     public GameObject onFireEffect;
     private bool onFire;
     public Collider myCollider;
+
 
     private void Start()
     {
@@ -247,7 +249,14 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        rb.velocity = transform.forward * currentSpeed;
+        if (!blockMovement)
+        {
+            rb.velocity = transform.forward * currentSpeed;
+        }
+        else
+        {
+            rb.velocity = transform.forward * Vector2.zero;
+        }
 
     }
 
