@@ -50,7 +50,7 @@ public class FlorpFiller : MonoBehaviour
                 curButton.On = false;
                 curButton = buttonA;
                 curButton.On = true;
-                if(florp.florpFillAmount == florp.florpFillMax)
+                if (florp.florpFillAmount == florp.florpFillMax)
                 {
                     ejectFlorp();
                     florp.transform.position += florp.transform.forward;
@@ -67,10 +67,10 @@ public class FlorpFiller : MonoBehaviour
         buttonA.meshRenderer.material = buttonOffMat;
         buttonB.meshRenderer.material = buttonOffMat;
         florp.rb.isKinematic = false;
-        
+
         florp.FlorpFiller = null;
 
     }
 
-  
+
 }

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialEventManager : MonoBehaviour{
+public class TutorialEventManager : MonoBehaviour
+{
 
     public delegate void currentTutorial();
     currentTutorial myTutorial;
@@ -10,7 +11,7 @@ public class TutorialEventManager : MonoBehaviour{
     int Stages;
     [SerializeField] RepairableObject[] pipes;
     [SerializeField] Grid grid;
-    
+
 
     [SerializeField] public float explosionRadius;
     [SerializeField] public LayerMask interactableLayerMask;
@@ -30,7 +31,10 @@ public class TutorialEventManager : MonoBehaviour{
     public DialogueManager dialogueManager;
     public DialogueTrigger[] dialogueTriggers;
 
-    void Start () {
+    //public JumpToHyperSpace jumpScript;
+
+    void Start()
+    {
 
         damagedObjects = new Collider[12];
 
@@ -42,8 +46,8 @@ public class TutorialEventManager : MonoBehaviour{
         myTutorial = checkPipes;
 
         Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
-    
-        for(int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
+
+        for (int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
         {
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
@@ -76,7 +80,7 @@ public class TutorialEventManager : MonoBehaviour{
             pipeCur += pipe.health;
         }
 
-        if(pipeMax == pipeCur)
+        if (pipeMax == pipeCur)
         {
             dialogueManager.trigger = dialogueTriggers[1];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
@@ -96,27 +100,28 @@ public class TutorialEventManager : MonoBehaviour{
             {
                 if (!grid.grid[x, y].isFlamable)
                 {
-                    isAllChecked = grid.grid[x,y].isFlamable;
+                    isAllChecked = grid.grid[x, y].isFlamable;
                 }
             }
         }
-        if(isAllChecked)
+        if (isAllChecked)
         {
             dialogueManager.trigger = dialogueTriggers[2];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
-            myTutorial = checkEngine;
+            //myTutorial = checkEngine;
         }
     }
 
-    void checkEngine()
-    {
-        if(florpReceptor.isFilled > 3)
-        {
-            SceneFader.instance.FadeTo("WinScene");
-        }
-    }
+    //void checkEngine()
+    //{
+    //    if(florpReceptor.isFilled > 3)
+    //    {
+    //        GameStateManager.instance.SetGameState(GameState.Won);
+    //        StartCoroutine(jumpScript.HyperspaceJump());
+    //    }
+    //}
 
 
     private void OnDrawGizmosSelected()
