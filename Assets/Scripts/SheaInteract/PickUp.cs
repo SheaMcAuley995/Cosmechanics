@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 [RequireComponent(typeof(Rigidbody))]
-public class PickUp : MonoBehaviour {
+public class PickUp : MonoBehaviour
+{
 
     public Rigidbody rb;
     public PlayerController playerController;
     public Collider myCollider;
+    public Transform holdPosition;
 
     private void Start()
     {
@@ -17,11 +18,11 @@ public class PickUp : MonoBehaviour {
 
     public virtual void pickMeUp(Transform pickUpTransform)
     {
-        if(myCollider == null)
+        if (myCollider == null)
         {
             myCollider = GetComponent<Collider>();
         }
-        if(playerController != null)
+        if (playerController != null)
         {
             playerController.interact.interactedObject = null;
             Destroy(playerController.interact.puu);
@@ -32,11 +33,24 @@ public class PickUp : MonoBehaviour {
         transform.position = pickUpTransform.position;
         transform.eulerAngles = pickUpTransform.eulerAngles;
     }
-   
-    public void putMeDown()
+
+    public virtual void myInteraction()
     {
+        if (playerController != null) { playerController.blockMovement = true; }
+    }
+
+    public virtual void endMyInteraction()
+    {
+        if (playerController != null) { playerController.blockMovement = false; }
+    }
+
+    public virtual void putMeDown()
+    {
+        playerController = null;
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
+        endMyInteraction();
     }
 }
+
