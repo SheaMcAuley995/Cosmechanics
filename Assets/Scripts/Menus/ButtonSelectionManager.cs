@@ -37,7 +37,7 @@ public class ButtonSelectionManager : MonoBehaviour
 
     void Update()
     {
-        if (ableToGetInput && currentScene != "CacieOverworld")
+        if (ableToGetInput && currentScene != "LevelSelectUpdated")
         {
             foreach (PlayerController controler in controlers)
             {
@@ -60,7 +60,7 @@ public class ButtonSelectionManager : MonoBehaviour
             }
         }
 
-        if (ableToGetInput && currentScene == "CacieOverworld")
+        if (ableToGetInput && currentScene == "LevelSelectUpdated")
         {
             shipController.GetInput();
 

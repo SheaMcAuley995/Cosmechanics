@@ -52,6 +52,12 @@ public class ExampleGameController : MonoBehaviour
 
             }
 
+        for (int i = 1; i < 11; i++)
+        {
+            spawnableScenes[i-1] = "Ship_Level_" + i;
+        }
+
+
         SceneManager.activeSceneChanged += MakePlayers;
         SceneManager.activeSceneChanged += cameraCheck;
     }
@@ -75,7 +81,8 @@ public class ExampleGameController : MonoBehaviour
          }
     
          Debug.Log("Scenes: " + currentName + ", " + next.name);
-    
+
+
          foreach(string scene in spawnableScenes)
          {
              if(currentName == scene)
