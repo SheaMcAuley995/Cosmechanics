@@ -106,6 +106,13 @@ public class ButtonManager : MonoBehaviour
 
         foreach (SelectedPlayer player in players)
         {
+            Animator[] animators = player.GetComponentsInChildren<Animator>();
+            foreach (Animator animator in animators)
+            {
+                animator.Play("Idle", -1, 0);
+            }
+
+            player.transform.Rotate(0f, 0f, 0f);
             player.transform.localScale = new Vector3(0f, 0f, 0f);
         }
     }
