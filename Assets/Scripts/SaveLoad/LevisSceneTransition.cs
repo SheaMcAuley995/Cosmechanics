@@ -7,43 +7,9 @@ using Rewired;
 
 public class LevisSceneTransition : MonoBehaviour
 {
-    public new LevisTransitionCamera camera;
-    TextMeshProUGUI buttonText;
-
-    Player player;
-
-    string sceneName;
-
-    private void Awake()
+   public void LoadScene(string name)
     {
-        player = ReInput.players.GetPlayer(0);
+        SceneManager.LoadScene(name);
     }
-
-    private void Start()
-    {
-        player.AddInputEventDelegate(OnSelectPressed, UpdateLoopType.Update, InputActionEventType.ButtonJustPressed, "Select");
-
-        buttonText = GetComponentInChildren<TextMeshProUGUI>();
-    }
-
-    private void Update()
-    {
-        sceneName = camera.target.name;
-        buttonText.text = "Load " + sceneName;
-    }
-
-    void OnSelectPressed(InputActionEventData data)
-    {
-        if(camera.worldSelected)
-        {
-            ChangeScene();
-        }
-    }
-
-    public void ChangeScene()
-    {
-        SceneManager.LoadScene(sceneName);
-    }
-
 
 }
