@@ -86,7 +86,7 @@ public class ButtonManager : MonoBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
-            players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
+            players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
         }
     }
 

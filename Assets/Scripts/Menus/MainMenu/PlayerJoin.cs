@@ -11,8 +11,8 @@ public class PlayerJoin : MonoBehaviour
 
 	IEnumerator Start ()
     {
-        ExampleGameController.instance.numberOfPlayers = 1;
-        playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+        CharacterHandler.instance.numberOfPlayers = 1;
+        playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
 
         yield return new WaitForEndOfFrame();
         controllers = FindObjectsOfType<PlayerController>();
@@ -20,54 +20,54 @@ public class PlayerJoin : MonoBehaviour
 	
 	void Update ()
     {
-        GetInput();
+       // GetInput();
 	}
 
-    void GetInput()
-    {
-        foreach(PlayerController controller in controllers)
-        {
-            controller.getInput();
-
-            if (controller.movementVector.x > 0 && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(WaitForNextSelect());
-
-                if (ExampleGameController.instance.numberOfPlayers < 4)
-                {
-                    ExampleGameController.instance.numberOfPlayers++;
-                    ExampleGameController.instance.setSpawnPoints();
-                }
-                else
-                {
-                    ExampleGameController.instance.numberOfPlayers = 1;
-                    ExampleGameController.instance.setSpawnPoints();
-                }
-
-                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
-            }
-
-            if (controller.movementVector.x < 0 && !selecting)
-            {
-                selecting = true;
-                StartCoroutine(WaitForNextSelect());
-
-                if (ExampleGameController.instance.numberOfPlayers > 1)
-                {
-                    ExampleGameController.instance.numberOfPlayers--;
-                    ExampleGameController.instance.setSpawnPoints();
-                }
-                else
-                {
-                    ExampleGameController.instance.numberOfPlayers = 4;
-                    ExampleGameController.instance.setSpawnPoints();
-                }
-
-                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
-            }
-        }
-    }
+    //void GetInput()
+    //{
+    //    foreach(PlayerController controller in controllers)
+    //    {
+    //        controller.getInput();
+    //
+    //        if (controller.movementVector.x > 0 && !selecting)
+    //        {
+    //            selecting = true;
+    //            StartCoroutine(WaitForNextSelect());
+    //
+    //            if (CharacterHandler.instance.numberOfPlayers < 4)
+    //            {
+    //                CharacterHandler.instance.numberOfPlayers++;
+    //                CharacterHandler.instance.setSpawnPoints();
+    //            }
+    //            else
+    //            {
+    //                CharacterHandler.instance.numberOfPlayers = 1;
+    //                CharacterHandler.instance.setSpawnPoints();
+    //            }
+    //
+    //            playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
+    //        }
+    //
+    //        if (controller.movementVector.x < 0 && !selecting)
+    //        {
+    //            selecting = true;
+    //            StartCoroutine(WaitForNextSelect());
+    //
+    //            if (CharacterHandler.instance.numberOfPlayers > 1)
+    //            {
+    //                CharacterHandler.instance.numberOfPlayers--;
+    //                CharacterHandler.instance.setSpawnPoints();
+    //            }
+    //            else
+    //            {
+    //                CharacterHandler.instance.numberOfPlayers = 4;
+    //                CharacterHandler.instance.setSpawnPoints();
+    //            }
+    //
+    //            playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
+    //        }
+    //    }
+    //}
 
     IEnumerator WaitForNextSelect()
     {
