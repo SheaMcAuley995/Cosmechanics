@@ -2,46 +2,62 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlorpReceptor : MonoBehaviour {
+public class FlorpReceptor : MonoBehaviour
+{
+    public float florpTotal;
 
+    AudioSource emptySound;
 
-    [SerializeField] Engine engine;
-    public ParticleSystem particle;
+    public float florpMax = 8;
+    public float florpMin = 0;
+    //float currentFill;
+    float amountDeposited;
+    float emptyTotal;
 
-    public int isFilledAmount;
+    Florp currentContainer;
 
-    public void Start()
+    Renderer florpRenderer;
+    MaterialPropertyBlock propertyBlock;
+
+    public GameObject[] FlorpFillUI;
+    public bool CR_Running;
+    private void Awake()
     {
-        isFilledAmount = 0;
+        propertyBlock = new MaterialPropertyBlock();
+        emptySound = GetComponent<AudioSource>();
+        //StartCoroutine(FlorpEmpty());
+        //florpRenderer.GetPropertyBlock(propertyBlock);
     }
 
-    public void fillTheEngine(Florp other)
+    private void Start()
     {
-
-        particle.Play();
-        //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-        if (engine != null) { engine.InsertFlorp(); }
-
-        BottleDispenser.instance.bottlesDispensed--;
-        Destroy(other.gameObject);
-        AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
-        isFilledAmount++;
+        StartCoroutine(burnFlorp());
     }
-    private void OnTriggerEnter(Collider other)
+
+    public void fillFlorp(float amount)
     {
-        if(other.GetComponent<Florp>() != null)
+
+        if (florpTotal < florpMax)
         {
-            if (other.GetComponent<Florp>().isFilled)
-            {
-                particle.Play();
-                //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-                if (engine != null) { engine.InsertFlorp(); }
-
-                BottleDispenser.instance.bottlesDispensed--;
-                Destroy(other.gameObject);
-                AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
-            }
-            else { return; }
+            Debug.Log("GLUB 2");
+            florpTotal += amount;
+            FlorpFillUI[(int)florpTotal - 1].SetActive(true);
         }
     }
+
+
+    public IEnumerator burnFlorp()
+    {
+        while (florpTotal > florpMin)
+        {
+            Engine.instance.isFuled = true;
+            FlorpFillUI[(int)florpTotal - 1].SetActive(false);
+            florpTotal--;
+            yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
+        }
+
+        Engine.instance.isFuled = false;
+        CR_Running = false;
+    }
+
 }
