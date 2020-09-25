@@ -72,7 +72,8 @@ public class PlayerController : MonoBehaviour
     public GameObject onFireEffect;
     private bool onFire;
     public Collider myCollider;
-
+    public LayerMask interactableLayer;
+    public Interactable interactableObject;
 
     private void Start()
     {
@@ -90,11 +91,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         // If the game isn't paused
-        if (GameStateManager.instance.GetState() != GameState.Paused)
-        {
+       // if (GameStateManager.instance.GetState() != GameState.Paused)
+       // {
             getInput();
             ProcessInput();
-        }
+        //}
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -150,6 +151,7 @@ public class PlayerController : MonoBehaviour
 
         if (Interact)
         {
+            //Debug.Log("Interaction");
             interact.InteractWithObject();
             Interaction();
         }
@@ -164,42 +166,108 @@ public class PlayerController : MonoBehaviour
     {
         interact.interactableObject.pickUpTransform = pickUpTransform;
     }
+
     public virtual void Interaction()
     {
-        if (interact.interactableObject != null)
+
+        if (interactedObject != null)
         {
-            if (myInteractions == null)
+            if (interactedObject.GetComponent<PickUp>() != null)
             {
-                if (myCurrentInteraction == null)
+                interactedObject.GetComponent<PickUp>().myInteraction();
+            }
+        }
+        else
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
+                if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
-                    myCurrentInteraction += pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+                    {
+                        foreach (Animator animator in animators)
+                        {
+                            if (animator != null) { animator.SetTrigger("PipeFix"); }
+                        }
+                        //animators[0].SetTrigger("PipeFix");
+                        //animators[1].SetTrigger("PipeFix");
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        break;
+                    }
                 }
                 else
                 {
-                    interact.interactableObject.pickUpTransform = null;
-                    interact.interactableObject = null;
-                    myCurrentInteraction -= pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<IInteractable>() != null)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    }
+                    break;
                 }
-            }
-            else if (myInteractions != null)
-            {
-                myInteractions();
-                Debug.Log("Running " + myInteractions);
-            }
 
-
-        }
-        else if (interact.interactableObject == null)
-        {
-            if (myCurrentInteraction != null)
-            {
-                myCurrentInteraction = null;
             }
         }
     }
 
+    public void endInteraction()
+    {
+        if (interactedObject != null)
+        {
+            if (interactedObject.GetComponent<PickUp>() != null)
+            {
+                //Debug.Log("TOOL INTEREACTION");
+                interactedObject.GetComponent<PickUp>().endMyInteraction();
+            }
+        }
+    }
+
+    public void pickUpObject()
+    {
+        //Debug.Log("CAST");
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
+        // Debug.Log(transform.forward);
+        if (interactedObject == null)
+        {
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                if (hitColliders[i].GetComponent<PickUp>() != null)
+                {
+                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = this;
+                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
+                    interactedObject = hitColliders[i].gameObject;
+                    if (hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
+                    if (hitColliders[i].GetComponent<PickUp>().playerController != null)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            interactedObject.GetComponent<PickUp>().putMeDown();
+            interactedObject = null;
+        }
+    }
+
+
+    public void callInteract()
+    {
+        if (interactableObject != null)
+        {
+            interactableObject.InteractWith();
+        }
+    }
+    public void closeInteract()
+    {
+        interactableObject = null;
+    }
     void Move(Vector2 inputDir, bool running)
     {
         if (!onFire)
