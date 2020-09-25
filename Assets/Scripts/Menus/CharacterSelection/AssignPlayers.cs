@@ -29,7 +29,7 @@ public class AssignPlayers : MonoBehaviour
         CharacterHandler.instance.numberOfPlayers = 0;
         for (int i = 0; i < cards.Length; i++)
         {
-            GameObject tempPlayer = CharacterHandler.instance.addPlayer(spawnPositions[i]);
+            GameObject tempPlayer = CharacterHandler.instance.addPlayer(new Vector3(0, i, 0));
               
             // Assigns each player a spawn position.
             cards[i].gameObject.GetComponent<CharacterCardGenerator>().spawnPos = spawnPositions[i];

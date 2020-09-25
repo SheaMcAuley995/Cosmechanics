@@ -333,7 +333,7 @@ PrefabInstance:
     - target: {fileID: 224538956931388124, guid: 4b6a603222adebd48bb0537d3b0dfdf9,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224538956931388124, guid: 4b6a603222adebd48bb0537d3b0dfdf9,
         type: 3}
@@ -477,7 +477,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &597802082
 GameObject:
@@ -888,7 +888,7 @@ PrefabInstance:
     - target: {fileID: 6900071660770592948, guid: 3be48a22a3ca1954ebfbd505ba5fa090,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6900071660770592948, guid: 3be48a22a3ca1954ebfbd505ba5fa090,
         type: 3}
@@ -967,6 +967,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1673177969}
+  - component: {fileID: 1673177970}
   m_Layer: 0
   m_Name: Characterselect
   m_TagString: Untagged
@@ -988,6 +989,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1673177970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1673177968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cd3d78d5334eda49b5896b2579ecef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1727135824
 GameObject:
   m_ObjectHideFlags: 0
@@ -1147,17 +1160,22 @@ PrefabInstance:
     - target: {fileID: 114238414896462620, guid: fd1b08d5134ed844c8dbe541262aec6e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114411454572149984, guid: fd1b08d5134ed844c8dbe541262aec6e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114680726085207464, guid: fd1b08d5134ed844c8dbe541262aec6e,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114680726085207464, guid: fd1b08d5134ed844c8dbe541262aec6e,
+        type: 3}
+      propertyPath: spawnPositions.Array.data[0].x
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 223497961059756320, guid: fd1b08d5134ed844c8dbe541262aec6e,
         type: 3}
