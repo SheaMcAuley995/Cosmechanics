@@ -56,7 +56,7 @@ public class ReadyCheck : MonoBehaviour
 
     public bool AllPlayersReady()
     {
-        if (playersReady >= ExampleGameController.instance.numberOfPlayers && playersReady != 0)
+        if (playersReady >= CharacterHandler.instance.numberOfPlayers && playersReady != 0)
         {
             return true;
         }
