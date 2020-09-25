@@ -55,12 +55,9 @@ public class Grid : MonoBehaviour {
     public void Update()
     {
         // If the game isn't paused
-        if (GameStateManager.instance.GetState() != GameState.Paused)
+        for (int i = 0; i < fires.Count; ++i)
         {
-            for (int i = 0; i < fires.Count; ++i)
-            {
-                onFire(fires[i]);
-            }
+            onFire(fires[i]);
         }
     }
 
