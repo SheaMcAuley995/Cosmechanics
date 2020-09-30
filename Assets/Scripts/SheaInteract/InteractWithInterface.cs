@@ -34,7 +34,7 @@ public class InteractWithInterface : MonoBehaviour
 
             for (int i = 0; i < hitColliders.Length; i++)
             {
-                Debug.Log("Interacting with :" + hitColliders[i].name);
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
                 if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)

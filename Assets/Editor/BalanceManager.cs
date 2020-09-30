@@ -14,7 +14,7 @@ public class BalanceManager : EditorWindow
     [SerializeField] [Tooltip("Time between the blasts. Or the time between the events that will cause damage to the ship")] float TimeBetweenEvents;
     
     [Header("PlayerInfo")]
-    [SerializeField] ExampleGameController gameController;
+    [SerializeField] CharacterHandler gameController;
     [SerializeField] Grid grid;
     
     Color color;
