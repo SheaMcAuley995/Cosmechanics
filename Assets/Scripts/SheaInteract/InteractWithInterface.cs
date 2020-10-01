@@ -7,6 +7,7 @@ public class InteractWithInterface : MonoBehaviour
 {
 
     public Interactable interactableObject;
+    public GameObject   interactedObject;
     public float radius;
     public LayerMask interactableLayer;
 
@@ -16,7 +17,7 @@ public class InteractWithInterface : MonoBehaviour
     [HideInInspector] public GameObject puu;
     bool isPuu = false;
 
-    public GameObject interactedObject;
+
     public PlayerController controller;
 
     public void InteractWithObject()
@@ -57,13 +58,13 @@ public class InteractWithInterface : MonoBehaviour
             }
         }
     }
-        
-    
+
+
 
     public void pickUpObject(Collider box)
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-        if(interactedObject == null)
+        if (interactedObject == null)
         {
             for (int i = 0; i < hitColliders.Length; i++)
             {
@@ -72,10 +73,15 @@ public class InteractWithInterface : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
                     hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
+
                     isPuu = true;
                     puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
                     box.enabled = true;
 
+                    if (hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
                     break;
                 }
             }
@@ -115,5 +121,5 @@ public class InteractWithInterface : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, radius);
     }
-   
+
 }

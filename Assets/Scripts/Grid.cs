@@ -230,6 +230,7 @@ public class Grid : MonoBehaviour {
                 playerCon.onFireTimerCur -= Time.time * 2;
             }
         }
+        Debug.Log(":");
 
         firePos.fireTimer -= Time.deltaTime;
         if (firePos.fireTimer < 0)
@@ -247,37 +248,37 @@ public class Grid : MonoBehaviour {
     }
 
 
-   // private void OnDrawGizmos()
-   // {
-   //     nodeDiameter = nodeRadius * 2;
-   //     gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
-   //     gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-   //
-   //     if (GenerateGrid)
-   //         CreateGrid();
-   //
-   //     if (LightFire)
-   //     {
-   //         //GenerateFire();
-   //         LightFire = false;
-   //     }
-   //
-   //
-   //     if (grid != null && showGrid)
-   //     {
-   //         foreach (Node n in grid)
-   //         {
-   //             Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
-   //             //Gizmos.color = ((woooo % 2) != 1) ? Color.white : Color.red;
-   //             Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
-   //             //woooo = (int)Mathf.Sin(woooo++ * Time.time * 10);
-   //         }
-   //         foreach (Node fire in fires)
-   //         {
-   //             Gizmos.color = Color.green;
-   //             Gizmos.DrawSphere(fire.worldPosition, 1);
-   //         }
-   //     }
-   //
-   // }
+    private void OnDrawGizmos()
+    {
+        nodeDiameter = nodeRadius * 2;
+        gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
+        gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
+   
+        if (GenerateGrid)
+            CreateGrid();
+   
+        if (LightFire)
+        {
+            //GenerateFire();
+            LightFire = false;
+        }
+   
+   
+        if (grid != null && showGrid)
+        {
+            foreach (Node n in grid)
+            {
+                Gizmos.color = (n.isFlamable) ? Color.white : Color.red;
+                //Gizmos.color = ((woooo % 2) != 1) ? Color.white : Color.red;
+                Gizmos.DrawWireCube(n.worldPosition, Vector3.one * (nodeDiameter - .1f));
+                //woooo = (int)Mathf.Sin(woooo++ * Time.time * 10);
+            }
+            foreach (Node fire in fires)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawSphere(fire.worldPosition, 1);
+            }
+        }
+   
+    }
 }
