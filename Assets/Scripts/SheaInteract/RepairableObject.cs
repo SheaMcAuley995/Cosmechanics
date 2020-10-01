@@ -30,9 +30,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             ShipHealth.instance.shipMaxHealth += healthMax;
             ShipHealth.instance.shipCurrenHealth += health;
         }
+        steamEffect.Stop();
+        steamEffect2.Stop();
 
-        
-        if(alertUI != null)
+        if (alertUI != null)
         {
             alertUI.problemMax += healthMax;
             alertUI.problemCurrent += healthMax;
@@ -51,7 +52,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0,0.1f),Quaternion.identity);
             Destroy(nutsAndBolts.gameObject, 1);
              
-            AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
+            //AudioEventManager.instance.PlaySound("clang", .7f, Random.Range(.9f,1f), 0);    //play clang audio
            //ShipHealth.instance.shipCurrenHealth += repairAmount;
            // Debug.Log("Health Points : " + health);
 
@@ -73,7 +74,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
-        alertUI.problemCurrent += repairAmount;
+        //alertUI.problemCurrent += repairAmount;
         if (ShipHealth.instance != null)
         {
             ShipHealth.instance.shipCurrenHealth += repairAmount;
