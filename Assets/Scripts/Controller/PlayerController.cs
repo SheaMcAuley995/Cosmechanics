@@ -154,6 +154,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Interaction");
             interact.InteractWithObject();
             Interaction();
+            callInteract();
         }
 
         if(pickUp)
@@ -220,39 +221,6 @@ public class PlayerController : MonoBehaviour
                 //Debug.Log("TOOL INTEREACTION");
                 interactedObject.GetComponent<PickUp>().endMyInteraction();
             }
-        }
-    }
-
-    public void pickUpObject()
-    {
-        //Debug.Log("CAST");
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
-        // Debug.Log(transform.forward);
-        if (interactedObject == null)
-        {
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                if (hitColliders[i].GetComponent<PickUp>() != null)
-                {
-                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
-                    hitColliders[i].GetComponent<PickUp>().playerController = this;
-                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
-                    interactedObject = hitColliders[i].gameObject;
-                    if (hitColliders[i].GetComponent<Interactable>() != false)
-                    {
-                        interactableObject = hitColliders[i].GetComponent<Interactable>();
-                    }
-                    if (hitColliders[i].GetComponent<PickUp>().playerController != null)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-        else
-        {
-            interactedObject.GetComponent<PickUp>().putMeDown();
-            interactedObject = null;
         }
     }
 

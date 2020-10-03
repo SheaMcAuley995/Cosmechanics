@@ -31,7 +31,7 @@ public class Interactable : MonoBehaviour
 
     public virtual void InteractWith()
     {
-        Debug.Log("Calling base InteractWith");
+        //Debug.Log("Calling base InteractWith");
         //Debug.Log("I love myself, Even tho I look like a burnt chicken nuget. I still love myself.");
     }
 

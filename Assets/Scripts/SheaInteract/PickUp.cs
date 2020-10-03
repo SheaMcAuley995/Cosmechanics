@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+
 [RequireComponent(typeof(Rigidbody))]
 public class PickUp : MonoBehaviour
 {
-
     public Rigidbody rb;
     public PlayerController playerController;
     public Collider myCollider;
