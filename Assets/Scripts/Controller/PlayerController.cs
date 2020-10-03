@@ -90,12 +90,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // If the game isn't paused
-       // if (GameStateManager.instance.GetState() != GameState.Paused)
-       // {
-            getInput();
-            ProcessInput();
-        //}
+        getInput();
+        ProcessInput();
+
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -154,7 +151,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Interaction");
             interact.InteractWithObject();
             Interaction();
-            callInteract();
+
         }
 
         if(pickUp)
@@ -224,18 +221,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
-    public void callInteract()
-    {
-        if (interactableObject != null)
-        {
-            interactableObject.InteractWith();
-        }
-    }
-    public void closeInteract()
-    {
-        interactableObject = null;
-    }
     void Move(Vector2 inputDir, bool running)
     {
         if (!onFire)
