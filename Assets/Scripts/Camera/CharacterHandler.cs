@@ -26,17 +26,20 @@ public class CharacterHandler : MonoBehaviour
     public List<string> spawnableScenes;
 
     //debug
-    [SerializeField]int sceneToLoad;
+    //[SerializeField]int sceneToLoad;
     public string sceneToLoadString;
     
-    [SerializeField]List<playerInformation> playerInformation = new List<playerInformation>();
+    [SerializeField] List<playerInformation> playerInformation = new List<playerInformation>();
     [SerializeField] GameObject player;
     [SerializeField] SkinnedMeshRenderer renderer;
-    [SerializeField] List<Material> playerMaterialList = new List<Material>(); 
-   // [SerializeField] playerInformation player1;
-   // [SerializeField] playerInformation player2;
-   // [SerializeField] playerInformation player3;
-   // [SerializeField] playerInformation player4;
+    [SerializeField] List<Material> playerMaterialList = new List<Material>();
+    [SerializeField] List<PlayerController> playerControllers = new List<PlayerController>();
+    public GameObject[] players;
+    public Vector3[] spawnpoints;
+    // [SerializeField] playerInformation player1;
+    // [SerializeField] playerInformation player2;
+    // [SerializeField] playerInformation player3;
+    // [SerializeField] playerInformation player4;
 
     private void Awake()
     {
@@ -47,10 +50,16 @@ public class CharacterHandler : MonoBehaviour
         }
         else if (instance != this)
         {
+            Debug.Log(gameObject + "is being destroyed");
             Destroy(gameObject);
         }
 
         //StartCoroutine(testSwitchMat());
+    }
+
+    private void Start()
+    {
+        players = new GameObject[CharacterHandler.instance.numberOfPlayers];
     }
 
 
@@ -62,14 +71,40 @@ public class CharacterHandler : MonoBehaviour
         target.GetComponent<PlayerController>().playerId = currentPlayerId++;
         target.GetComponent<PlayerController>().cameraTrans = cameraMultiTarget.GetComponent<Camera>().transform;
 
+        playerControllers.Add(target.GetComponent<PlayerController>());
+
         return target;
     }
 
-    private IEnumerator Transition()
+    public IEnumerator Transition(string name)
     {
-        DontDestroyOnLoad(gameObject);
-        yield return SceneManager.LoadSceneAsync(sceneToLoad);
-        print("Scene Loaded :" + sceneToLoad);
+        //DontDestroyOnLoad(gameObject);
+        Debug.Log("Scene Loading :" + name);
+        yield return SceneManager.LoadSceneAsync(name);
+        Debug.Log("Scene Loaded :" + name);
+
+        if (name.Contains("Ship_Level_1"))
+        {
+            int j = 0;
+            foreach (PlayerController player in FindObjectsOfType<PlayerController>())
+            {
+                players[j] = player.gameObject;
+                j++;
+            }
+
+            spawnpoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
+            CameraMultiTarget.instance.SetTargets(players);
+
+            for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+            {
+                players[i].transform.position = spawnpoints[i];
+                players[i].GetComponent<PlayerController>().enabled = true;
+                players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+            }
+
+            Debug.Log("Spawning in players");
+        }
+        
     }
 
 
