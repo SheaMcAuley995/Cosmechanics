@@ -230,7 +230,6 @@ public class Grid : MonoBehaviour {
                 playerCon.onFireTimerCur -= Time.time * 2;
             }
         }
-        Debug.Log(":");
 
         firePos.fireTimer -= Time.deltaTime;
         if (firePos.fireTimer < 0)
