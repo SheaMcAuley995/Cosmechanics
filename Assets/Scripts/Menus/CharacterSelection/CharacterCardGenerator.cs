@@ -110,6 +110,7 @@ public class CharacterCardGenerator : MonoBehaviour
    
         // Assigns newly created characters a playerId for ReWired, and assigns the camera
         controller = newPlayer.GetComponent<PlayerController>();
+        
         currentPlayerId = playerId;
         controller.playerId = currentPlayerId;
         currentPlayerId++;

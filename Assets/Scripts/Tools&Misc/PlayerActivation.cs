@@ -29,11 +29,11 @@ public class PlayerActivation : MonoBehaviour
     public void ContinueToGame()
     {
         chosenCharacters = FindObjectsOfType<SelectedPlayer>();
-   
+        CharacterHandler.instance.players = new GameObject[chosenCharacters.Length];
         for (int i = 0; i < chosenCharacters.Length; i++)
         {
             DontDestroyOnLoad(chosenCharacters[i]);
-   
+            CharacterHandler.instance.players[i] = chosenCharacters[i].gameObject;
             animators = chosenCharacters[i].GetComponentsInChildren<Animator>();
             for (int j = 0; j < animators.Length; j++)
             {
