@@ -8,7 +8,7 @@ using Rewired;
 public class LevisSceneTransition : MonoBehaviour
 {
     public Vector3[] spawnpoints;
-    public GameObject[] players = new GameObject[CharacterHandler.instance.numberOfPlayers];
+    public GameObject[] players;
 
    public void LoadScene(string name)
     {
@@ -19,28 +19,20 @@ public class LevisSceneTransition : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
 
-        int j = 0;
-        foreach(PlayerController player in FindObjectsOfType<PlayerController>())
-        {
-            players[j] = player.gameObject;
-            j++;
-        }
-        
         yield return SceneManager.LoadSceneAsync(name);
         print(name + " has been loaded successfully");        
 
         spawnpoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
 
-
-        for(int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+        players = CharacterHandler.instance.players;
+        for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
         {
             players[i].transform.position = spawnpoints[i];
             players[i].GetComponent<PlayerController>().enabled = true;
             players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+            
         }
-
-        CameraMultiTarget.instance.SetTargets(players);
-
+        CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
         Destroy(gameObject);
     }
 

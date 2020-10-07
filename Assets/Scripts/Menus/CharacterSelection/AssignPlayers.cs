@@ -32,7 +32,7 @@ public class AssignPlayers : MonoBehaviour
             GameObject tempPlayer = CharacterHandler.instance.addPlayer(new Vector3(0, i, 0));
               
             // Assigns each player a spawn position.
-            cards[i].gameObject.GetComponent<CharacterCardGenerator>().spawnPos = spawnPositions[i];
+            //ards[i].gameObject.GetComponent<CharacterCardGenerator>().spawnPos = spawnPositions[i];
 
             //tempPlayer.SetActive(false);
         }
@@ -67,9 +67,9 @@ public class AssignPlayers : MonoBehaviour
    
                 cards[controller.playerId].DeactivateJoinIcons();
    
-                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
+                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId, spawnPositions[controller.playerId]);
                 CharacterHandler.instance.numberOfPlayers++;
-   
+                //CharacterHandler.instance.players[i]
                 //If a player joins during the countdown, stop the countdown
                 if (!ReadyCheck.instance.AllPlayersReady())
                 {
