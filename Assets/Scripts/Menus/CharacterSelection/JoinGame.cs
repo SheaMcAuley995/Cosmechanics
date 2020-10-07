@@ -20,9 +20,9 @@ public class JoinGame : MonoBehaviour
        }
 	}
    
-   public void CreateAndAssignPlayer(int id)
+   public void CreateAndAssignPlayer(int id, Vector3 spawnPos)
    {
-       card.GenerateFullCard(id);
+       card.GenerateFullCard(id, spawnPos);
        isJoined = true;
    }
    

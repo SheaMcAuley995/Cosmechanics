@@ -18,7 +18,7 @@ public class ButtonManager : MonoBehaviour
     SelectedPlayer[] players;
     CharToDestroy[] oldPlayers;
     PickUp[] pickups;
-
+    
 
     IEnumerator Start()
     {

@@ -11,6 +11,9 @@ public class Florp : PickUp
     public Renderer renderer;
     private MaterialPropertyBlock propertyBlock;
 
+    public Material fullMat;
+    public Material emptyMat;
+
     Renderer innerRenderer;
 
     //public float florpFillMax { 

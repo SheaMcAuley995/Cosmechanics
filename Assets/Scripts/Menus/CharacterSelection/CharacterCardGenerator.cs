@@ -46,7 +46,7 @@ public class CharacterCardGenerator : MonoBehaviour
     public Sprite[] statusSprites;
     Image[] locatorDots;
    
-    [HideInInspector] public Vector3 spawnPos;
+    //[HideInInspector] public Vector3 spawnPos;
    
     GameObject newPlayer;
     GameObject newHead;
@@ -90,7 +90,7 @@ public class CharacterCardGenerator : MonoBehaviour
     }
    
     // Generates a full new prisoner card (done the first time to give players a default character)
-    public void GenerateFullCard(int playerId)
+    public void GenerateFullCard(int playerId, Vector3 spawnPos)
     {
         // Sets random values for each card parameter
         nameIndex = Random.Range(0, namesList.Count);

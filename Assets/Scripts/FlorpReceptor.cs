@@ -24,7 +24,7 @@ public class FlorpReceptor : MonoBehaviour
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-        emptySound = GetComponent<AudioSource>();
+        //emptySound = GetComponent<AudioSource>();
         //StartCoroutine(FlorpEmpty());
         //florpRenderer.GetPropertyBlock(propertyBlock);
     }

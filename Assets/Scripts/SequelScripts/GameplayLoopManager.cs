@@ -125,7 +125,7 @@ public class GameplayLoopManager : MonoBehaviour
             if (caughtObject != null) caughtObject.TakeDamage(1);
         }
 
-        AudioEventManager.instance.PlaySound("bang", .8f, Random.Range(.2f, 1f), 0);
+        //AudioEventManager.instance.PlaySound("bang", .8f, Random.Range(.2f, 1f), 0);
         AdjustUI();
 
         if (shipCurrenHealth <= 0)

@@ -90,12 +90,9 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // If the game isn't paused
-       // if (GameStateManager.instance.GetState() != GameState.Paused)
-       // {
-            getInput();
-            ProcessInput();
-        //}
+        getInput();
+        ProcessInput();
+
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
     }
@@ -154,6 +151,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log("Interaction");
             interact.InteractWithObject();
             Interaction();
+
         }
 
         if(pickUp)
@@ -223,51 +221,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void pickUpObject()
-    {
-        //Debug.Log("CAST");
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
-        // Debug.Log(transform.forward);
-        if (interactedObject == null)
-        {
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                if (hitColliders[i].GetComponent<PickUp>() != null)
-                {
-                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
-                    hitColliders[i].GetComponent<PickUp>().playerController = this;
-                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
-                    interactedObject = hitColliders[i].gameObject;
-                    if (hitColliders[i].GetComponent<Interactable>() != false)
-                    {
-                        interactableObject = hitColliders[i].GetComponent<Interactable>();
-                    }
-                    if (hitColliders[i].GetComponent<PickUp>().playerController != null)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-        else
-        {
-            interactedObject.GetComponent<PickUp>().putMeDown();
-            interactedObject = null;
-        }
-    }
-
-
-    public void callInteract()
-    {
-        if (interactableObject != null)
-        {
-            interactableObject.InteractWith();
-        }
-    }
-    public void closeInteract()
-    {
-        interactableObject = null;
-    }
     void Move(Vector2 inputDir, bool running)
     {
         if (!onFire)
