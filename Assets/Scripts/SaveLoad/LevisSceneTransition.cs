@@ -39,8 +39,6 @@ public class LevisSceneTransition : MonoBehaviour
             players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
         }
 
-        CameraMultiTarget.instance.SetTargets(players);
-
         Destroy(gameObject);
     }
 
