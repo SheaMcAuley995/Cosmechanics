@@ -20,8 +20,7 @@ public class Engine : MonoBehaviour {
     public float winConditionLimit;
     public float currentProgress;
     public float enemyProgress;
-    public float progressionMultiplier;
-    public float enemyProgressionMultiplier;
+
 
     public Slider ShipProgressSlider;
     public Slider enemyShipProgressSlider;
@@ -33,6 +32,11 @@ public class Engine : MonoBehaviour {
     public GameObject loseGameScreen;
     public GameObject winGameScreen;
 
+    private float time;
+    private float timeSinceLastEvent;
+
+    private float preEnemyProgress;
+    private float preCurrentProgress;
     private void Awake()
     {
         if (instance != null)
@@ -48,17 +52,17 @@ public class Engine : MonoBehaviour {
     {
         GameplayLoopManager.onNextTickEvent += EngineUpdate;
         //engineHeat = maxHeat * 0.75f;
-        currentProgress = winConditionLimit / 25;
+        currentProgress = 2;
         //alertUI.problemMax = maxHeat;
     }
 
     private void Update()
     {
-        // If the engine event can run & the game isn't paused
-        //if(startEngineBehavior && (GameStateManager.instance.GetState() != GameState.Paused && GameStateManager.instance.GetState() != GameState.Won))
-        //{
-
-        //}
+        
+        ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+        enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+        time += Time.deltaTime;
+        //Debug.Log(time / GameplayLoopManager.TimeBetweenEvents);
     }
 
     public void EngineUpdate()
@@ -73,13 +77,16 @@ public class Engine : MonoBehaviour {
         }
 
 
+
+        preEnemyProgress = enemyProgress;
+        preCurrentProgress = currentProgress;
+        time = 0;
         if (isFuled) { currentProgress += 2; }
         enemyProgress += 1;
 
         //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
         //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
-        ShipProgressSlider.value = currentProgress / winConditionLimit;
-        enemyShipProgressSlider.value = enemyProgress / winConditionLimit;
+
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
 
 
