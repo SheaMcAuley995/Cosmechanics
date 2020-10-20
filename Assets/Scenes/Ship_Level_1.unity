@@ -25669,7 +25669,12 @@ PrefabInstance:
     - target: {fileID: 1265380532592683751, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.9084244
+      value: 0.908432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716785286437332705, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.05
       objectReference: {fileID: 0}
     - target: {fileID: 1723460278860607835, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
@@ -25756,6 +25761,21 @@ PrefabInstance:
       propertyPath: meshRenderer
       value: 
       objectReference: {fileID: 3937190722304178822}
+    - target: {fileID: 3937190723483526336, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: progressionMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937190723483526336, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: winConditionLimit
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 3937190723483526336, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: enemyProgressionMultiplier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3937190723689594484, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_Convex
@@ -25771,6 +25791,11 @@ PrefabInstance:
       propertyPath: meshRenderer
       value: 
       objectReference: {fileID: 3937190722304178820}
+    - target: {fileID: 3937190724134919837, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3937190724134919838, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: GenerateGrid
@@ -25866,6 +25891,11 @@ PrefabInstance:
       propertyPath: FlorpFillUI.Array.data[7]
       value: 
       objectReference: {fileID: 1877880194}
+    - target: {fileID: 3978169056149469590, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: MoveSmoothTime
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 4505603261683236272, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -25982,7 +26012,7 @@ MonoBehaviour:
   buttonB: {fileID: 3937190722304178819}
   holdPostion: {fileID: 3937190722304178823}
   buttonOnMat: {fileID: 2100000, guid: e1512f7ac4820e94c99a33442f4c4b60, type: 2}
-  buttonOffMat: {fileID: 2100000, guid: 114f9a72e81f5ef46b47db87732b6efd, type: 2}
+  buttonOffMat: {fileID: 2100000, guid: 940baae041f46b34e9e852243a58d026, type: 2}
 --- !u!64 &3937190722304178825
 MeshCollider:
   m_ObjectHideFlags: 0
