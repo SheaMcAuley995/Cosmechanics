@@ -34,7 +34,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         oldPlayers = FindObjectsOfType<CharToDestroy>();
-        SceneFader.instance.FadeTo("CharacterSelection_Update");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CharacterSelection_Update"); }
         foreach (CharToDestroy player in oldPlayers)
         {
             Destroy(player.gameObject);
@@ -44,7 +44,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to quit
     public void QuitGame()
     {
-        SceneFader.instance.FadeToQuit();
+        if (SceneFader.instance != null) { SceneFader.instance.FadeToQuit(); }
     }
 
     //Fades to main menu
@@ -59,7 +59,7 @@ public class ButtonManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-        SceneFader.instance.FadeTo("MainMenu_Update");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("MainMenu_Update"); }
         GameStateManager.instance.SetGameState(GameState.Playing);
 
         foreach (SelectedPlayer player in players)
@@ -80,7 +80,7 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo(players[0].currentScene);
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo(players[0].currentScene); }
         GameStateManager.instance.SetGameState(GameState.Playing);
         Time.timeScale = 1f;
 
@@ -101,7 +101,7 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo("CacieOverworld");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CacieOverworld"); }
         Time.timeScale = 1f;
 
         foreach (SelectedPlayer player in players)

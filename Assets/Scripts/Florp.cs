@@ -60,7 +60,7 @@ public class Florp : PickUp
             //propertyBlock.SetFloat("_FillAmount", florpFillAmount);
             //renderer.SetPropertyBlock(propertyBlock);
             florpFillAmount += 1;
-
+            renderer.material = fullMat;
         }
     }
 
@@ -159,14 +159,26 @@ public class Florp : PickUp
         while (runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
         {
             florpReceptor.fillFlorp(1);
-            florpFillAmount--;
-            Debug.Log("Glub");
-            yield return new WaitForSeconds(0.5f);
+
+            if(florpFillAmount-- <= 0)
+            {
+                break;
+            }
+            else
+            {
+                yield return new WaitForSeconds(0.5f);
+            }
+
         }
         if (florpReceptor.CR_Running == false)
         {
             florpReceptor.CR_Running = true;
             florpReceptor.StartCoroutine(florpReceptor.burnFlorp());
+        }
+
+        if(florpFillAmount <= 0)
+        {
+            renderer.material = emptyMat;
         }
 
         endMyInteraction();

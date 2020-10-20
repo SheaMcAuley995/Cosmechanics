@@ -31,7 +31,7 @@ public class Grid : MonoBehaviour {
     [SerializeField] bool startOnFire = false;
     [SerializeField] bool spawnTheFires = true;
 
-    ParticleSystem par;
+    private float startEmissionRate;
    
 
     void Awake()
@@ -214,7 +214,8 @@ public class Grid : MonoBehaviour {
                 firePos.fireHealth -= Time.deltaTime;
                 var main = firePos.fireEffect.GetComponent<ParticleSystem>();
                 var em = main.emission;
-                em.rateOverTime = 120 * (firePos.fireHealth / fireHealth);
+                //startEmissionRate = (float)em.rateOverTime;
+                //em.rateOverTime = 120 * (firePos.fireHealth / fireHealth);
 
                 if (firePos.fireHealth <= 0)
                 {

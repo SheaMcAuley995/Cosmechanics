@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using UnityEditor.Android;
 using UnityEngine;
 
 
@@ -25,6 +26,7 @@ public class PickUp : MonoBehaviour
         }
         if (playerController != null)
         {
+            playerController.interactedObject = gameObject;
             playerController.interact.interactedObject = null;
             Destroy(playerController.interact.puu);
         }
@@ -47,11 +49,12 @@ public class PickUp : MonoBehaviour
 
     public virtual void putMeDown()
     {
+        endMyInteraction();
         playerController = null;
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
-        endMyInteraction();
+        
     }
 }
 
