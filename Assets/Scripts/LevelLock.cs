@@ -4,19 +4,22 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [System.Serializable]
-    public class LevelButton
-    {
-        public Button button;
-        public bool locked;
-        public RawImage lockImage;
-    }
+public class LevelButton
+{
+    public Button button;
+    public bool locked;
+    public RawImage lockImage;
+    public Texture selectImage;
+}
 
 
 public class LevelLock : MonoBehaviour
 {
+    public RawImage displayImage;
     public System.Collections.Generic.List<LevelButton> levelList = new System.Collections.Generic.List<LevelButton>();
     
     
@@ -63,11 +66,23 @@ public class LevelLock : MonoBehaviour
 
             if (levelButton.locked == true)
             {
-                levelButton.button.interactable = false;
+                levelButton.button.enabled = false;
             }
             else
             {
-                levelButton.button.interactable = true;
+                levelButton.button.enabled = true;
+            }
+        }
+    }
+
+
+    public void SwapImage()
+    {
+        foreach (LevelButton levelButton in levelList)
+        {
+            if (EventSystem.current.currentSelectedGameObject == levelButton.button.gameObject && levelButton.button.enabled == true)
+            {
+                displayImage.texture = levelButton.selectImage; 
             }
         }
     }
