@@ -259,6 +259,8 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
+        if (cameraTrans == null) { cameraTrans = Camera.main.transform; }
+
         if (!onFire)
         {
             animators[0].SetBool("OnFire", false);
