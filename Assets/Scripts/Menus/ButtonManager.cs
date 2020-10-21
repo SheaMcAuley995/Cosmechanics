@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu_Updated
-    // 1 = CharacterSelection_Update
-    // 2 = CacieOverWorld
-    // 3 = BetaMichaelTest
-    // 4 = Ship_Level_1Final
-    // 5 = LoseScene
-    // 6 = WinScene
-
     PlayerController[] controllers;
     SelectedPlayer[] players;
     CharToDestroy[] oldPlayers;
@@ -80,14 +71,18 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo(players[0].currentScene); }
+        if (SceneFader.instance != null) 
+        { 
+            //SceneFader.instance.FadeTo(players[0].currentScene);
+            SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        }
         GameStateManager.instance.SetGameState(GameState.Playing);
         Time.timeScale = 1f;
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
-        }
+        //for (int i = 0; i < players.Length; i++)
+        //{
+        //    players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
+        //}
     }
 
     // Fades to overworld
