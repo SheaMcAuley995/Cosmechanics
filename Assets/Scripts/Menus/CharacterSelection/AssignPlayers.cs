@@ -69,7 +69,7 @@ public class AssignPlayers : MonoBehaviour
    
                 joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId, spawnPositions[controller.playerId]);
                 CharacterHandler.instance.numberOfPlayers++;
-   
+                //CharacterHandler.instance.players[i]
                 //If a player joins during the countdown, stop the countdown
                 if (!ReadyCheck.instance.AllPlayersReady())
                 {
