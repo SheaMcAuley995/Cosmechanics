@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Interface to be used with any script containing save data.
+/// Interface to be inherited on any script containing saveable data.
 /// </summary>
 public interface ISaveable
 {

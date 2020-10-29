@@ -38,21 +38,27 @@ public class ButtonManager : MonoBehaviour
         if (SceneFader.instance != null) { SceneFader.instance.FadeToQuit(); }
     }
 
-    //Fades to main menu
-    public void ReturnToMenu()
+    // Destroys any objects players are holding so that they aren't carried over through scenes w/ players.
+    void DestroyPickups()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
         pickups = FindObjectsOfType<PickUp>();
-
         for (int i = 0; i < pickups.Length; i++)
         {
             Destroy(pickups[i].gameObject);
         }
+    }
 
-        Time.timeScale = 1f;
+    // Fades to main menu
+    public void ReturnToMenu()
+    {
+        players = FindObjectsOfType<SelectedPlayer>();
+
+        DestroyPickups();
+
         if (SceneFader.instance != null) { SceneFader.instance.FadeTo("MainMenu_Update"); }
         GameStateManager.instance.SetGameState(GameState.Playing);
 
+        // Destroys the active players so that new ones can be selected.
         foreach (SelectedPlayer player in players)
         {
             player.gameObject.AddComponent<CharToDestroy>();
@@ -63,53 +69,18 @@ public class ButtonManager : MonoBehaviour
     // Fades to last level attempted
     public void RetryLevel()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
+        DestroyPickups();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        if (SceneFader.instance != null) 
-        { 
-            //SceneFader.instance.FadeTo(players[0].currentScene);
-            SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
-        }
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name); }
         GameStateManager.instance.SetGameState(GameState.Playing);
-        Time.timeScale = 1f;
-
-        //for (int i = 0; i < players.Length; i++)
-        //{
-        //    players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
-        //}
     }
 
     // Fades to overworld
     public void ContinueGame()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
+        DestroyPickups();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        // ToDo: Pleeeeeease replace the hardcoded scene name.
+        // TODO: Pleeeeeease replace the hardcoded scene name.
         if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
-        Time.timeScale = 1f;
-
-        foreach (SelectedPlayer player in players)
-        {
-            Animator[] animators = player.GetComponentsInChildren<Animator>();
-            foreach (Animator animator in animators)
-            {
-                animator.Play("Idle", -1, 0);
-            }
-
-            player.transform.Rotate(0f, 0f, 0f);
-            player.transform.localScale = new Vector3(0f, 0f, 0f);
-        }
     }
 }
