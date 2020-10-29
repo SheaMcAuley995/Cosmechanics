@@ -10,9 +10,19 @@ public class LevisSceneTransition : MonoBehaviour
     public Vector3[] spawnpoints;
     public GameObject[] players;
 
-   public void LoadScene(string name)
+    public void LoadScene(string name)
     {
         StartCoroutine(Transition(name));
+    }
+
+    public void SimpleLoadScene(string name)
+    {
+        SceneManager.LoadScene(name);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 
     private IEnumerator Transition(string name)
