@@ -96,7 +96,8 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CacieOverworld"); }
+        // ToDo: Pleeeeeease replace the hardcoded scene name.
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
         Time.timeScale = 1f;
 
         foreach (SelectedPlayer player in players)

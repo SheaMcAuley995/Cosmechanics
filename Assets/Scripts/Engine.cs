@@ -26,6 +26,11 @@ public class Engine : MonoBehaviour {
     public Slider enemyShipProgressSlider;
     public AlertUI alertUI;
 
+    // Zach additions.
+    [Header("Effects")]
+    [SerializeField] ParticleSystem[] starFieldEffects;
+    [SerializeField] float maxSimulationSpeed = 4.0f;
+
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
 
@@ -76,7 +81,16 @@ public class Engine : MonoBehaviour {
             testInputFlorp = false;
         }
 
-
+        // Zach addition.
+        /// <summary> Slows down star field effect if more fuel is not inserted by the next tick. </summary>
+        if (!isFuled)
+        {
+            for (int i = 0; i < starFieldEffects.Length; i++)
+            {
+                var main = starFieldEffects[i].main;
+                main.simulationSpeed = Mathf.Clamp(main.simulationSpeed -= maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
+            }
+        }
 
         preEnemyProgress = enemyProgress;
         preCurrentProgress = currentProgress;
@@ -123,6 +137,14 @@ public class Engine : MonoBehaviour {
     public void InsertFlorp()
     {
         engineHeat = Mathf.Clamp(engineHeat += maxHeat * florpCoolingPercentage, 0, maxHeat);
+
+        // Zach addition.
+        /// <summary> Speeds up the star field effect. </summary>
+        for (int i = 0; i < starFieldEffects.Length; i++)
+        {
+            var main = starFieldEffects[i].main;
+            main.simulationSpeed = Mathf.Clamp(main.simulationSpeed += maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
+        }
     }
 
     public float engineHeatPercentage()
