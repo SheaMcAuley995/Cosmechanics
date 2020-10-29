@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu_Updated
-    // 1 = CharacterSelection_Update
-    // 2 = CacieOverWorld
-    // 3 = BetaMichaelTest
-    // 4 = Ship_Level_1Final
-    // 5 = LoseScene
-    // 6 = WinScene
-
     PlayerController[] controllers;
     SelectedPlayer[] players;
     CharToDestroy[] oldPlayers;
@@ -34,7 +25,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         oldPlayers = FindObjectsOfType<CharToDestroy>();
-        SceneFader.instance.FadeTo("CharacterSelection_Update");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CharacterSelection_Update"); }
         foreach (CharToDestroy player in oldPlayers)
         {
             Destroy(player.gameObject);
@@ -44,7 +35,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to quit
     public void QuitGame()
     {
-        SceneFader.instance.FadeToQuit();
+        if (SceneFader.instance != null) { SceneFader.instance.FadeToQuit(); }
     }
 
     //Fades to main menu
@@ -59,7 +50,7 @@ public class ButtonManager : MonoBehaviour
         }
 
         Time.timeScale = 1f;
-        SceneFader.instance.FadeTo("MainMenu_Update");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("MainMenu_Update"); }
         GameStateManager.instance.SetGameState(GameState.Playing);
 
         foreach (SelectedPlayer player in players)
@@ -80,14 +71,18 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo(players[0].currentScene);
+        if (SceneFader.instance != null) 
+        { 
+            //SceneFader.instance.FadeTo(players[0].currentScene);
+            SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        }
         GameStateManager.instance.SetGameState(GameState.Playing);
         Time.timeScale = 1f;
 
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
-        }
+        //for (int i = 0; i < players.Length; i++)
+        //{
+        //    players[i].transform.position = CharacterHandler.instance.spawnPoints[i];
+        //}
     }
 
     // Fades to overworld
@@ -101,7 +96,8 @@ public class ButtonManager : MonoBehaviour
             Destroy(pickups[i].gameObject);
         }
 
-        SceneFader.instance.FadeTo("CacieOverworld");
+        // ToDo: Pleeeeeease replace the hardcoded scene name.
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
         Time.timeScale = 1f;
 
         foreach (SelectedPlayer player in players)

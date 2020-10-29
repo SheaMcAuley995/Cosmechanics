@@ -30,7 +30,7 @@ public class LevisSceneTransition : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         yield return SceneManager.LoadSceneAsync(name);
-        print(name + " has been loaded successfully");        
+        print(name + " has been loaded successfully");
 
         spawnpoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
 

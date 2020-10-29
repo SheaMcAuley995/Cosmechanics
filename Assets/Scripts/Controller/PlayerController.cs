@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
     private Collider thisCollider;
     public Animator[] animators;
 
-    GameObject interactedObject;
+    [HideInInspector] public GameObject interactedObject;
     public float onFiretimer;
     public float onFireTimerCur;
     public GameObject onFireEffect;
@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
             movementVector.y = player.GetAxisRaw("Move Horizontal");
         }
         movementDir = movementVector.normalized;
-        Interact = player.GetButtonDown("Interact");
+        //Interact = 
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
         bumper = player.GetButtonDown("Bumper");
@@ -146,17 +146,20 @@ public class PlayerController : MonoBehaviour
             myCurrentInteraction -= pickUpInteraction;
         }
 
-        if (Interact)
+        if (player.GetButtonDown("Interact"))
         {
-            //Debug.Log("Interaction");
             interact.InteractWithObject();
             Interaction();
-
         }
 
-        if(pickUp)
+        if (player.GetButtonUp("Interact"))
         {
-            interact.pickUpObject(myCollider);
+            endInteraction();
+        }
+
+        if (pickUp)
+        {
+            pickUpObject();
         }
 
     }
@@ -167,6 +170,7 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Interaction()
     {
+        Debug.Log("interacting with " + interactableObject);
 
         if (interactedObject != null)
         {
@@ -208,6 +212,38 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+    public void pickUpObject()
+    {
+        //Debug.Log("CAST");
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
+        // Debug.Log(transform.forward);
+        if (interactedObject == null)
+        {
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                if (hitColliders[i].GetComponent<PickUp>() != null)
+                {
+                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = this;
+                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
+                    interactedObject = hitColliders[i].gameObject;
+                    if (hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
+                    if (hitColliders[i].GetComponent<PickUp>().playerController != null)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            interactedObject.GetComponent<PickUp>().putMeDown();
+            interactedObject = null;
+        }
+    }
 
     public void endInteraction()
     {
@@ -223,6 +259,8 @@ public class PlayerController : MonoBehaviour
 
     void Move(Vector2 inputDir, bool running)
     {
+        if (cameraTrans == null) { cameraTrans = Camera.main.transform; }
+
         if (!onFire)
         {
             animators[0].SetBool("OnFire", false);
