@@ -7,7 +7,7 @@ using UnityEngine;
 /// inheriting from ISaveable and save their respective data.
 
 /// Each saveable object is assigned an identifier (id), to be used when loading 
-/// different values to multiple entities with the same data (ex: level/xp).
+/// different values to multiple entities with the same data (ex: level & xp).
 /// </summary>
 public class SaveableEntity : MonoBehaviour
 {
@@ -39,7 +39,7 @@ public class SaveableEntity : MonoBehaviour
         return state;
     }
 
-    // Loops through all ISaveable components on the GO and converts saved dictionary data to original object.
+    // Loops through all ISaveable components on the Game Object and converts saved dictionary data to original object.
     public void RestoreState(object state)
     {
         var stateDictionary = (Dictionary<string, object>)state;
