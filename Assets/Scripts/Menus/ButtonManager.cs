@@ -78,9 +78,24 @@ public class ButtonManager : MonoBehaviour
     // Fades to overworld
     public void ContinueGame()
     {
+        players = FindObjectsOfType<SelectedPlayer>();
+
         DestroyPickups();
 
         // TODO: Pleeeeeease replace the hardcoded scene name.
         if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
+
+        // The only reason this still exists is to accomodate the horrible character spawning/transition system that we don't want to replace.
+        foreach (SelectedPlayer player in players)
+        {
+            Animator[] animators = player.GetComponentsInChildren<Animator>();
+            foreach (Animator animator in animators)
+            {
+                animator.Play("Idle", -1, 0);
+            }
+
+            player.transform.Rotate(0f, 0f, 0f);
+            player.transform.position = new Vector3(0f, 500f, 0f);
+        }
     }
 }
