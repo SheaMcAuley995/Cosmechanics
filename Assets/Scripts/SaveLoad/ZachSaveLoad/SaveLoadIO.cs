@@ -80,7 +80,16 @@ public class SaveLoadIO : MonoBehaviour
             for (int i = 0; i < data.unlockStatus.Length; i++)
             {
                 data.unlockStatus[i] = Convert.ToBoolean(results[i]);
-                LevelLock.instance.levelList[i].locked = data.unlockStatus[i];
+
+                // DEBUG OPTION FOR UNLOCKING ALL LEVELS. PLEASE REMOVE BEFORE SHIPPING!
+                if (LevelLock.instance.debugUnlockAllLevels)
+                {
+                    LevelLock.instance.levelList[i].locked = false;
+                }
+                else
+                {
+                    LevelLock.instance.levelList[i].locked = data.unlockStatus[i];
+                }
             }
         }
     }
