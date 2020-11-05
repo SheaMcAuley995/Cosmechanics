@@ -9,7 +9,7 @@ public class FlorpReceptorTutorial : MonoBehaviour {
     AudioSource emptySound;
 
     MaterialPropertyBlock propertyBlock;
-
+    [SerializeField] GameObject winGameScreen;
     public GameObject[] FlorpFillUI;
     public bool CR_Running;
     private float florpMax;
@@ -26,6 +26,10 @@ public class FlorpReceptorTutorial : MonoBehaviour {
         {
             florpTotal += amount;
             FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+        }
+        else
+        {
+            winGameScreen.SetActive(true);
         }
     }
 

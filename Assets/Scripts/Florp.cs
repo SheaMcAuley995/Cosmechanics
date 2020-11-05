@@ -5,6 +5,7 @@ using UnityEngine;
 public class Florp : PickUp
 {
     //public bool doFill;
+    public bool isTutorialFlorp;
 
     public float fillSpeed;
 
@@ -36,6 +37,7 @@ public class Florp : PickUp
 
     public LayerMask florpReceptorLayer;
     public FlorpReceptor florpReceptor;
+    public FlorpReceptorTutorial FlorpReceptorTutorial;
 
     bool runFillLoop;
     private void Awake()
@@ -57,7 +59,7 @@ public class Florp : PickUp
         if (florpFillAmount < florpFillMax)
         {
             //fillingAudio.Play();
-            //propertyBlock.SetFloat("_FillAmount", florpFillAmount);
+            //propertyBlock.SetFloat("_FillAmouant", florpFillAmount);
             //renderer.SetPropertyBlock(propertyBlock);
             florpFillAmount += 1;
             renderer.material = fullMat;
