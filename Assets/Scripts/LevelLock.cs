@@ -1,5 +1,4 @@
-﻿using Boo.Lang;
-using Rewired.UI.ControlMapper;
+﻿using Rewired.UI.ControlMapper;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,47 +18,34 @@ public class LevelButton
 
 public class LevelLock : MonoBehaviour
 {
+    public static LevelLock instance;
+
     public RawImage displayImage;
-    public System.Collections.Generic.List<LevelButton> levelList = new System.Collections.Generic.List<LevelButton>();
-    
-    
-    #region Save/Load
-    [Serializable]
-    struct SaveData
-    {
-        public System.Collections.Generic.List<LevelButton> list;
-    }
+    public List<LevelButton> levelList = new List<LevelButton>();
 
-    //save unlocked levels
-    public object CaptureState()
-    {
-        return new SaveData
-        {
-            list = levelList
-        };
-    }
+    public bool debugUnlockAllLevels;
 
-    //load unlocked levels
-    public void RestoreState(object state)
+
+    private void Awake()
     {
-        var saveData = (SaveData)state;
-        
-        if(saveData.list == null)
+        #region Singleton
+        if (instance != null)
         {
-            CaptureState();
+            Destroy(this.gameObject);
         }
+        else
+        {
+            instance = this;
+        }
+        #endregion
 
-        levelList = saveData.list;
+        SaveLoadIO saveSystem = new SaveLoadIO(false); // Creates a new SaveLoadIO object. False argument tells constructor not to get level name.
+        saveSystem.LoadUnlockStatus(); // Loads level unlock data from file into the list.
     }
-    #endregion
-
 
     private void Start()
     {
-        SaveData data;
-        data.list = levelList;
-        RestoreState(data);
-
+        // MOVE THIS TO SEPARATE FUNCTION
         foreach (LevelButton levelButton in levelList)
         {
             levelButton.lockImage.enabled = levelButton.locked;

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class FlorpReceptor : MonoBehaviour
 {
+
+    public bool isTutorial;
+    [SerializeField] GameObject winGameScreen;
     public float florpTotal;
 
     AudioSource emptySound;
@@ -24,9 +27,6 @@ public class FlorpReceptor : MonoBehaviour
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
-        //emptySound = GetComponent<AudioSource>();
-        //StartCoroutine(FlorpEmpty());
-        //florpRenderer.GetPropertyBlock(propertyBlock);
     }
 
     private void Start()
@@ -39,25 +39,37 @@ public class FlorpReceptor : MonoBehaviour
 
         if (florpTotal < florpMax)
         {
-            Debug.Log("GLUB 2");
             florpTotal += amount;
-            FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+            if(!isTutorial)
+            {
+                FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+            }
+            if (isTutorial && florpTotal < florpMax)
+            {
+                winGameScreen.SetActive(true);
+            }
+
         }
+
     }
 
 
     public IEnumerator burnFlorp()
     {
-        while (florpTotal > florpMin)
+        if(!isTutorial)
         {
-            Engine.instance.isFuled = true;
-            FlorpFillUI[(int)florpTotal - 1].SetActive(false);
-            florpTotal--;
-            yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
+            while (florpTotal > florpMin)
+            {
+                Engine.instance.isFuled = true;
+                FlorpFillUI[(int)florpTotal - 1].SetActive(false);
+                florpTotal--;
+                yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
+            }
+
+            Engine.instance.isFuled = false;
+            CR_Running = false;
         }
 
-        Engine.instance.isFuled = false;
-        CR_Running = false;
     }
 
 }

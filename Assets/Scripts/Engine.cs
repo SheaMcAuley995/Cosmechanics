@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Rewired.Demos;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -67,6 +68,7 @@ public class Engine : MonoBehaviour {
         ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
         enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
         time += Time.deltaTime;
+
         //Debug.Log(time / GameplayLoopManager.TimeBetweenEvents);
     }
 
@@ -119,6 +121,8 @@ public class Engine : MonoBehaviour {
     private void WinGame()
     {
         winGameScreen.SetActive(true);
+        SaveLoadIO saveSystem = new SaveLoadIO(true);
+        saveSystem.SaveUnlockStatus();
         //GameStateManager.instance.SetGameState(GameState.Won);
 
         //TODO: GAMESTATE: ZACH. There's a lot of zach's work in here that needs replacing. All the commented stuff needs to be removed or fixed.

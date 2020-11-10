@@ -194,8 +194,7 @@ public class PlayerController : MonoBehaviour
                         {
                             if (animator != null) { animator.SetTrigger("PipeFix"); }
                         }
-                        //animators[0].SetTrigger("PipeFix");
-                        //animators[1].SetTrigger("PipeFix");
+
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;
                     }
