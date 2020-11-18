@@ -26,7 +26,7 @@ public class GameplayLoopManager : MonoBehaviour
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
     [SerializeField] float explosionRadius;
-    [SerializeField] public int explosionDamage;
+    public int explosionDamage;
     [SerializeField] LayerMask interactableLayerMask;
     [Space]
     [SerializeField] AttackLocation[] possibleAttackPositions;
