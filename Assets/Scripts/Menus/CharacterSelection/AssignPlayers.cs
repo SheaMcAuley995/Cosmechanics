@@ -18,7 +18,7 @@ public class AssignPlayers : MonoBehaviour
     public List<Material> takenColors = new List<Material>();
    
     [Header("Spawn Positions -- DON'T TOUCH THESE PLEASE!!")]
-    [SerializeField] Vector3[] spawnPositions = new Vector3[4];
+    [SerializeField] Transform[] spawnPositions;
    
     bool checkingInput = false;
    
@@ -67,7 +67,7 @@ public class AssignPlayers : MonoBehaviour
    
                 cards[controller.playerId].DeactivateJoinIcons();
    
-                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId, spawnPositions[controller.playerId]);
+                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId, spawnPositions[controller.playerId].position);
                 CharacterHandler.instance.numberOfPlayers++;
                 //CharacterHandler.instance.players[i]
                 //If a player joins during the countdown, stop the countdown
