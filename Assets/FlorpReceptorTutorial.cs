@@ -4,42 +4,34 @@ using UnityEngine;
 
 public class FlorpReceptorTutorial : MonoBehaviour {
 
-    public int isFilled;
-    public ParticleSystem particle;
+    public float florpTotal;
 
-    private void Start()
+    AudioSource emptySound;
+
+    MaterialPropertyBlock propertyBlock;
+    [SerializeField] GameObject winGameScreen;
+    public GameObject[] FlorpFillUI;
+    public bool CR_Running;
+    private float florpMax;
+
+    private void Awake()
     {
-        isFilled = 0;
+        propertyBlock = new MaterialPropertyBlock();
     }
 
-    public void fillTheEngine(Florp other)
+    public void fillFlorp(float amount)
     {
 
-        particle.Play();
-        //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-        //if (engine != null) { engine.InsertFlorp(); }
-
-        BottleDispenser.instance.bottlesDispensed--;
-        Destroy(other.gameObject);
-        AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
-        isFilled++;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.GetComponent<Florp>() != null)
+        if (florpTotal < florpMax)
         {
-            if (other.GetComponent<Florp>().isFilled)
-            {
-                particle.Play();
-                //EndGameScore.instance.AddInsertedFlorp(insertedFlorps);
-                isFilled++;
-
-                BottleDispenser.instance.bottlesDispensed--;
-                Destroy(other.gameObject);
-                AudioEventManager.instance.PlaySound("reversesplat", .9f, 1, 0);
-            }
-            else { return; }
+            florpTotal += amount;
+            FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+        }
+        else
+        {
+            winGameScreen.SetActive(true);
         }
     }
+
+
 }

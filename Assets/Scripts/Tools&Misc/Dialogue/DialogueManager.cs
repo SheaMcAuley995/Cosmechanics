@@ -9,8 +9,8 @@ public class DialogueManager : MonoBehaviour
 {
     public DialogueTrigger trigger;
 
-    [Header("Text Objects")]
-    public TextMeshProUGUI nameText;
+    //[Header("Text Objects")]
+    //public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
     Queue<string> sentences = new Queue<string>();
 
@@ -26,7 +26,7 @@ public class DialogueManager : MonoBehaviour
     {
         animator.SetBool("IsOpen", true);
 
-        nameText.text = dialogue.name;
+//        nameText.text = dialogue.name;
 
         sentences.Clear();
 

@@ -79,16 +79,6 @@ public class PauseGame : MonoBehaviour
                 StopCoroutine(FadeOut(images, texts));
                 StartCoroutine(FadeIn(images, texts));
             }
-
-            //if (player.pickUp && selection.isActiveAndEnabled)
-            //{
-            //    ResumeGame();
-            //}
-
-            //if (player.sprint && selection.isActiveAndEnabled)
-            //{
-            //    QuitGame();
-            //}
         }
     }
 
@@ -107,6 +97,7 @@ public class PauseGame : MonoBehaviour
         paused = true;
         //Time.timeScale = 0f;
         GameStateManager.instance.SetGameState(GameState.Paused);
+        AudioEventManager.instance.GetComponent<AudioSource>().Pause();
 
         for (float time = 0.01f; time < fadeInTime; time += 0.1f)
         {
@@ -157,7 +148,8 @@ public class PauseGame : MonoBehaviour
         }
 
         //Time.timeScale = 1f;
-        GameStateManager.instance.SetGameState(GameState.Running);
+        GameStateManager.instance.SetGameState(GameState.Playing);
+        AudioEventManager.instance.GetComponent<AudioSource>().UnPause();
         StopCoroutine(FadeOut(images, texts));
     }
 

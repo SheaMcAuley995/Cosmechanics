@@ -11,8 +11,8 @@ public class PlayerJoin : MonoBehaviour
 
 	IEnumerator Start ()
     {
-        ExampleGameController.instance.numberOfPlayers = 1;
-        playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+        CharacterHandler.instance.numberOfPlayers = 1;
+        playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
 
         yield return new WaitForEndOfFrame();
         controllers = FindObjectsOfType<PlayerController>();
@@ -28,43 +28,43 @@ public class PlayerJoin : MonoBehaviour
         foreach(PlayerController controller in controllers)
         {
             controller.getInput();
-
+    
             if (controller.movementVector.x > 0 && !selecting)
             {
                 selecting = true;
                 StartCoroutine(WaitForNextSelect());
-
-                if (ExampleGameController.instance.numberOfPlayers < 4)
+    
+                if (CharacterHandler.instance.numberOfPlayers < 4)
                 {
-                    ExampleGameController.instance.numberOfPlayers++;
-                    ExampleGameController.instance.setSpawnPoints();
+                    CharacterHandler.instance.numberOfPlayers++;
+                    CharacterHandler.instance.SetSpawnPoints();
                 }
                 else
                 {
-                    ExampleGameController.instance.numberOfPlayers = 1;
-                    ExampleGameController.instance.setSpawnPoints();
+                    CharacterHandler.instance.numberOfPlayers = 1;
+                    CharacterHandler.instance.SetSpawnPoints();
                 }
-
-                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+    
+                playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
             }
-
+    
             if (controller.movementVector.x < 0 && !selecting)
             {
                 selecting = true;
                 StartCoroutine(WaitForNextSelect());
-
-                if (ExampleGameController.instance.numberOfPlayers > 1)
+    
+                if (CharacterHandler.instance.numberOfPlayers > 1)
                 {
-                    ExampleGameController.instance.numberOfPlayers--;
-                    ExampleGameController.instance.setSpawnPoints();
+                    CharacterHandler.instance.numberOfPlayers--;
+                    CharacterHandler.instance.SetSpawnPoints();
                 }
                 else
                 {
-                    ExampleGameController.instance.numberOfPlayers = 4;
-                    ExampleGameController.instance.setSpawnPoints();
+                    CharacterHandler.instance.numberOfPlayers = 4;
+                    CharacterHandler.instance.SetSpawnPoints();
                 }
-
-                playersJoined.text = ExampleGameController.instance.numberOfPlayers.ToString();
+    
+                playersJoined.text = CharacterHandler.instance.numberOfPlayers.ToString();
             }
         }
     }

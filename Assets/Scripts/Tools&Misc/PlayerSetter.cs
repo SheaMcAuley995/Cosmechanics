@@ -13,19 +13,21 @@ public class PlayerSetter : MonoBehaviour
         players = FindObjectsOfType<PlayerController>();
         example = FindObjectOfType<CameraMultiTarget>();
         var targets = new List<GameObject>(players.Length);
-
-        ExampleGameController.instance.setSpawnPoints();
-
+    
+        CharacterHandler.instance.SetSpawnPoints();
+    
         for (int i = 0; i < players.Length; i++)
         {
+            players[i].enabled = true;
+    
             if (players[i].cameraTrans == null)
             {
                 targets.Add(players[i].gameObject);
                 players[i].cameraTrans = Camera.main.transform;
             }
-            players[i].gameObject.transform.position = ExampleGameController.instance.spawnPoints[i];
+            players[i].gameObject.transform.position = CharacterHandler.instance.spawnPoints[i];
         }
-
+    
         example.SetTargets(targets.ToArray());
 	}
 }

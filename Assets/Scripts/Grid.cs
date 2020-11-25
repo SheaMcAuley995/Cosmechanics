@@ -22,6 +22,7 @@ public class Grid : MonoBehaviour {
     public float fireTimer;
     public LayerMask playerLayer;
     public AlertUI alertUI;
+    public float fireHealth;
 
     [Header("Debug tools")]
     [SerializeField] bool GenerateGrid;
@@ -30,6 +31,8 @@ public class Grid : MonoBehaviour {
     [SerializeField] bool startOnFire = false;
     [SerializeField] bool spawnTheFires = true;
 
+    private float startEmissionRate;
+   
 
     void Awake()
     {
@@ -51,6 +54,7 @@ public class Grid : MonoBehaviour {
 
     public void Update()
     {
+        // If the game isn't paused
         for (int i = 0; i < fires.Count; ++i)
         {
             onFire(fires[i]);
@@ -71,12 +75,12 @@ public class Grid : MonoBehaviour {
                 bool flameable = (Physics.CheckSphere(worldPoint, nodeRadius, flamableMask));
                 if(spawnTheFires)
                 {
-                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)), new Collider[4]);
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, Instantiate(fireEffect, worldPoint, Quaternion.Euler(0f, 0f, 0f)), new Collider[4], fireHealth);
                     grid[x, y].fireEffect.SetActive(startOnFire);
                 }
                 else
                 {
-                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4]);
+                    grid[x, y] = new Node(flameable, worldPoint, x, y, fireTimer, null,new Collider[4], fireHealth);
                 }
 
                 if (grid[x, y].isFlamable && nullCheck<AlertUI>(alertUI))
@@ -207,14 +211,19 @@ public class Grid : MonoBehaviour {
         {
             if (firePos.playerArray[i].CompareTag("Extinguisher"))
             {
-               //if (nullCheck<AlertUI>(alertUI))
-               //{
-               //    alertUI.problemCurrent += 1;
-               //}
-                fires.Remove(firePos);
-                firePos.isFlamable = true;
-                firePos.fireEffect.SetActive(false);
-                return;
+                firePos.fireHealth -= Time.deltaTime;
+                var main = firePos.fireEffect.GetComponent<ParticleSystem>();
+                var em = main.emission;
+                //startEmissionRate = (float)em.rateOverTime;
+                //em.rateOverTime = 120 * (firePos.fireHealth / fireHealth);
+
+                if (firePos.fireHealth <= 0)
+                {
+                    fires.Remove(firePos);
+                    firePos.isFlamable = true;
+                    firePos.fireEffect.SetActive(false);
+                    return;
+                }
             }
             var playerCon = firePos.playerArray[i].GetComponent<PlayerController>();
             if (playerCon != null)
@@ -244,17 +253,17 @@ public class Grid : MonoBehaviour {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-
+   
         if (GenerateGrid)
             CreateGrid();
-
+   
         if (LightFire)
         {
             //GenerateFire();
             LightFire = false;
         }
-
-
+   
+   
         if (grid != null && showGrid)
         {
             foreach (Node n in grid)
@@ -270,6 +279,6 @@ public class Grid : MonoBehaviour {
                 Gizmos.DrawSphere(fire.worldPosition, 1);
             }
         }
-
+   
     }
 }

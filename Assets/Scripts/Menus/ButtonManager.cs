@@ -5,20 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu_Updated
-    // 1 = CharacterSelection_Update
-    // 2 = ZachOverWorld
-    // 3 = BetaMichaelTest
-    // 4 = Ship_Level_1Final
-    // 5 = LoseScene
-    // 6 = WinScene
-
     PlayerController[] controllers;
     SelectedPlayer[] players;
     CharToDestroy[] oldPlayers;
     PickUp[] pickups;
-
+    
 
     IEnumerator Start()
     {
@@ -34,7 +25,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         oldPlayers = FindObjectsOfType<CharToDestroy>();
-        SceneFader.instance.FadeTo("CharacterSelection_Update");
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CharacterSelection_Update"); }
         foreach (CharToDestroy player in oldPlayers)
         {
             Destroy(player.gameObject);
@@ -44,23 +35,30 @@ public class ButtonManager : MonoBehaviour
     // Fades to quit
     public void QuitGame()
     {
-        SceneFader.instance.FadeToQuit();
+        if (SceneFader.instance != null) { SceneFader.instance.FadeToQuit(); }
     }
 
-    //Fades to main menu
-    public void ReturnToMenu()
+    // Destroys any objects players are holding so that they aren't carried over through scenes w/ players.
+    void DestroyPickups()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
         pickups = FindObjectsOfType<PickUp>();
-
         for (int i = 0; i < pickups.Length; i++)
         {
             Destroy(pickups[i].gameObject);
         }
+    }
 
-        SceneFader.instance.FadeTo("MainMenu_Update");
-        Time.timeScale = 1f;
+    // Fades to main menu
+    public void ReturnToMenu()
+    {
+        players = FindObjectsOfType<SelectedPlayer>();
 
+        DestroyPickups();
+
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("MainMenu_Update"); }
+        GameStateManager.instance.SetGameState(GameState.Playing);
+
+        // Destroys the active players so that new ones can be selected.
         foreach (SelectedPlayer player in players)
         {
             player.gameObject.AddComponent<CharToDestroy>();
@@ -71,40 +69,33 @@ public class ButtonManager : MonoBehaviour
     // Fades to last level attempted
     public void RetryLevel()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
+        DestroyPickups();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        SceneFader.instance.FadeTo(players[0].currentScene);
-        Time.timeScale = 1f;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
-        }
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name); }
+        GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
-    // Fades to character selection
+    // Fades to overworld
     public void ContinueGame()
     {
         players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
 
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
+        DestroyPickups();
 
-        SceneFader.instance.FadeTo("CacieOverworld");
-        Time.timeScale = 1f;
+        // TODO: Pleeeeeease replace the hardcoded scene name.
+        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
 
+        // The only reason this still exists is to accomodate the horrible character spawning/transition system that we don't want to replace.
         foreach (SelectedPlayer player in players)
         {
-            player.transform.localScale = new Vector3(0f, 0f, 0f);
+            Animator[] animators = player.GetComponentsInChildren<Animator>();
+            foreach (Animator animator in animators)
+            {
+                animator.Play("Idle", -1, 0);
+            }
+
+            player.transform.Rotate(0f, 0f, 0f);
+            player.transform.position = new Vector3(0f, 500f, 0f);
         }
     }
 }
