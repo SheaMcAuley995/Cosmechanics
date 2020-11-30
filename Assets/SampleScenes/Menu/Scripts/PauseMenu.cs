@@ -1,63 +1,35 @@
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Rewired;
 
 public class PauseMenu : MonoBehaviour
 {
-    private Toggle m_MenuToggle;
-	private float m_TimeScaleRef = 1f;
-    private float m_VolumeRef = 1f;
-    private bool m_Paused;
-
-
-    void Awake()
+    public Canvas pauseCanvas;
+    int playerID = 0;
+    Player player;
+    bool pause;
+    private void Start()
     {
-        m_MenuToggle = GetComponent <Toggle> ();
-	}
+        pause = false;
 
+        player = ReInput.players.GetPlayer(playerID);
 
-    private void MenuOn ()
-    {
-        m_TimeScaleRef = Time.timeScale;
-        Time.timeScale = 0f;
-
-        m_VolumeRef = AudioListener.volume;
-        AudioListener.volume = 0f;
-
-        m_Paused = true;
+        player.AddInputEventDelegate(OnPauseUpdate, UpdateLoopType.Update, "Pause");
     }
 
-
-    public void MenuOff ()
+    void OnPauseUpdate(InputActionEventData data)
     {
-        Time.timeScale = m_TimeScaleRef;
-        AudioListener.volume = m_VolumeRef;
-        m_Paused = false;
-    }
-
-
-    public void OnMenuStatusChange ()
-    {
-        if (m_MenuToggle.isOn && !m_Paused)
+        if (data.GetButtonDown())
         {
-            MenuOn();
-        }
-        else if (!m_MenuToggle.isOn && m_Paused)
-        {
-            MenuOff();
+            PauseGame(pause);
         }
     }
 
-
-#if !MOBILE_INPUT
-	void Update()
-	{
-		if(Input.GetKeyUp(KeyCode.Escape))
-		{
-		    m_MenuToggle.isOn = !m_MenuToggle.isOn;
-            Cursor.visible = m_MenuToggle.isOn;//force the cursor visible if anythign had hidden it
-		}
-	}
-#endif
-
+    public void PauseGame(bool set)
+    {
+        Time.timeScale = Convert.ToInt32(set);
+        pauseCanvas.gameObject.SetActive(!set);
+        pause = !set;
+    }
 }
