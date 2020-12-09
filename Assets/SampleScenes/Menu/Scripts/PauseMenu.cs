@@ -5,20 +5,28 @@ using Rewired;
 
 public class PauseMenu : MonoBehaviour
 {
+    public static PauseMenu instance = null;
     public Canvas pauseCanvas;
-    int playerID = 0;
-    Player player;
     bool pause;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void Start()
     {
         pause = false;
-
-        player = ReInput.players.GetPlayer(playerID);
-
-        player.AddInputEventDelegate(OnPauseUpdate, UpdateLoopType.Update, "Pause");
     }
 
-    void OnPauseUpdate(InputActionEventData data)
+    public void OnPauseUpdate(InputActionEventData data)
     {
         if (data.GetButtonDown())
         {
@@ -26,7 +34,7 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    public void PauseGame(bool set)
+    void PauseGame(bool set)
     {
         Time.timeScale = Convert.ToInt32(set);
         pauseCanvas.gameObject.SetActive(!set);
