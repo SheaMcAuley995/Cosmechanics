@@ -251,7 +251,7 @@ public class PlayerController : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        if (animator != null) { animator.SetTrigger("PipeFix"); }
+                        if (animator != null) { animator.SetTrigger("Hammer"); }
 
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;

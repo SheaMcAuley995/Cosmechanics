@@ -63,17 +63,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Catcher.cs" />
-    <Compile Include="Assets\CharacterSelectInput.cs" />
-    <Compile Include="Assets\DoorButton.cs" />
-    <Compile Include="Assets\EngineFireAffector.cs" />
-    <Compile Include="Assets\FlorpReceptorTutorial.cs" />
-    <Compile Include="Assets\FlorpSwitch.cs" />
     <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\Head.cs" />
-    <Compile Include="Assets\InteractableButton.cs" />
-    <Compile Include="Assets\MushroomManController.cs" />
-    <Compile Include="Assets\PlayerInput.cs" />
     <Compile Include="Assets\Rewired\Examples\ControlRemapping1\Scripts\ControlRemappingDemo1.cs" />
     <Compile Include="Assets\Rewired\Examples\CustomControllersTilt\Scripts\CustomControllersTiltDemo.cs" />
     <Compile Include="Assets\Rewired\Examples\CustomControllersTouch\Scripts\CustomControllerDemo.cs" />
@@ -138,13 +128,6 @@
     <Compile Include="Assets\Rewired\Internal\Scripts\Misc\ExternalTools.cs" />
     <Compile Include="Assets\Rewired\Internal\Scripts\Platforms\Ouya\OuyaInputSource.cs" />
     <Compile Include="Assets\Rewired\Plugins\NintendoSwitch\Scripts\NintendoSwitchInputManager.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\MenuSceneLoader.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\PauseMenu.cs" />
-    <Compile Include="Assets\SampleScenes\Menu\Scripts\SceneAndURLLoader.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\CameraSwitch.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\LevelReset.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\PlaceTargetWithMouse.cs" />
-    <Compile Include="Assets\SampleScenes\Scripts\SlowMoButton.cs" />
     <Compile Include="Assets\Scripts\2DStarPooler\IPooledObject.cs" />
     <Compile Include="Assets\Scripts\2DStarPooler\ObjectPooler.cs" />
     <Compile Include="Assets\Scripts\2DStarPooler\StarMovement.cs" />
@@ -167,6 +150,8 @@
     <Compile Include="Assets\Scripts\Camera\Quest.cs" />
     <Compile Include="Assets\Scripts\Camera\ScriptExample1.cs" />
     <Compile Include="Assets\Scripts\Camera\ThirdPersonCamera.cs" />
+    <Compile Include="Assets\Scripts\Catcher.cs" />
+    <Compile Include="Assets\Scripts\CharacterSelectInput.cs" />
     <Compile Include="Assets\Scripts\ChargingPort.cs" />
     <Compile Include="Assets\Scripts\CommsRelay.cs" />
     <Compile Include="Assets\Scripts\Controller\CardInput.cs" />
@@ -175,17 +160,23 @@
     <Compile Include="Assets\Scripts\Controller\RewiredController.cs" />
     <Compile Include="Assets\Scripts\Controller\ShipController.cs" />
     <Compile Include="Assets\Scripts\DistanceCalculator.cs" />
+    <Compile Include="Assets\Scripts\DoorButton.cs" />
     <Compile Include="Assets\Scripts\EndGameScore.cs" />
     <Compile Include="Assets\Scripts\EnemyShip.cs" />
     <Compile Include="Assets\Scripts\Engine.cs" />
+    <Compile Include="Assets\Scripts\EngineFireAffector.cs" />
     <Compile Include="Assets\Scripts\Fire.cs" />
     <Compile Include="Assets\Scripts\FireExtinguisher.cs" />
     <Compile Include="Assets\Scripts\Florp.cs" />
     <Compile Include="Assets\Scripts\FlorpDespenser.cs" />
     <Compile Include="Assets\Scripts\FlorpReceptor.cs" />
+    <Compile Include="Assets\Scripts\FlorpReceptorTutorial.cs" />
+    <Compile Include="Assets\Scripts\FlorpSwitch.cs" />
     <Compile Include="Assets\Scripts\GageUI.cs" />
     <Compile Include="Assets\Scripts\GetPlayerColor.cs" />
     <Compile Include="Assets\Scripts\Grid.cs" />
+    <Compile Include="Assets\Scripts\Head.cs" />
+    <Compile Include="Assets\Scripts\InteractableButton.cs" />
     <Compile Include="Assets\Scripts\ItemResetBox.cs" />
     <Compile Include="Assets\Scripts\LevelLock.cs" />
     <Compile Include="Assets\Scripts\Menus\ButtonHoverAnimation.cs" />
@@ -211,9 +202,11 @@
     <Compile Include="Assets\Scripts\Menus\Win\VictoryAnimsManager.cs" />
     <Compile Include="Assets\Scripts\MeshInstancer.cs" />
     <Compile Include="Assets\Scripts\MovingPlatformScript.cs" />
+    <Compile Include="Assets\Scripts\MushroomManController.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\OrbiterScript.cs" />
     <Compile Include="Assets\Scripts\PlayerInfo.cs" />
+    <Compile Include="Assets\Scripts\PlayerInput.cs" />
     <Compile Include="Assets\Scripts\PlayerMotor.cs" />
     <Compile Include="Assets\Scripts\PossibleCharacters.cs" />
     <Compile Include="Assets\Scripts\Power\Battery.cs" />
@@ -231,6 +224,7 @@
     <Compile Include="Assets\Scripts\SequelScripts\FlorpFiller.cs" />
     <Compile Include="Assets\Scripts\SequelScripts\GameplayLoopManager.cs" />
     <Compile Include="Assets\Scripts\SequelScripts\LevelTimerScript.cs" />
+    <Compile Include="Assets\Scripts\SetSpawnPositions.cs" />
     <Compile Include="Assets\Scripts\SettingsMenu.cs" />
     <Compile Include="Assets\Scripts\SheaInteract\DamageShipEvent.cs" />
     <Compile Include="Assets\Scripts\SheaInteract\Iinteractable.cs" />
@@ -240,8 +234,10 @@
     <Compile Include="Assets\Scripts\SheaInteract\RepairableObject.cs" />
     <Compile Include="Assets\Scripts\SheaInteract\ShipHealth.cs" />
     <Compile Include="Assets\Scripts\SheaInteract\TestInteractable.cs" />
+    <Compile Include="Assets\Scripts\ShipDamageEffects.cs" />
     <Compile Include="Assets\Scripts\ShipSystems.cs" />
     <Compile Include="Assets\Scripts\StarFieldPool.cs" />
+    <Compile Include="Assets\Scripts\StarticleSpeedAffector.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\ASyncSceneLoader.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\CharToDestroy.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\Dialogue\Dialogue.cs" />
@@ -255,17 +251,19 @@
     <Compile Include="Assets\Scripts\Tools&amp;Misc\SceneFader.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\SpawnPositions.cs" />
     <Compile Include="Assets\Scripts\TreadmillScript.cs" />
+    <Compile Include="Assets\Scripts\TutorialEventManager.cs" />
+    <Compile Include="Assets\Scripts\TutorialWarning.cs" />
+    <Compile Include="Assets\Scripts\cameraShake.cs" />
+    <Compile Include="Assets\Scripts\enemyspawner.cs" />
     <Compile Include="Assets\Scripts\ineedMaterial.cs" />
     <Compile Include="Assets\Scripts\killTimer.cs" />
-    <Compile Include="Assets\SetSpawnPositions.cs" />
+    <Compile Include="Assets\Scripts\warningShipLights.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EditorLabel.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\EnableCameraDepthInForward.cs" />
     <Compile Include="Assets\ShaderForge\Example Assets\Scripts\SoftNormalsToVertexColor.cs" />
     <Compile Include="Assets\Shaders\Shader Scripts\Wobble.cs" />
-    <Compile Include="Assets\ShipDamageEffects.cs" />
     <Compile Include="Assets\SpaceSkies Free\Demo\Scripts\LookCamera.cs" />
     <Compile Include="Assets\SpaceSkies Free\Demo\Scripts\SkyboxChanger.cs" />
-    <Compile Include="Assets\StarticleSpeedAffector.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark02.cs" />
@@ -301,11 +299,6 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\Trash\MainMenu.cs" />
     <Compile Include="Assets\Trash\OpenGit.cs" />
-    <Compile Include="Assets\TutorialEventManager.cs" />
-    <Compile Include="Assets\TutorialWarning.cs" />
-    <Compile Include="Assets\cameraShake.cs" />
-    <Compile Include="Assets\enemyspawner.cs" />
-    <Compile Include="Assets\warningShipLights.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\Shaders\EmissionPulse.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
@@ -319,7 +312,6 @@
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Anton OFL.txt" />
     <None Include="Assets\ShaderForge\Example Assets\Shaders\Parallax.shader" />
     <None Include="Assets\ShaderForge\Example Assets\Shaders\Tiles.shader" />
-    <None Include="Assets\SampleScenes\Shaders\Skybox-Procedural.shader" />
     <None Include="Assets\Shaders\PUU_SelectionShader.shader" />
     <None Include="Assets\Art\Shaders\ForceFieldShader\ForceFieldShader.shader" />
     <None Include="Assets\ShaderForge\Example Assets\Shaders\Refraction.shader" />
@@ -345,7 +337,6 @@
     <None Include="Assets\Scripts\Audio\License.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\Art\Shaders\ConveyerBelt.shader" />
-    <None Include="Assets\particles - bubbles\Mushroom house\StandardDoubleSided.shader" />
     <None Include="Assets\Rewired\Plugins\NintendoSwitch\Documentation\Readme.txt" />
     <None Include="Assets\Art\00 ANIMATIONS\UDoor\README.txt" />
     <None Include="Assets\Shaders\Tewmp.shader" />
