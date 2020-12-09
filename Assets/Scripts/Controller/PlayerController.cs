@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
                         if (animator != null) { animator.SetTrigger("Hammer"); }
-
+                        animator.ResetTrigger("Hammer");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;
                     }
@@ -384,7 +384,7 @@ public class PlayerController : MonoBehaviour
             rb.velocity = transform.forward * currentSpeed/2 + Vector3.up * velocityY;
         }
 
-        float animationSpeedPercent = currentSpeed / walkSpeed *.5f;
+        float animationSpeedPercent = currentSpeed / walkSpeed;
         animator.SetFloat("Movement", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
 
         if (Physics.Raycast(transform.position, Vector3.down, groundcheckRaycastLength, floorLayer))
