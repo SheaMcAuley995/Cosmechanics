@@ -81,6 +81,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask interactableLayer;
     public Interactable interactableObject;
     bool pickedUp;
+    float holdDownStartTime;
 
     private void Start()
     {
@@ -185,30 +186,34 @@ public class PlayerController : MonoBehaviour
             endInteraction();
         }
 
-
-
-        if(pickedUp)
+        if(player.GetButtonDown("Pause"))
         {
-            if (player.GetButton("PickUp"))
-            {
-                Mathf.Clamp(throwForce += Time.time * 2, 0, 25);
-            }
-            if (player.GetButtonUp("PickUp"))
-            {
-                //Debug.Log(throwForce);
-                interactedObject.GetComponent<PickUp>().putMeDown(throwForce);
-                interactedObject = null;
-                throwForce = 0;
-                animator.SetBool("isCarrying", false);
-                pickedUp = false;
-            }
+
         }
-        else
+
+        if(pickedUp && player.GetButtonDown("PickUp") && interactedObject != null)
         {
-            if (player.GetButtonDown("PickUp") && interactedObject == null)
-            {
-                pickUpObject();
-            }
+             holdDownStartTime = Time.time;
+             blockMovement = true;
+        }
+        else if(pickedUp && player.GetButtonUp("PickUp") && interactedObject != null)
+        {
+            //Debug.Log(throwForce);
+            float holdDownTime = Time.time - holdDownStartTime;
+            interactedObject.GetComponent<PickUp>().putMeDown(CalculateHoldDownForce(holdDownTime));
+            interactedObject = null;
+            animator.SetBool("isCarrying", false);
+            blockMovement = false;
+            pickedUp = false;
+            return;
+        }
+        else if(player.GetButtonDown("PickUp") && interactedObject == null && !pickedUp)
+        {
+            pickUpObject();
+        }
+        else if(player.GetButtonUp("PickUp") && interactedObject != null && !pickedUp)
+        {
+            pickedUp = true;
         }
 
         
@@ -223,7 +228,13 @@ public class PlayerController : MonoBehaviour
     }
 
 
-
+    private float CalculateHoldDownForce(float holdTime)
+    {
+        float maxForceHoldDownTime = 2f;
+        float HoldTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
+        float force = HoldTimeNormalized * 250f;
+        return force;
+    }
     public void pickUpInteraction()
     {
         interact.interactableObject.pickUpTransform = pickUpTransform;
@@ -231,7 +242,6 @@ public class PlayerController : MonoBehaviour
 
     public virtual void Interaction()
     {
-        Debug.Log("interacting with " + interactableObject);
 
         if (interactedObject != null)
         {
@@ -283,7 +293,6 @@ public class PlayerController : MonoBehaviour
                 {
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
-                    pickedUp = true;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
                     if (hitColliders[i].GetComponent<Interactable>() != false)

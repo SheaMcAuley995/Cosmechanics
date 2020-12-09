@@ -49,7 +49,7 @@ public class PickUp : MonoBehaviour
 
     public virtual void putMeDown(float force)
     {
-        Debug.Log(force);
+        //Debug.Log(force);
         endMyInteraction();
         playerController = null;
         myCollider.enabled = true;

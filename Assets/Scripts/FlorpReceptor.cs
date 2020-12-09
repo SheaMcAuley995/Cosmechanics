@@ -22,7 +22,7 @@ public class FlorpReceptor : MonoBehaviour
     Renderer florpRenderer;
     MaterialPropertyBlock propertyBlock;
 
-    public GameObject[] FlorpFillUI;
+    public Animator FlorpFillUI;
     public bool CR_Running;
     private void Awake()
     {
@@ -42,7 +42,7 @@ public class FlorpReceptor : MonoBehaviour
             florpTotal += amount;
             if(!isTutorial)
             {
-                FlorpFillUI[(int)florpTotal - 1].SetActive(true);
+                FlorpFillUI.SetFloat("FlorpSlider", (int)florpTotal);
             }
             if (isTutorial && florpTotal < florpMax)
             {
@@ -61,7 +61,7 @@ public class FlorpReceptor : MonoBehaviour
             while (florpTotal > florpMin)
             {
                 Engine.instance.isFuled = true;
-                FlorpFillUI[(int)florpTotal - 1].SetActive(false);
+                FlorpFillUI.SetFloat("FlorpSlider", (int)florpTotal);
                 florpTotal--;
                 yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
             }
