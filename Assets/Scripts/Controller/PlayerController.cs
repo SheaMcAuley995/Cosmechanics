@@ -7,7 +7,7 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-
+    PauseMenu pauseMenu;
 
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
@@ -94,6 +94,9 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
         interact.controller = this;
+
+        pauseMenu = FindObjectOfType<PauseMenu>();
+        player.AddInputEventDelegate(pauseMenu.OnPauseUpdate, UpdateLoopType.Update, "Pause");
 
         if (CharacterHandler.instance == null)
         {
@@ -188,7 +191,7 @@ public class PlayerController : MonoBehaviour
 
         if(player.GetButtonDown("Pause"))
         {
-
+            
         }
 
         if(pickedUp && player.GetButtonDown("PickUp") && interactedObject != null)
