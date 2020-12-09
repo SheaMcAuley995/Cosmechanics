@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class AssignPlayers : MonoBehaviour
 {
     public CharacterCardGenerator[] cards;
@@ -12,10 +13,9 @@ public class AssignPlayers : MonoBehaviour
     public PlayerController[] controllers;
     int playerId = 0;
     int currentPlayerId = 0;
-   
-    [Header("Player Colours")]
-    public List<Material> availableColors = new List<Material>();
-    public List<Material> takenColors = new List<Material>();
+
+    [Header("Player Skins ")]
+    public PossibleCharacters[] possibleCharacters;
    
     [Header("Spawn Positions -- DON'T TOUCH THESE PLEASE!!")]
     [SerializeField] Transform[] spawnPositions;
@@ -81,9 +81,9 @@ public class AssignPlayers : MonoBehaviour
             if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 // Adds the character's color to the list of available colours, and removes it from the list of taken colours
-                availableColors.Add(takenColors[controller.playerId]);
+                //availableColors.Add(takenColors[controller.playerId]);
                 //takenColors.RemoveAt(controller.playerId);
-                takenColors[controller.playerId] = null;
+                //takenColors[controller.playerId] = null;
                 //this doesn't work because if say player 2 tries to un-join but player 1 has already un-joined, the index is OOA. 
    
                 cards[controller.playerId].ActivateJoinIcons();
@@ -101,14 +101,14 @@ public class AssignPlayers : MonoBehaviour
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                cards[controller.playerId].NextHead();
+                cards[controller.playerId].NextCharacter();
             }
    
             // Player moves analog stick LEFT - selects the previous head
             if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                cards[controller.playerId].PreviousHead();
+                cards[controller.playerId].PreviousCharacter();
             }
    
             // Turns off 'selecting' when the analog stick returns to 0
@@ -118,14 +118,15 @@ public class AssignPlayers : MonoBehaviour
             }
    
             // Player presses A - advances character status to READY
-            if (controller.Button_A && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
+            if (controller.Button_A && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && possibleCharacters[cards[controller.playerId].characterIndex].isTaken == false)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
    
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
-   
+                possibleCharacters[cards[controller.playerId].characterIndex].isTaken = true;
+
                 ReadyCheck.instance.IncreasePlayersReady();
             }
    
@@ -137,7 +138,8 @@ public class AssignPlayers : MonoBehaviour
    
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
-   
+                possibleCharacters[cards[controller.playerId].characterIndex].isTaken = false;
+
                 ReadyCheck.instance.DecreasePlayersReady();
             }
         }
