@@ -39,6 +39,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         //Todo: Set up a mechanic that take in the currently equiped tool. 
         if (health < healthMax)
         {
+            //AudioEventManager.instance.PlaySound("");
             repairObject(repairAmount);
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0, 0.1f), Quaternion.identity);

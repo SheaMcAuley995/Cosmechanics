@@ -47,14 +47,15 @@ public class PickUp : MonoBehaviour
         if (playerController != null) { playerController.blockMovement = false; }
     }
 
-    public virtual void putMeDown()
+    public virtual void putMeDown(float force)
     {
+        Debug.Log(force);
         endMyInteraction();
         playerController = null;
         myCollider.enabled = true;
         transform.SetParent(null);
         rb.isKinematic = false;
-        
+        rb.velocity = (transform.forward).normalized * force;
     }
 }
 

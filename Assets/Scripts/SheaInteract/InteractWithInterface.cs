@@ -41,8 +41,7 @@ public class InteractWithInterface : MonoBehaviour
                 {
                     if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
                     {
-                        controller.animators[0].SetTrigger("PipeFix");
-                        controller.animators[1].SetTrigger("PipeFix");
+                        controller.animator.SetTrigger("PipeFix");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         break;
                     }
@@ -62,48 +61,48 @@ public class InteractWithInterface : MonoBehaviour
 
 
 
-    public void pickUpObject(Collider box)
-    {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-        if (interactedObject == null)
-        {
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                if (hitColliders[i].GetComponent<PickUp>() != null)
-                {
-                    hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
-                    hitColliders[i].GetComponent<PickUp>().playerController = controller;
-                    interactedObject = hitColliders[i].gameObject;
-                    controller.interactableObject = interactableObject;
-                    isPuu = true;
-                    puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
-                    box.enabled = true;
-
-                    if (hitColliders[i].GetComponent<Interactable>() != false)
-                    {
-                        interactableObject = hitColliders[i].GetComponent<Interactable>();
-                    }
-                    break;
-                }
-            }
-        }
-        else
-        {
-            if (interactedObject.GetComponent<PickUp>() != null)
-            {
-                interactedObject.GetComponent<PickUp>().playerController = null;
-            }
-            interactedObject.GetComponent<PickUp>().putMeDown();
-            isPuu = false;
-            Destroy(puu);
-            box.enabled = false;
-            interactedObject = null;
-        }
-        if (!isPuu)
-        {
-            Destroy(puu);
-        }
-    }
+    //public void pickUpObject(Collider box)
+    //{
+    //    Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+    //    if (interactedObject == null)
+    //    {
+    //        for (int i = 0; i < hitColliders.Length; i++)
+    //        {
+    //            if (hitColliders[i].GetComponent<PickUp>() != null)
+    //            {
+    //                hitColliders[i].GetComponent<PickUp>().pickMeUp(transform);
+    //                hitColliders[i].GetComponent<PickUp>().playerController = controller;
+    //                interactedObject = hitColliders[i].gameObject;
+    //                controller.interactableObject = interactableObject;
+    //                isPuu = true;
+    //                puu = Instantiate(puuPrefab, interactedObject.transform.position, interactedObject.transform.rotation, interactedObject.transform);
+    //                box.enabled = true;
+    //
+    //                if (hitColliders[i].GetComponent<Interactable>() != false)
+    //                {
+    //                    interactableObject = hitColliders[i].GetComponent<Interactable>();
+    //                }
+    //                break;
+    //            }
+    //        }
+    //    }
+    //    else
+    //    {
+    //        if (interactedObject.GetComponent<PickUp>() != null)
+    //        {
+    //            interactedObject.GetComponent<PickUp>().playerController = null;
+    //        }
+    //        //interactedObject.GetComponent<PickUp>().putMeDown();
+    //        isPuu = false;
+    //        Destroy(puu);
+    //        box.enabled = false;
+    //        interactedObject = null;
+    //    }
+    //    if (!isPuu)
+    //    {
+    //        Destroy(puu);
+    //    }
+    //}
 
 
     public void callInteract()
