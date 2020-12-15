@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class SetSpawnPositions : MonoBehaviour
 {
-
+    public GameObject pauseMenu;
+    public GameObject inGameCanvas;
     public Vector3[] spawnpositions = new Vector3[4];
     void Start()
     {
