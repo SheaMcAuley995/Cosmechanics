@@ -11,10 +11,10 @@ public class ScoreDisplay : MonoBehaviour
 
     void Awake()
     {
-        StartCoroutine(FillCogs());
+        //StartCoroutine(FillCogs());
     }
 
-    IEnumerator FillCogs()
+    public IEnumerator FillCogs()
     {
         yield return new WaitForSecondsRealtime(initialDelay);
 
