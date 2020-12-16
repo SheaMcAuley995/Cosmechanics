@@ -7,8 +7,6 @@ using System;
 
 public class PlayerController : MonoBehaviour
 {
-    PauseMenu pauseMenu;
-
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
 
@@ -98,7 +96,10 @@ public class PlayerController : MonoBehaviour
         interact.controller = this;
 
         pauseMenu = FindObjectOfType<PauseMenu>();
-        player.AddInputEventDelegate(pauseMenu.OnPauseUpdate, UpdateLoopType.Update, "Pause");
+        if (pauseMenu != null)
+        {
+            player.AddInputEventDelegate(pauseMenu.GetComponent<PauseMenu>().OnPauseUpdate, UpdateLoopType.Update, "Pause");
+        }
 
         if (CharacterHandler.instance == null)
         {
