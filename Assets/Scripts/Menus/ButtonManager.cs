@@ -25,7 +25,7 @@ public class ButtonManager : MonoBehaviour
     public void StartGame()
     {
         oldPlayers = FindObjectsOfType<CharToDestroy>();
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("CharacterSelection_Update"); }
+        SceneFader.instance.FadeTo("CharacterSelection_Update");
         foreach (CharToDestroy player in oldPlayers)
         {
             Destroy(player.gameObject);
@@ -35,7 +35,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to quit
     public void QuitGame()
     {
-        if (SceneFader.instance != null) { SceneFader.instance.FadeToQuit(); }
+        SceneFader.instance.FadeToQuit();
     }
 
     // Destroys any objects players are holding so that they aren't carried over through scenes w/ players.
@@ -55,7 +55,7 @@ public class ButtonManager : MonoBehaviour
 
         DestroyPickups();
 
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("MainMenu_Update"); }
+        SceneFader.instance.FadeTo("MainMenu_Update");
         GameStateManager.instance.SetGameState(GameState.Playing);
 
         // Destroys the active players so that new ones can be selected.
@@ -71,7 +71,7 @@ public class ButtonManager : MonoBehaviour
     {
         DestroyPickups();
 
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name); }
+        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
@@ -82,8 +82,7 @@ public class ButtonManager : MonoBehaviour
 
         DestroyPickups();
 
-        // TODO: Pleeeeeease replace the hardcoded scene name.
-        if (SceneFader.instance != null) { SceneFader.instance.FadeTo("LevelSelectUpdated"); }
+        SceneFader.instance.FadeTo("LevelSelectUpdated");
 
         // The only reason this still exists is to accomodate the horrible character spawning/transition system that we don't want to replace.
         foreach (SelectedPlayer player in players)

@@ -23,14 +23,14 @@ public class WhyYouLost : MonoBehaviour
                 thisText.text = lostByFlorpMessage;
                 break;
             default:
-                thisText.text = "Retrieving data...";
+                thisText.text = " ";
                 StartCoroutine(CheckForUpdatedState());
                 break;
         }
     }
     
     // Use this for initialization
-	void Awake ()
+	void Awake()
     {
         DisplayMessage();
 	}

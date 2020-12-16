@@ -191,6 +191,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 77017676}
   m_CullTransparentMesh: 0
+--- !u!1001 &124743138
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1823120468004052, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_Name
+      value: SceneFader
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586363862629752, guid: 28100759a7c907340918bd79e29592c1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114841420622151204, guid: 28100759a7c907340918bd79e29592c1,
+        type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 789067885}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 28100759a7c907340918bd79e29592c1, type: 3}
 --- !u!1 &171114367
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,6 +2298,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b2bb62068c050f43a8992e508118d7a, type: 3}
+--- !u!114 &789067885 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114817500033460442, guid: 1b2bb62068c050f43a8992e508118d7a,
+    type: 3}
+  m_PrefabInstance: {fileID: 789067884}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &834998338
 GameObject:
   m_ObjectHideFlags: 0
@@ -3906,6 +3980,7 @@ GameObject:
   - component: {fileID: 1188870673}
   - component: {fileID: 1188870672}
   - component: {fileID: 1188870674}
+  - component: {fileID: 1188870675}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -3999,6 +4074,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: a346c3fa-b20e-475e-870b-d4b577c3725d
+--- !u!114 &1188870675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1188870671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a4a445048c095f4db35d60de2fb2a2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: CharacterSelection_Update
 --- !u!1 &1357448508
 GameObject:
   m_ObjectHideFlags: 0
