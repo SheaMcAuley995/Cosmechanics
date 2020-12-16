@@ -80,8 +80,8 @@ public class PlayerController : MonoBehaviour
     public Interactable interactableObject;
     bool pickedUp;
     float holdDownStartTime;
-    PauseMenu pauseMenu;
-    public GameObject inGameMenu;
+   // public GameObject pauseMenu;
+   // public GameObject inGameMenu;
 
     private void Start()
     {
