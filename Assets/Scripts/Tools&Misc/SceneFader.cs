@@ -97,9 +97,13 @@ public class SceneFader : MonoBehaviour
             yield return 0;
         }
 
-        SceneManager.LoadSceneAsync(scene);
-
-        try
+        //SceneManager.LoadSceneAsync(scene);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+        if (!operation.isDone)
         {
             Vector3[] spawnPoints;
             spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
@@ -115,10 +119,27 @@ public class SceneFader : MonoBehaviour
             }
             CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
         }
-        catch(NullReferenceException e)
-        {
-            Debug.Log("This is fine.");
-        }
+
+        //try
+        //{
+        //    Vector3[] spawnPoints;
+        //    spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
+
+        //    GameObject[] players;
+        //    players = CharacterHandler.instance.players;
+        //    for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+        //    {
+        //        players[i].transform.position = spawnPoints[i];
+        //        players[i].GetComponent<PlayerController>().enabled = true;
+        //        players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+
+        //    }
+        //    CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
+        //}
+        //catch(NullReferenceException exception)
+        //{
+        //    Debug.Log("This is fine.");
+        //}
     }
 
     IEnumerator FadeOutToQuit()
