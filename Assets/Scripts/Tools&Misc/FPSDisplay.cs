@@ -10,7 +10,7 @@ public class FPSDisplay : MonoBehaviour
     [SerializeField] TextAnchor textPosition;
     enum Size { Small, Medium, Large };
     [SerializeField] Size fontSize;
-    [SerializeField] Color fontColor = new Color(255.0f, 215.0f, 0.0f, 1.0f); // Default color: gold
+    [SerializeField] Color fontColor = new Color(0.0f, 255.0f, 0.0f, 1.0f); // Default color: green
 
     float deltaTime = 0.0f;
 
