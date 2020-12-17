@@ -6,7 +6,8 @@ using Rewired;
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance = null;
-    public Canvas pauseCanvas;
+    Canvas pauseCanvas;
+    public Button button;
     bool pause;
 
     private void Awake()
@@ -23,6 +24,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
+        pauseCanvas = GetComponent<Canvas>();
         pause = false;
     }
 
@@ -34,10 +36,15 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    void PauseGame(bool set)
+    public void PauseGame(bool set)
     {
+
         Time.timeScale = Convert.ToInt32(set);
         pauseCanvas.gameObject.SetActive(!set);
+        if (set == true)
+        {
+            button.Select();
+        }
         pause = !set;
     }
 }
