@@ -10,24 +10,29 @@ public class SetSpawnPositions : MonoBehaviour
     public Vector3[] spawnpositions = new Vector3[4];
     GameObject[] players;
 
-    void Start()
+    private IEnumerator Start()
     {
         CharacterHandler.instance.spawnPoints = spawnpositions;
+
+        yield return new WaitForEndOfFrame();
 
         players = CharacterHandler.instance.players;
 
         foreach (GameObject player in players)
         {
             pauseMenu = FindObjectOfType<PauseMenu>();
-            if (pauseMenu != null)
-            {
-                player.GetComponent<PlayerController>().player.AddInputEventDelegate(pauseMenu.GetComponent<PauseMenu>().OnPauseUpdate, UpdateLoopType.Update, "Pause");
+            PlayerController playerScript = player.GetComponent<PlayerController>();
+
+            if (playerScript != null)
+            {              
+                 playerScript.player.AddInputEventDelegate(pauseMenu.OnPauseUpdate, UpdateLoopType.Update, "Pause");               
             }
             else
             {
                 Debug.Log("Pause Menu is Missing");
             }
         }
+        yield return null;
     }
 
     private void OnDrawGizmos()
