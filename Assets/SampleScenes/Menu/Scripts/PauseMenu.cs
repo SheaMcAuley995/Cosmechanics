@@ -8,7 +8,7 @@ public class PauseMenu : MonoBehaviour
     public static PauseMenu instance = null;
     public Canvas pauseCanvas;
     public Button button;
-    bool pause;
+    public bool pause;
 
     private void Awake()
     {
