@@ -6,7 +6,7 @@ using Rewired;
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance = null;
-    Canvas pauseCanvas;
+    public Canvas pauseCanvas;
     public Button button;
     bool pause;
 
@@ -24,7 +24,6 @@ public class PauseMenu : MonoBehaviour
 
     private void Start()
     {
-        pauseCanvas = GetComponent<Canvas>();
         pause = false;
     }
 
