@@ -33,11 +33,6 @@ public class ButtonSelectionManager : MonoBehaviour
         players[1] = ReInput.players.GetPlayer(playerID + 1);
         players[2] = ReInput.players.GetPlayer(playerID + 2);
         players[3] = ReInput.players.GetPlayer(playerID + 3);
-        
-        foreach (Player player in players)
-        {
-            player.AddInputEventDelegate(OnSelectButton, UpdateLoopType.Update, "Jump");
-        }
 
         ableToGetInput = false;
         selectedButtonIndex = -1;
@@ -49,16 +44,16 @@ public class ButtonSelectionManager : MonoBehaviour
         SelectButtonDownward();
     }
 
-    void OnSelectButton(InputActionEventData actionEvent)
-    {
-        if (actionEvent.GetButtonDown())
-        {
-            PressButton();
-        }
-    }
-
     void Update()
     {
+        foreach (Player player in players)
+        {
+            if (player.GetButtonDown("Jump"))
+            {
+                PressButton();
+            }
+        }
+
         if (ableToGetInput && currentScene != "LevelSelectUpdated")
         {
             foreach (PlayerController controler in controlers)

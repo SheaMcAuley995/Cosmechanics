@@ -51,27 +51,24 @@ public class ButtonManager : MonoBehaviour
     // Fades to main menu
     public void ReturnToMenu()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
+        //players = FindObjectsOfType<SelectedPlayer>();
 
-        DestroyPickups();
-
+        //DestroyPickups();
+        //controllers = FindObjectsOfType<PlayerController>();
+        //foreach (PlayerController player in controllers)
+        //{
+        //    Destroy(player.gameObject);
+        //}
         SceneFader.instance.FadeTo("MainMenu_Update");
         GameStateManager.instance.SetGameState(GameState.Playing);
-
-        // Destroys the active players so that new ones can be selected.
-        foreach (SelectedPlayer player in players)
-        {
-            player.gameObject.AddComponent<CharToDestroy>();
-            Destroy(player);
-        }
     }
 
     // Fades to last level attempted
     public void RetryLevel()
     {
         DestroyPickups();
-
-        SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        //SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        SceneFader.instance.FadeTo("LevelSelectUpdated");
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
 

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Engine : MonoBehaviour {
 
     public static Engine instance;
+
     [Header("Engine Statistics")]
     public float engineHeat;
     public float maxHeat;
@@ -106,13 +107,19 @@ public class Engine : MonoBehaviour {
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
 
 
-        if (currentProgress > winConditionLimit)
+        if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
         {
-            WinGame();
+            Engine.instance.WinGame();
         }
-        if (enemyProgress > currentProgress)
+        if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
         {
-            LoseGame();
+            //Debug.LogError(gameObject.name);
+            //Debug.LogError(enemyProgress);
+
+            //Debug.LogError(Engine.instance.gameObject.name);
+            //Debug.LogError(Engine.instance.enemyProgress);
+
+            Engine.instance.LoseGame();
         }
         //AudioEventManager.instance.PlaySound("engine");
         //alertUI.problemCurrent = engineHeat;
