@@ -18,22 +18,33 @@ public class SetSpawnPositions : MonoBehaviour
 
         players = CharacterHandler.instance.players;
 
-        foreach (GameObject player in players)
-        {
-            pauseMenu = FindObjectOfType<PauseMenu>();
-            PlayerController playerScript = player.GetComponent<PlayerController>();
-
-            if (playerScript != null)
-            {              
-                 playerScript.player.AddInputEventDelegate(pauseMenu.OnPauseUpdate, UpdateLoopType.Update, "Pause");               
-            }
-            else
-            {
-                Debug.Log("Pause Menu is Missing");
-            }
-        }
         yield return null;
     }
+
+    private void Update()
+    {
+        if (players != null)
+        {
+            foreach (GameObject player in players)
+            {
+                PlayerController playerScript = player.GetComponent<PlayerController>();
+                if (playerScript.player.GetButtonDown("Pause"))
+                {
+                    pauseMenu = FindObjectOfType<PauseMenu>();
+
+                    if (playerScript != null)
+                    {
+                        pauseMenu.PauseGame(pauseMenu.pause);
+                    }
+                    else
+                    {
+                        Debug.Log("Pause Menu is Missing");
+                    }
+                }
+            }
+        }
+    }
+
 
     private void OnDrawGizmos()
     {
