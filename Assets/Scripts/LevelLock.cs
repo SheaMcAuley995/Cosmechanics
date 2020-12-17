@@ -23,7 +23,7 @@ public class LevelLock : MonoBehaviour
     public RawImage displayImage;
     public List<LevelButton> levelList = new List<LevelButton>();
 
-    public bool debugUnlockAllLevels;
+    //public bool debugUnlockAllLevels;
 
 
     private void Awake()

@@ -44,6 +44,7 @@ public class ButtonManager : MonoBehaviour
         pickups = FindObjectsOfType<PickUp>();
         for (int i = 0; i < pickups.Length; i++)
         {
+            pickups[i].putMeDown(1.0f);
             Destroy(pickups[i].gameObject);
         }
     }
