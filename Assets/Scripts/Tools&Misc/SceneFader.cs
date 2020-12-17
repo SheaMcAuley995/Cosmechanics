@@ -97,12 +97,12 @@ public class SceneFader : MonoBehaviour
             yield return 0;
         }
 
-        SceneManager.LoadScene(scene);
-        //AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
-        //while (!operation.isDone)
-        //{
-        //    yield return null;
-        //}
+        //SceneManager.LoadScene(scene);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
         //if (!operation.isDone)
         //{
         //    Vector3[] spawnPoints;
