@@ -5,7 +5,7 @@ public class BalanceManager : EditorWindow
     {
 
     [Header("Ship Engine")]
-    [SerializeField] Engine engine;
+    //[SerializeField] Engine engine;
     [SerializeField] [Tooltip("This is the speed at which the engine will cool down.")] [Range(0.1f,10)] float coolingSpeed;
     [SerializeField] [Tooltip("Percentage of engine that is cooled when florp is inserted.")] [Range(0.1f, 1)] float florpPower = 0.3f;
     [SerializeField] [Tooltip("How fast the ship progression bar will move.")] [Range(0.1f, 2)] float ProgressionMultiplier = 0.4f;
@@ -21,7 +21,7 @@ public class BalanceManager : EditorWindow
     
     public void Awake()
     {
-        engine = FindObjectOfType<Engine>();
+        //engine = FindObjectOfType<Engine>();
         shipHealth = FindObjectOfType<ShipHealth>();
         grid = FindObjectOfType<Grid>();
         
@@ -39,8 +39,8 @@ public class BalanceManager : EditorWindow
         EditorGUILayout.Space();
         EditorGUILayout.HelpBox("Hover over the text of any item to get a brief description. Make sure to reset connections after debugging.", MessageType.Info);
         GUILayout.Label("Engine Scipt edits", EditorStyles.boldLabel);
-        engine.engineCoolingAmount  = EditorGUILayout.Slider(new GUIContent("Cooling Speed", "This is the speed at which the engine will cool down."), engine.engineCoolingAmount, 0.1f, 10);
-        engine.florpCoolingPercentage = EditorGUILayout.Slider(new GUIContent("Florp Power", "Percentage of engine that is cooled when florp is inserted."), engine.florpCoolingPercentage, 0.1f, 1);
+        Engine.instance.engineCoolingAmount  = EditorGUILayout.Slider(new GUIContent("Cooling Speed", "This is the speed at which the engine will cool down."), Engine.instance.engineCoolingAmount, 0.1f, 10);
+        Engine.instance.florpCoolingPercentage = EditorGUILayout.Slider(new GUIContent("Florp Power", "Percentage of engine that is cooled when florp is inserted."), Engine.instance.florpCoolingPercentage, 0.1f, 1);
         //engine.progressionMultiplier = EditorGUILayout.Slider(new GUIContent("Progression Multiplier", "How fast the ship progression bar will move."), engine.progressionMultiplier, 0.1f, 2);
         //engine.enemyProgressionMultiplier = EditorGUILayout.Slider(new GUIContent("Enemy Progression Multiplier", "How fast the enemy ship progression bar will move."), engine.enemyProgressionMultiplier, 0.1f, 2);
 
@@ -53,7 +53,7 @@ public class BalanceManager : EditorWindow
         GUILayout.Space(25);
         if (GUILayout.Button("RESET CONNECTIONS"))
         {
-            engine = FindObjectOfType<Engine>();
+            //engine = FindObjectOfType<Engine>();
             shipHealth = FindObjectOfType<ShipHealth>();
             grid = FindObjectOfType<Grid>();
         }
