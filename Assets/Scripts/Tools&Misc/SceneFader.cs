@@ -97,28 +97,28 @@ public class SceneFader : MonoBehaviour
             yield return 0;
         }
 
-        //SceneManager.LoadSceneAsync(scene);
-        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
-        while (!operation.isDone)
-        {
-            yield return null;
-        }
-        if (!operation.isDone)
-        {
-            Vector3[] spawnPoints;
-            spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
+        SceneManager.LoadScene(scene);
+        //AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        //while (!operation.isDone)
+        //{
+        //    yield return null;
+        //}
+        //if (!operation.isDone)
+        //{
+        //    Vector3[] spawnPoints;
+        //    spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
 
-            GameObject[] players;
-            players = CharacterHandler.instance.players;
-            for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
-            {
-                players[i].transform.position = spawnPoints[i];
-                players[i].GetComponent<PlayerController>().enabled = true;
-                players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+        //    GameObject[] players;
+        //    players = CharacterHandler.instance.players;
+        //    for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+        //    {
+        //        players[i].transform.position = spawnPoints[i];
+        //        players[i].GetComponent<PlayerController>().enabled = true;
+        //        players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
 
-            }
-            CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
-        }
+        //    }
+        //    CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
+        //}
 
         //try
         //{
