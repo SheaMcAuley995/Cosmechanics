@@ -47,6 +47,7 @@ public class FlorpReceptor : MonoBehaviour
             if (isTutorial && florpTotal < florpMax)
             {
                 winGameScreen.SetActive(true);
+                SaveLoadIO saveSystem = new SaveLoadIO(true);
             }
 
         }

@@ -129,7 +129,6 @@ public class Engine : MonoBehaviour {
     {
         winGameScreen.SetActive(true);
         SaveLoadIO saveSystem = new SaveLoadIO(true);
-        saveSystem.SaveUnlockStatus();
         //GameStateManager.instance.SetGameState(GameState.Won);
 
         //TODO: GAMESTATE: ZACH. There's a lot of zach's work in here that needs replacing. All the commented stuff needs to be removed or fixed.
