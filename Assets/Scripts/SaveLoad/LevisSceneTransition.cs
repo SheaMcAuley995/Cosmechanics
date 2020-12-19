@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using Rewired;
 
+
 public class LevisSceneTransition : MonoBehaviour
 {
     public Vector3[] spawnpoints;
