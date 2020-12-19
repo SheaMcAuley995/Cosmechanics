@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraMultiTarget : MonoBehaviour
 {
@@ -37,7 +38,29 @@ public class CameraMultiTarget : MonoBehaviour
 		}
 	}
 
+    private void Start()
+    {
+		if (SceneManager.GetActiveScene().name == "Ship_Name_1" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_2" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_3" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_4" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_5" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_6" ||
+			SceneManager.GetActiveScene().name == "Ship_Name_7")
+		{
+			PlayerController[] playerControllers = FindObjectsOfType<PlayerController>();
+			GameObject[] gameObjects = new GameObject[4];
+			for (int i = 0; i < playerControllers.Length; i++)
+            {
+				gameObjects[i] = playerControllers[i].gameObject;
+            }
+
+			SetTargets(gameObjects);
+		}
+    }
+
     private void LateUpdate() {
+
 		if (_targets.Length == 0)
 			return;
 		

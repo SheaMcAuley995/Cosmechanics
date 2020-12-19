@@ -37,7 +37,13 @@ public class ButtonManager : MonoBehaviour
         controllers = FindObjectsOfType<PlayerController>();
         for (int i = 0; i < controllers.Length; i++)
         {
-            controllers[i].interactedObject.GetComponent<PickUp>().putMeDown(1.0f);
+            if (controllers[i].interactedObject)
+            {
+                if (controllers[i].interactedObject.GetComponent<PickUp>())
+                {
+                    controllers[i].interactedObject.GetComponent<PickUp>().putMeDown(1.0f);
+                }
+            }
             controllers[i].interactedObject = null;
             controllers[i].animator.SetBool("isCarrying", false);
             controllers[i].blockMovement = false;
