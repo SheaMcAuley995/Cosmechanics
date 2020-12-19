@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Rewired;
-
+using System;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     public delegate void currentInteraction();
     public currentInteraction myCurrentInteraction;
 
@@ -27,17 +25,19 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool pauseButton;
 
     [HideInInspector] public Vector2 selectModel;
-    [HideInInspector] public bool selectCrime;
-    [HideInInspector] public bool previousCrime;
-    [HideInInspector] public bool selectColourRight;
-    [HideInInspector] public bool selectColourLeft;
-    [HideInInspector] public bool readyUp;
-    [HideInInspector] public bool cancel;
+    [HideInInspector] public bool Button_Y;
+    [HideInInspector] public bool Button_X;
+    [HideInInspector] public bool Button_RB;
+    [HideInInspector] public bool Button_LB;
+    [HideInInspector] public bool Button_A;
+    [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
+    [HideInInspector] public bool blockMovement = false;
     CharacterController cc;
     public bool normalMovement = true;
 
     [HideInInspector] public bool pickUp = false;
+
     public Transform pickUpTransform;
 
     // preReWired scripts
@@ -45,7 +45,10 @@ public class PlayerController : MonoBehaviour
     public float runSpeed = 6;
     public float gravity = -12;
     public float jumpheight = 1;
-
+    [Range(0,1)]
+    public float airControlPercent;
+    [Range(0, 25)]
+    public float dropSpeedPercent;
     public float turnSmoothTime = 0.2f;
     float turnSmoothVelocity;
 
@@ -53,43 +56,72 @@ public class PlayerController : MonoBehaviour
     float speedSmoothVelocity;
     float currentSpeed;
     float velocityY;
+    public float groundcheckRaycastLength;
+    public LayerMask floorLayer;
 
     public Transform cameraTrans;
 
     Rigidbody rb;
-    InteractWithInterface interact;
+    public InteractWithInterface interact;
     public int maxPossibleCollisions;
     public LayerMask collisionLayer;
     public float radius;
     Collider[] possibleColliders;
     private Collider thisCollider;
-    public Animator[] animators;
+    public Animator animator;
 
-    GameObject interactedObject;
+    [HideInInspector] public GameObject interactedObject;
     public float onFiretimer;
     public float onFireTimerCur;
     public GameObject onFireEffect;
     private bool onFire;
+    public Collider myCollider;
+    public LayerMask interactableLayer;
+    public Interactable interactableObject;
+    bool pickedUp;
+    float holdDownStartTime;
+
+    public bool GetpickedUp() { return pickedUp; }
+    public void SetpickedUp(bool val) { pickedUp = val; }
 
     private void Start()
     {
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
-        animators = GetComponentsInChildren<Animator>();
+        animator = GetComponent<Animator>();
         player = ReInput.players.GetPlayer(playerId);
         cc = GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         interact = GetComponentInChildren<InteractWithInterface>();
         interact.controller = this;
+
+
+        if (CharacterHandler.instance == null)
+        {
+            rb.isKinematic = true;
+        }
+        else
+        {
+            rb.isKinematic = false;
+        }
     }
 
     void Update()
     {
         getInput();
         ProcessInput();
+
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
+
+
+
+        if(transform.position.y < -5)
+        {
+            transform.position = CharacterHandler.instance.spawnPoints[playerId];
+            velocityY = 0;
+        }
     }
 
     public void getInput()
@@ -108,27 +140,29 @@ public class PlayerController : MonoBehaviour
             movementVector.y = player.GetAxisRaw("Move Horizontal");
         }
         movementDir = movementVector.normalized;
-        Interact = player.GetButtonDown("Interact");
+        //Interact = 
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
+        
         bumper = player.GetButtonDown("Bumper");
         pauseButton = player.GetButtonDown("Pause");
         #endregion
 
         #region Char Select Input
         selectModel.x = player.GetAxisRaw("ModelSelect");
-        selectCrime = player.GetButtonDown("SelectCrime");
-        previousCrime = player.GetButtonDown("PrevCrime");
-        selectColourRight = player.GetButtonDown("ColourSelectRight");
-        selectColourLeft = player.GetButtonDown("ColourSelectLeft");
-        readyUp = player.GetButtonDown("ReadyUp");
-        cancel = player.GetButtonDown("Cancel");
+        Button_Y = player.GetButtonDown("SelectCrime");
+        Button_X = player.GetButtonDown("PrevCrime");
+        Button_RB = player.GetButtonDown("ColourSelectRight");
+        Button_LB = player.GetButtonDown("ColourSelectLeft");
+        Button_A = player.GetButtonDown("ReadyUp");
+        Button_B = player.GetButtonDown("Cancel");
         start = player.GetButtonDown("Start");
         #endregion
     }
 
     private void ProcessInput()
     {
+        float throwForce = 0;
         Move(movementVector, sprint);
 
         if (myCurrentInteraction != null)
@@ -141,141 +175,256 @@ public class PlayerController : MonoBehaviour
             myCurrentInteraction -= pickUpInteraction;
         }
 
-        if (Interact)
+
+
+        if (player.GetButtonDown("Interact"))
         {
             interact.InteractWithObject();
             Interaction();
         }
 
-        if(pickUp)
+        if (player.GetButtonUp("Interact"))
         {
-            interact.pickUpObject();
-            animators[0].SetBool("ButtonPress", true);
-            animators[1].SetBool("ButtonPress", true);
-            animators[0].SetBool("ButtonPress", false);
-            animators[1].SetBool("ButtonPress", false);
+            endInteraction();
         }
 
+        if(player.GetButtonDown("Pause"))
+        {
+            
+        }
+
+        if(pickedUp && player.GetButtonDown("PickUp") && interactedObject != null)
+        {
+             holdDownStartTime = Time.time;
+             blockMovement = true;
+        }
+        else if(pickedUp && player.GetButtonUp("PickUp") && interactedObject != null)
+        {
+            //Debug.Log(throwForce);
+            float holdDownTime = Time.time - holdDownStartTime;
+            interactedObject.GetComponent<PickUp>().putMeDown(CalculateHoldDownForce(holdDownTime));
+            interactedObject = null;
+            animator.SetBool("isCarrying", false);
+            blockMovement = false;
+            pickedUp = false;
+            return;
+        }
+        else if(player.GetButtonDown("PickUp") && interactedObject == null && !pickedUp)
+        {
+            pickUpObject();
+        }
+        else if(player.GetButtonUp("PickUp") && interactedObject != null && !pickedUp)
+        {
+            pickedUp = true;
+        }
+
+        
+
+
+
+        if (player.GetButtonDown("Jump"))
+        {
+            Jump();
+        }
+
+    }
+
+
+    private float CalculateHoldDownForce(float holdTime)
+    {
+        float maxForceHoldDownTime = 2f;
+        float HoldTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
+        float force = HoldTimeNormalized * 250f;
+        return force;
     }
     public void pickUpInteraction()
     {
         interact.interactableObject.pickUpTransform = pickUpTransform;
     }
+
     public virtual void Interaction()
     {
-        if (interact.interactableObject != null)
+
+        if (interactedObject != null)
         {
-            if (myInteractions == null)
+            if (interactedObject.GetComponent<PickUp>() != null)
             {
-                if (myCurrentInteraction == null)
+                interactedObject.GetComponent<PickUp>().myInteraction();
+            }
+        }
+        else
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                //Debug.Log("Interacting with :" + hitColliders[i].name);
+                if (hitColliders[i].GetComponent<RepairableObject>() != null)
                 {
-                    myCurrentInteraction += pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+                    {
+                        if (animator != null) { animator.SetTrigger("Hammer"); }
+                        animator.ResetTrigger("Hammer");
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                        break;
+                    }
                 }
                 else
                 {
-                    interact.interactableObject.pickUpTransform = null;
-                    interact.interactableObject = null;
-                    myCurrentInteraction -= pickUpInteraction;
-                    interact.callInteract();
+                    if (hitColliders[i].GetComponent<IInteractable>() != null)
+                    {
+                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
+                    }
+                    break;
+                }
+
+            }
+        }
+    }
+    public void pickUpObject()
+    {
+        //Debug.Log("CAST");
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position + transform.forward, radius, interactableLayer);
+        // Debug.Log(transform.forward);
+        if (interactedObject == null)
+        {
+            animator.SetBool("isCarrying", true);
+            for (int i = 0; i < hitColliders.Length; i++)
+            {
+                if (hitColliders[i].GetComponent<PickUp>() != null)
+                {
+                    hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
+                    hitColliders[i].GetComponent<PickUp>().playerController = this;
+                    //hitColliders[i].GetComponent<PickUp>().playerController = controller;
+                    interactedObject = hitColliders[i].gameObject;
+                    if (hitColliders[i].GetComponent<Interactable>() != false)
+                    {
+                        interactableObject = hitColliders[i].GetComponent<Interactable>();
+                    }
+                    if (hitColliders[i].GetComponent<PickUp>().playerController != null)
+                    {
+                        break;
+                    }
                 }
             }
-            else if (myInteractions != null)
-            {
-                myInteractions();
-                Debug.Log("Running " + myInteractions);
-            }
-
-
         }
-        else if (interact.interactableObject == null)
+        
+    }
+
+    public void endInteraction()
+    {
+        if (interactedObject != null)
         {
-            if (myCurrentInteraction != null)
+            if (interactedObject.GetComponent<PickUp>() != null)
             {
-                myCurrentInteraction = null;
+                //Debug.Log("TOOL INTEREACTION");
+                interactedObject.GetComponent<PickUp>().endMyInteraction();
             }
         }
     }
 
     void Move(Vector2 inputDir, bool running)
     {
+        if (cameraTrans == null) { cameraTrans = Camera.main.transform; }
 
-       // int count = Physics.OverlapSphereNonAlloc(transform.position, radius, possibleColliders);
-       //
-       // for (int i = 0; i < count; ++i)
-       // {
-       //     var collider = possibleColliders[i];
-       //
-       //     if (collider == thisCollider)
-       //         continue; // skip ourself
-       //
-       //     Vector3 otherPosition = collider.gameObject.transform.position;
-       //     Quaternion otherRotation = collider.gameObject.transform.rotation;
-       //
-       //     Vector3 direction;
-       //     float distance;
-       //
-       //     bool overlapped = Physics.ComputePenetration(
-       //         thisCollider, transform.position, transform.rotation,
-       //         collider, otherPosition, otherRotation,
-       //         out direction, out distance
-       //     );
-       //     if(overlapped)
-       //     {
-       //         Debug.Log("Collision");
-       //         Debug.DrawRay(otherPosition, direction * distance);
-       //     }
-       // }
         if (!onFire)
         {
-            animators[0].SetBool("OnFire", false);
-            animators[1].SetBool("OnFire", false);
+            animator.SetBool("isOnFire", false);
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y;
-                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetMotifiedSmoothTime(turnSmoothTime));
             }
 
             float targetSpeed = ((running) ? runSpeed : walkSpeed) * inputDir.magnitude;
-            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetMotifiedSmoothTime(speedSmoothTime));
 
-            if (targetSpeed > 0)
-            {
-                animators[0].SetBool("Move", true);
-                animators[1].SetBool("Move", true);
-            }
-            else
-            {
-                animators[0].SetBool("Move", false);
-                animators[1].SetBool("Move", false);
-            }
+            velocityY += Time.deltaTime * gravity;
+
+           // if (targetSpeed > 0)
+           // {
+           //     animator.SetBool("Move", true);
+           //
+           // }
+           // else
+           // {
+           //     animator.SetBool("Move", false);
+           // }
 
         }
 
         if (onFire)
         {
-            animators[0].SetBool("OnFire", true);
-            animators[1].SetBool("OnFire", true);
-            onFireEffect.SetActive(true);
+            animator.SetBool("isOnFire", true);
+
+            //onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)
             {
                 float targetRotation = (Mathf.Atan2(inputDir.x, inputDir.y) * Mathf.Rad2Deg + cameraTrans.eulerAngles.y);
-                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+                transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, GetMotifiedSmoothTime(turnSmoothTime));
             }
 
             float targetSpeed = walkSpeed;
-            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
+            currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetMotifiedSmoothTime(speedSmoothTime));
+            velocityY += Time.deltaTime * gravity;
         }
         else
         {
-            onFireEffect.SetActive(false);
+            //onFireEffect.SetActive(false);
         }
 
 
 
-        rb.velocity = transform.forward * currentSpeed;
 
+        if (!blockMovement)
+        {
+            rb.velocity = transform.forward * currentSpeed + Vector3.up * velocityY;
+        }
+        else
+        {
+            rb.velocity = transform.forward * currentSpeed/2 + Vector3.up * velocityY;
+        }
+
+        float animationSpeedPercent = currentSpeed / walkSpeed;
+        animator.SetFloat("Movement", animationSpeedPercent, speedSmoothTime, Time.deltaTime);
+
+        if (Physics.Raycast(transform.position, Vector3.down, groundcheckRaycastLength, floorLayer))
+        {
+            velocityY = 0;
+            //rb.velocity.y = 0;
+        }
+        else
+        {
+            if (dropSpeedPercent != 0)
+            {
+                velocityY -= Time.deltaTime * dropSpeedPercent;
+            }
+        }
+    }
+    private void Jump()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, groundcheckRaycastLength, floorLayer))
+        {
+            animator.SetTrigger("Jump");
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.3f, transform.position.z);
+            float jumpVelocity = Mathf.Sqrt(-2 * gravity * jumpheight);
+            velocityY = jumpVelocity;
+        }
+    }
+
+    float GetMotifiedSmoothTime(float smoothTime)
+    {
+        if(Physics.Raycast(transform.position, Vector3.down, groundcheckRaycastLength, floorLayer))
+        {
+            return smoothTime;
+        }
+
+        if(airControlPercent == 0)
+        {
+            return float.MaxValue;
+        }
+        return smoothTime / airControlPercent;
     }
 
     public void onFireCheck()
@@ -288,6 +437,11 @@ public class PlayerController : MonoBehaviour
         {
             onFire = false;
         }
+
     }
-    
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Physics.Raycast(transform.position, Vector3.down, groundcheckRaycastLength, floorLayer) ? Color.blue : Color.red;
+        Gizmos.DrawLine(transform.position, new Vector3(transform.position.x,transform.position.y - groundcheckRaycastLength, transform.position.z));
+    }
 }

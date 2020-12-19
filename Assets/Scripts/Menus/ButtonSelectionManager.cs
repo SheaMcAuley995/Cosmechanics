@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Rewired;
 
 public class ButtonSelectionManager : MonoBehaviour
 {
+    int playerID = 0;
+    Player[] players = new Player[4];
+
     PlayerController[] controlers;
     ShipController shipController;
 
@@ -25,19 +29,32 @@ public class ButtonSelectionManager : MonoBehaviour
 
     IEnumerator Start()
     {
+        players[0] = ReInput.players.GetPlayer(playerID);
+        players[1] = ReInput.players.GetPlayer(playerID + 1);
+        players[2] = ReInput.players.GetPlayer(playerID + 2);
+        players[3] = ReInput.players.GetPlayer(playerID + 3);
+
         ableToGetInput = false;
         selectedButtonIndex = -1;
-        SelectButtonDownward();
         yield return new WaitForSeconds(0.2f);
         controlers = FindObjectsOfType<PlayerController>();
-        shipController = FindObjectOfType<ShipController>();
+        //shipController = FindObjectOfType<ShipController>();
         ableToGetInput = true;
         currentScene = SceneManager.GetActiveScene().name;
+        SelectButtonDownward();
     }
 
     void Update()
     {
-        if (ableToGetInput && currentScene != "CacieOverworld")
+        foreach (Player player in players)
+        {
+            if (player.GetButtonDown("Jump"))
+            {
+                PressButton();
+            }
+        }
+
+        if (ableToGetInput && currentScene != "LevelSelectUpdated")
         {
             foreach (PlayerController controler in controlers)
             {
@@ -57,26 +74,6 @@ public class ButtonSelectionManager : MonoBehaviour
                 {
                     PressButton();
                 }
-            }
-        }
-
-        if (ableToGetInput && currentScene == "CacieOverworld")
-        {
-            shipController.GetInput();
-
-            if (shipController.movementVector.y < 0 && !selecting)
-            {
-                SelectButtonDownward();
-            }
-
-            if (shipController.movementVector.y > 0 && !selecting)
-            {
-                SelectButtonUpward();
-            }
-
-            if (shipController.pickUp && !selecting)
-            {
-                PressButton();
             }
         }
     }

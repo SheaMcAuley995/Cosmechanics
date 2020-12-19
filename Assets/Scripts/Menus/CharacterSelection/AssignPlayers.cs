@@ -4,213 +4,171 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class AssignPlayers : MonoBehaviour
 {
-    public GameObject characterCardPrefab, panelParent;
-    public GameObject[] characterCards;
+    [SerializeField] string mainMenuScene;
+
     public CharacterCardGenerator[] cards;
     public JoinGame[] joinedStatus;
-    public Text countdownToStartText;
-
+   
     public PlayerController[] controllers;
-    SelectedPlayer[] players;
+    int playerId = 0;
     int currentPlayerId = 0;
 
-    Vector3 spawnPos1 = new Vector3(-450f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos2 = new Vector3(-445f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos3 = new Vector3(-440f, 0.1725311f, 75.67999f);
-    Vector3 spawnPos4 = new Vector3(-435f, 0.1725311f, 75.67999f);
-
-    [Header("Mechanic Settings")]
-    bool halfReady, allReady;
-    int numOfPlayersReady;
-    float time = 10;
-    bool countingDown;
-    int playerId = 0;
-
-    Coroutine countdown;
-
-
-    void Start()
+    [Header("Player Skins ")]
+    public PossibleCharacters[] possibleCharacters;
+   
+    [Header("Spawn Positions -- DON'T TOUCH THESE PLEASE!!")]
+    [SerializeField] Transform[] spawnPositions;
+   
+    bool checkingInput = false;
+   
+   
+    IEnumerator Start()
     {
-        ExampleGameController.instance.setSpawnPoints();
-        ExampleGameController.instance.numberOfPlayers = 0;
+        CharacterHandler.instance.SetSpawnPoints();
+        CharacterHandler.instance.numberOfPlayers = 0;
         for (int i = 0; i < cards.Length; i++)
         {
-            GameObject tempPlayer = ExampleGameController.instance.addPlayer();
+            GameObject tempPlayer = CharacterHandler.instance.addPlayer(new Vector3(0, i, 0));
+              
+            // Assigns each player a spawn position.
+            //ards[i].gameObject.GetComponent<CharacterCardGenerator>().spawnPos = spawnPositions[i];
+
+            //tempPlayer.SetActive(false);
         }
         controllers = FindObjectsOfType<PlayerController>();
-
-        // Assigns each player a spawn position
-        characterCards[0].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos1;
-        characterCards[1].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos2;
-        characterCards[2].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos3;
-        characterCards[3].GetComponent<CharacterCardGenerator>().spawnPos = spawnPos4;
-
+   
         foreach (PlayerController controller in controllers)
         {
-            controller.playerId = currentPlayerId;
-            currentPlayerId++;
+            controller.playerId = currentPlayerId++;
+            //currentPlayerId++;
         }
-
-        halfReady = false;
-        allReady = false;
-
-        countdownToStartText.enabled = false;
+   
+        yield return new WaitForSeconds(0.2f);
+        checkingInput = true;
     }
-
+   
     void Update()
     {
-        GetInput();
+        if (checkingInput)
+            GetInput();
     }
 
+    // Checks if any players have joined the game
+    bool AnyPlayersJoined()
+    {
+        for (int i = 0; i < joinedStatus.Length; i++)
+        {
+            if (joinedStatus[i].isJoined)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+   
     void GetInput()
     {
         foreach (PlayerController controller in controllers)
         {
-            controller.getInput();
+            // For going back to the main menu
+            if (controller.Button_B && !joinedStatus[controller.playerId].selecting)
+            {
+                if (!AnyPlayersJoined())
+                {
+                    SceneFader.instance.FadeTo(mainMenuScene);
+                }
+            }
 
             // For joining the game
-            if (controller.readyUp && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
+            if (controller.Button_A && !joinedStatus[controller.playerId].isJoined && !joinedStatus[controller.playerId].selecting)
+            {
+                joinedStatus[controller.playerId].selecting = true;
+                cards[controller.playerId].selecting = true;
+                StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
+   
+                cards[controller.playerId].DeactivateJoinIcons();
+   
+                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId, spawnPositions[controller.playerId].position);
+                CharacterHandler.instance.numberOfPlayers++;
+                //CharacterHandler.instance.players[i]
+                //If a player joins during the countdown, stop the countdown
+                if (!ReadyCheck.instance.AllPlayersReady())
+                {
+                    ReadyCheck.instance.StopCountdown();
+                }
+            }
+   
+            //For un-joining the game --DISABLING UNTIL I CAN FIGURE OUT HOW TO HANDLE COLOR REMOVAL
+            if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 joinedStatus[controller.playerId].selecting = true;
                 StartCoroutine(joinedStatus[controller.playerId].SelectionDelay());
 
-                cards[controller.playerId].DeactivateJoinIcons();
-
-                joinedStatus[controller.playerId].CreateAndAssignPlayer(controller.playerId);
-                ExampleGameController.instance.numberOfPlayers++;
-                players = FindObjectsOfType<SelectedPlayer>();
-            }
-
-            // For un-joining the game
-            if (controller.cancel && joinedStatus[controller.playerId].isJoined && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
-            {
-                cards[controller.playerId].selecting = true;
-                StartCoroutine(cards[controller.playerId].SelectionDelay());
-
+                // Adds the character's color to the list of available colours, and removes it from the list of taken colours
+                //availableColors.Add(takenColors[controller.playerId]);
+                //takenColors.RemoveAt(controller.playerId);
+                //takenColors[controller.playerId] = null;
+                //this doesn't work because if say player 2 tries to un-join but player 1 has already un-joined, the index is OOA. 
+   
                 cards[controller.playerId].ActivateJoinIcons();
                 joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
-                ExampleGameController.instance.numberOfPlayers--;
+                CharacterHandler.instance.numberOfPlayers--;
+   
+                // If a player leaves and everyone else is ready, start the countdown
+                if (ReadyCheck.instance.AllPlayersReady())
+                {
+                    ReadyCheck.instance.StartCountdown();
+                }
             }
-
+   
             // Player moves analog stick RIGHT - selects a new head
             if (controller.selectModel.x > 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                cards[controller.playerId].NextHead();
+                cards[controller.playerId].NextCharacter();
             }
-
+   
             // Player moves analog stick LEFT - selects the previous head
             if (controller.selectModel.x < 0 && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
             {
                 cards[controller.playerId].selecting = true;
-                cards[controller.playerId].PreviousHead();
+                cards[controller.playerId].PreviousCharacter();
             }
-
+   
             // Turns off 'selecting' when the analog stick returns to 0
-            if (controller.selectModel.x == 0 && cards[controller.playerId].selecting)
-            {
-                cards[controller.playerId].selecting = false;
-            }
-
-            // Player presses the right controller bumper - selects the next colour
-            if (controller.selectColourRight && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].NextColour();
-            }
-
-            //Player presses the left controller bumper - selects the previous colour
-            if (controller.selectColourLeft && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && joinedStatus[controller.playerId].isJoined)
-            {
-                cards[controller.playerId].PreviousColour();
-            }
-
+            //if (controller.selectModel.x == 0 && cards[controller.playerId].selecting)
+            //{
+            //    cards[controller.playerId].selecting = false;
+            //}
+   
             // Player presses A - advances character status to READY
-            if (controller.readyUp && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined)
+            if (controller.Button_A && !joinedStatus[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY && possibleCharacters[cards[controller.playerId].characterIndex].isTaken == false)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
-
+   
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.READY;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[1];
+                possibleCharacters[cards[controller.playerId].characterIndex].isTaken = true;
 
-                numOfPlayersReady = 0;
-                for (int i = 0; i < cards.Length; i++)
-                {
-                    if (cards[i].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
-                    {
-                        numOfPlayersReady++;
-                    }
-
-                    if (numOfPlayersReady >= ExampleGameController.instance.numberOfPlayers / 2)
-                    {
-                        halfReady = true;
-                    }
-
-                    if (numOfPlayersReady >= ExampleGameController.instance.numberOfPlayers)
-                    {
-                        allReady = true;
-                    }
-                }
-
-                if (allReady)
-                {
-                    time = 4f;
-                    countdown = StartCoroutine(CountdownToGame());
-                }
+                ReadyCheck.instance.IncreasePlayersReady();
             }
-
-            // This is no longer needed because I'm not being a dumb dumb anymore :D 
-            //// Player presses START - begins the countdown to start game
-            //if (controller.start && !cards[controller.playerId].selecting)
-            //{
-            //    cards[controller.playerId].selecting = true;
-            //    StartCoroutine(cards[controller.playerId].SelectionDelay());
-
-            //    time = 4f;
-            //    countdown = StartCoroutine(CountdownToGame());
-            //}
-
-            // Player presses B - reverts character status to previous state
-            if (controller.cancel && !cards[controller.playerId].selecting && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
+   
+            //Player presses B - reverts character status to previous state
+            if (controller.sprint && !cards[controller.playerId].selecting && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus == CharacterCardGenerator.CharacterStatus.READY)
             {
                 cards[controller.playerId].selecting = true;
                 StartCoroutine(cards[controller.playerId].SelectionDelay());
-
+   
                 cards[controller.playerId].characterStatus = CharacterCardGenerator.CharacterStatus.SELECTING;
                 cards[controller.playerId].readyStatusBar.sprite = cards[controller.playerId].statusSprites[0];
+                possibleCharacters[cards[controller.playerId].characterIndex].isTaken = false;
 
-                numOfPlayersReady--;
-                StopCoroutine(countdown);
-                countingDown = false;
-                halfReady = false;
-                allReady = false;
-                countdownToStartText.enabled = false;
-                time = 10;
-            }
-        }
-    }
-
-    IEnumerator CountdownToGame()
-    {
-        countingDown = true;
-        countdownToStartText.enabled = true;
-
-        while (true)
-        {
-            if (time > 0f)
-            {
-                time -= 1f;
-                countdownToStartText.text = "Starting Game In: " + Mathf.RoundToInt(time).ToString();
-
-                yield return new WaitForSeconds(1f);
-            }
-            else
-            {
-                PlayerActivation.instance.ContinueToGame();
-                countingDown = false;
-                break;
+                ReadyCheck.instance.DecreasePlayersReady();
             }
         }
     }

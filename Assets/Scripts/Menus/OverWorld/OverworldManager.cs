@@ -31,18 +31,21 @@ public class OverworldManager : MonoBehaviour
     public OverworldData data; // Reference to the struct containing the constructor
     public ShipController shipController; // For handling input
     PlayerController[] playerControllers;
+    SelectedPlayer[] selectedPlayers;
 
     // Enum for handling selected level states
     public enum Level
     {
         Level1,
         Level2,
-        Level3
+        Level3,
+        Level4
     };
 
     [Header("Level Management")]
     [Space] public Level level;
     int selectedLevel = 1;
+    public string charSelectSceneName;
 
     [Header("Ship Components")]
     public Transform shipTransform;
@@ -57,6 +60,7 @@ public class OverworldManager : MonoBehaviour
     public GameObject levelPanel;
     public TextMeshProUGUI levelSelectedText;
     public Sprite[] highlightSprites;
+    public TextMeshProUGUI launchButtonText;
 
     [Header("Selected Level UI Pool")]
     public Sprite[] mapImages;
@@ -89,7 +93,7 @@ public class OverworldManager : MonoBehaviour
     }
     #endregion
 
-    IEnumerator Start ()
+    void Start ()
     {
         ableToLaunch = false;
 
@@ -101,10 +105,9 @@ public class OverworldManager : MonoBehaviour
         MoveShip();
         ApplyText();
 
-        yield return new WaitForSeconds(0.2f);
-        for (int i = 0; i < playerControllers.Length; i++)
+        foreach (PlayerController player in playerControllers)
         {
-            playerControllers[i].gameObject.transform.localScale = new Vector3(0f, 0f, 0f);
+            player.cameraTrans = Camera.main.transform;
         }
     }
 	
@@ -143,6 +146,7 @@ public class OverworldManager : MonoBehaviour
             {
                 //levelObjects[i].gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
                 levelObjects[i].sprite = highlightSprites[0];
+                levelObjects[3].sprite = highlightSprites[3]; // THIS LOCKS SHIP 3 SINCE IT'S NOT FINISHED
             }
         }
     }
@@ -167,7 +171,7 @@ public class OverworldManager : MonoBehaviour
         // Directional movement input (RIGHT)
         if (shipController.movementVector.x > 0 && !moving && !ableToLaunch)
         {
-            /// SUMMARY: If the player moves to another level, data needs to be updated
+            // SUMMARY: If the player moves to another level, data needs to be updated
             switch (selectedLevel)
             {
                 // If level 1 had been selected...
@@ -184,6 +188,12 @@ public class OverworldManager : MonoBehaviour
                     break;
                 // If level 3 had been selected...
                 case 3:
+                    selectedLevel++;
+                    level = Level.Level4;
+                    direction = Vector3.up;
+                    break;
+                // If level 4 had been selected...
+                case 4:
                     selectedLevel = 1;
                     level = Level.Level1;
                     direction = Vector3.up;
@@ -204,8 +214,8 @@ public class OverworldManager : MonoBehaviour
             {
                 // If level 1 had been selected...
                 case 1:
-                    selectedLevel = 3;
-                    level = Level.Level3;
+                    selectedLevel = 4;
+                    level = Level.Level4;
                     direction = -Vector3.up;
                     break;
                 // If level 2 had been selected...
@@ -220,6 +230,11 @@ public class OverworldManager : MonoBehaviour
                     level = Level.Level2;
                     direction = Vector3.up;
                     break;
+                case 4:
+                    selectedLevel--;
+                    level = Level.Level3;
+                    direction = Vector3.up;
+                    break;
             }
 
             // Moves the ship and updates the UI according to the new selected level
@@ -230,10 +245,17 @@ public class OverworldManager : MonoBehaviour
 
         if (shipController.sprint && !ableToLaunch && !selecting)
         {
+            selectedPlayers = FindObjectsOfType<SelectedPlayer>();
+
             selecting = true;
             StartCoroutine(SelectionDelay());
 
-            SceneFader.instance.FadeTo("CharacterSelection_Update");
+            foreach (SelectedPlayer player in selectedPlayers)
+            {
+                //player.gameObject.AddComponent<CharToDestroy>();
+                Destroy(player.gameObject);
+            }
+            SceneFader.instance.FadeTo(charSelectSceneName);
         }
     }
 
@@ -255,6 +277,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[0];
                 selectionPanel.description.text = descriptions[0];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
             // If it's level 2, set all UI elements to the second item in each array pool
             case Level.Level2:
@@ -262,6 +285,7 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[1];
                 selectionPanel.description.text = descriptions[1];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
                 break;
             // If it's level 3, set all UI elements to the third item in each array pool
             case Level.Level3:
@@ -269,6 +293,15 @@ public class OverworldManager : MonoBehaviour
                 selectionPanel.levelName.text = levelNames[2];
                 selectionPanel.description.text = descriptions[2];
                 selectionPanel.launchButton.interactable = true;
+                launchButtonText.text = "Launch";
+                break;
+            // If it's level 4, set all UI elements to the fourth item in each array pool
+            case Level.Level4:
+                selectionPanel.mapPreview.sprite = mapImages[3];
+                selectionPanel.levelName.text = levelNames[3];
+                selectionPanel.description.text = descriptions[3];
+                selectionPanel.launchButton.interactable = false;
+                launchButtonText.text = "CANNOT LAUNCH";
                 break;
         }
     }

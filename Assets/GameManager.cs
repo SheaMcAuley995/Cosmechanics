@@ -8,9 +8,15 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         //SceneManager.LoadScene(0);
     }
+
+    private void Start()
+    {
+        
+    }
+
 
     //private void OnGUI()
     //{

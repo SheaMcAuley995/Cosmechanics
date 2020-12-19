@@ -52,6 +52,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4a445048c095f4db35d60de2fb2a2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tutorialLevelName: Ship_Level_Tutorial NEW
+  levelOneName: Ship_Level_1Final
+  levelTwoName: BetaMichaelTest
+  levelThreeName: Ship_Level_3
 --- !u!114 &114260673156198218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -71,12 +75,15 @@ MonoBehaviour:
     cancelButton: {fileID: 0}
   shipController: {fileID: 0}
   level: 0
+  charSelectSceneName: CharacterSelection_Update
   shipTransform: {fileID: 0}
   levelObjects:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  - {fileID: 0}
   orbitPositions:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -86,18 +93,23 @@ MonoBehaviour:
   - {fileID: 21300000, guid: adfb55c501ad9834cb7ad8a2b0f4158f, type: 3}
   - {fileID: 21300000, guid: 507d34a9d5553834fb20ac4c47e208e8, type: 3}
   - {fileID: 21300000, guid: 96deb0006d85615469a0d30cc9056db2, type: 3}
+  - {fileID: 21300000, guid: fa8f2ddb908535446bea1ee918c679fb, type: 3}
+  launchButtonText: {fileID: 0}
   mapImages:
   - {fileID: 21300000, guid: 6bed4e9d2c962fe49986f9c9c79133e5, type: 3}
-  - {fileID: 21300000, guid: ebd4b12eedb442b4d978395f1c081627, type: 3}
   - {fileID: 21300000, guid: 5222e311cc8c4f742879cccb91a9a585, type: 3}
+  - {fileID: 21300000, guid: ebd4b12eedb442b4d978395f1c081627, type: 3}
+  - {fileID: 21300000, guid: 0e5dad5b93789cf48b8d5845bd53702e, type: 3}
   levelNames:
   - Tutorial Ship
   - Ship One
   - Ship Two
+  - Ship Three
   descriptions:
   - 'This is the tutorial level, where you will learn the basic game mechanics. '
   - This is your first mission. Good luck, try to bring the ship back in one piece!
   - Good job on your last mission! This one will be more challenging. Good luck!
+  - 'SHIP UNDER CONSTRUCTION! Please come back later. '
   travelTime: 0.25
   orbitSpeed: 80
   orbitOffset: {x: 15, y: 0, z: 10}

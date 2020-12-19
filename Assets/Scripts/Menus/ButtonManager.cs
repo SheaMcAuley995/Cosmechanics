@@ -5,18 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
-    // BUILD INDEX KEY:
-    // 0 = MainMenu_Updated
-    // 1 = CharacterSelection_Update
-    // 2 = ZachOverWorld
-    // 3 = BetaMichaelTest
-    // 4 = Ship_Level_1Final
-    // 5 = LoseScene
-    // 6 = WinScene
-
-    SelectedPlayer[] players;
+    PlayerController[] controllers;
     PickUp[] pickups;
+    
 
+    IEnumerator Start()
+    {
+        yield return new WaitForSeconds(0.2f);
+        controllers = FindObjectsOfType<PlayerController>();
+        foreach (PlayerController controller in controllers)
+        {
+            controller.cameraTrans = Camera.main.transform;
+        }
+    }
 
     // Fades to character selection
     public void StartGame()
@@ -30,64 +31,47 @@ public class ButtonManager : MonoBehaviour
         SceneFader.instance.FadeToQuit();
     }
 
-    //Fades to main menu
+    // Drops and destroys any objects currently held by players so they can pick up more objects in other levels.
+    void HandlePickups()
+    {
+        controllers = FindObjectsOfType<PlayerController>();
+        for (int i = 0; i < controllers.Length; i++)
+        {
+            controllers[i].interactedObject.GetComponent<PickUp>().putMeDown(1.0f);
+            controllers[i].interactedObject = null;
+            controllers[i].animator.SetBool("isCarrying", false);
+            controllers[i].blockMovement = false;
+            controllers[i].SetpickedUp(false);
+        }
+
+        pickups = FindObjectsOfType<PickUp>();
+        for (int i = 0; i < pickups.Length; i++)
+        {
+            Destroy(pickups[i].gameObject);
+        }
+    }
+
+    // Fades to main menu. Pickups don't need to be handled because main menu destroys them & old characters before continuing to character select.
     public void ReturnToMenu()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
-
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
         SceneFader.instance.FadeTo("MainMenu_Update");
-        Time.timeScale = 1f;
-
-        foreach (SelectedPlayer player in players)
-        {
-            player.gameObject.AddComponent<CharToDestroy>();
-            Destroy(player);
-        }
+        GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
-    // Fades to last level attempted
+    // Fades to level select.
     public void RetryLevel()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
-
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        SceneFader.instance.FadeTo(players[0].currentScene);
-        Time.timeScale = 1f;
-
-        for (int i = 0; i < players.Length; i++)
-        {
-            players[i].transform.position = ExampleGameController.instance.spawnPoints[i];
-        }
+        HandlePickups();
+        //SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
+        SceneFader.instance.FadeTo("LevelSelectUpdated");
+        GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
-    // Fades to character selection
+    // Fades to level select.
     public void ContinueGame()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-        pickups = FindObjectsOfType<PickUp>();
-
-        for (int i = 0; i < pickups.Length; i++)
-        {
-            Destroy(pickups[i].gameObject);
-        }
-
-        SceneFader.instance.FadeTo("CacieOverworld");
-        Time.timeScale = 1f;
-
-        foreach (SelectedPlayer player in players)
-        {
-            player.transform.localScale = new Vector3(0f, 0f, 0f);
-        }
+        HandlePickups();
+        SceneFader.instance.FadeTo("LevelSelectUpdated");
+        GameStateManager.instance.SetGameState(GameState.Playing);
     }
 }

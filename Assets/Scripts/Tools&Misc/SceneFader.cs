@@ -1,16 +1,26 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
 
 public class SceneFader : MonoBehaviour
 {
     public static SceneFader instance;
 
     [Header("Scene Transition Setup")]
+    public PostProcessVolume volume;
     public Image image;
     public AnimationCurve curve;
+
+    [Header("Post Processing Variables")]
+    [SerializeField] float chromAbStartValue = 0f;
+    [SerializeField] float chromAbEndValue = 1f;
+    ChromaticAberration chromAbLayer = null;
+
+    [Header("Transition Settings")]
     public float sceneFadeTime = 1f;
 
     void Awake()
@@ -29,6 +39,10 @@ public class SceneFader : MonoBehaviour
 
     void Start()
     {
+        if (volume == null)
+            volume = FindObjectOfType<PostProcessVolume>();
+        volume.profile.TryGetSettings(out chromAbLayer);
+
         StartCoroutine(FadeIn());
     }
 
@@ -44,30 +58,88 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeIn()
     {
+        chromAbLayer.enabled.value = true;
+        chromAbLayer.intensity.value = chromAbEndValue;
+
         float t = sceneFadeTime;
 
         while (t > 0f)
         {
             t -= Time.unscaledDeltaTime;
+
             float a = curve.Evaluate(t);
             image.color = new Color(0f, 0f, 0f, a);
+
+            float interploation = curve.Evaluate(t);
+            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
+
             yield return 0;
         }
     }
 
     IEnumerator FadeOut(string scene)
     {
+        chromAbLayer.enabled.value = true;
+        chromAbLayer.intensity.value = chromAbStartValue;
+
         float t = 0f;
 
         while (t < sceneFadeTime)
         {
             t += Time.unscaledDeltaTime;
+
             float a = curve.Evaluate(t);
             image.color = new Color(0f, 0f, 0f, a);
+
+            float interploation = curve.Evaluate(t);
+            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
+
             yield return 0;
         }
 
-        SceneManager.LoadScene(scene);
+        //SceneManager.LoadScene(scene);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
+        //if (!operation.isDone)
+        //{
+        //    Vector3[] spawnPoints;
+        //    spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
+
+        //    GameObject[] players;
+        //    players = CharacterHandler.instance.players;
+        //    for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+        //    {
+        //        players[i].transform.position = spawnPoints[i];
+        //        players[i].GetComponent<PlayerController>().enabled = true;
+        //        players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+
+        //    }
+        //    CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
+        //}
+
+        //try
+        //{
+        //    Vector3[] spawnPoints;
+        //    spawnPoints = FindObjectOfType<SetSpawnPositions>().spawnpositions;
+
+        //    GameObject[] players;
+        //    players = CharacterHandler.instance.players;
+        //    for (int i = 0; i < CharacterHandler.instance.numberOfPlayers; i++)
+        //    {
+        //        players[i].transform.position = spawnPoints[i];
+        //        players[i].GetComponent<PlayerController>().enabled = true;
+        //        players[i].GetComponent<PlayerController>().cameraTrans = CameraMultiTarget.instance.GetComponent<Camera>().transform;
+
+        //    }
+        //    CameraMultiTarget.instance.SetTargets(CharacterHandler.instance.players);
+        //}
+        //catch(NullReferenceException exception)
+        //{
+        //    Debug.Log("This is fine.");
+        //}
     }
 
     IEnumerator FadeOutToQuit()
