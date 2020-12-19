@@ -81,6 +81,9 @@ public class PlayerController : MonoBehaviour
     bool pickedUp;
     float holdDownStartTime;
 
+    public bool GetpickedUp() { return pickedUp; }
+    public void SetpickedUp(bool val) { pickedUp = val; }
+
     private void Start()
     {
         thisCollider = GetComponent<CapsuleCollider>();
