@@ -14,6 +14,7 @@ public class MovingPlatformScript : MonoBehaviour
 
     public float speed;
     public float pauseTime;
+    public bool platformsRotate;
 
     float distance;
 
@@ -25,18 +26,28 @@ public class MovingPlatformScript : MonoBehaviour
 
     Rigidbody[] rigidbodies;
 
+    public GameObject PlatLaserEnd;
     private void Start()
     {
         rigidbodies = new Rigidbody[5];
         startTime = Time.time;
 
         currentPoint = 0;
+
+
         startPos = points[currentPoint];
         prevPos = points[points.Count - 1];
 
         distance = Vector3.Distance(startPos, currentTarget);
 
         StartCoroutine(PlatformMovement());
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            Instantiate(PlatLaserEnd, points[i], Quaternion.identity); 
+        }
+
+
     }
 
 
@@ -56,9 +67,7 @@ public class MovingPlatformScript : MonoBehaviour
 
         startTime = Time.time;
         distance = Vector3.Distance(startPos, currentTarget);
-
     }
-
 
     IEnumerator PlatformMovement()
     {
@@ -75,6 +84,11 @@ public class MovingPlatformScript : MonoBehaviour
             {
                 if (transform.position == points[i] && points != null)
                 {
+                    if (platformsRotate)
+                    {
+                        StartCoroutine(RotatePlatform(i));
+                    }
+
                     if (i == 0)
                     {
                         prevPos = points[points.Count - 1];
@@ -110,6 +124,38 @@ public class MovingPlatformScript : MonoBehaviour
         }
     }
 
+    IEnumerator RotatePlatform(int nextPointIndex)
+    {
+        Vector3 direction;
+
+        if (nextPointIndex == points.Count - 1)
+        {
+            direction = points[0] - transform.position;
+        }
+        else
+        {
+            direction = points[nextPointIndex + 1] - transform.position;
+        }
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
+
+        while (transform.rotation.y != targetRotation.y)
+        {
+            if (pauseTime > 0) // Rotate during the pause
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, (pauseTime * 100.0f) * Time.deltaTime);
+            }
+            else // Rotate fast enough that it looks like it rotates while still over the marker
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 500.0f * Time.deltaTime);
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return null;
+    }
+
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -135,5 +181,22 @@ public class MovingPlatformScript : MonoBehaviour
             }
         }
         //collision.collider.transform.parent = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        for(int i = 0; i < points.Count;i++)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(points[i], .5f);
+
+            Gizmos.color = Color.white;
+            if(points[i+1] != null)
+            {
+                Gizmos.DrawLine(points[i], points[i + 1]);
+            }
+
+        }
+        
     }
 }

@@ -42,7 +42,7 @@ public class FlorpReceptor : MonoBehaviour
             florpTotal += amount;
             if(!isTutorial)
             {
-                FlorpFillUI.SetFloat("FlorpSlider", (int)florpTotal);
+                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
             }
             if (isTutorial && florpTotal < florpMax)
             {
@@ -61,7 +61,7 @@ public class FlorpReceptor : MonoBehaviour
             while (florpTotal > florpMin)
             {
                 Engine.instance.isFuled = true;
-                FlorpFillUI.SetFloat("FlorpSlider", (int)florpTotal);
+                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
                 florpTotal--;
                 yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
             }
