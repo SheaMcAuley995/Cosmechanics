@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Engine : MonoBehaviour {
 
     public static Engine instance;
+
     [Header("Engine Statistics")]
     public float engineHeat;
     public float maxHeat;
@@ -85,14 +86,14 @@ public class Engine : MonoBehaviour {
 
         // Zach addition.
         /// <summary> Slows down star field effect if more fuel is not inserted by the next tick. </summary>
-        if (!isFuled)
-        {
-            for (int i = 0; i < starFieldEffects.Length; i++)
-            {
-                var main = starFieldEffects[i].main;
-                main.simulationSpeed = Mathf.Clamp(main.simulationSpeed -= maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
-            }
-        }
+       // if (!isFuled)
+       // {
+       //     for (int i = 0; i < starFieldEffects.Length; i++)
+       //     {
+       //         var main = starFieldEffects[i].main;
+       //         main.simulationSpeed = Mathf.Clamp(main.simulationSpeed -= maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
+       //     }
+       // }
 
         preEnemyProgress = enemyProgress;
         preCurrentProgress = currentProgress;
@@ -106,13 +107,19 @@ public class Engine : MonoBehaviour {
         engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
 
 
-        if (currentProgress > winConditionLimit)
+        if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
         {
-            WinGame();
+            Engine.instance.WinGame();
         }
-        if (enemyProgress > currentProgress)
+        if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
         {
-            LoseGame();
+            //Debug.LogError(gameObject.name);
+            //Debug.LogError(enemyProgress);
+
+            //Debug.LogError(Engine.instance.gameObject.name);
+            //Debug.LogError(Engine.instance.enemyProgress);
+
+            Engine.instance.LoseGame();
         }
         //AudioEventManager.instance.PlaySound("engine");
         //alertUI.problemCurrent = engineHeat;
@@ -144,11 +151,11 @@ public class Engine : MonoBehaviour {
 
         // Zach addition.
         /// <summary> Speeds up the star field effect. </summary>
-        for (int i = 0; i < starFieldEffects.Length; i++)
-        {
-            var main = starFieldEffects[i].main;
-            main.simulationSpeed = Mathf.Clamp(main.simulationSpeed += maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
-        }
+      //  for (int i = 0; i < starFieldEffects.Length; i++)
+      //  {
+      //      var main = starFieldEffects[i].main;
+      //      main.simulationSpeed = Mathf.Clamp(main.simulationSpeed += maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
+      //  }
     }
 
     public float engineHeatPercentage()

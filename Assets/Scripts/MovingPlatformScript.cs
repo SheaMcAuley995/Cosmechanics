@@ -25,18 +25,28 @@ public class MovingPlatformScript : MonoBehaviour
 
     Rigidbody[] rigidbodies;
 
+    public GameObject PlatLaserEnd;
     private void Start()
     {
         rigidbodies = new Rigidbody[5];
         startTime = Time.time;
 
         currentPoint = 0;
+
+
         startPos = points[currentPoint];
         prevPos = points[points.Count - 1];
 
         distance = Vector3.Distance(startPos, currentTarget);
 
         StartCoroutine(PlatformMovement());
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            Instantiate(PlatLaserEnd, points[i], Quaternion.identity); 
+        }
+
+
     }
 
 
@@ -135,5 +145,22 @@ public class MovingPlatformScript : MonoBehaviour
             }
         }
         //collision.collider.transform.parent = null;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        for(int i = 0; i < points.Count;i++)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(points[i], .5f);
+
+            Gizmos.color = Color.white;
+            if(points[i+1] != null)
+            {
+                Gizmos.DrawLine(points[i], points[i + 1]);
+            }
+
+        }
+        
     }
 }

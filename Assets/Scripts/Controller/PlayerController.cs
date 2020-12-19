@@ -80,8 +80,6 @@ public class PlayerController : MonoBehaviour
     public Interactable interactableObject;
     bool pickedUp;
     float holdDownStartTime;
-   // public GameObject pauseMenu;
-   // public GameObject inGameMenu;
 
     private void Start()
     {
@@ -95,11 +93,6 @@ public class PlayerController : MonoBehaviour
         interact = GetComponentInChildren<InteractWithInterface>();
         interact.controller = this;
 
-        pauseMenu = FindObjectOfType<PauseMenu>();
-        if (pauseMenu != null)
-        {
-            player.AddInputEventDelegate(pauseMenu.GetComponent<PauseMenu>().OnPauseUpdate, UpdateLoopType.Update, "Pause");
-        }
 
         if (CharacterHandler.instance == null)
         {
