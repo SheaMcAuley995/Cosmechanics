@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1854545680998276}
+  m_IsPrefabAsset: 1
+--- !u!1 &1574750380693598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4433766432759810}
+  m_Layer: 0
+  m_Name: EnemyShip
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1854545680998276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4290971775238060}
+  - component: {fileID: 114164615033755334}
+  - component: {fileID: 114874041592487742}
+  m_Layer: 0
+  m_Name: EmptyShipObjectScript
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4290971775238060
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854545680998276}
+  m_LocalRotation: {x: -0, y: 0.70710677, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4433766432759810}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4433766432759810
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1574750380693598}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 39.48, z: 73.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4290971775238060}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114164615033755334
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854545680998276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5d73219a7b82a14f92dbfc154a5de79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenNEvents: 2.5
+  shipCurrenHealth: 0
+  shipMaxHealth: 0
+  blastEffectPrefab: {fileID: 100010, guid: 645413a00f7bd0242bbd6d0e5eb6f439, type: 2}
+  explosionRadius: 3
+  explosionDamage: 1
+  interactableLayerMask:
+    serializedVersion: 2
+    m_Bits: 512
+  possibleAttackPositions:
+  - worldPositon: {x: 14.81, y: 0, z: -2.51}
+    nodes: []
+  - worldPositon: {x: 5.5, y: 0, z: -10.57}
+    nodes: []
+  - worldPositon: {x: 8.04, y: 0, z: -2.35}
+    nodes: []
+  - worldPositon: {x: 19.6, y: 0, z: -8.81}
+    nodes: []
+  - worldPositon: {x: 15.4, y: 0, z: -13.7}
+    nodes: []
+  - worldPositon: {x: 10.1, y: 0, z: -13.7}
+    nodes: []
+  attackLocation: {x: 0, y: 0, z: 0}
+  gotHit: 0
+  healthBar: {fileID: 0}
+  healthText: {fileID: 0}
+  loseGameScreen: {fileID: 0}
+--- !u!114 &114874041592487742
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1854545680998276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f4f6587519271e46bc76ee7ab4f735e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  laserPrefab: {fileID: 1623606107837678, guid: 7735f30322fe4d14886a3d2fb8f4bf64,
+    type: 2}
+  enemyShipPosition: {fileID: 4433766432759810}
+  laserSpeed: 200
+  lasers: []
+  GizmoColor: {r: 0.8509804, g: 0.7059504, b: 0.007843152, a: 0}
+  gizmoSize: 5
