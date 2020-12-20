@@ -20,44 +20,44 @@ public class InteractWithInterface : MonoBehaviour
 
     public PlayerController controller;
 
-    public void InteractWithObject()
-    {
-        if(interactedObject != null)
-        {
-            if(interactedObject.GetComponent<IInteractableTool>() != null)
-            {
-                interactedObject.GetComponent<IInteractableTool>().toolInteraction();
-                Debug.Log(":");
-            }
-        }
-        else
-        {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
-
-            for (int i = 0; i < hitColliders.Length; i++)
-            {
-                //Debug.Log("Interacting with :" + hitColliders[i].name);
-                if (hitColliders[i].GetComponent<RepairableObject>() != null)
-                {
-                    if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
-                    {
-                        controller.animator.SetTrigger("PipeFix");
-                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
-                        break;
-                    }
-                }
-                else
-                {
-                    if(hitColliders[i].GetComponent<IInteractable>() != null)
-                    {
-                        hitColliders[i].GetComponent<IInteractable>().InteractWith();
-                    }
-                    break;
-                }
-
-            }
-        }
-    }
+    //public void InteractWithObject()
+    //{
+    //    if(interactedObject != null)
+    //    {
+    //        if(interactedObject.GetComponent<IInteractableTool>() != null)
+    //        {
+    //            interactedObject.GetComponent<IInteractableTool>().toolInteraction();
+    //            Debug.Log(":");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Collider[] hitColliders = Physics.OverlapSphere(transform.position, radius, interactableLayer);
+    //
+    //        for (int i = 0; i < hitColliders.Length; i++)
+    //        {
+    //            //Debug.Log("Interacting with :" + hitColliders[i].name);
+    //            if (hitColliders[i].GetComponent<RepairableObject>() != null)
+    //            {
+    //                if (hitColliders[i].GetComponent<RepairableObject>().health != hitColliders[i].GetComponent<RepairableObject>().healthMax)
+    //                {
+    //                    controller.animator.SetTrigger("PipeFix");
+    //                    hitColliders[i].GetComponent<IInteractable>().InteractWith();
+    //                    break;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                if(hitColliders[i].GetComponent<IInteractable>() != null)
+    //                {
+    //                    hitColliders[i].GetComponent<IInteractable>().InteractWith();
+    //                }
+    //                break;
+    //            }
+    //
+    //        }
+    //    }
+    //}
 
 
 

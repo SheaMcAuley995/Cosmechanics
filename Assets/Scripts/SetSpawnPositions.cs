@@ -42,10 +42,9 @@ public class SetSpawnPositions : MonoBehaviour
         }
     }
 
-
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
-        for(int i = 0; i < 4; i++)
+        for (int i = 0; i < 4; i++)
         {
             Gizmos.DrawSphere(spawnpositions[i], 1);
         }
