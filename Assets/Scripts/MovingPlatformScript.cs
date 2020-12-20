@@ -86,7 +86,7 @@ public class MovingPlatformScript : MonoBehaviour
                 {
                     if (platformsRotate)
                     {
-                        StartCoroutine(RotatePlatform(i));
+                        StartCoroutine(RotatePlatform(i + 1));
                     }
 
                     if (i == 0)
@@ -128,13 +128,13 @@ public class MovingPlatformScript : MonoBehaviour
     {
         Vector3 direction;
 
-        if (nextPointIndex == points.Count - 1)
+        if (nextPointIndex == points.Count)
         {
             direction = points[0] - transform.position;
         }
         else
         {
-            direction = points[nextPointIndex + 1] - transform.position;
+            direction = points[nextPointIndex] - transform.position;
         }
 
         Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
