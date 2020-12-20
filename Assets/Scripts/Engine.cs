@@ -26,12 +26,12 @@ public class Engine : MonoBehaviour {
 
     public Slider ShipProgressSlider;
     public Slider enemyShipProgressSlider;
-    public AlertUI alertUI;
+    //public AlertUI alertUI;
 
     // Zach additions.
-    [Header("Effects")]
-    [SerializeField] ParticleSystem[] starFieldEffects;
-    [SerializeField] float maxSimulationSpeed = 4.0f;
+   //[Header("Effects")]
+   //[SerializeField] ParticleSystem[] starFieldEffects;
+   //[SerializeField] float maxSimulationSpeed = 4.0f;
 
     [Header("Debug Tools")]
     public bool testInputFlorp = false;
@@ -98,7 +98,7 @@ public class Engine : MonoBehaviour {
         preEnemyProgress = enemyProgress;
         preCurrentProgress = currentProgress;
         time = 0;
-        if (isFueled) { currentProgress += 2; }
+        if (isFueled) { currentProgress += 1.3f; }
         enemyProgress += 1;
 
         //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
