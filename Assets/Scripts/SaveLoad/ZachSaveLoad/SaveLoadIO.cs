@@ -18,29 +18,44 @@ public class SaveLoadIO : MonoBehaviour
 
     string savePath => $"{Application.persistentDataPath}/LevelsUnlocked.dat";
 
-    // Call this constructor when a level is won.
+    // Call this constructor when a level is won, or in the level select menu. Boolean overload indicates whether the level will be saved.
+    // Pass in 'false' if calling from the level select, pass in 'true' if calling from a freshly beaten level.
     public SaveLoadIO(bool saving)
     {
-        if (saving)
+        if (saving) // Occurs when a level has been beaten and we want to save the progress.
         {
-            // Retrieves the current level and the next level.
-            var numberInSceneName = Regex.Match(SceneManager.GetActiveScene().name, @"\d+").Value;
-            int nextLevel = Convert.ToInt32(numberInSceneName) + 1;
+            var numberInSceneName = "0"; // Defaults to "0", which is the tutorial.
+            int nextLevel;
+
+            // If the level that the player just beat is not the tutorial, get and store which level number it was.
+            if (!SceneManager.GetActiveScene().name.Contains("Tutorial"))
+            {
+                // Retrieves the current level and the next level.
+                numberInSceneName = Regex.Match(SceneManager.GetActiveScene().name, @"\d+").Value;
+            }
+            nextLevel = Convert.ToInt32(numberInSceneName) + 1; // Store the next level to be unlocked.
         
             // Sets the next level to unlocked.
             LevelLock.instance.levelList[nextLevel].locked = false;
+
+            // Save level progress to file.
+            SaveUnlockStatus();
+        }
+        else // This should only happen in the level select scene, where we want to load the file rather than save it.
+        {
+            LoadUnlockStatus();
         }
     }
 
-    // Save function. Call this from Engine.cs when the game is won.
-    public void SaveUnlockStatus()
+    // Save function. Called from the constructor if 'true' is passed-in as an argument.
+    void SaveUnlockStatus()
     {
         // Creates new struct object to prepare for saving.
         SaveData data = new SaveData();
         data.unlockStatus = new bool[LevelLock.instance.levelList.Count];
 
         // Sets each bool in the array to each level's lock status.
-        for (int i = 0; i < LevelLock.instance.levelList.Count; i++)
+        for (int i = 0; i < data.unlockStatus.Length; i++)
         {
             data.unlockStatus[i] = LevelLock.instance.levelList[i].locked;
         }
@@ -67,7 +82,7 @@ public class SaveLoadIO : MonoBehaviour
     }
 
     // Load function. Call this from LevelLock.cs, probably on Awake.
-    public void LoadUnlockStatus()
+    void LoadUnlockStatus()
     {
         // If the file doesn't exist, create one. This will occur the first time the player launches the game.
         // TODO: When shipping, make sure that the inspector locked values are correct (should be only tutorial & level 1 unlocked).
