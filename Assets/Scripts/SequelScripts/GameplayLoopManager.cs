@@ -17,6 +17,7 @@ public class GameplayLoopManager : MonoBehaviour
     public static float TimeBetweenEvents { get; private set; }
 
     [Header("Event System")]
+    [SerializeField] private float timeBeforeStart;
     [SerializeField] private float timeBetweenEvents;
 
     // TODO: Have pipes in scene add to a ship integrity value 
@@ -85,11 +86,12 @@ public class GameplayLoopManager : MonoBehaviour
 
     IEnumerator eventSystem()
     {
+        yield return new WaitForSeconds(timeBeforeStart);
         while (true)
         {
-            yield return new WaitForSeconds(TimeBetweenEvents);
             onNextTickEvent();
             StartCoroutine("shipBlast");
+            yield return new WaitForSeconds(TimeBetweenEvents);
         }
     }
 
@@ -119,7 +121,7 @@ public class GameplayLoopManager : MonoBehaviour
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 
-        shipCurrenHealth -= explosionDamage;
+        //shipCurrenHealth -= explosionDamage;
 
         foreach (Collider damagedObject in damagedObjects)
         {

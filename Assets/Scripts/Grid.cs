@@ -247,23 +247,22 @@ public class Grid : MonoBehaviour {
 
     }
 
-
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
-   
+
         if (GenerateGrid)
             CreateGrid();
-   
+
         if (LightFire)
         {
             //GenerateFire();
             LightFire = false;
         }
-   
-   
+
+
         if (grid != null && showGrid)
         {
             foreach (Node n in grid)
@@ -279,6 +278,7 @@ public class Grid : MonoBehaviour {
                 Gizmos.DrawSphere(fire.worldPosition, 1);
             }
         }
-   
+
     }
+
 }
