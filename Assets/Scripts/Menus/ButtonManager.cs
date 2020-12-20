@@ -6,8 +6,6 @@ using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour
 {
     PlayerController[] controllers;
-    SelectedPlayer[] players;
-    CharToDestroy[] oldPlayers;
     PickUp[] pickups;
     
 
@@ -24,12 +22,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to character selection
     public void StartGame()
     {
-        oldPlayers = FindObjectsOfType<CharToDestroy>();
         SceneFader.instance.FadeTo("CharacterSelection_Update");
-        foreach (CharToDestroy player in oldPlayers)
-        {
-            Destroy(player.gameObject);
-        }
     }
 
     // Fades to quit
@@ -38,9 +31,25 @@ public class ButtonManager : MonoBehaviour
         SceneFader.instance.FadeToQuit();
     }
 
-    // Destroys any objects players are holding so that they aren't carried over through scenes w/ players.
-    void DestroyPickups()
+    // Drops and destroys any objects currently held by players so they can pick up more objects in other levels.
+    void HandlePickups()
     {
+        controllers = FindObjectsOfType<PlayerController>();
+        for (int i = 0; i < controllers.Length; i++)
+        {
+            if (controllers[i].interactedObject)
+            {
+                if (controllers[i].interactedObject.GetComponent<PickUp>())
+                {
+                    controllers[i].interactedObject.GetComponent<PickUp>().putMeDown(1.0f);
+                }
+            }
+            controllers[i].interactedObject = null;
+            controllers[i].animator.SetBool("isCarrying", false);
+            controllers[i].blockMovement = false;
+            controllers[i].SetpickedUp(false);
+        }
+
         pickups = FindObjectsOfType<PickUp>();
         for (int i = 0; i < pickups.Length; i++)
         {
@@ -48,50 +57,27 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // Fades to main menu
+    // Fades to main menu. Pickups don't need to be handled because main menu destroys them & old characters before continuing to character select.
     public void ReturnToMenu()
     {
-        //players = FindObjectsOfType<SelectedPlayer>();
-
-        //DestroyPickups();
-        //controllers = FindObjectsOfType<PlayerController>();
-        //foreach (PlayerController player in controllers)
-        //{
-        //    Destroy(player.gameObject);
-        //}
         SceneFader.instance.FadeTo("MainMenu_Update");
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
-    // Fades to last level attempted
+    // Fades to level select.
     public void RetryLevel()
     {
-        DestroyPickups();
+        HandlePickups();
         //SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
         SceneFader.instance.FadeTo("LevelSelectUpdated");
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
 
-    // Fades to overworld
+    // Fades to level select.
     public void ContinueGame()
     {
-        players = FindObjectsOfType<SelectedPlayer>();
-
-        DestroyPickups();
-
+        HandlePickups();
         SceneFader.instance.FadeTo("LevelSelectUpdated");
-
-        // The only reason this still exists is to accomodate the horrible character spawning/transition system that we don't want to replace.
-        foreach (SelectedPlayer player in players)
-        {
-            Animator[] animators = player.GetComponentsInChildren<Animator>();
-            foreach (Animator animator in animators)
-            {
-                animator.Play("Idle", -1, 0);
-            }
-
-            player.transform.Rotate(0f, 0f, 0f);
-            player.transform.position = new Vector3(0f, 500f, 0f);
-        }
+        GameStateManager.instance.SetGameState(GameState.Playing);
     }
 }

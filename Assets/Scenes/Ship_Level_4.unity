@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 0.2
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 0.2}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6176,6 +6176,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 39909108061638182, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 600850403473655509, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -6441,6 +6446,11 @@ PrefabInstance:
       propertyPath: spawnpositions.Array.data[3].z
       value: -5.43
       objectReference: {fileID: 0}
+    - target: {fileID: 5759035755476574853, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7005127268938084504, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -6455,6 +6465,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 7386430281440783982, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7211a66264d0b1a46b146f2d950f0ccb, type: 3}
@@ -8348,7 +8363,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 132096
-  alertUI: {fileID: 724639544}
   fireHealth: 0.25
   GenerateGrid: 0
   LightFire: 0
@@ -8720,7 +8734,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812140708}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &761582125
 MonoBehaviour:
@@ -8857,7 +8871,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   percentageValue: 0
   gageImage: {fileID: 781212630}
-  engine: {fileID: 5176229}
   offset: -120
 --- !u!1001 &782922635
 PrefabInstance:
@@ -9360,11 +9373,11 @@ Transform:
   - {fileID: 1191034380}
   - {fileID: 718352764}
   - {fileID: 1335591210}
-  - {fileID: 1297153501}
   - {fileID: 761582124}
+  - {fileID: 1297153501}
   - {fileID: 1056482388}
-  - {fileID: 30443511}
   - {fileID: 1289963157}
+  - {fileID: 30443511}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18018,7 +18031,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 812140708}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1293682113
 PrefabInstance:
@@ -19740,6 +19753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48335e687c73cd440a97adaf9d2c36cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
 --- !u!4 &1470902269
 Transform:
   m_ObjectHideFlags: 0

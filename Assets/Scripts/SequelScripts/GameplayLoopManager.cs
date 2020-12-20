@@ -13,6 +13,7 @@ public class GameplayLoopManager : MonoBehaviour
     public static event NextTickEvent onNextTickEvent;
 
 
+
     public static float TimeBetweenEvents { get; private set; }
 
     [Header("Event System")]
@@ -22,6 +23,7 @@ public class GameplayLoopManager : MonoBehaviour
     [Header("Ship Statistics")]
     public int shipCurrenHealth;
     public int shipMaxHealth;
+    public Animator healthUI;
 
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
@@ -36,7 +38,7 @@ public class GameplayLoopManager : MonoBehaviour
     [HideInInspector] public bool gotHit;
 
     [Header("UI Elements")]
-    public GameObject[] HealthBars;
+    //public GameObject[] HealthBars;
     public GameObject loseGameScreen;
     int locationIndex;
 
@@ -140,21 +142,9 @@ public class GameplayLoopManager : MonoBehaviour
         yield return null;
     }
 
-    void AdjustUI()
+    public void AdjustUI()
     {
-        for (int i = 0; i < HealthBars.Length; i++)
-        {
-            if (shipCurrenHealth >= i)
-            {
-                HealthBars[i].SetActive(true);
-            }
-            else
-            {
-                HealthBars[i].SetActive(false);
-            }
-
-
-        }
+        healthUI.SetInteger("HealthSlider", shipCurrenHealth);
     }
 
     void LoseGame()

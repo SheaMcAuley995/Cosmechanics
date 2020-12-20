@@ -80,6 +80,10 @@ public class PlayerController : MonoBehaviour
     public Interactable interactableObject;
     bool pickedUp;
     float holdDownStartTime;
+
+    public bool GetpickedUp() { return pickedUp; }
+    public void SetpickedUp(bool val) { pickedUp = val; }
+
     public bool pause;
     private void Start()
     {
