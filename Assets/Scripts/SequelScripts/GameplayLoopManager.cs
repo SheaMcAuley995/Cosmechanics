@@ -142,7 +142,7 @@ public class GameplayLoopManager : MonoBehaviour
         yield return null;
     }
 
-    void AdjustUI()
+    public void AdjustUI()
     {
         healthUI.SetInteger("HealthSlider", shipCurrenHealth);
     }

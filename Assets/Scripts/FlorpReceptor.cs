@@ -61,13 +61,13 @@ public class FlorpReceptor : MonoBehaviour
         {
             while (florpTotal > florpMin)
             {
-                Engine.instance.isFuled = true;
+                Engine.instance.isFueled = true;
                 FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
                 florpTotal--;
                 yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
             }
 
-            Engine.instance.isFuled = false;
+            Engine.instance.isFueled = false;
             CR_Running = false;
         }
 
