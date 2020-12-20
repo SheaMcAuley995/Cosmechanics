@@ -80,7 +80,7 @@ public class PlayerController : MonoBehaviour
     public Interactable interactableObject;
     bool pickedUp;
     float holdDownStartTime;
-
+    public bool pause;
     private void Start()
     {
         thisCollider = GetComponent<CapsuleCollider>();
@@ -93,6 +93,7 @@ public class PlayerController : MonoBehaviour
         interact = GetComponentInChildren<InteractWithInterface>();
         interact.controller = this;
 
+        pause = false;
 
         if (CharacterHandler.instance == null)
         {
@@ -106,8 +107,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        getInput();
-        ProcessInput();
+        if (pause == false)
+        {
+            getInput();
+            ProcessInput();
+        }
 
         onFireCheck();
         onFireTimerCur = Mathf.Clamp(onFireTimerCur += Time.time, 0, onFiretimer);
