@@ -18,6 +18,7 @@ public class GameplayLoopManager : MonoBehaviour
 
     [Header("Event System")]
     [SerializeField] private float timeBetweenEvents;
+    [SerializeField]
 
     // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
