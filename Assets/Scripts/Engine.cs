@@ -15,7 +15,7 @@ public class Engine : MonoBehaviour {
     [Range(0, 1)] public float florpCoolingPercentage;
 
     [HideInInspector] public bool startEngineBehavior = false;
-    public bool isFuled = false;
+    public bool isFueled = false;
 
     [Header("Win Condition")]
     //public JumpToHyperSpace jumpScript;
@@ -86,7 +86,7 @@ public class Engine : MonoBehaviour {
 
         // Zach addition.
         /// <summary> Slows down star field effect if more fuel is not inserted by the next tick. </summary>
-       // if (!isFuled)
+       // if (!isFueled)
        // {
        //     for (int i = 0; i < starFieldEffects.Length; i++)
        //     {
@@ -98,7 +98,7 @@ public class Engine : MonoBehaviour {
         preEnemyProgress = enemyProgress;
         preCurrentProgress = currentProgress;
         time = 0;
-        if (isFuled) { currentProgress += 2; }
+        if (isFueled) { currentProgress += 2; }
         enemyProgress += 1;
 
         //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
@@ -127,21 +127,15 @@ public class Engine : MonoBehaviour {
 
     private void WinGame()
     {
-        winGameScreen.SetActive(true);
-        SaveLoadIO saveSystem = new SaveLoadIO(true);
-        //GameStateManager.instance.SetGameState(GameState.Won);
-
-        //TODO: GAMESTATE: ZACH. There's a lot of zach's work in here that needs replacing. All the commented stuff needs to be removed or fixed.
-        
         //StartCoroutine(jumpScript.HyperspaceJump());
+        winGameScreen.SetActive(true);
+        SaveLoadIO saveSystem = new SaveLoadIO(true);       
     }
 
     private void LoseGame()
     {
-        //SceneFader.instance.FadeTo("LoseScene");
         loseGameScreen.SetActive(true);
         GameStateManager.instance.SetGameState(GameState.LostByFlorp);
-        //ASyncManager.instance.loseOperation.allowSceneActivation = true;
     }
 
     public void InsertFlorp()
