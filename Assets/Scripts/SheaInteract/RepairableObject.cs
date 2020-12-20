@@ -69,9 +69,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         if (GameplayLoopManager.instance != null)
         {
-            GameplayLoopManager.instance.explosionDamage -= repairAmount;
+            GameplayLoopManager.instance.shipCurrenHealth += repairAmount;
+            GameplayLoopManager.instance.AdjustUI();
         }
-
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
@@ -86,8 +86,10 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         {
             if(GameplayLoopManager.instance != null)
             {
-                GameplayLoopManager.instance.explosionDamage += damageTaken;
+                GameplayLoopManager.instance.shipCurrenHealth -= damageTaken;
+                GameplayLoopManager.instance.AdjustUI();
             }
+
 
             health -= damageTaken;
             currentMesh += 1;

@@ -148,7 +148,7 @@ public class JumpToHyperSpace : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        StartCoroutine(scoreDisplay.FillCogs());
+        //StartCoroutine(scoreDisplay.FillCogs());
 
         yield break;
     }
