@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
 
         if (player.GetButtonDown("Interact"))
         {
-            interact.InteractWithObject();
+            //interact.InteractWithObject();
             Interaction();
         }
 
@@ -234,7 +234,7 @@ public class PlayerController : MonoBehaviour
     {
         float maxForceHoldDownTime = 2f;
         float HoldTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
-        float force = HoldTimeNormalized * 250f;
+        float force = HoldTimeNormalized * 50f;
         return force;
     }
     public void pickUpInteraction()
@@ -266,7 +266,7 @@ public class PlayerController : MonoBehaviour
                         if (animator != null) { animator.SetTrigger("Hammer"); }
                         animator.ResetTrigger("Hammer");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
-                        break;
+                        return;
                     }
                 }
                 else
@@ -275,7 +275,7 @@ public class PlayerController : MonoBehaviour
                     {
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                     }
-                    break;
+                    return;
                 }
 
             }
