@@ -40,7 +40,6 @@ public class LevelLock : MonoBehaviour
         #endregion
 
         SaveLoadIO saveSystem = new SaveLoadIO(false); // Creates a new SaveLoadIO object. False argument tells constructor not to get level name.
-        saveSystem.LoadUnlockStatus(); // Loads level unlock data from file into the list.
     }
 
     private void Start()
