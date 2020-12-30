@@ -16,7 +16,7 @@ public class SettingsMenu : MonoBehaviour {
     {
         resolutions = Screen.resolutions;
 
-        //resolutionDropdown.ClearOptions();
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
@@ -33,9 +33,9 @@ public class SettingsMenu : MonoBehaviour {
             }
         }
 
-        //resolutionDropdown.AddOptions(options);
-        //resolutionDropdown.value = currentResolutionIndex;
-        //resolutionDropdown.RefreshShownValue();
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     public void SetVolume(float volume)
