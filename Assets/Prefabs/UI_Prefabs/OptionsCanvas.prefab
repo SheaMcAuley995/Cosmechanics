@@ -59,12 +59,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0.19215687, a: 0.6745098}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: da729cb7176804d47995812e90921747, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -581,7 +581,6 @@ GameObject:
   - component: {fileID: 1137177215505378494}
   - component: {fileID: 1137177215505378495}
   - component: {fileID: 1137177215505378492}
-  - component: {fileID: 1137177215505378493}
   m_Layer: 5
   m_Name: GraphicsDropdown
   m_TagString: Untagged
@@ -719,19 +718,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
---- !u!114 &1137177215505378493
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137177215505378483}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7ef1eee9e4f942b53e30ea90fba69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClick: {fileID: 1137177216343493979}
 --- !u!1 &1137177215583942735
 GameObject:
   m_ObjectHideFlags: 0
@@ -866,7 +852,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1137177215832423444}
   - component: {fileID: 1137177215832423447}
-  - component: {fileID: 1137177215832423446}
   m_Layer: 5
   m_Name: VolumeSlider
   m_TagString: Untagged
@@ -957,19 +942,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1137177215832423446
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137177215832423445}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7ef1eee9e4f942b53e30ea90fba69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClick: {fileID: 1137177216343493979}
 --- !u!1 &1137177216014611432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1961,7 +1933,6 @@ GameObject:
   - component: {fileID: 1137177216425106493}
   - component: {fileID: 1137177216425106482}
   - component: {fileID: 1137177216425106483}
-  - component: {fileID: 1137177216425106480}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -2102,19 +2073,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &1137177216425106480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137177216425106486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7ef1eee9e4f942b53e30ea90fba69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClick: {fileID: 1137177216343493979}
 --- !u!1 &1137177216449470596
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,7 +2965,6 @@ GameObject:
   - component: {fileID: 1137177217030367877}
   - component: {fileID: 1137177217030367898}
   - component: {fileID: 1137177217030367899}
-  - component: {fileID: 1137177217030367896}
   m_Layer: 5
   m_Name: ScreenDropdown
   m_TagString: Untagged
@@ -3143,19 +3100,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
---- !u!114 &1137177217030367896
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137177217030367902}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7ef1eee9e4f942b53e30ea90fba69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClick: {fileID: 1137177216343493979}
 --- !u!1 &1137177217043828432
 GameObject:
   m_ObjectHideFlags: 0
@@ -4415,7 +4359,6 @@ GameObject:
   - component: {fileID: 4500216087809677263}
   - component: {fileID: 3235467959247121419}
   - component: {fileID: 6382444973167509905}
-  - component: {fileID: 3015422091596790318}
   m_Layer: 5
   m_Name: ResolutionDropdown
   m_TagString: Untagged
@@ -4553,19 +4496,6 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
---- !u!114 &3015422091596790318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5137834654447746412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 94d7ef1eee9e4f942b53e30ea90fba69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonClick: {fileID: 0}
 --- !u!1 &5730600414192437012
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -96,7 +97,12 @@ public class SceneFader : MonoBehaviour
             yield return 0;
         }
 
-        SceneManager.LoadScene(scene);
+        //SceneManager.LoadScene(scene);
+        AsyncOperation operation = SceneManager.LoadSceneAsync(scene);
+        while (!operation.isDone)
+        {
+            yield return null;
+        }
     }
 
     IEnumerator FadeOutToQuit()

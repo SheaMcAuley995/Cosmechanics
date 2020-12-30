@@ -163,7 +163,7 @@ public class ShipHealth : MonoBehaviour {
             if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
 
-        AudioEventManager.instance.PlaySound("bang",.8f,Random.Range(.2f,1f),0);
+        //AudioEventManager.instance.PlaySound("bang",.8f,Random.Range(.2f,1f),0);
         AdjustUI();
 
         if (shipCurrenHealth <= shipMaxHealth * 0.25)

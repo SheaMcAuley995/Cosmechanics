@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 [System.Serializable]
 public struct CharacterData
@@ -30,14 +29,13 @@ public class CharacterCardGenerator : MonoBehaviour
     CharacterData newCharacter;
     CameraMultiTarget cameraMultiTarget;
    
-    public GameObject characterToSpawn;
+    public GameObject currentSelectedPlayer;
    
-    [Header("Selection Pool")]
-    public GameObject[] heads;
     [Space]
     List<string> namesList = new List<string>();
     public int colorIndex;
-    int nameIndex, headIndex;
+    public int nameIndex; 
+    public int characterIndex;
    
     [Space]
     public Text joinText;
@@ -94,19 +92,18 @@ public class CharacterCardGenerator : MonoBehaviour
     {
         // Sets random values for each card parameter
         nameIndex = Random.Range(0, namesList.Count);
-        headIndex = Random.Range(0, heads.Length);
-        colorIndex = Random.Range(0, assignPlayers.availableColors.Count);
-   
+        characterIndex = playerId;
+        currentSelectedPlayer = assignPlayers.possibleCharacters[characterIndex].character;
         // Assigns each card parameter the above corresponding value
         newCharacter.nameField.text = namesList[nameIndex];
    
         // Creates the new player and assigns necessary components
-        newPlayer = Instantiate(characterToSpawn, spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        newPlayer = Instantiate(currentSelectedPlayer, spawnPos, Quaternion.Euler(0f, -180f, 0f));
         newPlayer.AddComponent<SelectedPlayer>();
         animator = newPlayer.GetComponent<Animator>();
    
-        AssignHead();
-        AssignColour();
+        AssignCharacter();
+       // AssignColour();
    
         // Assigns newly created characters a playerId for ReWired, and assigns the camera
         controller = newPlayer.GetComponent<PlayerController>();
@@ -121,77 +118,81 @@ public class CharacterCardGenerator : MonoBehaviour
    
         // Adds the generated colour to the list of taken colours, and removes it from the list of available colours
         //assignPlayers.takenColors.Add(assignPlayers.availableColors[colorIndex]);
-        assignPlayers.takenColors[controller.playerId] = assignPlayers.availableColors[assignPlayers.cards[controller.playerId].colorIndex];
-        assignPlayers.availableColors.RemoveAt(colorIndex);
+        //assignPlayers.takenColors[controller.playerId] = assignPlayers.availableColors[assignPlayers.cards[controller.playerId].colorIndex];
+        //assignPlayers.availableColors.RemoveAt(colorIndex);
     }
    
-    public void NextHead()
+    public void NextCharacter()
     {
         // Cycles through the array of heads
-        if (headIndex >= heads.Length - 1)
+        if (characterIndex >= assignPlayers.possibleCharacters.Length - 1)
         {
-            headIndex = 0;
+            characterIndex = 0;
         }
         else
         {
-            headIndex++;
+            characterIndex++;
         }
    
-        AssignHead();
+        AssignCharacter();
     }
    
-    public void PreviousHead()
+    public void PreviousCharacter()
     {
         // Cycles through the array of heads
-        if (headIndex <= 0)
+        if (characterIndex <= 0)
         {
-            headIndex = heads.Length - 1;
+            characterIndex = assignPlayers.possibleCharacters.Length - 1;
         }
         else
         {
-            headIndex--;
+            characterIndex--;
         }
-   
+
         // Assigns the selected head to the character
-        AssignHead();
+        AssignCharacter();
     }
    
-    void AssignHead()
+    void AssignCharacter()
     {
+
+        currentSelectedPlayer = assignPlayers.possibleCharacters[characterIndex].character;
+
         // Identifies the active head and destroys it
-        newHead = newPlayer.GetComponentInChildren<Head>().gameObject;
-        headPos = newHead.transform.position;
-        Destroy(newHead.gameObject);
-   
-        // Spawns the newly selected head and resets animations for it & the body
-        newHead = Instantiate(heads[headIndex], headPos, Quaternion.Inverse(newPlayer.transform.rotation), newPlayer.transform);
-        animator.SetBool("CharSelect", true);
-        animator.Play("CharSelect Idle", -1, 0);
-        newHead.GetComponent<Animator>().SetBool("CharSelect", true);
-        newHead.GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
+       // newHead = newPlayer.GetComponentInChildren<Head>().gameObject;
+       // headPos = newHead.transform.position;
+       // Destroy(newHead.gameObject);
+       //
+       // // Spawns the newly selected head and resets animations for it & the body
+       // newHead = Instantiate(assignPlayers.possibleCharacters[characterIndex].character, headPos, Quaternion.Inverse(newPlayer.transform.rotation), newPlayer.transform);
+       // assignPlayers.possibleCharacters[characterIndex].isTaken = true;
+       // animator.SetBool("CharSelect", true);
+       // animator.Play("CharSelect Idle", -1, 0);
+       // newHead.GetComponent<Animator>().SetBool("CharSelect", true);
+       // newHead.GetComponent<Animator>().Play("CharSelect Idle", -1, 0);
     }
    
-    void AssignColour()
-    {
-        // Gets all of the character's renderers
-        childRenderers = newPlayer.GetComponentsInChildren<Renderer>();
-        foreach (Renderer child in childRenderers)
-        {
-            // Sets each renderer's material (except for the head) to the corresponding material (colour)
-            if (child.gameObject.layer != 16)
-            {
-                child.material = assignPlayers.availableColors[colorIndex];
-            }
-        }
-   
-        // Sets the character's locator circle to the above colour
-        locatorDots = newPlayer.GetComponentsInChildren<Image>();
-        foreach (Image locator in locatorDots)
-        {
-            Color emissColor = assignPlayers.availableColors[colorIndex].GetColor("_EmissionColor");
-            locator.color = emissColor;
-        }
-    }
+    //void AssignColour()
+    //{
+    //    // Gets all of the character's renderers
+    //    childRenderers = newPlayer.GetComponentsInChildren<Renderer>();
+    //    foreach (Renderer child in childRenderers)
+    //    {
+    //        // Sets each renderer's material (except for the head) to the corresponding material (colour)
+    //        if (child.gameObject.layer != 16)
+    //        {
+    //            child.material = assignPlayers.availableColors[colorIndex];
+    //        }
+    //    }
+    //
+    //    // Sets the character's locator circle to the above colour
+    //    locatorDots = newPlayer.GetComponentsInChildren<Image>();
+    //    foreach (Image locator in locatorDots)
+    //    {
+    //        Color emissColor = assignPlayers.availableColors[colorIndex].GetColor("_EmissionColor");
+    //        locator.color = emissColor;
+    //    }
+    //}
    
     public void RemovePlayer(int playerId)
     {

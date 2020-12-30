@@ -97,11 +97,11 @@ public class Florp : PickUp
         base.endMyInteraction();
     }
 
-    public override void putMeDown()
+    public override void putMeDown(float throwForce)
     {
         endMyInteraction();
-        base.putMeDown();
-        if (florpFillAmount <= florpFillMax)
+        base.putMeDown(throwForce);
+        if (florpFillAmount < florpFillMax)
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.TransformPoint(Vector3.zero), 2, FlorpFillerLayer);
 

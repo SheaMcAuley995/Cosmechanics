@@ -13,15 +13,18 @@ public class GameplayLoopManager : MonoBehaviour
     public static event NextTickEvent onNextTickEvent;
 
 
+
     public static float TimeBetweenEvents { get; private set; }
 
     [Header("Event System")]
+    [SerializeField] private float timeBeforeStart;
     [SerializeField] private float timeBetweenEvents;
 
     // TODO: Have pipes in scene add to a ship integrity value 
     [Header("Ship Statistics")]
     public int shipCurrenHealth;
     public int shipMaxHealth;
+    public Animator healthUI;
 
     [Header("Ship Blast Attributes")]
     [SerializeField] GameObject blastEffectPrefab;
@@ -36,7 +39,7 @@ public class GameplayLoopManager : MonoBehaviour
     [HideInInspector] public bool gotHit;
 
     [Header("UI Elements")]
-    public GameObject[] HealthBars;
+    //public GameObject[] HealthBars;
     public GameObject loseGameScreen;
     int locationIndex;
 
@@ -83,11 +86,12 @@ public class GameplayLoopManager : MonoBehaviour
 
     IEnumerator eventSystem()
     {
+        yield return new WaitForSeconds(timeBeforeStart);
         while (true)
         {
-            yield return new WaitForSeconds(TimeBetweenEvents);
             onNextTickEvent();
             StartCoroutine("shipBlast");
+            yield return new WaitForSeconds(TimeBetweenEvents);
         }
     }
 
@@ -117,7 +121,7 @@ public class GameplayLoopManager : MonoBehaviour
         index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
         Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
 
-        shipCurrenHealth -= explosionDamage;
+        //shipCurrenHealth -= explosionDamage;
 
         foreach (Collider damagedObject in damagedObjects)
         {
@@ -140,21 +144,9 @@ public class GameplayLoopManager : MonoBehaviour
         yield return null;
     }
 
-    void AdjustUI()
+    public void AdjustUI()
     {
-        for (int i = 0; i < HealthBars.Length; i++)
-        {
-            if (shipCurrenHealth >= i)
-            {
-                HealthBars[i].SetActive(true);
-            }
-            else
-            {
-                HealthBars[i].SetActive(false);
-            }
-
-
-        }
+        healthUI.SetInteger("HealthSlider", shipCurrenHealth);
     }
 
     void LoseGame()
