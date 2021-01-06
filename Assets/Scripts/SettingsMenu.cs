@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
+using System.Linq;
+
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -12,30 +15,59 @@ public class SettingsMenu : MonoBehaviour {
 
     Resolution[] resolutions;
 
+    //List<Resolution> res;
+
     public void Start()
     {
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions.Distinct().OrderBy(x => x.width).ThenBy(x => x.height).ThenBy(x => x.refreshRate) .ToArray();
 
-        //resolutionDropdown.ClearOptions();
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
+        //res = new List<Resolution>();
+
         int currentResolutionIndex = 0;
 
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
+            //bool dupe = false;
+            //for (int j = i+1; j < resolutions.Length; j++)
+            //{
+            //    if (resolutions[j].height == resolutions[i].height &&
+            //        resolutions[j].width == resolutions[i].height)
+            //    {
+            //        dupe = true;
+            //    }
+            //}
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
-            {
-                currentResolutionIndex = i;
-            }
+            //if (dupe == true)
+            //{
+            //    continue;
+            //}
+                //res.Add(resolutions[i]);
+
+                string option = resolutions[i].width + " x " + resolutions[i].height + " @" + resolutions[i].refreshRate + "hz";
+
+                options.Add(option);
+            //else
+            //{
+                
+            //}
+
+                if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+                {
+                    currentResolutionIndex = i;
+                } 
         }
 
-        //resolutionDropdown.AddOptions(options);
-        //resolutionDropdown.value = currentResolutionIndex;
-        //resolutionDropdown.RefreshShownValue();
+        //for (int i = 0; i < res.Count; i++)
+        //{
+        //}
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     public void SetVolume(float volume)
@@ -56,6 +88,6 @@ public class SettingsMenu : MonoBehaviour {
     public void SetResolution(int resolutionIndex)
     {
         Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height,Screen.fullScreen);
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }
