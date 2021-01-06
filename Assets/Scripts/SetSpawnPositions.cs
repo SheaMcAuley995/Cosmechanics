@@ -9,9 +9,12 @@ public class SetSpawnPositions : MonoBehaviour
     public GameObject inGameCanvas;
     public Vector3[] spawnpositions = new Vector3[4];
     GameObject[] players;
+    [SerializeField] GameObject testPrefab;
+
 
     private IEnumerator Start()
     {
+        
         CharacterHandler.instance.spawnPoints = spawnpositions;
 
         yield return new WaitForEndOfFrame();
@@ -44,9 +47,11 @@ public class SetSpawnPositions : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.green;
         for (int i = 0; i < 4; i++)
         {
-            Gizmos.DrawSphere(spawnpositions[i], 1);
+            Gizmos.DrawWireSphere(spawnpositions[i], 1);
+            Gizmos.DrawSphere(spawnpositions[i], 0.2f);
         }
     }
 }

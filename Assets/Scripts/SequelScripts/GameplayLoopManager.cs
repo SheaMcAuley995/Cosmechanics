@@ -46,6 +46,7 @@ public class GameplayLoopManager : MonoBehaviour
     int index;
     private void Start()
     {
+        timeBetweenEvents = timeBetweenEvents - CharacterHandler.instance.numberOfPlayers;
         TimeBetweenEvents = timeBetweenEvents;
 
         if (instance == null)
