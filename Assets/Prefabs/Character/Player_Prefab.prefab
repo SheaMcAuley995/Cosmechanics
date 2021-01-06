@@ -6750,7 +6750,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!136 &136650645927904474
 CapsuleCollider:
@@ -6800,8 +6800,14 @@ MonoBehaviour:
   runSpeed: 6
   gravity: -12
   jumpheight: 1
+  airControlPercent: 0.32
+  dropSpeedPercent: 7
   turnSmoothTime: 0.05
   speedSmoothTime: 0
+  groundcheckRaycastLength: 0.2
+  floorLayer:
+    serializedVersion: 2
+    m_Bits: 4096
   cameraTrans: {fileID: 0}
   interact: {fileID: 0}
   maxPossibleCollisions: 5
@@ -6810,6 +6816,7 @@ MonoBehaviour:
     m_Bits: 1025
   radius: 1
   animators: []
+  interactedObject: {fileID: 0}
   onFiretimer: 3
   onFireTimerCur: 0
   onFireEffect: {fileID: 1045824128199880}

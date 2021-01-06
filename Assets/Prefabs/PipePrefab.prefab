@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 33348625209782906}
   - component: {fileID: 23877151703989796}
   - component: {fileID: 114065957273901164}
-  - component: {fileID: 136426893669179106}
+  - component: {fileID: 1540223306116715404}
   m_Layer: 9
   m_Name: PipePrefab
   m_TagString: Untagged
@@ -107,9 +107,9 @@ MonoBehaviour:
     type: 3}
   steamEffect: {fileID: 7234015474402941926}
   steamEffect2: {fileID: 7234498971819523944}
-  alertUI: {fileID: 0}
---- !u!136 &136426893669179106
-CapsuleCollider:
+  takeDamageDebug: 0
+--- !u!65 &1540223306116715404
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -118,10 +118,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.35
-  m_Height: 1.5
-  m_Direction: 0
-  m_Center: {x: 0.5, y: 0.29, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 1.000003, y: 0.57955545, z: 0.5795555}
+  m_Center: {x: 0.50000006, y: 0.32880107, z: 0}
 --- !u!1001 &7396765947767288858
 PrefabInstance:
   m_ObjectHideFlags: 0

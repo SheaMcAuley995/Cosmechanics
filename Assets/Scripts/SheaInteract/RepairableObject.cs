@@ -39,6 +39,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
         //Todo: Set up a mechanic that take in the currently equiped tool. 
         if (health < healthMax)
         {
+            //AudioEventManager.instance.PlaySound("");
             repairObject(repairAmount);
             mesh.material.color -= Color.red;
             GameObject nutsAndBolts = Instantiate(repairEffect, transform.position + new Vector3(0, 0.1f), Quaternion.identity);
@@ -66,7 +67,11 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public void repairObject(int repairAmount)
     {
-        GameplayLoopManager.instance.explosionDamage -= repairAmount;
+        if (GameplayLoopManager.instance != null)
+        {
+            GameplayLoopManager.instance.shipCurrenHealth += repairAmount;
+            GameplayLoopManager.instance.AdjustUI();
+        }
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
@@ -79,7 +84,13 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
     {
         if (health > 0)
         {
-            GameplayLoopManager.instance.explosionDamage += damageTaken;
+            if(GameplayLoopManager.instance != null)
+            {
+                GameplayLoopManager.instance.shipCurrenHealth -= damageTaken;
+                GameplayLoopManager.instance.AdjustUI();
+            }
+
+
             health -= damageTaken;
             currentMesh += 1;
             filter.mesh = meshes[currentMesh];
