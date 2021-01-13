@@ -26,6 +26,7 @@ public class FlorpFiller : MonoBehaviour
     {
         if (florp != null)
         {
+            AudioEventManager.instance.PlaySound("Florp Container fill");
             if (curButton == buttonA)
             {
                 florp.fillFlorp();
@@ -66,6 +67,7 @@ public class FlorpFiller : MonoBehaviour
     {
         buttonA.meshRenderer.material = buttonOffMat;
         buttonB.meshRenderer.material = buttonOffMat;
+        AudioEventManager.instance.PlaySound("Florp Container eject");
         florp.rb.isKinematic = false;
 
         florp.FlorpFiller = null;

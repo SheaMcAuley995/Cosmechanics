@@ -61,6 +61,7 @@ public class Florp : PickUp
             //fillingAudio.Play();
             //propertyBlock.SetFloat("_FillAmouant", florpFillAmount);
             //renderer.SetPropertyBlock(propertyBlock);
+            AudioEventManager.instance.PlaySound("Florp Container Fill");
             florpFillAmount += 1;
             renderer.material = fullMat;
         }

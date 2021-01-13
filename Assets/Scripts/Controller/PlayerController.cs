@@ -270,6 +270,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (animator != null) { animator.SetTrigger("Hammer"); }
                         animator.ResetTrigger("Hammer");
+                        AudioEventManager.instance.PlaySound("Pipe repair");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         return;
                     }
@@ -298,6 +299,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
+                    AudioEventManager.instance.PlaySound("Pickup");
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;

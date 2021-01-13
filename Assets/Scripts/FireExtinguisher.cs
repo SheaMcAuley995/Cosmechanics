@@ -12,7 +12,7 @@ public class FireExtinguisher : PickUp
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        box = GetComponentInChildren<BoxCollider>();
+       // box = GetComponentInChildren<BoxCollider>();
         box.enabled = false;
     }
 
@@ -22,6 +22,7 @@ public class FireExtinguisher : PickUp
 
         if (playerController != null)
         {
+            AudioEventManager.instance.PlaySound("Snuffer Spray Loop 1");
             waterHoseEffect.Play();
             box.enabled = true;
         }
@@ -32,7 +33,7 @@ public class FireExtinguisher : PickUp
     public override void endMyInteraction()
     {
         base.endMyInteraction();
-
+        AudioEventManager.instance.StopSound("Snuffer Spray Loop 1");
         waterHoseEffect.Stop();
         box.enabled = false;
 

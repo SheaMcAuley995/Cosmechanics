@@ -39,6 +39,7 @@ public class FlorpReceptor : MonoBehaviour
 
         if (florpTotal < florpMax)
         {
+            AudioEventManager.instance.PlaySound("Florp receptor fill");
             florpTotal += amount;
             if(!isTutorial)
             {
@@ -47,6 +48,8 @@ public class FlorpReceptor : MonoBehaviour
             if (isTutorial && florpTotal < florpMax)
             {
                 winGameScreen.SetActive(true);
+                AudioEventManager.instance.StopAllSounds();
+                AudioEventManager.instance.PlaySound("Music Win 1");
                 SaveLoadIO saveSystem = new SaveLoadIO(true);
             }
 

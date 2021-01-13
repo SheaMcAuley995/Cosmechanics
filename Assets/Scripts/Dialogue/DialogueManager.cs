@@ -41,6 +41,7 @@ public class DialogueManager : MonoBehaviour
     // Runs through the next inspector set dialogue
     public void DisplayNextSentence()
     {
+        AudioEventManager.instance.PlaySound("Dialogue Trigger");
         if (sentences.Count == 0)
         {
             StartCoroutine(EndDialogue());
