@@ -7,6 +7,7 @@ public class NoiseMeshAnim : MonoBehaviour
     [SerializeField] float perlinScale = 1.0f;
     [SerializeField] float waveSpeed = 1.5f;
     [SerializeField] float waveHeight = 0.2f;
+    [SerializeField] bool animateBackwards = false;
 
     Mesh mesh;
     Renderer rend;
@@ -16,6 +17,8 @@ public class NoiseMeshAnim : MonoBehaviour
     {
         if (!mesh) { mesh = GetComponent<MeshFilter>().mesh; }
         if (!rend) { rend = gameObject.GetComponent<Renderer>(); }
+
+        waveSpeed = animateBackwards ? -waveSpeed : waveSpeed;
     }
 
     void Update()
@@ -36,6 +39,7 @@ public class NoiseMeshAnim : MonoBehaviour
         mesh.vertices = vertices;
 
         Vector2 offset = new Vector2(Time.time * waveSpeed, 0.0f);
+
         rend.material.mainTextureOffset = offset;
     }
 }
