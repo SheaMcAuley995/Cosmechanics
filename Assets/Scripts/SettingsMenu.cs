@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
+using TMPro;
+using System.Linq;
+
 
 public class SettingsMenu : MonoBehaviour {
 
@@ -12,30 +15,45 @@ public class SettingsMenu : MonoBehaviour {
 
     Resolution[] resolutions;
 
+    List<Resolution> resList;
+
     public void Start()
     {
-        resolutions = Screen.resolutions;
+        resolutions = Screen.resolutions.Distinct().OrderBy(x => x.width).ThenBy(x => x.height).ThenBy(x => x.refreshRate) .ToArray();
 
-        //resolutionDropdown.ClearOptions();
+        resolutionDropdown.ClearOptions();
 
         List<string> options = new List<string>();
 
+        resList = new List<Resolution>();
+
         int currentResolutionIndex = 0;
 
-        for(int i = 0; i < resolutions.Length; i++)
+        for (int i = 0; i < resolutions.Length; i++)
         {
-            string option = resolutions[i].width + " x " + resolutions[i].height;
-            options.Add(option);
-
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].refreshRate == 30 || resolutions[i].refreshRate == 60)
             {
-                currentResolutionIndex = i;
+                resList.Add(resolutions[i]);
             }
+
         }
 
-        //resolutionDropdown.AddOptions(options);
-        //resolutionDropdown.value = currentResolutionIndex;
-        //resolutionDropdown.RefreshShownValue();
+        for (int i = 0; i < resList.Count; i++)
+        {
+                string option = resList[i].width + " x " + resList[i].height + " @" + resList[i].refreshRate + "hz";
+
+                options.Add(option);
+                if (resList[i].width == Screen.currentResolution.width && resList[i].height == Screen.currentResolution.height)
+                {
+                    currentResolutionIndex = i;
+                } 
+            
+        }
+
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
     }
 
     public void SetVolume(float volume)
@@ -48,14 +66,25 @@ public class SettingsMenu : MonoBehaviour {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetFullScreen (bool isFullScreen)
+    public void SetFullScreen (int fullscreenIndex)
     {
-        Screen.fullScreen = isFullScreen;
+        switch(fullscreenIndex)
+        {
+            case 0:
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+        }
     }
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height,Screen.fullScreen);
+        Resolution resolution = resList[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }

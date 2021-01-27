@@ -9,6 +9,7 @@ public class PauseMenu : MonoBehaviour
     public Canvas pauseCanvas;
     public Button button;
     public bool pause;
+    public Canvas optionCanvas;
 
     private void Awake()
     {
@@ -37,13 +38,14 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool set)
     {
-
         Time.timeScale = Convert.ToInt32(set);
         pauseCanvas.gameObject.SetActive(!set);
         if (set == true)
         {
             button.Select();
         }
+        optionCanvas.gameObject.SetActive(false);
+
         pause = !set;
     }
 }
