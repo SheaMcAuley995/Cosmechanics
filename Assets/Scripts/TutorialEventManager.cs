@@ -33,6 +33,9 @@ public class TutorialEventManager : MonoBehaviour
 
     //public JumpToHyperSpace jumpScript;
 
+    public GameObject[] tutorial_Icons;
+
+
     void Start()
     {
 
@@ -87,6 +90,9 @@ public class TutorialEventManager : MonoBehaviour
             doorAnimator[0].SetBool("IsOpen", true);
             doorCollider[0].enabled = false;
             myTutorial = checkFire;
+            tutorial_Icons[0].SetActive(false);
+            tutorial_Icons[1].SetActive(false);
+            tutorial_Icons[2].SetActive(false);
             //Debug.Log("WORKS");
         }
     }
@@ -110,6 +116,7 @@ public class TutorialEventManager : MonoBehaviour
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
+            tutorial_Icons[3].SetActive(false);
             //myTutorial = checkEngine;
         }
     }

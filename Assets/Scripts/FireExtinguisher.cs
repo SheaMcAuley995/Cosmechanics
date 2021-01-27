@@ -8,6 +8,8 @@ public class FireExtinguisher : PickUp
     public bool isExtinguishing = false;
     //public PlayerController playerController;
     [SerializeField] BoxCollider box;
+    [SerializeField] GameObject tutorialUI;
+    [SerializeField] bool isTutorial = false;
 
     private void Start()
     {
@@ -37,5 +39,15 @@ public class FireExtinguisher : PickUp
         waterHoseEffect.Stop();
         box.enabled = false;
 
+    }
+
+    public override void pickMeUp(Transform pickUpTransform)
+    {
+        if(isTutorial)
+        {
+            tutorialUI.SetActive(false);
+            base.pickMeUp(pickUpTransform);
+        }
+        
     }
 }

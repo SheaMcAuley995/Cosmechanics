@@ -41,11 +41,10 @@ public class FlorpReceptor : MonoBehaviour
         {
             AudioEventManager.instance.PlaySound("Florp receptor fill");
             florpTotal += amount;
-            if(!isTutorial)
-            {
-                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
-            }
-            if (isTutorial && florpTotal < florpMax)
+
+            FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
+            
+            if (isTutorial && florpTotal >= florpMax)
             {
                 winGameScreen.SetActive(true);
                 AudioEventManager.instance.StopAllSounds();

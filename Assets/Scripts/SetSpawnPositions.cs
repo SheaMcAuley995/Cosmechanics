@@ -14,14 +14,25 @@ public class SetSpawnPositions : MonoBehaviour
 
     private IEnumerator Start()
     {
-        
-        CharacterHandler.instance.spawnPoints = spawnpositions;
+        if (CharacterHandler.instance != null)
+        {
+            CharacterHandler.instance.spawnPoints = spawnpositions;
 
-        yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
 
-        players = CharacterHandler.instance.players;
+            players = CharacterHandler.instance.players;
 
-        pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu = FindObjectOfType<PauseMenu>();
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+
+            players[0] = Instantiate(testPrefab, spawnpositions[0], Quaternion.identity);
+
+            pauseMenu = FindObjectOfType<PauseMenu>();
+        }
+
         
         yield return null;
     }

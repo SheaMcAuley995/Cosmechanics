@@ -39,6 +39,10 @@ public class Florp : PickUp
     public FlorpReceptor florpReceptor;
     public FlorpReceptorTutorial FlorpReceptorTutorial;
 
+    [SerializeField] GameObject tutorialUI;
+    [SerializeField] GameObject tutorialButtonUI;
+    [SerializeField] bool isTutorial = false;
+
     bool runFillLoop;
     private void Awake()
     {
@@ -111,6 +115,8 @@ public class Florp : PickUp
                 FlorpFiller = hitColliders[i].GetComponent<FlorpFiller>();
                 if (FlorpFiller != null)
                 {
+                    if(isTutorial)tutorialButtonUI.SetActive(true);
+                    
                     FlorpFiller.curButton.On = true;
                     FlorpFiller.curButton.meshRenderer.material = FlorpFiller.buttonOnMat;
                     if (hitColliders[i] != null)
@@ -155,6 +161,13 @@ public class Florp : PickUp
             base.pickMeUp(pickUpTransform);
         }
 
+        if(isTutorial)
+        {
+            tutorialUI.SetActive(false);
+            
+            base.pickMeUp(pickUpTransform);
+        }
+
     }
 
     IEnumerator fillingFlorp()
@@ -162,8 +175,8 @@ public class Florp : PickUp
         while (runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
         {
             florpReceptor.fillFlorp(1);
-
-            if(florpFillAmount-- <= 0)
+            if(isTutorial) florpReceptor.fillFlorp(1);
+            if (florpFillAmount-- <= 0)
             {
                 break;
             }

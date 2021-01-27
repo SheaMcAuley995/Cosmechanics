@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     public float radius;
     Collider[] possibleColliders;
     private Collider thisCollider;
+    public BoxCollider holdPositionBoxCollider;
     public Animator animator;
 
     [HideInInspector] public GameObject interactedObject;
@@ -87,6 +88,8 @@ public class PlayerController : MonoBehaviour
     public bool pause;
     private void Start()
     {
+        holdPositionBoxCollider = GetComponent<BoxCollider>();
+        holdPositionBoxCollider.enabled = false;
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
@@ -206,6 +209,7 @@ public class PlayerController : MonoBehaviour
         else if(pickedUp && player.GetButtonUp("PickUp") && interactedObject != null)
         {
             //Debug.Log(throwForce);
+            holdPositionBoxCollider.enabled = false;
             float holdDownTime = Time.time - holdDownStartTime;
             interactedObject.GetComponent<PickUp>().putMeDown(CalculateHoldDownForce(holdDownTime));
             interactedObject = null;
@@ -237,7 +241,7 @@ public class PlayerController : MonoBehaviour
 
     private float CalculateHoldDownForce(float holdTime)
     {
-        float maxForceHoldDownTime = 2f;
+        float maxForceHoldDownTime = 1.5f;
         float HoldTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
         float force = HoldTimeNormalized * 50f;
         return force;
@@ -304,6 +308,7 @@ public class PlayerController : MonoBehaviour
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
+                    holdPositionBoxCollider.enabled = true;
                     if (hitColliders[i].GetComponent<Interactable>() != false)
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
@@ -364,7 +369,6 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isOnFire", true);
 
-            //onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)
             {
