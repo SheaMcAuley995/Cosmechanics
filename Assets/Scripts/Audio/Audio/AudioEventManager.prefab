@@ -3,8 +3,7 @@
 --- !u!1 &7426455639499684937
 GameObject:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 1178080729429484, guid: 1cd01b13e73b83b4ca36e1b08b22410a,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
@@ -21,8 +20,7 @@ GameObject:
 --- !u!4 &7426455640012623440
 Transform:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 4098872258190956, guid: 1cd01b13e73b83b4ca36e1b08b22410a,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7426455639499684937}
@@ -36,8 +34,7 @@ Transform:
 --- !u!114 &7426455639499684936
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114559300329939852, guid: 1cd01b13e73b83b4ca36e1b08b22410a,
-    type: 3}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7426455639499684937}
@@ -47,96 +44,160 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: Theme
-    clip: {fileID: 8300000, guid: 77cc6b84d8c3d7f4dbb5b5bdfbd9480f, type: 3}
+  - name: 'Dialogue Trigger '
+    clip: {fileID: 8300000, guid: 56da89622bd3c914488bd00e90178cdf, type: 3}
     volume: 0.516
     pitch: 0.92
     pan: 0
     loop: 1
     onAwake: 0
     source: {fileID: 0}
-  - name: AlarmRight
-    clip: {fileID: 8300000, guid: 08c0943ef8ff07f478da6e322e2e6c3f, type: 3}
+  - name: Fire_Burning-JaBa-810606813
+    clip: {fileID: 8300000, guid: 02f21747f04a67049b4ad009727f85f8, type: 3}
     volume: 0.451
     pitch: 1
     pan: 0.79
     loop: 1
     onAwake: 0
     source: {fileID: 0}
-  - name: AlarmLeft
-    clip: {fileID: 8300000, guid: 08c0943ef8ff07f478da6e322e2e6c3f, type: 3}
+  - name: Flame Warning
+    clip: {fileID: 8300000, guid: 21be114d4fdb69443bb24e8447da3d79, type: 3}
     volume: 0.451
     pitch: 1
     pan: -0.79
     loop: 1
     onAwake: 0
     source: {fileID: 0}
-  - name: clang
-    clip: {fileID: 8300000, guid: d66c98b5c23863f449032fa5c5d41a32, type: 3}
+  - name: Florp Container button press
+    clip: {fileID: 8300000, guid: 558b8a54cbe6e2645947bf5c33d5d09c, type: 3}
     volume: 0.031
     pitch: 1
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: bang
-    clip: {fileID: 8300000, guid: e069d4a95e62b5d44b0ac2d0dca68118, type: 3}
+  - name: Florp Container eject
+    clip: {fileID: 8300000, guid: 1baadacbfb4820f4988a50d0c1077c49, type: 3}
     volume: 1
     pitch: 1
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: splat
-    clip: {fileID: 8300000, guid: 9d3efc1b4a62880498bc7e22be65939e, type: 3}
+  - name: Florp Container Fill
+    clip: {fileID: 8300000, guid: c6cd484be8241794ea3798d7e60755fc, type: 3}
     volume: 0.83
     pitch: 1
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: halfsplat
-    clip: {fileID: 8300000, guid: 38bf8a9ce0cc4eb43aa57f16bc9ba66e, type: 3}
+  - name: Florp receptor fill
+    clip: {fileID: 8300000, guid: 54aeae108f1876d46ae7c246dbacd612, type: 3}
     volume: 0.83
     pitch: 0.89
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: reversesplat
-    clip: {fileID: 8300000, guid: fa9a546333386234bb272f33f3c4bd09, type: 3}
+  - name: Jingle Loss
+    clip: {fileID: 8300000, guid: 8265d655cf706ac41bcdcc896429e44e, type: 3}
     volume: 0.83
     pitch: 0.8
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: bottledrop
-    clip: {fileID: 8300000, guid: 29cfda09dce1a374494affe622cc8bd9, type: 3}
+  - name: Jingle Win
+    clip: {fileID: 8300000, guid: b9e95ecea310bd9448048e2031edafb9, type: 3}
     volume: 0.83
     pitch: 0.8
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: Ambient
-    clip: {fileID: 8300000, guid: bbc92ff7d336d2741b960a16355c2678, type: 3}
+  - name: Menu Back
+    clip: {fileID: 8300000, guid: f9ef52820e0cf5e468b5d8d1376ec910, type: 3}
     volume: 0.408
     pitch: 0.808
     pan: 0
     loop: 1
     onAwake: 0
     source: {fileID: 0}
-  - name: enemyfire
-    clip: {fileID: 8300000, guid: d5952cf20c72c4b45bcca891b307253b, type: 3}
+  - name: Menu Move
+    clip: {fileID: 8300000, guid: 1d80359d2e47c6e4a87f47d861123c21, type: 3}
     volume: 0.577
     pitch: 0.808
     pan: 0
     loop: 0
     onAwake: 0
     source: {fileID: 0}
-  - name: pipebreak
-    clip: {fileID: 8300000, guid: 679645977000b6d4b8108f4eca28f822, type: 3}
+  - name: Menu Select
+    clip: {fileID: 8300000, guid: f2a6d88e478c7ee42ae6c9ccc97527c1, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: MenuSelect
+    clip: {fileID: 8300000, guid: b5962d52cb237644898af92b6c740112, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Music Game
+    clip: {fileID: 8300000, guid: eac97065a6d8a214d8142b964365a6b3, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Music Happy
+    clip: {fileID: 8300000, guid: 477ecaf30c656214a89094ef81f17d39, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Music Loss 1
+    clip: {fileID: 8300000, guid: 31255c4a5ef3d714e8026ef65b76c36a, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Music Win 1
+    clip: {fileID: 8300000, guid: 8416f5a7e69469944a60be363d147c7a, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Pickup
+    clip: {fileID: 8300000, guid: 22d9d3bbf46db01499d74019ec1712f0, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Pipe repair
+    clip: {fileID: 8300000, guid: 0469e128f9b775249ab6343cd6cfde1e, type: 3}
+    volume: 0.315
+    pitch: 1
+    pan: 0
+    loop: 0
+    onAwake: 0
+    source: {fileID: 0}
+  - name: Snuffer Spray Loop 1
+    clip: {fileID: 8300000, guid: cf828da8aabcab546813b610a0089bb3, type: 3}
     volume: 0.315
     pitch: 1
     pan: 0

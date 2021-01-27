@@ -5261,6 +5261,7 @@ GameObject:
   - component: {fileID: 2881284626811077614}
   - component: {fileID: 1951559641883961361}
   - component: {fileID: 9181413505755536488}
+  - component: {fileID: 4701343723005658109}
   m_Layer: 10
   m_Name: Character_TVHead_Rig
   m_TagString: Char
@@ -5399,6 +5400,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   radius: 1
+  holdPositionBoxCollider: {fileID: 4701343723005658109}
   animator: {fileID: 0}
   interactedObject: {fileID: 0}
   onFiretimer: 3
@@ -5409,6 +5411,20 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactableObject: {fileID: 0}
+  pause: 0
+--- !u!65 &4701343723005658109
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2572228321964325541}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.85, z: 0.85}
 --- !u!1 &2608248775177093069
 GameObject:
   m_ObjectHideFlags: 0
@@ -6269,6 +6285,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   radius: 1
+  holdPositionBoxCollider: {fileID: 0}
   animator: {fileID: 0}
   interactedObject: {fileID: 0}
   onFiretimer: 3
@@ -6279,6 +6296,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactableObject: {fileID: 0}
+  pause: 0
 --- !u!1 &6199728749168448541
 GameObject:
   m_ObjectHideFlags: 0

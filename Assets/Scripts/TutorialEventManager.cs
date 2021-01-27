@@ -31,7 +31,8 @@ public class TutorialEventManager : MonoBehaviour
     public DialogueManager dialogueManager;
     public DialogueTrigger[] dialogueTriggers;
 
-    //public JumpToHyperSpace jumpScript;
+    public GameObject[] tutorial_Icons;
+
 
     void Start()
     {
@@ -47,21 +48,12 @@ public class TutorialEventManager : MonoBehaviour
 
         Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
 
-        for (int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
+
+        //Iterate through all pipes and damage them. 
+        for (int i = 0; i <= damagedObjects.Length - 1; i++)
         {
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
-            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
-            //IDamageable<int> caughtObject = damagedObject[i].GetComponent<IDamageable<int>>();
-            ////shipCurrenHealth -= explosionDamage;
-            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
-            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
-
-        //for(int i = 0; i < Doors.Length; i++)
-        //{
-        //    doorCollider[i] = Doors[i].GetComponent<Collider>();
-        //    doorAnimator[i] = Doors[i].GetComponent<Animator>();
-        //}
     }
 
     private void Update()
@@ -87,6 +79,9 @@ public class TutorialEventManager : MonoBehaviour
             doorAnimator[0].SetBool("IsOpen", true);
             doorCollider[0].enabled = false;
             myTutorial = checkFire;
+            tutorial_Icons[0].SetActive(false);
+            tutorial_Icons[1].SetActive(false);
+            tutorial_Icons[2].SetActive(false);
             //Debug.Log("WORKS");
         }
     }
@@ -110,18 +105,20 @@ public class TutorialEventManager : MonoBehaviour
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
+            tutorial_Icons[3].SetActive(false);
             //myTutorial = checkEngine;
         }
     }
 
-    //void checkEngine()
-    //{
-    //    if(florpReceptor.isFilled > 3)
-    //    {
-    //        GameStateManager.instance.SetGameState(GameState.Won);
-    //        StartCoroutine(jumpScript.HyperspaceJump());
-    //    }
-    //}
+    void checkEngine()
+    {
+        if(florpReceptor.florpTotal >= 8)
+        {
+            dialogueManager.trigger = dialogueTriggers[3];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
+            tutorial_Icons[4].SetActive(true);
+        }
+    }
 
 
     private void OnDrawGizmosSelected()

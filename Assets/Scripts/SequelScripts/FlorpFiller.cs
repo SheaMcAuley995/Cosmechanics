@@ -8,12 +8,19 @@ public class FlorpFiller : MonoBehaviour
 
     public FlorpButton curButton;
     public FlorpButton buttonA;
+    [SerializeField] GameObject buttonATutorialUI;
     public FlorpButton buttonB;
+    [SerializeField] GameObject buttonBTutorialUI;
 
     public Transform holdPostion;
 
     public Material buttonOnMat;
     public Material buttonOffMat;
+
+    [SerializeField] GameObject tutorialUI;
+    [SerializeField] GameObject tutorialUIArrow;
+    [SerializeField] GameObject TutorialUIBars;
+    [SerializeField] bool isTutorial;
 
 
     private void Start()
@@ -26,6 +33,7 @@ public class FlorpFiller : MonoBehaviour
     {
         if (florp != null)
         {
+            AudioEventManager.instance.PlaySound("Florp Container fill");
             if (curButton == buttonA)
             {
                 florp.fillFlorp();
@@ -34,6 +42,13 @@ public class FlorpFiller : MonoBehaviour
                 curButton.On = false;
                 curButton = buttonB;
                 curButton.On = true;
+                
+                if(isTutorial)
+                {
+                    buttonATutorialUI.SetActive(true);
+                    buttonBTutorialUI.SetActive(false);
+                }
+                
                 if (florp.florpFillAmount == florp.florpFillMax)
                 {
                     ejectFlorp();
@@ -41,6 +56,8 @@ public class FlorpFiller : MonoBehaviour
                     florp.rb.velocity = (florp.transform.forward).normalized * 10;
                     florp = null;
                 }
+
+                
             }
             else if (curButton == buttonB)
             {
@@ -50,6 +67,13 @@ public class FlorpFiller : MonoBehaviour
                 curButton.On = false;
                 curButton = buttonA;
                 curButton.On = true;
+
+                if(isTutorial)
+                {
+                    buttonATutorialUI.SetActive(false);
+                    buttonBTutorialUI.SetActive(true);
+                }
+
                 if (florp.florpFillAmount == florp.florpFillMax)
                 {
                     ejectFlorp();
@@ -66,9 +90,19 @@ public class FlorpFiller : MonoBehaviour
     {
         buttonA.meshRenderer.material = buttonOffMat;
         buttonB.meshRenderer.material = buttonOffMat;
+        AudioEventManager.instance.PlaySound("Florp Container eject");
         florp.rb.isKinematic = false;
 
         florp.FlorpFiller = null;
+
+        if(isTutorial)
+        {
+            buttonATutorialUI.SetActive(false);
+            buttonBTutorialUI.SetActive(false);
+            tutorialUI.SetActive(false);
+            tutorialUIArrow.SetActive(true);
+            TutorialUIBars.SetActive(true);
+        }
 
     }
 
