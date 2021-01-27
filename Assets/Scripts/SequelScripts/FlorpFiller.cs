@@ -101,6 +101,7 @@ public class FlorpFiller : MonoBehaviour
             buttonBTutorialUI.SetActive(false);
             tutorialUI.SetActive(false);
             tutorialUIArrow.SetActive(true);
+            TutorialUIBars.SetActive(true);
         }
 
     }

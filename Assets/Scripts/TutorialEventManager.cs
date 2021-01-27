@@ -31,8 +31,6 @@ public class TutorialEventManager : MonoBehaviour
     public DialogueManager dialogueManager;
     public DialogueTrigger[] dialogueTriggers;
 
-    //public JumpToHyperSpace jumpScript;
-
     public GameObject[] tutorial_Icons;
 
 
@@ -50,21 +48,12 @@ public class TutorialEventManager : MonoBehaviour
 
         Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
 
-        for (int i = 0; i < damagedObjects.Length; i++)// (Collider damagedObject in damagedObjects)
+
+        //Iterate through all pipes and damage them. 
+        for (int i = 0; i <= damagedObjects.Length - 1; i++)
         {
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
-            damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
-            //IDamageable<int> caughtObject = damagedObject[i].GetComponent<IDamageable<int>>();
-            ////shipCurrenHealth -= explosionDamage;
-            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
-            //if (caughtObject != null) caughtObject.TakeDamage(explosionDamage);
         }
-
-        //for(int i = 0; i < Doors.Length; i++)
-        //{
-        //    doorCollider[i] = Doors[i].GetComponent<Collider>();
-        //    doorAnimator[i] = Doors[i].GetComponent<Animator>();
-        //}
     }
 
     private void Update()
@@ -121,14 +110,15 @@ public class TutorialEventManager : MonoBehaviour
         }
     }
 
-    //void checkEngine()
-    //{
-    //    if(florpReceptor.isFilled > 3)
-    //    {
-    //        GameStateManager.instance.SetGameState(GameState.Won);
-    //        StartCoroutine(jumpScript.HyperspaceJump());
-    //    }
-    //}
+    void checkEngine()
+    {
+        if(florpReceptor.florpTotal >= 8)
+        {
+            dialogueManager.trigger = dialogueTriggers[3];
+            dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
+            tutorial_Icons[4].SetActive(true);
+        }
+    }
 
 
     private void OnDrawGizmosSelected()

@@ -172,7 +172,7 @@ public class Florp : PickUp
 
     IEnumerator fillingFlorp()
     {
-        while (runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax))
+        while (runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax) && !florpReceptor.endTutorial)
         {
             florpReceptor.fillFlorp(1);
             if(isTutorial) florpReceptor.fillFlorp(1);

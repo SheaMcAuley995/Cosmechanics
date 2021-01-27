@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FlorpReceptor : MonoBehaviour
 {
@@ -23,6 +24,10 @@ public class FlorpReceptor : MonoBehaviour
     MaterialPropertyBlock propertyBlock;
 
     public Animator FlorpFillUI;
+    [SerializeField] GameObject shipUITutorial;
+    [SerializeField] Slider ShipProgressSlider;
+    [HideInInspector] public bool endTutorial = false;
+    int currentProgress = 0;
     public bool CR_Running;
     private void Awake()
     {
@@ -36,24 +41,56 @@ public class FlorpReceptor : MonoBehaviour
 
     public void fillFlorp(float amount)
     {
-
-        if (florpTotal < florpMax)
+        if(!endTutorial)
         {
-            AudioEventManager.instance.PlaySound("Florp receptor fill");
-            florpTotal += amount;
-
-            FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
-            
-            if (isTutorial && florpTotal >= florpMax)
+            if (florpTotal < florpMax)
             {
-                winGameScreen.SetActive(true);
-                AudioEventManager.instance.StopAllSounds();
-                AudioEventManager.instance.PlaySound("Music Win 1");
-                SaveLoadIO saveSystem = new SaveLoadIO(true);
+                AudioEventManager.instance.PlaySound("Florp receptor fill");
+                florpTotal += amount;
+
+                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
+
+                if (!isTutorial && florpTotal >= florpMax)
+                {
+                    winGameScreen.SetActive(true);
+                    AudioEventManager.instance.StopAllSounds();
+                    AudioEventManager.instance.PlaySound("Music Win 1");
+                    SaveLoadIO saveSystem = new SaveLoadIO(true);
+                }
+
+                if (isTutorial && florpTotal >= florpMax)
+                {
+                    shipUITutorial.SetActive(true);
+                    StartCoroutine(burnFlorpTutorial());
+                    endTutorial = true;
+                }
+
             }
 
         }
 
+    }
+
+    private IEnumerator burnFlorpTutorial()
+    {
+
+       
+        yield return new WaitForSeconds(1);
+
+        while (florpTotal > florpMin)
+        {
+            florpTotal--;
+
+            ShipProgressSlider.value = currentProgress / florpMax;
+            FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
+            currentProgress++;
+            yield return new WaitForSeconds(1);
+        }
+
+        winGameScreen.SetActive(true);
+        AudioEventManager.instance.StopAllSounds();
+        AudioEventManager.instance.PlaySound("Music Win 1");
+        SaveLoadIO saveSystem = new SaveLoadIO(true);
     }
 
 
@@ -64,8 +101,8 @@ public class FlorpReceptor : MonoBehaviour
             while (florpTotal > florpMin)
             {
                 Engine.instance.isFueled = true;
-                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
                 florpTotal--;
+                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
                 yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
             }
 

@@ -46,8 +46,7 @@ public class FireExtinguisher : PickUp
         if(isTutorial)
         {
             tutorialUI.SetActive(false);
-            base.pickMeUp(pickUpTransform);
         }
-        
+        base.pickMeUp(pickUpTransform);
     }
 }

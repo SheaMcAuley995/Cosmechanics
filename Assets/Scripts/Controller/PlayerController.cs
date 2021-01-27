@@ -74,9 +74,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public GameObject interactedObject;
     public float onFiretimer;
     public float onFireTimerCur;
-    public GameObject onFireEffect;
     private bool onFire;
-    public Collider myCollider;
     public LayerMask interactableLayer;
     public Interactable interactableObject;
     bool pickedUp;
@@ -298,11 +296,11 @@ public class PlayerController : MonoBehaviour
         // Debug.Log(transform.forward);
         if (interactedObject == null)
         {
-            animator.SetBool("isCarrying", true);
             for (int i = 0; i < hitColliders.Length; i++)
             {
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
+                    animator.SetBool("isCarrying", true);
                     AudioEventManager.instance.PlaySound("Pickup");
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
@@ -353,16 +351,6 @@ public class PlayerController : MonoBehaviour
 
             velocityY += Time.deltaTime * gravity;
 
-           // if (targetSpeed > 0)
-           // {
-           //     animator.SetBool("Move", true);
-           //
-           // }
-           // else
-           // {
-           //     animator.SetBool("Move", false);
-           // }
-
         }
 
         if (onFire)
@@ -379,10 +367,6 @@ public class PlayerController : MonoBehaviour
             float targetSpeed = walkSpeed;
             currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetMotifiedSmoothTime(speedSmoothTime));
             velocityY += Time.deltaTime * gravity;
-        }
-        else
-        {
-            //onFireEffect.SetActive(false);
         }
 
 
