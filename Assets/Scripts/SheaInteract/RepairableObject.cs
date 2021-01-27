@@ -75,6 +75,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
             GameplayLoopManager.instance.shipCurrenHealth += repairAmount;
             GameplayLoopManager.instance.AdjustUI();
         }
+        if (isTutorial) tutorialHealthBar.SetInteger("HealthSlider", tutorialHealthBar.GetInteger("HealthSlider") + 1);
         currentMesh -= 1;
         filter.mesh = meshes[currentMesh];
         health = health + repairAmount;
@@ -93,7 +94,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
                 GameplayLoopManager.instance.AdjustUI();
             }
 
-            if (isTutorial) tutorialHealthBar.SetInteger("HealthSlider", tutorialHealthBar.GetInteger("HealthSlider") += 1);
+            
 
             health -= damageTaken;
             currentMesh += 1;

@@ -19,6 +19,7 @@ public class FlorpFiller : MonoBehaviour
 
     [SerializeField] GameObject tutorialUI;
     [SerializeField] GameObject tutorialUIArrow;
+    [SerializeField] GameObject TutorialUIBars;
     [SerializeField] bool isTutorial;
 
 
