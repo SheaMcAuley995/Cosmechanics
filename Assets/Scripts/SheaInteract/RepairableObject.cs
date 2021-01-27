@@ -21,6 +21,9 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
 
     public bool takeDamageDebug = false;
 
+    [SerializeField] bool isTutorial;
+    [SerializeField] Animator tutorialHealthBar;
+
     //AudioSource pipeSound;
 
     private void Start()
@@ -90,6 +93,7 @@ public class RepairableObject : MonoBehaviour, IInteractable, IDamageable<int> {
                 GameplayLoopManager.instance.AdjustUI();
             }
 
+            if (isTutorial) tutorialHealthBar.SetInteger("HealthSlider", tutorialHealthBar.GetInteger("HealthSlider") += 1);
 
             health -= damageTaken;
             currentMesh += 1;
