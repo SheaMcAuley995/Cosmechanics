@@ -68,14 +68,13 @@ public class PlayerController : MonoBehaviour
     public float radius;
     Collider[] possibleColliders;
     private Collider thisCollider;
+    public BoxCollider holdPositionBoxCollider;
     public Animator animator;
 
     [HideInInspector] public GameObject interactedObject;
     public float onFiretimer;
     public float onFireTimerCur;
-    public GameObject onFireEffect;
     private bool onFire;
-    public Collider myCollider;
     public LayerMask interactableLayer;
     public Interactable interactableObject;
     bool pickedUp;
@@ -87,6 +86,8 @@ public class PlayerController : MonoBehaviour
     public bool pause;
     private void Start()
     {
+        holdPositionBoxCollider = GetComponent<BoxCollider>();
+        holdPositionBoxCollider.enabled = false;
         thisCollider = GetComponent<CapsuleCollider>();
         possibleColliders = new Collider[maxPossibleCollisions];
         onFireTimerCur = onFiretimer;
@@ -206,6 +207,7 @@ public class PlayerController : MonoBehaviour
         else if(pickedUp && player.GetButtonUp("PickUp") && interactedObject != null)
         {
             //Debug.Log(throwForce);
+            holdPositionBoxCollider.enabled = false;
             float holdDownTime = Time.time - holdDownStartTime;
             interactedObject.GetComponent<PickUp>().putMeDown(CalculateHoldDownForce(holdDownTime));
             interactedObject = null;
@@ -237,7 +239,7 @@ public class PlayerController : MonoBehaviour
 
     private float CalculateHoldDownForce(float holdTime)
     {
-        float maxForceHoldDownTime = 2f;
+        float maxForceHoldDownTime = 1.5f;
         float HoldTimeNormalized = Mathf.Clamp01(holdTime / maxForceHoldDownTime);
         float force = HoldTimeNormalized * 50f;
         return force;
@@ -270,6 +272,7 @@ public class PlayerController : MonoBehaviour
                     {
                         if (animator != null) { animator.SetTrigger("Hammer"); }
                         animator.ResetTrigger("Hammer");
+                        AudioEventManager.instance.PlaySound("Pipe repair");
                         hitColliders[i].GetComponent<IInteractable>().InteractWith();
                         return;
                     }
@@ -293,15 +296,17 @@ public class PlayerController : MonoBehaviour
         // Debug.Log(transform.forward);
         if (interactedObject == null)
         {
-            animator.SetBool("isCarrying", true);
             for (int i = 0; i < hitColliders.Length; i++)
             {
                 if (hitColliders[i].GetComponent<PickUp>() != null)
                 {
+                    animator.SetBool("isCarrying", true);
+                    AudioEventManager.instance.PlaySound("Pickup");
                     hitColliders[i].GetComponent<PickUp>().pickMeUp(pickUpTransform);
                     hitColliders[i].GetComponent<PickUp>().playerController = this;
                     //hitColliders[i].GetComponent<PickUp>().playerController = controller;
                     interactedObject = hitColliders[i].gameObject;
+                    holdPositionBoxCollider.enabled = true;
                     if (hitColliders[i].GetComponent<Interactable>() != false)
                     {
                         interactableObject = hitColliders[i].GetComponent<Interactable>();
@@ -346,23 +351,12 @@ public class PlayerController : MonoBehaviour
 
             velocityY += Time.deltaTime * gravity;
 
-           // if (targetSpeed > 0)
-           // {
-           //     animator.SetBool("Move", true);
-           //
-           // }
-           // else
-           // {
-           //     animator.SetBool("Move", false);
-           // }
-
         }
 
         if (onFire)
         {
             animator.SetBool("isOnFire", true);
 
-            //onFireEffect.SetActive(true);
 
             if (inputDir != Vector2.zero)
             {
@@ -373,10 +367,6 @@ public class PlayerController : MonoBehaviour
             float targetSpeed = walkSpeed;
             currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, GetMotifiedSmoothTime(speedSmoothTime));
             velocityY += Time.deltaTime * gravity;
-        }
-        else
-        {
-            //onFireEffect.SetActive(false);
         }
 
 

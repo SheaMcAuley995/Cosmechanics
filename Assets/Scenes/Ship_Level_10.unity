@@ -2246,6 +2246,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 8.299988
       objectReference: {fileID: 0}
+    - target: {fileID: 7075776248257031911, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+        type: 3}
+      propertyPath: myCollider
+      value: 
+      objectReference: {fileID: 191934701}
     - target: {fileID: 7181975301054776239, guid: 7211a66264d0b1a46b146f2d950f0ccb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2311,6 +2316,12 @@ PrefabInstance:
 --- !u!4 &191934700 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3937190722265326835, guid: 7211a66264d0b1a46b146f2d950f0ccb,
+    type: 3}
+  m_PrefabInstance: {fileID: 191934699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &191934701 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 4258795900835551816, guid: 7211a66264d0b1a46b146f2d950f0ccb,
     type: 3}
   m_PrefabInstance: {fileID: 191934699}
   m_PrefabAsset: {fileID: 0}
@@ -2570,9 +2581,9 @@ PrefabInstance:
       objectReference: {fileID: 197012815}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c22523af144598f42af51a66ef9e5e6e, type: 3}
---- !u!64 &197012815 stripped
-MeshCollider:
-  m_CorrespondingSourceObject: {fileID: 64649485507584752, guid: c22523af144598f42af51a66ef9e5e6e,
+--- !u!65 &197012815 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 6394992669766284693, guid: c22523af144598f42af51a66ef9e5e6e,
     type: 3}
   m_PrefabInstance: {fileID: 197012814}
   m_PrefabAsset: {fileID: 0}

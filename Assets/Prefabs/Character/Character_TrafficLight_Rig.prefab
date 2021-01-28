@@ -1442,7 +1442,7 @@ GameObject:
   - component: {fileID: 7708483248805223860}
   - component: {fileID: 6717543106693351372}
   - component: {fileID: 8597681418898756305}
-  - component: {fileID: 2362589116979794746}
+  - component: {fileID: 4851315471465956226}
   m_Layer: 10
   m_Name: Character_TrafficLight_Rig
   m_TagString: Char
@@ -1568,6 +1568,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   radius: 1
+  holdPositionBoxCollider: {fileID: 4851315471465956226}
   animator: {fileID: 0}
   interactedObject: {fileID: 0}
   onFiretimer: 3
@@ -1578,8 +1579,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactableObject: {fileID: 0}
---- !u!135 &2362589116979794746
-SphereCollider:
+  pause: 0
+--- !u!65 &4851315471465956226
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1589,8 +1591,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 1}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.85, z: 0.85}
 --- !u!1 &5178128315326652425
 GameObject:
   m_ObjectHideFlags: 0

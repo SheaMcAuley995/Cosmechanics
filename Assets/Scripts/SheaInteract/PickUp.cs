@@ -20,15 +20,10 @@ public class PickUp : MonoBehaviour
 
     public virtual void pickMeUp(Transform pickUpTransform)
     {
-        if (myCollider == null)
-        {
-            myCollider = GetComponent<Collider>();
-        }
         if (playerController != null)
         {
             playerController.interactedObject = gameObject;
             playerController.interact.interactedObject = null;
-            Destroy(playerController.interact.puu);
         }
         myCollider.enabled = false;
         rb.isKinematic = true;
