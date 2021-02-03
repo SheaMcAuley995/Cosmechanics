@@ -6598,7 +6598,7 @@ GameObject:
   - component: {fileID: 4010059101601614236}
   - component: {fileID: 7508100812216422799}
   - component: {fileID: 4207140157357975767}
-  - component: {fileID: 4494078601268458944}
+  - component: {fileID: 4126728240750036498}
   m_Layer: 10
   m_Name: Character_Cosmechanic_Rig
   m_TagString: Char
@@ -6723,6 +6723,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1025
   radius: 1
+  holdPositionBoxCollider: {fileID: 4126728240750036498}
   animator: {fileID: 0}
   interactedObject: {fileID: 0}
   onFiretimer: 3
@@ -6733,8 +6734,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   interactableObject: {fileID: 0}
---- !u!135 &4494078601268458944
-SphereCollider:
+  pause: 0
+--- !u!65 &4126728240750036498
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -6744,8 +6746,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0.5, z: 1}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0.85, z: 0.95}
 --- !u!1 &8196995018848610097
 GameObject:
   m_ObjectHideFlags: 0

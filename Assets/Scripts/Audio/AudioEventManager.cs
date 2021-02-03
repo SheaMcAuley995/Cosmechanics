@@ -10,6 +10,7 @@ public class AudioEventManager : MonoBehaviour {
     public List<Sound> sounds;   
     [HideInInspector]public static AudioEventManager instance;
     [SerializeField] bool addAnotherSound;
+    private AudioSource[] allAudioSources;
     private void Awake()
     {
         if (instance == null)
@@ -70,15 +71,32 @@ public class AudioEventManager : MonoBehaviour {
         s.source.volume = volume;
         s.source.Play();
     }
-    private void Start()
+    public void StopSound(string name)
     {
-        PlaySound("Theme");
-        PlaySound("Ambient", .8f);
-        if (SceneManager.GetSceneByName("Ship_Level_Tutorial").isLoaded)
+        Sound s = Array.Find(sounds.ToArray(), sound => sound.name == name);
+        if (s == null)
         {
-            PlaySound("AlarmLeft", .5f, 1, -.8f);
+            return;
+        }
+        s.source.Stop();
+    }
+    public void StopAllSounds()
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            audioS.Stop();
         }
     }
+    //private void Start()
+    //{
+    //    PlaySound("Theme");
+    //    PlaySound("Ambient", .8f);
+    //    if (SceneManager.GetSceneByName("Ship_Level_Tutorial").isLoaded)
+    //    {
+    //        PlaySound("AlarmLeft", .5f, 1, -.8f);
+    //    }
+    //}
     
 
     [ExecuteInEditMode] public void addSound()
