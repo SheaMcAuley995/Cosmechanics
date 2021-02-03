@@ -46,6 +46,7 @@ public class GameplayLoopManager : MonoBehaviour
     int index;
     private void Start()
     {
+        Application.targetFrameRate = 60;
         timeBetweenEvents = timeBetweenEvents - CharacterHandler.instance.numberOfPlayers;
         TimeBetweenEvents = timeBetweenEvents;
 
