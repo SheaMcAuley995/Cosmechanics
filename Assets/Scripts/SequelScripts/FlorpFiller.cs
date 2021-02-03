@@ -78,7 +78,7 @@ public class FlorpFiller : MonoBehaviour
                 {
                     ejectFlorp();
                     florp.transform.position += florp.transform.forward;
-                    florp.rb.velocity = (florp.transform.forward).normalized * 10;
+                    florp.rb.velocity = (florp.transform.forward).normalized * 2;
                     florp = null;
                 }
             }

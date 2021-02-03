@@ -47,8 +47,7 @@ public class TutorialEventManager : MonoBehaviour
         myTutorial = checkPipes;
 
         Physics.OverlapSphereNonAlloc(transform.position, explosionRadius, damagedObjects, interactableLayerMask);
-
-
+        
         //Iterate through all pipes and damage them. 
         for (int i = 0; i <= damagedObjects.Length - 1; i++)
         {

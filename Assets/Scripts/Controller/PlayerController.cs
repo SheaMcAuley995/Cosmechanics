@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public currentInteraction myCurrentInteraction;
 
     public delegate void Interactions();
-    public Interactions myInteractions;
+    public Interactions myInput;
 
     //Rewired ID
     public int playerId = 0;
@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool Button_B;
     [HideInInspector] public bool start;
     [HideInInspector] public bool blockMovement = false;
+    [HideInInspector] public DialogueManager dialogue;
     CharacterController cc;
     public bool normalMovement = true;
 
@@ -86,6 +87,7 @@ public class PlayerController : MonoBehaviour
     public bool pause;
     private void Start()
     {
+        //myInput += GameplayInput;
         holdPositionBoxCollider = GetComponent<BoxCollider>();
         holdPositionBoxCollider.enabled = false;
         thisCollider = GetComponent<CapsuleCollider>();
@@ -114,8 +116,10 @@ public class PlayerController : MonoBehaviour
     {
         if (pause == false)
         {
-            getInput();
-            ProcessInput();
+            
+            //myInput();
+            //getInput();
+            GameplayInput();
         }
 
         onFireCheck();
@@ -130,10 +134,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void getInput()
+    ///This was used in order to swap the player to Dialogue Input when that was implimented #Don't delete#
+    //public void DialogueInput()
+    //{
+    //    movementVector.x = 0;
+    //    movementVector.y = 0;
+    //    Move(Vector2.zero, false);
+    //    Debug.Log("Dialogue");
+    //}
+
+    public void GameplayInput()
     {
-        #region Main Game Input
-        // Normal axis when player is not on fire
+
         if (normalMovement)
         {
             movementVector.x = player.GetAxisRaw("Move Horizontal"); // get input by name or action id
@@ -149,12 +161,10 @@ public class PlayerController : MonoBehaviour
         //Interact = 
         sprint = player.GetButton("Sprint");
         pickUp = player.GetButtonDown("PickUp");
-        
+
         bumper = player.GetButtonDown("Bumper");
         pauseButton = player.GetButtonDown("Pause");
-        #endregion
 
-        #region Char Select Input
         selectModel.x = player.GetAxisRaw("ModelSelect");
         Button_Y = player.GetButtonDown("SelectCrime");
         Button_X = player.GetButtonDown("PrevCrime");
@@ -163,11 +173,7 @@ public class PlayerController : MonoBehaviour
         Button_A = player.GetButtonDown("ReadyUp");
         Button_B = player.GetButtonDown("Cancel");
         start = player.GetButtonDown("Start");
-        #endregion
-    }
 
-    private void ProcessInput()
-    {
         float throwForce = 0;
         Move(movementVector, sprint);
 
@@ -209,6 +215,7 @@ public class PlayerController : MonoBehaviour
             //Debug.Log(throwForce);
             holdPositionBoxCollider.enabled = false;
             float holdDownTime = Time.time - holdDownStartTime;
+            holdDownStartTime = Mathf.Clamp(holdDownStartTime, 0, 1.5f);
             interactedObject.GetComponent<PickUp>().putMeDown(CalculateHoldDownForce(holdDownTime));
             interactedObject = null;
             animator.SetBool("isCarrying", false);
@@ -224,10 +231,6 @@ public class PlayerController : MonoBehaviour
         {
             pickedUp = true;
         }
-
-        
-
-
 
         if (player.GetButtonDown("Jump"))
         {

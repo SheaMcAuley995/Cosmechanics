@@ -27,7 +27,7 @@ public class PlayerJoin : MonoBehaviour
     {
         foreach(PlayerController controller in controllers)
         {
-            controller.getInput();
+            controller.GameplayInput();
     
             if (controller.movementVector.x > 0 && !selecting)
             {

@@ -96,8 +96,10 @@ public class FlorpReceptor : MonoBehaviour
 
     public IEnumerator burnFlorp()
     {
-        if(!isTutorial)
+        if (!isTutorial)
         {
+
+
             while (florpTotal > florpMin)
             {
                 Engine.instance.isFueled = true;
@@ -109,7 +111,8 @@ public class FlorpReceptor : MonoBehaviour
             Engine.instance.isFueled = false;
             CR_Running = false;
         }
-
     }
 
 }
+
+

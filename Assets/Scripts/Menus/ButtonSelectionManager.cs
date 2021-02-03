@@ -58,7 +58,7 @@ public class ButtonSelectionManager : MonoBehaviour
         {
             foreach (PlayerController controler in controlers)
             {
-                controler.getInput();
+                controler.GameplayInput();
 
                 if (controler.movementVector.y < 0 && !selecting)
                 {
