@@ -20,13 +20,31 @@ public class DialogueManager : MonoBehaviour
 
     [Space]
     public Animator animator;
+    PlayerController[] playerControllers;
 
+
+
+    private void Start()
+    {
+        playerControllers = FindObjectsOfType<PlayerController>();
+
+        for (int i = 0; i < playerControllers.Length; i++)
+        {
+            playerControllers[i].dialogue = this;
+        }
+    }
     // Call this in DialogueTrigger whenever you wish to start the tutorial interaction
     public void StartDialogue(Dialogue dialogue)
     {
-        animator.SetBool("IsOpen", true);
 
-//        nameText.text = dialogue.name;
+        ///This was used in order to swap the player to Dialogue Input when that was implimented #Don't delete#
+        //for (int i = 0; i < playerControllers.Length; i++)
+        //{
+        //    playerControllers[i].myInput -= playerControllers[i].GameplayInput;
+        //    playerControllers[i].myInput += playerControllers[i].DialogueInput;
+        //}
+
+        animator.SetBool("IsOpen", true);
 
         sentences.Clear();
 
@@ -78,6 +96,13 @@ public class DialogueManager : MonoBehaviour
     // Self explanatory
     public IEnumerator EndDialogue()
     {
+        ///This was used in order to swap the player to Dialogue Input when that was implimented #Don't delete#
+      // for (int i = 0; i < playerControllers.Length; i++)
+      // {
+      //     playerControllers[i].myInput += playerControllers[i].GameplayInput;
+      //     playerControllers[i].myInput -= playerControllers[i].DialogueInput;
+      // }
+
         yield return new WaitForSeconds(3f);
 
         animator.SetBool("IsOpen", false);
