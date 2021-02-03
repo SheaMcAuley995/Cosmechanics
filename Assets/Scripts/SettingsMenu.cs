@@ -7,7 +7,9 @@ using TMPro;
 using System.Linq;
 
 
-public class SettingsMenu : MonoBehaviour {
+public class SettingsMenu : MonoBehaviour 
+{
+    PlayerSettingsSave playerSettings;
 
     public AudioMixer audioMixer;
 
@@ -17,8 +19,11 @@ public class SettingsMenu : MonoBehaviour {
 
     List<Resolution> resList;
 
+    public PlayerSettingsSave prefs { get; private set; }
+
     public void Start()
     {
+
         resolutions = Screen.resolutions.Distinct().OrderBy(x => x.width).ThenBy(x => x.height).ThenBy(x => x.refreshRate) .ToArray();
 
         resolutionDropdown.ClearOptions();
@@ -58,6 +63,7 @@ public class SettingsMenu : MonoBehaviour {
 
     public void SetVolume(float volume)
     {
+        //prefs.SetVolume(volume);
         audioMixer.SetFloat("Volume", volume);
     }
 
