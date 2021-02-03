@@ -15,7 +15,7 @@ public class SettingsMenu : MonoBehaviour {
 
     Resolution[] resolutions;
 
-    //List<Resolution> res;
+    List<Resolution> resList;
 
     public void Start()
     {
@@ -25,45 +25,31 @@ public class SettingsMenu : MonoBehaviour {
 
         List<string> options = new List<string>();
 
-        //res = new List<Resolution>();
+        resList = new List<Resolution>();
 
         int currentResolutionIndex = 0;
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            //bool dupe = false;
-            //for (int j = i+1; j < resolutions.Length; j++)
-            //{
-            //    if (resolutions[j].height == resolutions[i].height &&
-            //        resolutions[j].width == resolutions[i].height)
-            //    {
-            //        dupe = true;
-            //    }
-            //}
+            if (resolutions[i].refreshRate == 30 || resolutions[i].refreshRate == 60)
+            {
+                resList.Add(resolutions[i]);
+            }
 
-            //if (dupe == true)
-            //{
-            //    continue;
-            //}
-                //res.Add(resolutions[i]);
+        }
 
-                string option = resolutions[i].width + " x " + resolutions[i].height + " @" + resolutions[i].refreshRate + "hz";
+        for (int i = 0; i < resList.Count; i++)
+        {
+                string option = resList[i].width + " x " + resList[i].height + " @" + resList[i].refreshRate + "hz";
 
                 options.Add(option);
-            //else
-            //{
-                
-            //}
-
-                if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+                if (resList[i].width == Screen.currentResolution.width && resList[i].height == Screen.currentResolution.height)
                 {
                     currentResolutionIndex = i;
                 } 
+            
         }
 
-        //for (int i = 0; i < res.Count; i++)
-        //{
-        //}
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
@@ -80,14 +66,25 @@ public class SettingsMenu : MonoBehaviour {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
 
-    public void SetFullScreen (bool isFullScreen)
+    public void SetFullScreen (int fullscreenIndex)
     {
-        Screen.fullScreen = isFullScreen;
+        switch(fullscreenIndex)
+        {
+            case 0:
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 1:
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            case 2:
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+        }
     }
 
     public void SetResolution(int resolutionIndex)
     {
-        Resolution resolution = resolutions[resolutionIndex];
+        Resolution resolution = resList[resolutionIndex];
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
     }
 }

@@ -65,7 +65,6 @@ public class Engine : MonoBehaviour {
 
     private void Update()
     {
-        
         ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
         enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
         time += Time.deltaTime;

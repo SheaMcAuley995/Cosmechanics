@@ -46,8 +46,10 @@ public class GameplayLoopManager : MonoBehaviour
     int index;
     private void Start()
     {
+        timeBetweenEvents = timeBetweenEvents - CharacterHandler.instance.numberOfPlayers;
         TimeBetweenEvents = timeBetweenEvents;
 
+        AudioEventManager.instance.PlaySound("Music Game");
         if (instance == null)
         {
             instance = this;
@@ -153,6 +155,7 @@ public class GameplayLoopManager : MonoBehaviour
     {
         // TODO: Make UI prettier and animate
         loseGameScreen.SetActive(true);
+        AudioEventManager.instance.PlaySound("Music Loss 1");
         GameStateManager.instance.SetGameState(GameState.LostByDamage);
         //Time.timeScale = Mathf.Lerp(1f, 0.2f, 2f);
     }
