@@ -14,9 +14,15 @@ public class SaveLoadIO : MonoBehaviour
     {
         // Lock status of each level.
         public bool[] unlockStatus;
+
+        /// <summary>
+        /// Earned stars. Key = level, Value = stars earned.
+        /// </summary>
+        public Dictionary<int, int> earnedStarsForLevel;
     }
 
-    string savePath => $"{Application.persistentDataPath}/LevelsUnlocked.dat";
+    string lockStatusPath => $"{Directory.GetCurrentDirectory()}/LevelsUnlocked.dat";
+    string earnedStarsPath => $"{Directory.GetCurrentDirectory()}/EarnedStars.dat";
 
     // Call this constructor when a level is won, or in the level select menu. Boolean overload indicates whether the level will be saved.
     // Pass in 'false' if calling from the level select, pass in 'true' if calling from a freshly beaten level.
@@ -53,6 +59,7 @@ public class SaveLoadIO : MonoBehaviour
         // Creates new struct object to prepare for saving.
         SaveData data = new SaveData();
         data.unlockStatus = new bool[LevelLock.instance.levelList.Count];
+        
 
         // Sets each bool in the array to each level's lock status.
         for (int i = 0; i < data.unlockStatus.Length; i++)
@@ -61,7 +68,7 @@ public class SaveLoadIO : MonoBehaviour
         }
 
         // Writes the contents of the struct to a file. 
-        using (var fileStream = File.Open(savePath, FileMode.Create))
+        using (var fileStream = File.Open(lockStatusPath, FileMode.Create))
         {
             StreamWriter sw = new StreamWriter(fileStream);
 
@@ -86,19 +93,19 @@ public class SaveLoadIO : MonoBehaviour
     {
         // If the file doesn't exist, create one. This will occur the first time the player launches the game.
         // TODO: When shipping, make sure that the inspector locked values are correct (should be only tutorial & level 1 unlocked).
-        if (!File.Exists(savePath))
+        if (!File.Exists(lockStatusPath))
         {
             SaveUnlockStatus();
         }
 
         // Reads the contents of the file, converts them to bools, and applies them to each level's lock status.
-        using (FileStream stream = File.OpenRead(savePath))
+        using (FileStream stream = File.OpenRead(lockStatusPath))
         {
             SaveData data = new SaveData();
             data.unlockStatus = new bool[LevelLock.instance.levelList.Count];
 
             // Reads from the save file and stores the results into an array.
-            string[] results = File.ReadAllLines(savePath);
+            string[] results = File.ReadAllLines(lockStatusPath);
 
             // Loop through the levels to check & update their lock status.
             for (int i = 0; i < data.unlockStatus.Length; i++)
