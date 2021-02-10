@@ -1,45 +1,48 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DataService : MonoBehaviour
+namespace EX1
 {
-    private static DataService inst = null;
-    public static DataService Instance
+
+
+    public class DataService : MonoBehaviour
     {
-        get
+        private static DataService inst = null;
+        public static DataService Instance
         {
-            if(inst == null)
+            get
             {
-                inst = FindObjectOfType<DataService>();
-
-                if(inst == null)
+                if (inst == null)
                 {
-                    GameObject gameObject = new GameObject(typeof(DataService).ToString());
-                    inst = gameObject.AddComponent<DataService>();
+                    inst = FindObjectOfType<DataService>();
+
+                    if (inst == null)
+                    {
+                        GameObject gameObject = new GameObject(typeof(DataService).ToString());
+                        inst = gameObject.AddComponent<DataService>();
+                    }
                 }
+
+                return inst;
             }
-
-            return inst;
         }
-    }
 
-    public PlayerSettingsSave prefs { get; private set; }
+        public PlayerSettingsSave prefs { get; private set; }
 
 
-    private void Awake()
-    {
-        if(Instance != this)
+        private void Awake()
         {
-            Destroy(this);
-        }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
+            if (Instance != this)
+            {
+                Destroy(this);
+            }
+            else
+            {
+                DontDestroyOnLoad(gameObject);
 
-            prefs = new PlayerSettingsSave();
-            prefs.RestorePrefrences();
+                prefs = new PlayerSettingsSave();
+                prefs.RestorePrefrences();
+            }
         }
     }
 }

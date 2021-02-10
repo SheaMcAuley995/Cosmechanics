@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class ReadyCheck : MonoBehaviour
 {
     public static ReadyCheck instance;
 
-    public Text countdownToStartText;
+    public TextMeshProUGUI countdownToStartText;
     Coroutine countdown;
 
     [SerializeField] int playersReady = 0;

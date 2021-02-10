@@ -9,8 +9,7 @@ using System.Linq;
 
 public class SettingsMenu : MonoBehaviour 
 {
-    PlayerSettingsSave playerSettings;
-
+    public Slider volSlider;
     public AudioMixer audioMixer;
 
     public Dropdown resolutionDropdown;
@@ -18,11 +17,44 @@ public class SettingsMenu : MonoBehaviour
     Resolution[] resolutions;
 
     List<Resolution> resList;
+    
+    public Dropdown qualityDropdown;
+    public Dropdown fullscreenDropdown;
 
-    public PlayerSettingsSave prefs { get; private set; }
+    const string prefName = "optionvalue";
+    const string screenName = "screenvalue";
+    const string resName = "resolutionoption";
+    
+
+    private void Awake()
+    {
+        resolutionDropdown.onValueChanged.AddListener(new UnityEngine.Events.UnityAction<int>(index =>
+        {
+            PlayerPrefs.SetInt(resName, resolutionDropdown.value);
+            PlayerPrefs.Save();
+        }));
+
+        qualityDropdown.onValueChanged.AddListener(new UnityEngine.Events.UnityAction<int>(index =>
+        {
+            PlayerPrefs.SetInt(prefName, qualityDropdown.value);
+            PlayerPrefs.Save();
+        }));
+
+        fullscreenDropdown.onValueChanged.AddListener(new UnityEngine.Events.UnityAction<int>(index =>
+        {
+            PlayerPrefs.SetInt(screenName, fullscreenDropdown.value);
+            PlayerPrefs.Save();
+        }));
+    }
 
     public void Start()
     {
+        
+        volSlider.value = PlayerPrefs.GetFloat("MVolume", 1f);
+        audioMixer.SetFloat("Volume", PlayerPrefs.GetFloat("MVolume"));
+
+        fullscreenDropdown.value = PlayerPrefs.GetInt(screenName, 0);
+        qualityDropdown.value = PlayerPrefs.GetInt(prefName, 3);        
 
         resolutions = Screen.resolutions.Distinct().OrderBy(x => x.width).ThenBy(x => x.height).ThenBy(x => x.refreshRate) .ToArray();
 
@@ -40,7 +72,6 @@ public class SettingsMenu : MonoBehaviour
             {
                 resList.Add(resolutions[i]);
             }
-
         }
 
         for (int i = 0; i < resList.Count; i++)
@@ -57,14 +88,14 @@ public class SettingsMenu : MonoBehaviour
 
 
         resolutionDropdown.AddOptions(options);
-        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.value = PlayerPrefs.GetInt(resName, currentResolutionIndex);
         resolutionDropdown.RefreshShownValue();
     }
 
     public void SetVolume(float volume)
     {
-        //prefs.SetVolume(volume);
-        audioMixer.SetFloat("Volume", volume);
+        PlayerPrefs.SetFloat("MVolume", volume);
+        audioMixer.SetFloat("Volume", PlayerPrefs.GetFloat("MVolume"));
     }
 
     public void SetQuality (int qualityIndex)
@@ -78,12 +109,15 @@ public class SettingsMenu : MonoBehaviour
         {
             case 0:
                 Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                PlayerPrefs.SetInt(screenName, 0);
                 break;
             case 1:
                 Screen.fullScreenMode = FullScreenMode.Windowed;
+                PlayerPrefs.SetInt(screenName, 1);
                 break;
             case 2:
                 Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                PlayerPrefs.SetInt(screenName, 2);
                 break;
         }
     }
