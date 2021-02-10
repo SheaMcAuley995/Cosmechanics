@@ -93,7 +93,10 @@ public class GameplayLoopManager : MonoBehaviour
         while (true)
         {
             onNextTickEvent();
-            StartCoroutine("shipBlast");
+            if (GameStateManager.instance.gameState == GameState.Playing)
+            {
+                StartCoroutine("shipBlast");
+            }
             yield return new WaitForSeconds(TimeBetweenEvents);
         }
     }

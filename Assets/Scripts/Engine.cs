@@ -65,41 +65,46 @@ public class Engine : MonoBehaviour {
 
     private void Update()
     {
-        ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
-        enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
-        time += Time.deltaTime;
+        if (GameStateManager.instance.gameState == GameState.Playing)
+        {
+            ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+            enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+            time += Time.deltaTime;
+        }
 
         //Debug.Log(time / GameplayLoopManager.TimeBetweenEvents);
     }
 
     public void EngineUpdate()
     {
-
-        if (testInputFlorp)
+        if (GameStateManager.instance.gameState == GameState.Playing)
         {
-            InsertFlorp();
-            testInputFlorp = false;
-        }
+            if (testInputFlorp)
+            {
+                InsertFlorp();
+                testInputFlorp = false;
+            }
 
-        preEnemyProgress = enemyProgress;
-        preCurrentProgress = currentProgress;
-        time = 0;
-        if (isFueled) { currentProgress += 1.3f; }
-        enemyProgress += 1;
+            preEnemyProgress = enemyProgress;
+            preCurrentProgress = currentProgress;
+            time = 0;
+            if (isFueled) { currentProgress += 1.3f; }
+            enemyProgress += 1;
 
-        //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
+            //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
+            //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
 
-        engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
+            engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
 
 
-        if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
-        {
-            Engine.instance.WinGame();
-        }
-        if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
-        {
-            Engine.instance.LoseGame();
+            if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
+            {
+                Engine.instance.WinGame();
+            }
+            if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
+            {
+                Engine.instance.LoseGame();
+            }
         }
     }
 
@@ -107,6 +112,7 @@ public class Engine : MonoBehaviour {
     {
         //StartCoroutine(jumpScript.HyperspaceJump());
         winGameScreen.SetActive(true);
+        GameStateManager.instance.SetGameState(GameState.Won);
         SaveLoadIO saveSystem = new SaveLoadIO(true);       
     }
 
