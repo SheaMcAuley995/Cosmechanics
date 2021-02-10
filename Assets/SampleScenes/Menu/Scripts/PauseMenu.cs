@@ -38,6 +38,7 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool set)
     {
+        GameStateManager.instance.gameState = GameState.Paused;
         Time.timeScale = Convert.ToInt32(set);
         pauseCanvas.gameObject.SetActive(!set);
         if (set == true)
