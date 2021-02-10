@@ -111,7 +111,7 @@ public class TutorialEventManager : MonoBehaviour
 
     void checkEngine()
     {
-        if(florpTotal >= florpMax >= 8)
+        if(florpReceptor.florpTotal >= 8)
         {
             dialogueManager.trigger = dialogueTriggers[3];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
