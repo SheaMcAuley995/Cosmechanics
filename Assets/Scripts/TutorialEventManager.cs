@@ -105,13 +105,13 @@ public class TutorialEventManager : MonoBehaviour
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
             tutorial_Icons[3].SetActive(false);
-            //myTutorial = checkEngine;
+            myTutorial = checkEngine;
         }
     }
 
     void checkEngine()
     {
-        if(florpReceptor.florpTotal >= 8)
+        if(florpTotal >= florpMax >= 8)
         {
             dialogueManager.trigger = dialogueTriggers[3];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
