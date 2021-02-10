@@ -38,8 +38,9 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool set)
     {
+        AudioEventManager.instance.PauseAllSounds();
         GameStateManager.instance.gameState = GameState.Paused;
-        //Time.timeScale = Convert.ToInt32(set);
+        //Time.timeScale = Convert.ToInt32(set); // WARNING: using timeScale breaks everything.
         pauseCanvas.gameObject.SetActive(!set);
         if (set == true)
         {
