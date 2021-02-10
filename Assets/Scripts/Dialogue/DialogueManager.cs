@@ -103,9 +103,10 @@ public class DialogueManager : MonoBehaviour
       //     playerControllers[i].myInput -= playerControllers[i].DialogueInput;
       // }
 
-        yield return new WaitForSeconds(3f);
+        
 
         animator.SetBool("IsOpen", false);
         StopAllCoroutines();
+        yield return new WaitForSeconds(.1f);
     }
 }
