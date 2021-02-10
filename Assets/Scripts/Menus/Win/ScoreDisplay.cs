@@ -50,7 +50,7 @@ public class ScoreDisplay : MonoBehaviour
     }
 
     // Returns the number of stars to award based on ship health.
-    int StarsToAward()
+    public int StarsToAward()
     {
         // Dirty implementation for tutorial case where there is no GameplayLoopManager.
         if (SceneManager.GetActiveScene().name == tutorialSceneName)
