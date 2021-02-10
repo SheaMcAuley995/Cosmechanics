@@ -39,8 +39,7 @@ public class SceneFader : MonoBehaviour
 
     void Start()
     {
-        if (volume == null)
-            volume = FindObjectOfType<PostProcessVolume>();
+        volume = FindObjectOfType<PostProcessVolume>();
         volume.profile.TryGetSettings(out chromAbLayer);
 
         StartCoroutine(FadeIn());
@@ -58,8 +57,8 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeIn()
     {
-        chromAbLayer.enabled.value = true;
-        chromAbLayer.intensity.value = chromAbEndValue;
+        //chromAbLayer.enabled.value = true;
+        //chromAbLayer.intensity.value = chromAbEndValue;
 
         float t = sceneFadeTime;
 
@@ -71,7 +70,7 @@ public class SceneFader : MonoBehaviour
             image.color = new Color(0f, 0f, 0f, a);
 
             float interploation = curve.Evaluate(t);
-            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
+            //chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
 
             yield return 0;
         }
@@ -79,8 +78,8 @@ public class SceneFader : MonoBehaviour
 
     IEnumerator FadeOut(string scene)
     {
-        chromAbLayer.enabled.value = true;
-        chromAbLayer.intensity.value = chromAbStartValue;
+        //chromAbLayer.enabled.value = true;
+        //chromAbLayer.intensity.value = chromAbStartValue;
 
         float t = 0f;
 
@@ -92,7 +91,7 @@ public class SceneFader : MonoBehaviour
             image.color = new Color(0f, 0f, 0f, a);
 
             float interploation = curve.Evaluate(t);
-            chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
+            //chromAbLayer.intensity.value = Mathf.Lerp(chromAbStartValue, chromAbEndValue, interploation / sceneFadeTime);
 
             yield return 0;
         }
