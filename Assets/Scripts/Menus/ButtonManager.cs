@@ -94,9 +94,6 @@ public class ButtonManager : MonoBehaviour
 
     public void UnPause()
     {
-        PauseMenu menu = FindObjectOfType<PauseMenu>();
-        menu.pause = false;
-
         AudioEventManager.instance.PauseAllSounds(true);
         GameStateManager.instance.SetGameState(GameState.Playing);
     }

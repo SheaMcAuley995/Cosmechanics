@@ -93,61 +93,60 @@ public class GameplayLoopManager : MonoBehaviour
         while (true)
         {
             onNextTickEvent();
-            if (GameStateManager.instance.gameState == GameState.Playing)
-            {
-                StartCoroutine("shipBlast");
-            }
+            StartCoroutine("shipBlast");
             yield return new WaitForSeconds(TimeBetweenEvents);
         }
     }
 
     IEnumerator shipBlast()
     {
-
-        if (attackLocation != null)
+        if (GameStateManager.instance.gameState == GameState.Playing)
         {
-            while (attackLocation == lastHitLocaton)
+            if (attackLocation != null)
             {
-                locationIndex = Random.Range(0, possibleAttackPositions.Length);
-                attackLocation = possibleAttackPositions[locationIndex].worldPositon;
+                while (attackLocation == lastHitLocaton)
+                {
+                    locationIndex = Random.Range(0, possibleAttackPositions.Length);
+                    attackLocation = possibleAttackPositions[locationIndex].worldPositon;
+                }
             }
+            else
+            {
+                attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
+            }
+
+            lastHitLocaton = attackLocation;
+            gotHit = true;                          //michael add
+            yield return new WaitForSeconds(.5f);     //delay in travel time of laser
+
+            GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
+            Collider[] damagedObjects = Physics.OverlapSphere(attackLocation, explosionRadius, interactableLayerMask);
+            StartCoroutine(shake.Shake(0.15f, 0.2f));
+            index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
+            Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
+
+            //shipCurrenHealth -= explosionDamage;
+
+            foreach (Collider damagedObject in damagedObjects)
+            {
+                IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
+                if (caughtObject != null) caughtObject.TakeDamage(1);
+            }
+
+            //AudioEventManager.instance.PlaySound("bang", .8f, Random.Range(.2f, 1f), 0);
+            AdjustUI();
+
+            if (shipCurrenHealth <= 0)
+            {
+                LoseGame();
+            }
+
+            yield return new WaitForSeconds(1.5f);
+
+            Destroy(newBlast);
+
+            yield return null;
         }
-        else
-        {
-            attackLocation = possibleAttackPositions[Random.Range(0, possibleAttackPositions.Length)].worldPositon;
-        }
-
-        lastHitLocaton = attackLocation;
-        gotHit = true;                          //michael add
-        yield return new WaitForSeconds(.5f);     //delay in travel time of laser
-
-        GameObject newBlast = Instantiate(blastEffectPrefab, attackLocation, Quaternion.identity);
-        Collider[] damagedObjects = Physics.OverlapSphere(attackLocation, explosionRadius, interactableLayerMask);
-        StartCoroutine(shake.Shake(0.15f, 0.2f));
-        index = Random.Range(0, possibleAttackPositions[locationIndex].nodes.Count);
-        Grid.instance.GenerateLaserFire(possibleAttackPositions[locationIndex].nodes[index]);
-
-        //shipCurrenHealth -= explosionDamage;
-
-        foreach (Collider damagedObject in damagedObjects)
-        {
-            IDamageable<int> caughtObject = damagedObject.GetComponent<IDamageable<int>>();
-            if (caughtObject != null) caughtObject.TakeDamage(1);
-        }
-
-        //AudioEventManager.instance.PlaySound("bang", .8f, Random.Range(.2f, 1f), 0);
-        AdjustUI();
-
-        if (shipCurrenHealth <= 0)
-        {
-            LoseGame();
-        }
-
-        yield return new WaitForSeconds(1.5f);
-
-        Destroy(newBlast);
-
-        yield return null;
     }
 
     public void AdjustUI()
