@@ -38,8 +38,17 @@ public class PauseMenu : MonoBehaviour
 
     public void PauseGame(bool set)
     {
-        GameStateManager.instance.gameState = GameState.Paused;
+        // Determine whether audio should be paused or resumed.
+        if (set == false) { AudioEventManager.instance.PauseAllSounds(); }
+        else { AudioEventManager.instance.PauseAllSounds(true); }
+
+        // Determine whether the game state should be set to paused or playing.
+        if (set == false) { GameStateManager.instance.gameState = GameState.Paused; }
+        else { GameStateManager.instance.gameState = GameState.Playing; }
+
+        // WARNING: using timeScale breaks everything. Please do not use.
         //Time.timeScale = Convert.ToInt32(set);
+
         pauseCanvas.gameObject.SetActive(!set);
         if (set == true)
         {
