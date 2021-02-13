@@ -9,16 +9,30 @@ public class SetSpawnPositions : MonoBehaviour
     public GameObject inGameCanvas;
     public Vector3[] spawnpositions = new Vector3[4];
     GameObject[] players;
+    [SerializeField] GameObject testPrefab;
+
 
     private IEnumerator Start()
     {
-        CharacterHandler.instance.spawnPoints = spawnpositions;
+        if (CharacterHandler.instance != null)
+        {
+            CharacterHandler.instance.spawnPoints = spawnpositions;
 
-        yield return new WaitForEndOfFrame();
+            yield return new WaitForEndOfFrame();
 
-        players = CharacterHandler.instance.players;
+            players = CharacterHandler.instance.players;
 
-        pauseMenu = FindObjectOfType<PauseMenu>();
+            pauseMenu = FindObjectOfType<PauseMenu>();
+        }
+        else
+        {
+            yield return new WaitForEndOfFrame();
+
+            players[0] = Instantiate(testPrefab, spawnpositions[0], Quaternion.identity);
+
+            pauseMenu = FindObjectOfType<PauseMenu>();
+        }
+
         
         yield return null;
     }
@@ -44,9 +58,11 @@ public class SetSpawnPositions : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
+        Gizmos.color = Color.green;
         for (int i = 0; i < 4; i++)
         {
-            Gizmos.DrawSphere(spawnpositions[i], 1);
+            Gizmos.DrawWireSphere(spawnpositions[i], 1);
+            Gizmos.DrawSphere(spawnpositions[i], 0.2f);
         }
     }
 }

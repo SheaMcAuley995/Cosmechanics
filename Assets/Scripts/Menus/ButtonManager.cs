@@ -22,12 +22,14 @@ public class ButtonManager : MonoBehaviour
     // Fades to character selection
     public void StartGame()
     {
+        AudioEventManager.instance.StopAllSounds();
         SceneFader.instance.FadeTo("CharacterSelection_Update");
     }
 
     // Fades to quit
     public void QuitGame()
     {
+        AudioEventManager.instance.StopAllSounds();
         SceneFader.instance.FadeToQuit();
     }
 
@@ -60,6 +62,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to main menu. Pickups don't need to be handled because main menu destroys them & old characters before continuing to character select.
     public void ReturnToMenu()
     {
+        AudioEventManager.instance.StopAllSounds();
         SceneFader.instance.FadeTo("MainMenu_Update");
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
@@ -67,6 +70,7 @@ public class ButtonManager : MonoBehaviour
     // Fades to level select.
     public void RetryLevel()
     {
+        AudioEventManager.instance.StopAllSounds();
         HandlePickups();
         //SceneFader.instance.FadeTo(SceneManager.GetActiveScene().name);
         SceneFader.instance.FadeTo("LevelSelectUpdated");
@@ -76,8 +80,21 @@ public class ButtonManager : MonoBehaviour
     // Fades to level select.
     public void ContinueGame()
     {
+        AudioEventManager.instance.StopAllSounds();
         HandlePickups();
         SceneFader.instance.FadeTo("LevelSelectUpdated");
+        GameStateManager.instance.SetGameState(GameState.Playing);
+    }
+
+    public void PauseGame()
+    {
+        AudioEventManager.instance.PauseAllSounds();
+        GameStateManager.instance.SetGameState(GameState.Paused);
+    }
+
+    public void UnPause()
+    {
+        AudioEventManager.instance.PauseAllSounds(true);
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
 }

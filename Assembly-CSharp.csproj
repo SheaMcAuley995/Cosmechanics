@@ -47,6 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Unity/VSTU</UnityProjectGenerator>
+    <UnityProjectGeneratorVersion>4.8.2.0</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2019.3.7f1</UnityVersion>
@@ -162,6 +163,11 @@
     <Compile Include="Assets\Scripts\Controller\PlayerController.cs" />
     <Compile Include="Assets\Scripts\Controller\RewiredController.cs" />
     <Compile Include="Assets\Scripts\Controller\ShipController.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\DialogueNode.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\DialogueTrigger.cs" />
+    <Compile Include="Assets\Scripts\Dialogue\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\DistanceCalculator.cs" />
     <Compile Include="Assets\Scripts\DoorButton.cs" />
     <Compile Include="Assets\Scripts\DropdownMover.cs" />
@@ -194,6 +200,7 @@
     <Compile Include="Assets\Scripts\Menus\CharacterSelection\JoinGame.cs" />
     <Compile Include="Assets\Scripts\Menus\CharacterSelection\ReadyCheck.cs" />
     <Compile Include="Assets\Scripts\Menus\CharacterSelection\SelectedPlayer.cs" />
+    <Compile Include="Assets\Scripts\Menus\DataService.cs" />
     <Compile Include="Assets\Scripts\Menus\Lose\WhyYouLost.cs" />
     <Compile Include="Assets\Scripts\Menus\MainMenu\PlayerJoin.cs" />
     <Compile Include="Assets\Scripts\Menus\OverWorld\LevelSelectManager.cs" />
@@ -202,6 +209,7 @@
     <Compile Include="Assets\Scripts\Menus\OverWorld\PlanetLevel.cs" />
     <Compile Include="Assets\Scripts\Menus\OverWorld\Spin.cs" />
     <Compile Include="Assets\Scripts\Menus\PauseGame.cs" />
+    <Compile Include="Assets\Scripts\Menus\PlayerSettingsSave.cs" />
     <Compile Include="Assets\Scripts\Menus\Win\JumpToHyperSpace.cs" />
     <Compile Include="Assets\Scripts\Menus\Win\ScoreDisplay.cs" />
     <Compile Include="Assets\Scripts\Menus\Win\VictoryAnimsManager.cs" />
@@ -218,9 +226,6 @@
     <Compile Include="Assets\Scripts\QuickPosFix.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\LevelLoader.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\LevisSceneTransition.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad\Player.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\SaveLoad\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\ZachSaveLoad\Overscoped\ISaveable.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\ZachSaveLoad\Overscoped\SaveScript.cs" />
     <Compile Include="Assets\Scripts\SaveLoad\ZachSaveLoad\Overscoped\SaveableEntity.cs" />
@@ -245,9 +250,6 @@
     <Compile Include="Assets\Scripts\StarticleSpeedAffector.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\ASyncSceneLoader.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\CharToDestroy.cs" />
-    <Compile Include="Assets\Scripts\Tools&amp;Misc\Dialogue\Dialogue.cs" />
-    <Compile Include="Assets\Scripts\Tools&amp;Misc\Dialogue\DialogueManager.cs" />
-    <Compile Include="Assets\Scripts\Tools&amp;Misc\Dialogue\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\FPSDisplay.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\GameStateManager.cs" />
     <Compile Include="Assets\Scripts\Tools&amp;Misc\ListExtension.cs" />
@@ -304,6 +306,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexShakeB.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
+    <Compile Include="Assets\TimerDoor.cs" />
     <Compile Include="Assets\Trash\MainMenu.cs" />
     <Compile Include="Assets\Trash\OpenGit.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
@@ -312,6 +315,7 @@
     <None Include="Assets\ShaderForge\Example Assets\Shaders\Vegetation.shader" />
     <None Include="Assets\ShaderForge\Example Assets\Shaders\LightWrapping.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Shaders\StarfieldShader.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\Shaders\FlorpReverse.shader" />
     <None Include="Assets\Shaders\TextureLerp.shader" />

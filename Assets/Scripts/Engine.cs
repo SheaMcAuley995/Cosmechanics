@@ -65,70 +65,54 @@ public class Engine : MonoBehaviour {
 
     private void Update()
     {
-        
-        ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
-        enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
-        time += Time.deltaTime;
+        if (GameStateManager.instance.gameState == GameState.Playing)
+        {
+            ShipProgressSlider.value = Mathf.Lerp(ShipProgressSlider.value, currentProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+            enemyShipProgressSlider.value = Mathf.Lerp(enemyShipProgressSlider.value, enemyProgress / winConditionLimit, time / GameplayLoopManager.TimeBetweenEvents);
+            time += Time.deltaTime;
+        }
 
         //Debug.Log(time / GameplayLoopManager.TimeBetweenEvents);
     }
 
     public void EngineUpdate()
     {
-
-        //engineHeat -= Time.deltaTime * engineCoolingAmount;
-
-        if (testInputFlorp)
+        if (GameStateManager.instance.gameState == GameState.Playing)
         {
-            InsertFlorp();
-            testInputFlorp = false;
+            if (testInputFlorp)
+            {
+                InsertFlorp();
+                testInputFlorp = false;
+            }
+
+            preEnemyProgress = enemyProgress;
+            preCurrentProgress = currentProgress;
+            time = 0;
+            if (isFueled) { currentProgress += 1.3f; }
+            enemyProgress += 1;
+
+            //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
+            //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
+
+            engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
+
+
+            if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
+            {
+                Engine.instance.WinGame();
+            }
+            if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
+            {
+                Engine.instance.LoseGame();
+            }
         }
-
-        // Zach addition.
-        /// <summary> Slows down star field effect if more fuel is not inserted by the next tick. </summary>
-       // if (!isFueled)
-       // {
-       //     for (int i = 0; i < starFieldEffects.Length; i++)
-       //     {
-       //         var main = starFieldEffects[i].main;
-       //         main.simulationSpeed = Mathf.Clamp(main.simulationSpeed -= maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
-       //     }
-       // }
-
-        preEnemyProgress = enemyProgress;
-        preCurrentProgress = currentProgress;
-        time = 0;
-        if (isFueled) { currentProgress += 1.3f; }
-        enemyProgress += 1;
-
-        //currentProgress += Time.deltaTime * engineHeatPercentage() * progressionMultiplier;
-        //enemyProgress += Time.deltaTime * 100 * enemyProgressionMultiplier;
-
-        engineHeat = Mathf.Clamp(engineHeat, 0, maxHeat);
-
-
-        if (Engine.instance.currentProgress > Engine.instance.winConditionLimit)
-        {
-            Engine.instance.WinGame();
-        }
-        if (Engine.instance.enemyProgress > Engine.instance.currentProgress)
-        {
-            //Debug.LogError(gameObject.name);
-            //Debug.LogError(enemyProgress);
-
-            //Debug.LogError(Engine.instance.gameObject.name);
-            //Debug.LogError(Engine.instance.enemyProgress);
-
-            Engine.instance.LoseGame();
-        }
-        //AudioEventManager.instance.PlaySound("engine");
-        //alertUI.problemCurrent = engineHeat;
     }
 
     private void WinGame()
     {
         //StartCoroutine(jumpScript.HyperspaceJump());
         winGameScreen.SetActive(true);
+        GameStateManager.instance.SetGameState(GameState.Won);
         SaveLoadIO saveSystem = new SaveLoadIO(true);       
     }
 
@@ -141,14 +125,6 @@ public class Engine : MonoBehaviour {
     public void InsertFlorp()
     {
         engineHeat = Mathf.Clamp(engineHeat += maxHeat * florpCoolingPercentage, 0, maxHeat);
-
-        // Zach addition.
-        /// <summary> Speeds up the star field effect. </summary>
-      //  for (int i = 0; i < starFieldEffects.Length; i++)
-      //  {
-      //      var main = starFieldEffects[i].main;
-      //      main.simulationSpeed = Mathf.Clamp(main.simulationSpeed += maxSimulationSpeed * florpCoolingPercentage, 0.5f, maxSimulationSpeed);
-      //  }
     }
 
     public float engineHeatPercentage()
