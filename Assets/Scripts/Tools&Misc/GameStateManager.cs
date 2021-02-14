@@ -7,7 +7,8 @@ public enum GameState
     Paused,
     Playing,
     LostByDamage,
-    LostByFlorp
+    LostByFlorp,
+    Won
 }
 
 public class GameStateManager : MonoBehaviour

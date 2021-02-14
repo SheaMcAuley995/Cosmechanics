@@ -40,9 +40,12 @@ public class SaveLoadIO : MonoBehaviour
             // Sets the next level to unlocked.
             LevelLock.instance.levelList[nextLevel].locked = false;
 
-            // Sets the current level's earned stars.
+            // Sets the current level's earned stars if it is a new high score.
             ScoreDisplay score = FindObjectOfType<ScoreDisplay>();
-            LevelLock.instance.levelList[nextLevel - 1].earnedStars = score.StarsToAward();
+            if (score.StarsToAward() > LevelLock.instance.levelList[nextLevel - 1].earnedStars)
+            {
+                LevelLock.instance.levelList[nextLevel - 1].earnedStars = score.StarsToAward();
+            }
 
             // Save level progress to file.
             SaveUnlockStatus();
@@ -126,13 +129,14 @@ public class SaveLoadIO : MonoBehaviour
                 LevelLock.instance.levelList[i].locked = data.unlockStatus[i];
 
                 var matches = Regex.Matches(results[i], @"\d+");
-                // If we're scanning the tutorial, which doesn't have a number in the name, we only need the 1st occurence of a number to
-                // determine total earned stars.
+                // If we're scanning the tutorial, which doesn't have a number in the name, we only need the 1st occurence of a number
+                // in the line of the save file to determine total earned stars.
                 if (i == 0)
                 {
                     data.earnedStars[i] = Convert.ToInt32(matches[0].Value);
                 }
-                // Find the 2nd occurence of a number in the line, which is the number of earned stars.
+                // If we're scanning any other level, which does have a number in the name, we need to find the
+                // 2nd occurence of a number in the line of the save file, which is the number of earned stars.
                 else
                 {
                     data.earnedStars[i] = Convert.ToInt32(matches[1].Value);

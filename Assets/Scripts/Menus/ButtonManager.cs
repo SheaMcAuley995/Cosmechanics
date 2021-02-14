@@ -85,4 +85,16 @@ public class ButtonManager : MonoBehaviour
         SceneFader.instance.FadeTo("LevelSelectUpdated");
         GameStateManager.instance.SetGameState(GameState.Playing);
     }
+
+    public void PauseGame()
+    {
+        AudioEventManager.instance.PauseAllSounds();
+        GameStateManager.instance.SetGameState(GameState.Paused);
+    }
+
+    public void UnPause()
+    {
+        AudioEventManager.instance.PauseAllSounds(true);
+        GameStateManager.instance.SetGameState(GameState.Playing);
+    }
 }
