@@ -32,6 +32,7 @@ public class TutorialEventManager : MonoBehaviour
     public DialogueTrigger[] dialogueTriggers;
 
     public GameObject[] tutorial_Icons;
+    [SerializeField] FlorpReceptor FlorpReceptor;
 
 
     void Start()
@@ -111,7 +112,7 @@ public class TutorialEventManager : MonoBehaviour
 
     void checkEngine()
     {
-        if(florpTotal >= florpMax >= 8)
+        if(FlorpReceptor.florpTotal >= FlorpReceptor.florpMax)
         {
             dialogueManager.trigger = dialogueTriggers[3];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);
