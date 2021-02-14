@@ -28,7 +28,6 @@ public class Florp : PickUp
 
     public float florpFillAmount;
 
-    public float amountFilled;
     //public AudioSource fillingAudio;
     //public ParticleSystem particle;
 
@@ -44,6 +43,10 @@ public class Florp : PickUp
     [SerializeField] bool isTutorial = false;
 
     bool runFillLoop;
+
+    [SerializeField] GameObject[] UI;
+    [SerializeField] Sprite[] sprites;
+    [SerializeField] SpriteRenderer spriteRenderer;
     private void Awake()
     {
         propertyBlock = new MaterialPropertyBlock();
@@ -55,7 +58,8 @@ public class Florp : PickUp
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer.enabled = false;
     }
 
     public void fillFlorp()
@@ -68,6 +72,18 @@ public class Florp : PickUp
             AudioEventManager.instance.PlaySound("Florp Container Fill");
             florpFillAmount += 1;
             renderer.material = fullMat;
+
+            if(florpFillAmount > 0)
+            {
+                spriteRenderer.enabled = true;
+                spriteRenderer.sprite = sprites[(int)florpFillAmount];
+            }
+            if(florpFillAmount == 0)
+            {
+                spriteRenderer.sprite = sprites[(int)florpFillAmount];
+                spriteRenderer.enabled = false;
+            }
+            
         }
     }
 
@@ -175,7 +191,8 @@ public class Florp : PickUp
         while (runFillLoop && (florpFillAmount > florpFillMin) && (florpReceptor.florpTotal < florpReceptor.florpMax) && !florpReceptor.endTutorial)
         {
             florpReceptor.fillFlorp(1);
-            if(isTutorial) florpReceptor.fillFlorp(1);
+            spriteRenderer.sprite = sprites[(int)florpFillAmount];
+            if (isTutorial) florpReceptor.fillFlorp(1);
             if (florpFillAmount-- <= 0)
             {
                 break;
