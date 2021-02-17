@@ -99,6 +99,7 @@ public class CharacterCardGenerator : MonoBehaviour
    
         // Creates the new player and assigns necessary components
         newPlayer = Instantiate(currentSelectedPlayer, spawnPos, Quaternion.Euler(0f, -180f, 0f));
+        newPlayer.GetComponent<TeleportShader>().MaterializeEffect();
         newPlayer.AddComponent<SelectedPlayer>();
         animator = newPlayer.GetComponent<Animator>();
    
@@ -194,10 +195,17 @@ public class CharacterCardGenerator : MonoBehaviour
     //    }
     //}
    
-    public void RemovePlayer(int playerId)
+    public IEnumerator RemovePlayer(int playerId)
     {
+        TeleportShader tele = newPlayer.GetComponent<TeleportShader>();
+        tele.TeleportEffect();
+
+        yield return new WaitForSeconds(tele.duration - 0.2f);
+
         Destroy(newPlayer.gameObject);
         newCharacter.nameField.text = "??";
+
+        ActivateJoinIcons();
     }
    
     // Used in AssignPlayers to prevent accidental selection spamming

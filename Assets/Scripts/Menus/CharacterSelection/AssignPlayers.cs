@@ -102,7 +102,7 @@ public class AssignPlayers : MonoBehaviour
                 }
             }
    
-            //For un-joining the game --DISABLING UNTIL I CAN FIGURE OUT HOW TO HANDLE COLOR REMOVAL
+            //For un-joining the game
             if (controller.Button_B && joinedStatus[controller.playerId].isJoined && cards[controller.playerId].characterStatus != CharacterCardGenerator.CharacterStatus.READY)
             {
                 joinedStatus[controller.playerId].selecting = true;
@@ -114,7 +114,7 @@ public class AssignPlayers : MonoBehaviour
                 //takenColors[controller.playerId] = null;
                 //this doesn't work because if say player 2 tries to un-join but player 1 has already un-joined, the index is OOA. 
    
-                cards[controller.playerId].ActivateJoinIcons();
+                //cards[controller.playerId].ActivateJoinIcons();
                 joinedStatus[controller.playerId].UnjoinGame(controller.playerId);
                 CharacterHandler.instance.numberOfPlayers--;
    

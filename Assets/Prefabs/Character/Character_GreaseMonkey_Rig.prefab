@@ -6618,6 +6618,7 @@ GameObject:
   - component: {fileID: 920736056597397631}
   - component: {fileID: 154892545727885621}
   - component: {fileID: 2903665728531966986}
+  - component: {fileID: -1190870336774976104}
   m_Layer: 10
   m_Name: Character_GreaseMonkey_Rig
   m_TagString: Char
@@ -6721,6 +6722,7 @@ MonoBehaviour:
   Button_B: 0
   start: 0
   blockMovement: 0
+  dialogue: {fileID: 0}
   normalMovement: 1
   pickUp: 0
   pickUpTransform: {fileID: 298698781404863531}
@@ -6748,8 +6750,6 @@ MonoBehaviour:
   interactedObject: {fileID: 0}
   onFiretimer: 3
   onFireTimerCur: 0
-  onFireEffect: {fileID: 0}
-  myCollider: {fileID: 0}
   interactableLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -6768,6 +6768,88 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.85, z: 0.85}
+--- !u!114 &-1190870336774976104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7584511085291062563}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3f74b4248306904da11965d6f1a4c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.75
+  maxIntensity: 10
+  maxStretchiness: -7
+  color: {r: 0.1098, g: 0.3215, b: 0.749, a: 1}
+  materializeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30126506
+      value: 0.91216135
+      inSlope: 0.5992799
+      outSlope: 0.5992799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  teleportCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.30126506
+      value: 0.91216135
+      inSlope: 0.5992799
+      outSlope: 0.5992799
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7599875369634656582
 GameObject:
   m_ObjectHideFlags: 0
