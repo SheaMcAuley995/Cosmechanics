@@ -35,6 +35,19 @@ public class GameStateManager : MonoBehaviour
     public void SetGameState(GameState state)
     {
         gameState = state;
+
+        switch (state)
+        {
+            case GameState.LostByDamage:
+            case GameState.LostByFlorp:
+            case GameState.Won:
+                TeleportShader[] players = FindObjectsOfType<TeleportShader>();
+                foreach (TeleportShader tele in players)
+                {
+                    tele.TeleportEffect();
+                }
+                break;
+        }
     }
 
     // Returns the current gameState, call this in mechanic-related scripts to determine whether or not mechanics should run

@@ -85,6 +85,22 @@ public class GameplayLoopManager : MonoBehaviour
 
         StartCoroutine("eventSystem");
         AdjustUI();
+
+        StartCoroutine(TeleportPlayersIn());
+    }
+
+    // Each time a level is loaded, players will be "teleported" in.
+    IEnumerator TeleportPlayersIn()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        TeleportShader[] players = FindObjectsOfType<TeleportShader>();
+        foreach (TeleportShader tele in players)
+        {
+            tele.MaterializeEffect();
+        }
+
+        yield break;
     }
 
     IEnumerator eventSystem()

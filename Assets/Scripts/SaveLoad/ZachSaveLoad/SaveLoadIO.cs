@@ -37,14 +37,18 @@ public class SaveLoadIO : MonoBehaviour
             }
             nextLevel = Convert.ToInt32(numberInSceneName) + 1; // Store the next level to be unlocked.
         
-            // Sets the next level to unlocked.
-            LevelLock.instance.levelList[nextLevel].locked = false;
+            // If there is a next level...
+            if (nextLevel < LevelLock.instance.levelList.Count)
+            {
+                // Sets the next level to unlocked.
+                LevelLock.instance.levelList[nextLevel].locked = false;
+            }
 
             // Sets the current level's earned stars if it is a new high score.
             ScoreDisplay score = FindObjectOfType<ScoreDisplay>();
-            if (score.StarsToAward() > LevelLock.instance.levelList[nextLevel - 1].earnedStars)
+            if (score.StarsToAward() > LevelLock.instance.levelList[Convert.ToInt32(numberInSceneName)].earnedStars)
             {
-                LevelLock.instance.levelList[nextLevel - 1].earnedStars = score.StarsToAward();
+                LevelLock.instance.levelList[Convert.ToInt32(numberInSceneName)].earnedStars = score.StarsToAward();
             }
 
             // Save level progress to file.

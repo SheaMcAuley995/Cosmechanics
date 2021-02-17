@@ -28,7 +28,7 @@ public class JoinGame : MonoBehaviour
    
    public void UnjoinGame(int id)
    {
-       card.RemovePlayer(id);
+       StartCoroutine(card.RemovePlayer(id));
        isJoined = false;
    }
    
