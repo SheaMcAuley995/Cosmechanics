@@ -54,6 +54,22 @@ public class TutorialEventManager : MonoBehaviour
         {
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
         }
+
+        StartCoroutine(TeleportPlayersIn());
+    }
+
+    // When the level is loaded, players will be "teleported" in.
+    IEnumerator TeleportPlayersIn()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        TeleportShader[] players = FindObjectsOfType<TeleportShader>();
+        foreach (TeleportShader tele in players)
+        {
+            tele.MaterializeEffect();
+        }
+
+        yield break;
     }
 
     private void Update()
