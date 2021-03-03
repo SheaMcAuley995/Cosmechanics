@@ -68,7 +68,7 @@ public class SettingsMenu : MonoBehaviour
 
         for (int i = 0; i < resolutions.Length; i++)
         {
-            if (resolutions[i].refreshRate == 30 || resolutions[i].refreshRate == 60)
+            if (resolutions[i].refreshRate == 30 || resolutions[i].refreshRate == 60 || resolutions[i].refreshRate == 120 || resolutions[i].refreshRate == 144)
             {
                 resList.Add(resolutions[i]);
             }
