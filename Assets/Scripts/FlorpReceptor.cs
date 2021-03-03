@@ -50,13 +50,13 @@ public class FlorpReceptor : MonoBehaviour
 
                 FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
 
-                if (!isTutorial && florpTotal >= florpMax)
-                {
-                    winGameScreen.SetActive(true);
-                    AudioEventManager.instance.StopAllSounds();
-                    AudioEventManager.instance.PlaySound("Music Win 1");
-                    SaveLoadIO saveSystem = new SaveLoadIO(true);
-                }
+                //if (!isTutorial && florpTotal >= florpMax)
+                //{
+                //    winGameScreen.SetActive(true);
+                //    AudioEventManager.instance.StopAllSounds();
+                //    AudioEventManager.instance.PlaySound("Music Win 1");
+                //    SaveLoadIO saveSystem = new SaveLoadIO(true);
+                //}
 
                 if (isTutorial && florpTotal >= florpMax)
                 {
@@ -98,21 +98,21 @@ public class FlorpReceptor : MonoBehaviour
     {
         if (!isTutorial)
         {
-
-
-            while (florpTotal > florpMin)
+            if (GameStateManager.instance.gameState == GameState.Playing)
             {
-                Engine.instance.isFueled = true;
-                florpTotal--;
-                FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
-                yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
-            }
+                while (florpTotal > florpMin)
+                {
+                    Engine.instance.isFueled = true;
+                    florpTotal--;
+                    FlorpFillUI.SetInteger("FlorpSlider", (int)florpTotal);
+                    yield return new WaitForSeconds(GameplayLoopManager.TimeBetweenEvents);
+                }
 
-            Engine.instance.isFueled = false;
-            CR_Running = false;
+                Engine.instance.isFueled = false;
+                CR_Running = false;
+            }
         }
     }
-
 }
 
 

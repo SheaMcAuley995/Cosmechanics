@@ -32,6 +32,7 @@ public class TutorialEventManager : MonoBehaviour
     public DialogueTrigger[] dialogueTriggers;
 
     public GameObject[] tutorial_Icons;
+    [SerializeField] FlorpReceptor FlorpReceptor;
 
 
     void Start()
@@ -53,6 +54,22 @@ public class TutorialEventManager : MonoBehaviour
         {
             damagedObjects[i].GetComponent<IDamageable<int>>().TakeDamage(explosionDamage);
         }
+
+        StartCoroutine(TeleportPlayersIn());
+    }
+
+    // When the level is loaded, players will be "teleported" in.
+    IEnumerator TeleportPlayersIn()
+    {
+        yield return new WaitForSeconds(0.2f);
+
+        TeleportShader[] players = FindObjectsOfType<TeleportShader>();
+        foreach (TeleportShader tele in players)
+        {
+            tele.MaterializeEffect();
+        }
+
+        yield break;
     }
 
     private void Update()
@@ -105,13 +122,13 @@ public class TutorialEventManager : MonoBehaviour
             doorAnimator[1].SetBool("IsOpen", true);
             doorCollider[1].enabled = false;
             tutorial_Icons[3].SetActive(false);
-            //myTutorial = checkEngine;
+            myTutorial = checkEngine;
         }
     }
 
     void checkEngine()
     {
-        if(florpReceptor.florpTotal >= 8)
+        if(FlorpReceptor.florpTotal >= FlorpReceptor.florpMax)
         {
             dialogueManager.trigger = dialogueTriggers[3];
             dialogueManager.StartDialogue(dialogueManager.trigger.dialogue);

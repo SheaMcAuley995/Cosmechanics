@@ -88,6 +88,19 @@ public class AudioEventManager : MonoBehaviour {
             audioS.Stop();
         }
     }
+    /// <summary>
+    /// Pauses all sounds, with an optional parameter to unpause all sounds instead.
+    /// </summary>
+    /// <param name="unPause"> True if you want to unpause all sounds, false or empty if not. </param>
+    public void PauseAllSounds(bool unPause = false)
+    {
+        allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        foreach (AudioSource audioS in allAudioSources)
+        {
+            if (unPause) { audioS.UnPause(); }
+            else { audioS.Pause(); }
+        }
+    }
     //private void Start()
     //{
     //    PlaySound("Theme");
@@ -97,7 +110,7 @@ public class AudioEventManager : MonoBehaviour {
     //        PlaySound("AlarmLeft", .5f, 1, -.8f);
     //    }
     //}
-    
+
 
     [ExecuteInEditMode] public void addSound()
     {

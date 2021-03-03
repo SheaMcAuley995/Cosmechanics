@@ -40,10 +40,24 @@ public class PlayerActivation : MonoBehaviour
                 animators[j].Play("CharSelect Idle", -1, 0.8f);
                 animators[j].SetBool("CharSelect", false);
             }
-   
+
+            // Play the teleportation effect.
+            chosenCharacters[i].GetComponent<TeleportShader>().TeleportEffect();
             //chosenCharacters[i].GetComponent<PlayerController>().enabled = true;
         }
    
+        StartCoroutine(TeleportAndContinue());
+    }
+
+    IEnumerator TeleportAndContinue()
+    {
+        // Wait for the teleport effect to be finished.
+        TeleportShader tele = FindObjectOfType<TeleportShader>();
+        yield return new WaitForSeconds(tele.duration);
+
+        // Fade to level select.
         SceneFader.instance.FadeTo("LevelSelectUpdated");
+
+        yield break;
     }
 }
